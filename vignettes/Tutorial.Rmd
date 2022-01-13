@@ -1,0 +1,85 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(DAISIEprep)
+library(ape)
+library(phylobase)
+library(ggtree)
+```
+
+First we simulate a phylogeny using the package `ape`
+
+```{r simulate phylogeny}
+set.seed(1)
+phylo <- ape::rcoal(10)
+```
+
+```{r plot phylogeny}
+ape::plot.phylo(phylo)
+```
+
+Then we convert to the phylogeny to a `phylo4` class defined in the package
+`phylobase`. This allows use to easily work species data for each tip in the 
+phylogeny, for example island endemicity status.
+
+```{r convert phylo to phylo4}
+phylo <- as(phylo, "phylo4")
+phylobase::plot(phylo)
+```
+
+Now we have a phylogeny in the `phylo4` format we can easily append data. First
+we randomly simulate island endemicity patterns, assuming each species has an
+equal probability of being not on the island (`"not_present"`), endemic to the
+island (`"endemic"`) or non-endemic to the island (`"nonendemic"`).
+
+```{r create island endemcity data}
+endemicity_status <- sample(c("not_present", "endemic", "nonendemic"), 
+                            size = length(phylobase::tipLabels(phylo)), 
+                            replace = TRUE)
+```
+
+Next we can add the endemicity data to our phylogenetic data using the `phylo4d`
+class, again from the `phylobase` package. This call is designed for
+phylogenetic and trait data to be stored together. The endemicity status needs
+to be converted to a data frame in order for the column to be labelled 
+correctly.
+
+```{r convert to phylo4d}
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+```
+
+We can now visualise our phylogeny with the island endemicity status plotted at
+the tips. This uses the `ggtree` and `ggplot2` packages.
+
+```{r plot phylogeny with tip data}
+ggtree::ggtree(phylod) +
+  ggtree::geom_tippoint(
+    ggplot2::aes(colour = endemicity_status), 
+    size = 3
+  )
+```
+
+Now that we can see the tips that are present on the island we can start to 
+extract them to form our island community data set that can be used in the
+`DAISIE` R package to fit likelihood models of island colonisation and 
+diversification.
+
+Before we extract species we will first create an object to store all of the 
+island colonist's information. This uses the `daisie_data_tbl` class introduced
+in this package (`DAISIEprep`). The `daisie_data_tbl` is an S4 class that holds
+a data
+
