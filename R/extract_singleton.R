@@ -1,3 +1,0 @@
-extract_singleton <- function() {
-
-}
