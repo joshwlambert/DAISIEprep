@@ -79,7 +79,38 @@ extract them to form our island community data set that can be used in the
 diversification.
 
 Before we extract species we will first create an object to store all of the 
-island colonist's information. This uses the `daisie_data_tbl` class introduced
-in this package (`DAISIEprep`). The `daisie_data_tbl` is an S4 class that holds
-a data
+island colonist's information. This uses the `island_tbl` class introduced
+in this package (`DAISIEprep`). The `island_tbl` is an S4 class that holds
+a data. This `island_tbl` object can then easily be converted to a
+`DAISIE_datatable` using the function `as_daisie_datatable` (more information
+on this to below).
 
+```{r create island_tbl, eval=FALSE}
+island_tbl <- methods::new("island_tbl")
+island_tbl
+```
+
+We can see that this is a class containing an empty data frame. In order to fill
+this data frame with information on the island colonisation and diversification
+events we can run:
+
+```{r extract island data, eval=FALSE}
+island_tbl <- extract_island_species(phylod = phylod)
+```
+
+To see an example of the DAISIE_datatable object see
+
+```{r Galapagos data table, eval=FALSE}
+data("Galapagos_datatable", package = "DAISIE")
+```
+
+Each row in the table represents an independent colonisation event. The table has four columns:
+
+* `Clade_name`: name of the independent colonisation event.
+* `Status`: One of the following categories:
+  + `Endemic`: applicable for both anagenetic species and radiations.
+  + `Non_endemic`: if the taxon is not endemic to the island, and the age of the colonisation is based on a phylogeny where both island and non-island populations of the species have been sampled.
+  + `Non_endemic_MaxAge`: if the taxon is not endemic to the island, and only an upper bound to the time of colonisation of the island is known. This applies if individuals from the island population of the species have not been sampled, but an age of the species is known. 
+  + `Endemic&Non_Endemic` when an endemic clade is present and the mainland ancestor has re-colonised. For remote islands this is expected to be very rare. 
+* `Missing_species`: number of island species that were not sampled for a particular clade (only applicable for radiations).
+* `Branching_times`: this should be the stem age of the population/species in the case of `Non_endemic`, `Non-endemic_MaxAge` and `Endemic` anagenetic species. For cladogenetic species these should be branching times of the radiation including the stem age of the radiation. Note - if there are species within the radiation that are not found on the island (e.g. back-colonisation) the branching times of these species should be excluded, as the mainland species pool is treated as static.
