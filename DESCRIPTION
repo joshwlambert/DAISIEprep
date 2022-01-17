@@ -17,8 +17,11 @@ Imports:
     ggplot2,
     ggtree
 Suggests: 
+    testthat (>= 3.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
+Config/testthat/edition: 3
