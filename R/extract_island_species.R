@@ -1,3 +1,20 @@
+#' Extracts the colonisation, diversification, and endemicty data from
+#' phylogenetic and endemicity data and stores it in an `island_tbl` object
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return An object of `island_tbl` class
+#' @export
+#'
+#' @examples
+#' set.seed(1)
+#' phylo <- ape::rcoal(10)
+#' phylo <- as(phylo, "phylo4")
+#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+#'                             size = length(phylobase::tipLabels(phylo)),
+#'                             replace = TRUE)
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' extract_island_species(phylod)
 extract_island_species <- function(phylod) {
 
   tbl <- methods::new("island_tbl")

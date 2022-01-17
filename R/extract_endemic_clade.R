@@ -1,7 +1,27 @@
-extract_endemic_clade <- function(phylod, species_label) {
+#' Extracts the information for an endemic clade (i.e. more than one species on
+#' the island more closely related to each other than other mainland species)
+#' from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
+#' and stores it in an `island_colonist` class
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return An object of `island_colonist` class
+#' @export
+#'
+#' @examples
+#' set.seed(1)
+#' phylo <- ape::rcoal(10)
+#' phylo <- as(phylo, "phylo4")
+#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+#'                               size = length(phylobase::tipLabels(phylo)),
+#'                               replace = TRUE)
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' extract_endemic(phylod = phylod, species_label = "t1")
+extract_endemic_clade <- function(phylod,
+                                  species_label) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- new("island_colonist")
+  island_col <- methods::new("island_colonist")
 
   # recursive tree traversal to find all endemic species in clade
   all_siblings_endemic <- TRUE
@@ -38,11 +58,11 @@ extract_endemic_clade <- function(phylod, species_label) {
     )
   }
 
-  # remove any duplicates if two species come from the same branching event
-  branching_times <- unique(branching_times)
-
   # add the colonisation time to the branching times
   branching_times <- c(col_time, branching_times)
+
+  # remove any duplicates if two species come from the same branching event
+  branching_times <- unique(branching_times)
 
   # assign data to instance of island_colonist class
   set_clade_name(island_col) <- species_label

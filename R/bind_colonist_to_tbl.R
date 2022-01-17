@@ -3,17 +3,17 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return
+#' @return An object of `island_tbl` class
 #' @export
 #'
 #' @examples
-#' island_col <- island_colonist(
+#' island_col <- DAISIEprep::island_colonist(
 #'   clade_name = "bird",
 #'   status = "endemic",
 #'   missing_species = 0,
 #'   branching_times = c(1, 0.5)
 #' )
-#' island_tbl <- island_tbl()
+#' island_tbl <- DAISIEprep::island_tbl()
 #' bind_colonist_to_tbl(
 #'   island_colonist = island_col,
 #'   island_tbl = island_tbl

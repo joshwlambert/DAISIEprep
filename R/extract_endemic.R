@@ -1,8 +1,28 @@
+#' Extracts the information for an endemic species from a phylogeny
+#' (specifically `phylo4d`  object from `phylobase` package) and stores it in
+#' in an `island_colonist` class
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return An object of `island_colonist` class
+#' @export
+#'
+#' @examples
+#' set.seed(1)
+#' phylo <- ape::rcoal(10)
+#' phylo <- as(phylo, "phylo4")
+#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+#'                               size = length(phylobase::tipLabels(phylo)),
+#'                               replace = TRUE)
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' extract_endemic(phylod = phylod, species_label = "t1")
 extract_endemic <- function(phylod,
                             species_label) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- new("island_colonist")
+  island_col <- methods::new("island_colonist")
+
+  #TODO: write check that the species_label refers to nonendemic species
 
   # check whether the focal species is in an endemic clade
   clade <- is_island_clade(phylod, species_label)

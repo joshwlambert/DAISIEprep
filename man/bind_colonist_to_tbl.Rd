@@ -7,21 +7,26 @@ from the instance of an `island_colonist` class to it}
 \usage{
 bind_colonist_to_tbl(island_colonist, island_tbl)
 }
-\value{
+\arguments{
+\item{island_colonist}{An instance of the `island_colonist` class.}
 
+\item{island_tbl}{An instance of the `island_tbl` class.}
+}
+\value{
+An object of `island_tbl` class
 }
 \description{
 Takes an existing instance of an `island_tbl` class and bind the information
 from the instance of an `island_colonist` class to it
 }
 \examples{
-island_col <- island_colonist(
+island_col <- DAISIEprep::island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
   branching_times = c(1, 0.5)
 )
-island_tbl <- island_tbl()
+island_tbl <- DAISIEprep::island_tbl()
 bind_colonist_to_tbl(
   island_colonist = island_col,
   island_tbl = island_tbl

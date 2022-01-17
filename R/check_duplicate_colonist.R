@@ -1,5 +1,22 @@
-
-# check if colonist has already been stored in island_tbl class
+#' Check if colonist has already been stored in island_tbl class
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return Boolean
+#' @export
+#'
+#' @examples
+#' island_col <- island_colonist(
+#'   clade_name = "bird",
+#'   status = "endemic",
+#'   missing_species = 0,
+#'   branching_times = c(1.0, 0.5)
+#' )
+#' island_tbl <- methods::new("island_tbl")
+#' check_duplicate_colonist(
+#'   island_colonist = island_col,
+#'   island_tbl = island_tbl
+#' )
 check_duplicate_colonist <- function(island_colonist,
                                      island_tbl) {
 
@@ -16,7 +33,7 @@ check_duplicate_colonist <- function(island_colonist,
   status_duplicate <- any(island_tbl$status == colonist_status)
   branching_times_duplicate <- unlist(
     lapply(island_tbl$branching_times, function(x) {
-      x == colonist_branching_times
+      identical(x, colonist_branching_times)
     })
   )
   branching_times_duplicate <- any(branching_times_duplicate)

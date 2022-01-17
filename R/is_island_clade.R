@@ -1,14 +1,14 @@
 #' Checks whether the focal species (given by its tip lable in species_label
 #' argument) is part of an endemic clade on the island
 #'
-#' @param phylod
-#' @param species_label
+#' @inheritParams default_params_doc
 #'
 #' @return Boolean
 #' @export
 #'
 #' @examples x = 1
-is_island_clade <- function(phylod, species_label) {
+is_island_clade <- function(phylod,
+                            species_label) {
   sibling_nodes <- phylobase::siblings(
     phy = phylod,
     node = phylobase::getNode(x = phylod, species_label)

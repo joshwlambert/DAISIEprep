@@ -8,7 +8,10 @@ argument) is part of an endemic clade on the island}
 is_island_clade(phylod, species_label)
 }
 \arguments{
-\item{species_label}{}
+\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+phylogenetic and endemicity data for each species.}
+
+\item{species_label}{The tip label of the species of interest.}
 }
 \value{
 Boolean

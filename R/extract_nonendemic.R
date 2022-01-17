@@ -4,15 +4,25 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return
+#' @return An object of `island_colonist` class
 #' @export
 #'
 #' @examples
+#' set.seed(1)
+#' phylo <- ape::rcoal(10)
+#' phylo <- as(phylo, "phylo4")
+#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+#'                               size = length(phylobase::tipLabels(phylo)),
+#'                               replace = TRUE)
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' extract_nonendemic(phylod = phylod, species_label = "t7")
 extract_nonendemic <- function(phylod,
                                species_label) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- new("island_colonist")
+  island_col <- methods::new("island_colonist")
+
+  #TODO: write check that the species_label refers to nonendemic species
 
   # assign data to instance of island_colonist class
   set_clade_name(island_col) <- species_label
