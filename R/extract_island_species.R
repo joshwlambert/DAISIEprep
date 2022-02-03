@@ -17,6 +17,9 @@
 #' extract_island_species(phylod)
 extract_island_species <- function(phylod) {
 
+  #TODO add anothe arugment to the function that allows an existing island_tbl to be added to
+  #rather than making a new one each time, this is relevant for the Galapagos data
+
   tbl <- methods::new("island_tbl")
 
   # if no species are on the island
