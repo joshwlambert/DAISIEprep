@@ -28,6 +28,14 @@ set.seed(1)
 phylo <- ape::rcoal(10)
 ```
 
+`DAISIEprep` requires the species names (tip labels) in the phylogeny to be 
+formatted as genus name and species name separated by an underscore.
+
+```{r}
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e", "bird_f",
+                     "bird_g", "bird_h", "bird_i", "bird_j")
+```
+
 ```{r plot phylogeny}
 ape::plot.phylo(phylo)
 ```
@@ -79,13 +87,13 @@ extract them to form our island community data set that can be used in the
 diversification.
 
 Before we extract species we will first create an object to store all of the 
-island colonist's information. This uses the `island_tbl` class introduced
+island colonists information. This uses the `island_tbl` class introduced
 in this package (`DAISIEprep`). The `island_tbl` is an S4 class that holds
 a data. This `island_tbl` object can then easily be converted to a
 `DAISIE_datatable` using the function `as_daisie_datatable` (more information
 on this to below).
 
-```{r create island_tbl, eval=FALSE}
+```{r create island_tbl}
 island_tbl <- methods::new("island_tbl")
 island_tbl
 ```
@@ -96,12 +104,118 @@ events we can run:
 
 ```{r extract island data, eval=FALSE}
 island_tbl <- extract_island_species(phylod = phylod)
+island_tbl
 ```
+
+In the previous example we used a single phylogeny and extracted the
+colonisation and branching events from it. However, it could be the case that 
+island species are from different phylogenies. Here we look at the case of the 
+birds of the Galàpagos archipelago (excluding birds of prey). There are 8 
+phylogenies to extract the colonisation and diversification date from. 
+
+First the phylogenies need to be loaded using the function `read.nexus` from the
+R package `ape`.
+
+
+```{r}
+coccyzus_tree <- ape::read.nexus(
+  file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
+)
+columbiformes_tree <- ape::read.nexus(
+  file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
+)
+finches_tree <- ape::read.nexus(
+  file = system.file("extdata", "Finches.tre", package = "DAISIEprep")
+)
+mimus_tree <- ape::read.nexus(
+  file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
+)
+myiarchus_tree <- ape::read.nexus(
+  file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
+)
+progne_tree <- ape::read.nexus(
+  file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
+)
+pyrocephalus_tree <- ape::read.nexus(
+  file = system.file("extdata", "Pyrocephalus.tre", package = "DAISIEprep")
+)
+setophaga_tree <- ape::read.nexus(
+  file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
+)
+```
+
+Currently the phylogenies are loaded as S3 phylo objects, however, we want to
+convert them into S4 phylobase objects.
+
+```{r convert Galapagos phylos to phylo4}
+coccyzus_tree <- as(coccyzus_tree, "phylo4")
+columbiformes_tree <- as(columbiformes_tree, "phylo4")
+finches_tree <- as(finches_tree, "phylo4")
+mimus_tree <- as(mimus_tree, "phylo4")
+myiarchus_tree <- as(myiarchus_tree, "phylo4")
+progne_tree <- as(progne_tree, "phylo4")
+pyrocephalus_tree <- as(pyrocephalus_tree, "phylo4")
+setophaga_tree <- as(setophaga_tree, "phylo4")
+```
+
+Now that all of the phylogenies are loaded we can inspect them.
+
+```{r}
+phylobase::plot(coccyzus_tree, cex = 0.1)
+```
+
+```{r}
+endemicity_status <- data.frame(
+  endemicity_status = c(
+    "not_present", "not_present", "not_present", "not_present", "not_present",
+    "not_present", "not_present", "not_present", "not_present", "not_present",
+    "not_present", "not_present", "not_present", "not_present", "not_present",
+    "not_present", "not_present", "not_present", "nonendemic", "nonendemic"
+  )
+)
+rownames(endemicity_status) <- c(
+    "Coccyzus_americanus_AF204993",
+    "Coccyzus_americanus_AY509696",
+    "Coccyzus_americanus_HE793186",
+    "Coccyzus_americanus_Mexico_AY046908",
+    "Coccyzus_americanus_Mexico_AY046909",
+    "Coccyzus_americanus_NewMexico_AY046905",
+    "Coccyzus_americanus_U09265__CAU09265_",
+    "Coccyzus_americanus_americanus_AY046910",
+    "Coccyzus_americanus_americanus_Minnesota_AF249270",
+    "Coccyzus_americanus_americanus_Minnesota_AF249271",
+    "Coccyzus_americanus_occidentalis_Alaska_AF249268",
+    "Coccyzus_americanus_occidentalis_Alaska_AF249269",
+    "Coccyzus_americanus_occidentalis_NewMexico_AY046906",
+    "Coccyzus_americanus_occidentalis_NewMexico_AY046907",
+    "Coccyzus_erythropthalmus_AF082048",
+    "Coccyzus_erythropthalmus_U09266__CEU09266_",
+    "Coccyzus_erythropthalmus__Minnesota_AF249272",
+    "Coccyzus_melacoryphus_Brasil_AF204994",
+    "Coccyzus_melacoryphus_GALAPAGOS_L569A",
+    "Coccyzus_melacoryphus_GALAPAGOS_L571A"
+)
+phylod <- phylobase::phylo4d(coccyzus_tree, endemicity_status)
+```
+
+We can plot the endemicity status of these species.
+
+```{r plot coccyzus phylogeny with tip data}
+ggtree::ggtree(phylod) +
+  ggtree::geom_tippoint(
+    ggplot2::aes(colour = endemicity_status), 
+    size = 3
+  )
+```
+
+
+island_tbl <- extract_island_species(phylod = phylod)
 
 To see an example of the DAISIE_datatable object see
 
 ```{r Galapagos data table, eval=FALSE}
 data("Galapagos_datatable", package = "DAISIE")
+Galapagagos_datatable
 ```
 
 Each row in the table represents an independent colonisation event. The table has four columns:
