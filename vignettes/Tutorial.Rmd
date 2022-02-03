@@ -29,7 +29,10 @@ phylo <- ape::rcoal(10)
 ```
 
 `DAISIEprep` requires the species names (tip labels) in the phylogeny to be 
-formatted as genus name and species name separated by an underscore.
+formatted as genus name and species name separated by an underscore. They can
+also optionally have tags appended after the species name. This is common if
+there are multiple tips in the phylogeny for a single species because multiple
+populations have been sampled and sequenced.
 
 ```{r}
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e", "bird_f",
