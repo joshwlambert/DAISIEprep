@@ -9,6 +9,8 @@
 #' @examples x = 1
 is_island_clade <- function(phylod,
                             species_label) {
+  browser()
+  #TODO edit this because the phylobase::siblings function cannot handle the outgroup when it goes to the crown age
   sibling_nodes <- phylobase::siblings(
     phy = phylod,
     node = phylobase::getNode(x = phylod, species_label)
