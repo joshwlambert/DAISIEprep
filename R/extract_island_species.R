@@ -19,24 +19,48 @@ extract_island_species <- function(phylod) {
 
   tbl <- methods::new("island_tbl")
 
+  # if no species are on the island
+  if (all(identical(phylod@data$endemicity_status, "not_present"))) {
+    return(tbl)
+  }
 
   for (i in seq_len(nrow(phylod@data))) {
 
-    # if no species are on the island
-    if (all(identical(phylod@data$endemicity_status, "not_present"))) {
-      return(tbl)
-    }
-
     # extract any nonendemic and endemic species is on the island
     if (identical(phylod@data$endemicity_status[i], "nonendemic")) {
-      island_colonist <- extract_nonendemic(
+
+      # does species have multiple tips in the tree (i.e. population sampling)
+      multi_tip_species <- is_multi_tip_species(
         phylod = phylod,
         species_label = as.character(phylod@label[i])
       )
-      tbl <- bind_colonist_to_tbl(
+
+      # if the nonendemic is a single tip or multi tip
+      if (isTRUE(multi_tip_species)) {
+        island_colonist <- extract_multi_tip_nonendemic(
+          phylod = phylod,
+          species_label = as.character(phylod@label[i])
+        )
+      } else {
+        island_colonist <- extract_nonendemic(
+          phylod = phylod,
+          species_label = as.character(phylod@label[i])
+        )
+      }
+
+      # check if colonist has already been stored in island_tbl class
+      duplicate_colonist <- check_duplicate_colonist(
         island_colonist = island_colonist,
         island_tbl = tbl
       )
+
+      if (!duplicate_colonist) {
+        # bind data from island_colonist class into island_tbl class
+        tbl <- bind_colonist_to_tbl(
+          island_colonist = island_colonist,
+          island_tbl = tbl
+        )
+      }
     } else if (identical(phylod@data$endemicity_status[i], "endemic")) {
       island_colonist <- extract_endemic(
         phylod = phylod,
