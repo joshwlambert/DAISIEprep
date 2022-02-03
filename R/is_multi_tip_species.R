@@ -1,3 +1,13 @@
+#' Checks if a non-endemic species is represented in the tree as multiple tips
+#'
+#'
+#' @param phylod
+#' @param species_label
+#'
+#' @return
+#' @export
+#'
+#' @examples
 is_multi_tip_species <- function(phylod, species_label) {
 
   # get the species name (genus_species) from the focal species
