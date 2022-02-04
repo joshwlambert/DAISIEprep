@@ -15,12 +15,14 @@
 #'                             replace = TRUE)
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' extract_island_species(phylod)
-extract_island_species <- function(phylod) {
+extract_island_species <- function(phylod,
+                                   island_tbl = NULL) {
 
-  #TODO add anothe arugment to the function that allows an existing island_tbl to be added to
-  #rather than making a new one each time, this is relevant for the Galapagos data
-
-  tbl <- methods::new("island_tbl")
+  if (is.null(island_tbl)) {
+    tbl <- methods::new("island_tbl")
+  } else {
+    tbl <- island_tbl
+  }
 
   # if no species are on the island
   if (all(identical(phylod@data$endemicity_status, "not_present"))) {
