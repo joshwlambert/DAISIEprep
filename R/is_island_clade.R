@@ -9,15 +9,22 @@
 #' @examples x = 1
 is_island_clade <- function(phylod,
                             species_label) {
-  browser()
-  #TODO edit this because the phylobase::siblings function cannot handle the outgroup when it goes to the crown age
+
+  # get the most recent node of the focal tip
   sibling_nodes <- phylobase::siblings(
     phy = phylod,
     node = phylobase::getNode(x = phylod, species_label)
   )
-  siblings <- names(sibling_nodes)
-  which_siblings <- as.numeric(which(phylobase::labels(phylod) %in% siblings))
+
+  # get the descendants of that node
+  siblings <- phylobase::descendants(phy = phylod, node = sibling_nodes)
+  siblings_names <- names(siblings)
+
+  # get endemicity of siblings
+  which_siblings <- as.numeric(which(phylobase::labels(phylod) %in% siblings_names))
   sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
+
+  # are all siblings endemic
   all_island_endemics <- all(sibling_endemicity == "endemic")
 
   # return boolean of species is in endemic clade
