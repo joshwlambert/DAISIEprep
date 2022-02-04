@@ -211,8 +211,44 @@ ggtree::ggtree(phylod) +
   )
 ```
 
-
+```{r}
 island_tbl <- extract_island_species(phylod = phylod)
+```
+
+Instead of assigning the endemicity to each of the Galapagos bird phylogenies 
+and converting them to `phylo4d` objects, this has already been done and the 
+data objects have been prepared in advance and are ready to be used.
+
+```{r load galapagos phylod data, eval=FALSE}
+coccyzus_tree <- ape::read.nexus(
+  file = system.file("extdata", "coccyzus_phylod.rds", package = "DAISIEprep")
+)
+columbiformes_tree <- ape::read.nexus(
+  file = system.file(
+    "extdata", "columbiformes_phylod.rds", package = "DAISIEprep"
+  )
+)
+finches_tree <- ape::read.nexus(
+  file = system.file("extdata", "finches_phylod.rds", package = "DAISIEprep")
+)
+mimus_tree <- ape::read.nexus(
+  file = system.file("extdata", "mimus_phylod.rds", package = "DAISIEprep")
+)
+myiarchus_tree <- ape::read.nexus(
+  file = system.file("extdata", "myiarchus_phylod.rds", package = "DAISIEprep")
+)
+progne_tree <- ape::read.nexus(
+  file = system.file("extdata", "progne_phylod.rds", package = "DAISIEprep")
+)
+pyrocephalus_tree <- ape::read.nexus(
+  file = system.file(
+    "extdata", "pyrocephalus_phylod.rds", package = "DAISIEprep"
+  )
+)
+setophaga_tree <- ape::read.nexus(
+  file = system.file("extdata", "setophaga_phylod.rds", package = "DAISIEprep")
+)
+```
 
 To see an example of the DAISIE_datatable object see
 
