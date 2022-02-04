@@ -23,6 +23,7 @@ check_duplicate_colonist <- function(island_colonist,
                                      island_tbl) {
 
   # extract data from island_colonist class
+  colonist_clade_name <- get_clade_name(island_colonist)
   colonist_status <- get_status(island_colonist)
   colonist_branching_times <- get_branching_times(island_colonist)
 
@@ -43,12 +44,17 @@ check_duplicate_colonist <- function(island_colonist,
   is_duplicate <- any(status_duplicate & branching_times_duplicate)
 
   # check whether it is a nonendemic from the same node
-  is_endemic <- identical(colonist_status, "endemic")
+  is_nonendemic <- identical(colonist_status, "nonendemic")
 
-  is_duplicate_endemic <- is_duplicate && is_endemic
+  # endemic colonist cannot have the same branching times and endemicity status
+  # non-endemic colonist cannot have the same clade name, branching times and
+  # endemicity status
+  if (isTRUE(is_nonendemic)) {
+    clade_name_duplicate <- any(island_tbl$clade_name == colonist_clade_name)
+    is_duplicate <- clade_name_duplicate && is_duplicate
+  }
 
-  # colonist cannot have the same branching times and endemicity status
-  if (isTRUE(is_duplicate_endemic)) {
+  if (isTRUE(is_duplicate)) {
     TRUE
   } else {
     FALSE
