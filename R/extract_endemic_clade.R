@@ -36,6 +36,15 @@ extract_endemic_clade <- function(phylod,
     which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
     sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
     all_siblings_endemic <- all(sibling_endemicity == "endemic")
+    # terminate the loop if the whole tree is endemic
+    all_phylo_endemic <- all(
+      as.character(phylobase::tipLabels(phylod)) %in% names(descendants)
+    )
+    if (all_phylo_endemic) {
+      # include all species in the endemic clade
+      endemic_clade <- descendants
+      break
+    }
   }
 
   # extract colonisation time as stem age of clade (time before present)
