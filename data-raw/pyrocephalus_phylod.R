@@ -18,10 +18,9 @@ pyrocephalus_endemicity_status <- data.frame(
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present"
+    "not_present", "not_present", "not_present", "endemic", "endemic",
+    "endemic", "not_present", "not_present", "not_present", "endemic",
+    "endemic", "endemic", "endemic", "endemic", "endemic", "endemic"
   )
 )
 rownames(pyrocephalus_endemicity_status) <- c(
@@ -96,8 +95,24 @@ rownames(pyrocephalus_endemicity_status) <- c(
 # write code that removes the rubinus from the middle of pyrocephalus tip labels
 # this is in order to treat subspecies as full species
 
-coccyzus_phylod <- phylobase::phylo4d(
+pyrocephalus_phylod <- phylobase::phylo4d(
   pyrocephalus_tree, pyrocephalus_endemicity_status
 )
 
-saveRDS(coccyzus_phylod, file = "inst/extdata/pyrocephalus_phylod.rds")
+island_tbl_before <- extract_island_species(phylod = pyrocephalus_phylod)
+
+phylobase::tipLabels(pyrocephalus_phylod) <- gsub(
+  pattern = "rubinus_",
+  replacement = "",
+  x = phylobase::tipLabels(pyrocephalus_phylod)
+)
+
+island_tbl_after <- extract_island_species(phylod = pyrocephalus_phylod)
+
+ggtree::ggtree(pyrocephalus_phylod) +
+  ggtree::geom_tippoint(
+    ggplot2::aes(colour = endemicity_status),
+    size = 3
+  )
+
+saveRDS(pyrocephalus_phylod, file = "inst/extdata/pyrocephalus_phylod.rds")
