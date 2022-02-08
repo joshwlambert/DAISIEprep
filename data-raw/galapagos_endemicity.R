@@ -4,9 +4,7 @@
 columbiformes_tree <- ape::read.nexus(
   file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
 )
-finches_tree <- ape::read.nexus(
-  file = system.file("extdata", "Finches.tre", package = "DAISIEprep")
-)
+
 mimus_tree <- ape::read.nexus(
   file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
 )
