@@ -31,6 +31,16 @@ check_island_colonist <- function(object) {
     )
     errors <- c(errors, msg)
   }
+
+  length_min_age <- length(object@min_age)
+  if (length_min_age != 1) {
+    msg <- paste(
+      "min_age is length ", length_min_age, ". Should be 1",
+      sep = ""
+    )
+    errors <- c(errors, msg)
+  }
+
   if (length(errors) == 0) {
     TRUE
   } else {
@@ -46,6 +56,7 @@ check_island_colonist <- function(object) {
 #' @slot status character.
 #' @slot missing_species character.
 #' @slot branching_times numeric.
+#' @slot min_age numeric.
 #'
 #' @export
 setClass(
@@ -57,7 +68,8 @@ setClass(
     clade_name = "character",
     status = "character",
     missing_species = "numeric",
-    branching_times = "numeric"
+    branching_times = "numeric",
+    min_age = "numeric"
   ),
 
   # define the default values of the slots
@@ -65,7 +77,8 @@ setClass(
     clade_name = NA_character_,
     status = NA_character_,
     missing_species = NA_real_,
-    branching_times = NA_real_
+    branching_times = NA_real_,
+    min_age = NA_real_
   ),
 
   # check validity of class
@@ -93,12 +106,14 @@ setClass(
 island_colonist <- function(clade_name = NA_character_,
                             status = NA_character_,
                             missing_species = NA_real_,
-                            branching_times = NA_real_) {
+                            branching_times = NA_real_,
+                            min_age = NA_real_) {
   methods::new(
     "Island_colonist",
     clade_name = clade_name,
     status = status,
     missing_species = missing_species,
-    branching_times = branching_times
+    branching_times = branching_times,
+    min_age = min_age
   )
 }

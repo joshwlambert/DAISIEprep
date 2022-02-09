@@ -87,3 +87,20 @@ setMethod("set_branching_times<-", "Island_colonist", function(x, value) {
   x
 })
 
+#' @rdname Island_colonist-accessors
+setGeneric("get_min_age", function(x) standardGeneric("get_min_age"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("get_min_age", "Island_colonist", function(x) x@min_age)
+
+#' @rdname Island_colonist-accessors
+setGeneric("set_min_age<-", function(x, value) standardGeneric("set_min_age<-"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("set_min_age<-", "Island_colonist", function(x, value) {
+  x@min_age <- value
+  x
+})
+

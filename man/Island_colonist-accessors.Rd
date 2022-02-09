@@ -17,6 +17,10 @@
 \alias{get_branching_times,Island_colonist-method}
 \alias{set_branching_times<-}
 \alias{set_branching_times<-,Island_colonist-method}
+\alias{get_min_age}
+\alias{get_min_age,Island_colonist-method}
+\alias{set_min_age<-}
+\alias{set_min_age<-,Island_colonist-method}
 \title{Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_colonist}} class}
 \usage{
@@ -51,6 +55,14 @@ get_branching_times(x)
 set_branching_times(x) <- value
 
 \S4method{set_branching_times}{Island_colonist}(x) <- value
+
+get_min_age(x)
+
+\S4method{get_min_age}{Island_colonist}(x)
+
+set_min_age(x) <- value
+
+\S4method{set_min_age}{Island_colonist}(x) <- value
 }
 \arguments{
 \item{x}{An object whose class is determined by the signature.}

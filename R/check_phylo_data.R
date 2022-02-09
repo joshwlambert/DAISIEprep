@@ -43,7 +43,7 @@ check_phylo_data <- function(phylod) {
   # extract genus names
   genus_name <- lapply(split_tip_labels, "[[", 1)
 
-  #check genus name only contains letters
+  #check genus names only contains letters
   correct_genus_name <- lapply(genus_name, function(x) {
     grep(pattern = "^[A-z]+$", x)
   })
@@ -54,7 +54,7 @@ check_phylo_data <- function(phylod) {
   # extract species names
   species_name <- lapply(split_tip_labels, "[[", 2)
 
-  # check species name only contains letters
+  # check species names only contains letters
   correct_species_name <- sapply(species_name, function(x) {
     grep(pattern = "^[A-z]+$", x)
   })

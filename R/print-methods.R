@@ -2,15 +2,30 @@ setGeneric("print")
 
 setMethod("print", signature(x = "Island_colonist"),
           function(x) {
-            cat("Clade name: ", x@clade_name, "\n")
-            cat("Status: ", x@status, "\n")
-            cat("Missing species: ", x@missing_species, "\n")
-            cat("Branching times: ", x@branching_times, "\n")
+            cat("Class: ", methods::is(x), "\n")
+            cat("  Clade name: ", x@clade_name, "\n")
+            cat("  Status: ", x@status, "\n")
+            cat("  Missing species: ", x@missing_species, "\n")
+            cat("  Branching times: ", x@branching_times, "\n")
+            cat("  Min age: ", x@min_age, "\n")
           }
 )
 
 setMethod("print", signature(x = "Island_tbl"),
           function(x) {
+            cat("Class: ", methods::is(x), "\n")
             print(x@island_tbl)
+          }
+)
+
+setMethod("show", signature(object = "Island_colonist"),
+          function(object) {
+            print(object)
+          }
+)
+
+setMethod("show", signature(object = "Island_tbl"),
+          function(object) {
+            print(object)
           }
 )

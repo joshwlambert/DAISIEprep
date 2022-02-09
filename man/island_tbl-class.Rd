@@ -14,12 +14,6 @@ from the phylogenetic and island data to be used for constructing a
 \section{Slots}{
 
 \describe{
-\item{\code{clade_name}}{character.}
-
-\item{\code{status}}{character.}
-
-\item{\code{missing_species}}{character.}
-
-\item{\code{branching_times}}{numeric.}
+\item{\code{island_tbl}}{data frame.}
 }}
 

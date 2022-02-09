@@ -8,7 +8,8 @@ island_colonist(
   clade_name = NA_character_,
   status = NA_character_,
   missing_species = NA_real_,
-  branching_times = NA_real_
+  branching_times = NA_real_,
+  min_age = NA_real_
 )
 }
 \arguments{
@@ -22,6 +23,10 @@ that belong to the colonising clade.}
 \item{branching_times}{Numeric vector of one or more elements where the first
 element is the colonisation time and subsequent elements are the branching
 times on the island.}
+
+\item{min_age}{Numeric minimum age (time before the present) that the species
+must have colonised the island by. This is known when there is a branching
+on the island, either in species or subspecies.}
 }
 \value{
 Object of `Island_colonist` class.

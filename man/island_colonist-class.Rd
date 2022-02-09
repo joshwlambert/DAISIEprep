@@ -21,5 +21,7 @@ from the phylogenetic and island data to be used for constructing a
 \item{\code{missing_species}}{character.}
 
 \item{\code{branching_times}}{numeric.}
+
+\item{\code{min_age}}{numeric.}
 }}
 
