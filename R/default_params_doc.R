@@ -1,7 +1,7 @@
 #' Documentation for function in the DAISIEprep package
 #'
-#' @param island_colonist An instance of the `island_colonist` class.
-#' @param island_tbl An instance of the `island_tbl` class.
+#' @param island_colonist An instance of the `Island_colonist` class.
+#' @param island_tbl An instance of the `Island_tbl` class.
 #' @param phylod A `phylo4d` object from the package `phylobase` containing
 #' phylogenetic and endemicity data for each species.
 #' @param species_label The tip label of the species of interest.

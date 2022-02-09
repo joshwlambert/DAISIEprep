@@ -1,4 +1,4 @@
-#' Check if colonist has already been stored in island_tbl class. This is used
+#' Check if colonist has already been stored in `Island_tbl` class. This is used
 #' to stop endemic clades from being stored multiple times in the island table
 #' by checking if the endemicity status and branching times are identical.
 #'

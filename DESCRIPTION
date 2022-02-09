@@ -25,3 +25,24 @@ Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Collate: 
+    'any_back_colonisation.R'
+    'as_daisie_datatable.R'
+    'bind_colonist_to_tbl.R'
+    'check_duplicate_colonist.R'
+    'check_phylo_data.R'
+    'default_params_doc.R'
+    'extract_clade_name.R'
+    'extract_endemic.R'
+    'extract_endemic_clade.R'
+    'extract_island_species.R'
+    'extract_multi_tip_nonendemic.R'
+    'extract_nonendemic.R'
+    'is_island_clade.R'
+    'is_multi_tip_species.R'
+    'island_colonist-class.R'
+    'island_colonist-accessors.R'
+    'island_tbl-class.R'
+    'island_tbl-accessors.R'
+    'island_tbl-methods.R'
+    'print-methods.R'

@@ -14,9 +14,9 @@ default_params_doc(
 )
 }
 \arguments{
-\item{island_colonist}{An instance of the `island_colonist` class.}
+\item{island_colonist}{An instance of the `Island_colonist` class.}
 
-\item{island_tbl}{An instance of the `island_tbl` class.}
+\item{island_tbl}{An instance of the `Island_tbl` class.}
 
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}

@@ -1,12 +1,12 @@
-#' Checks the validity of the island_tbl class
+#' Checks the validity of the Island_tbl class
 #'
-#' @param object Instance of the island_tbl class
+#' @param object Instance of the Island_tbl class
 #'
 #' @return Boolean or errors
 #' @export
 #'
 #' @examples
-#' tbl <- methods::new("island_tbl")
+#' tbl <- island_tbl()
 #' check_island_tbl(tbl)
 check_island_tbl <- function(object) {
   errors <- character()
@@ -44,9 +44,9 @@ check_island_tbl <- function(object) {
 #' @slot branching_times numeric.
 #'
 #' @export
-island_tbl <- setClass(
+setClass(
   # name of the class
-  Class = "island_tbl",
+  Class = "Island_tbl",
 
   # define the types of the class
   slots = c(
@@ -63,4 +63,9 @@ island_tbl <- setClass(
     )
   )
 )
+
+# Constructor
+island_tbl <- function() {
+  methods::new("Island_tbl")
+}
 

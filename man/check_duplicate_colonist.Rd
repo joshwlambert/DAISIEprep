@@ -2,20 +2,24 @@
 % Please edit documentation in R/check_duplicate_colonist.R
 \name{check_duplicate_colonist}
 \alias{check_duplicate_colonist}
-\title{Check if colonist has already been stored in island_tbl class}
+\title{Check if colonist has already been stored in `Island_tbl` class. This is used
+to stop endemic clades from being stored multiple times in the island table
+by checking if the endemicity status and branching times are identical.}
 \usage{
 check_duplicate_colonist(island_colonist, island_tbl)
 }
 \arguments{
-\item{island_colonist}{An instance of the `island_colonist` class.}
+\item{island_colonist}{An instance of the `Island_colonist` class.}
 
-\item{island_tbl}{An instance of the `island_tbl` class.}
+\item{island_tbl}{An instance of the `Island_tbl` class.}
 }
 \value{
 Boolean
 }
 \description{
-Check if colonist has already been stored in island_tbl class
+Check if colonist has already been stored in `Island_tbl` class. This is used
+to stop endemic clades from being stored multiple times in the island table
+by checking if the endemicity status and branching times are identical.
 }
 \examples{
 island_col <- island_colonist(

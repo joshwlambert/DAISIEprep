@@ -1,9 +1,9 @@
-#' Takes an existing instance of an `island_tbl` class and bind the information
-#' from the instance of an `island_colonist` class to it
+#' Takes an existing instance of an `Island_tbl` class and bind the information
+#' from the instance of an `Island_colonist` class to it
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return An object of `island_tbl` class
+#' @return An object of `Island_tbl` class
 #' @export
 #'
 #' @examples
@@ -13,7 +13,7 @@
 #'   missing_species = 0,
 #'   branching_times = c(1, 0.5)
 #' )
-#' island_tbl <- DAISIEprep::island_tbl()
+#' island_tbl <- island_tbl()
 #' bind_colonist_to_tbl(
 #'   island_colonist = island_col,
 #'   island_tbl = island_tbl

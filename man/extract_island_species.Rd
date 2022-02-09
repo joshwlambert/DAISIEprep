@@ -3,20 +3,22 @@
 \name{extract_island_species}
 \alias{extract_island_species}
 \title{Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `island_tbl` object}
+phylogenetic and endemicity data and stores it in an `Island_tbl` object}
 \usage{
-extract_island_species(phylod)
+extract_island_species(phylod, island_tbl = NULL)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
+
+\item{island_tbl}{An instance of the `Island_tbl` class.}
 }
 \value{
 An object of `island_tbl` class
 }
 \description{
 Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `island_tbl` object
+phylogenetic and endemicity data and stores it in an `Island_tbl` object
 }
 \examples{
 set.seed(1)

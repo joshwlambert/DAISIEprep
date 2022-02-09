@@ -1,6 +1,6 @@
 setGeneric("print")
 
-setMethod("print", signature(x = "island_colonist"),
+setMethod("print", signature(x = "Island_colonist"),
           function(x) {
             cat("Clade name: ", x@clade_name, "\n")
             cat("Status: ", x@status, "\n")
@@ -9,7 +9,7 @@ setMethod("print", signature(x = "island_colonist"),
           }
 )
 
-setMethod("print", signature(x = "island_tbl"),
+setMethod("print", signature(x = "Island_tbl"),
           function(x) {
             print(x@island_tbl)
           }

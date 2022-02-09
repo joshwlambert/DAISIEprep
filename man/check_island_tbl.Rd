@@ -2,20 +2,20 @@
 % Please edit documentation in R/island_tbl-class.R
 \name{check_island_tbl}
 \alias{check_island_tbl}
-\title{Checks the validity of the island_tbl class}
+\title{Checks the validity of the Island_tbl class}
 \usage{
 check_island_tbl(object)
 }
 \arguments{
-\item{object}{Instance of the island_tbl class}
+\item{object}{Instance of the Island_tbl class}
 }
 \value{
 Boolean or errors
 }
 \description{
-Checks the validity of the island_tbl class
+Checks the validity of the Island_tbl class
 }
 \examples{
-tbl <- methods::new("island_tbl")
+tbl <- island_tbl()
 check_island_tbl(tbl)
 }

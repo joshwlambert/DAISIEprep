@@ -1,5 +1,5 @@
 #' Extracts the colonisation, diversification, and endemicty data from
-#' phylogenetic and endemicity data and stores it in an `island_tbl` object
+#' phylogenetic and endemicity data and stores it in an `Island_tbl` object
 #'
 #' @inheritParams default_params_doc
 #'
