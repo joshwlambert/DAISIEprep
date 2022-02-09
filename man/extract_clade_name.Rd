@@ -2,16 +2,22 @@
 % Please edit documentation in R/extract_clade_name.R
 \name{extract_clade_name}
 \alias{extract_clade_name}
-\title{Title}
+\title{Creates a name for a clade depending on whether all the species of the clade
+have the same genus name or whether the clade is composed of multiple genera,
+in which case it will create a unique clade name by concatinating the genus
+names}
 \usage{
-extract_clade_name(phylod, endemic_clade)
+extract_clade_name(endemic_clade)
 }
 \arguments{
-\item{endemic_clade}{}
+\item{endemic_clade}{Named vector with all the species from a clade.}
 }
 \value{
-
+Character
 }
 \description{
-Title
+Creates a name for a clade depending on whether all the species of the clade
+have the same genus name or whether the clade is composed of multiple genera,
+in which case it will create a unique clade name by concatinating the genus
+names
 }

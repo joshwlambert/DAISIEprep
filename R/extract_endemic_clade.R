@@ -21,7 +21,7 @@ extract_endemic_clade <- function(phylod,
                                   species_label) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- methods::new("island_colonist")
+  island_col <- island_colonist()
 
   # recursive tree traversal to find all endemic species in clade
   all_siblings_endemic <- TRUE
@@ -74,7 +74,7 @@ extract_endemic_clade <- function(phylod,
   branching_times <- unique(branching_times)
 
   # extract clade name from species labels
-  clade_name <- extract_clade_name(phylod, endemic_clade)
+  clade_name <- extract_clade_name(endemic_clade)
 
   # assign data to instance of island_colonist class
   set_clade_name(island_col) <- species_label #clade_name

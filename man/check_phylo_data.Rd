@@ -2,16 +2,35 @@
 % Please edit documentation in R/check_phylo_data.R
 \name{check_phylo_data}
 \alias{check_phylo_data}
-\title{Title}
+\title{Checks whether phylo (or phylo4 or phylo4d) object conforms
+to the requirements of the DAISIEprep package. If TRUE is returned the data
+is ready to be used, if FALSE is returned the data requires some
+pre-processing before DAISIEprep can be used}
 \usage{
-check_phylo_data(phylo)
+check_phylo_data(phylod)
 }
 \arguments{
-\item{phylo}{}
+\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+phylogenetic and endemicity data for each species.}
 }
 \value{
-
+Nothing
 }
 \description{
-Title
+Checks whether phylo (or phylo4 or phylo4d) object conforms
+to the requirements of the DAISIEprep package. If TRUE is returned the data
+is ready to be used, if FALSE is returned the data requires some
+pre-processing before DAISIEprep can be used
+}
+\examples{
+set.seed(1)
+phylo <- ape::rcoal(10)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+                     "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
+                     phylo <- as(phylo, "phylo4")
+endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+                              size = length(phylobase::tipLabels(phylo)),
+                              replace = TRUE)
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+check_phylo_data(phylod)
 }

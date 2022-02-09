@@ -19,7 +19,7 @@ extract_island_species <- function(phylod,
                                    island_tbl = NULL) {
 
   if (is.null(island_tbl)) {
-    tbl <- methods::new("island_tbl")
+    tbl <- island_tbl()
   } else {
     tbl <- island_tbl
   }

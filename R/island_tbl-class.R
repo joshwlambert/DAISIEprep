@@ -42,8 +42,6 @@ check_island_tbl <- function(object) {
 #' @slot status character.
 #' @slot missing_species character.
 #' @slot branching_times numeric.
-#'
-#' @export
 setClass(
   # name of the class
   Class = "Island_tbl",
@@ -64,7 +62,9 @@ setClass(
   )
 )
 
-# Constructor
+#' Constructor function for `Island_tbl` class
+#'
+#' @export
 island_tbl <- function() {
   methods::new("Island_tbl")
 }

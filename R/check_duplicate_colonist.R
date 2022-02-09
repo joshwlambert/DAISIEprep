@@ -14,7 +14,7 @@
 #'   missing_species = 0,
 #'   branching_times = c(1.0, 0.5)
 #' )
-#' island_tbl <- methods::new("island_tbl")
+#' island_tbl <- island_tbl()
 #' check_duplicate_colonist(
 #'   island_colonist = island_col,
 #'   island_tbl = island_tbl

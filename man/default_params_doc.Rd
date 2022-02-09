@@ -27,6 +27,19 @@ phylogenetic and endemicity data for each species.}
 
 \item{value}{A value which can take several forms to be assigned to an object
 of a class.}
+
+\item{clade_name}{Character name of the colonising clade.}
+
+\item{status}{Character endemicity status of the colonising clade.}
+
+\item{missing_species}{Numeric number of missing species from the phylogeny
+that belong to the colonising clade.}
+
+\item{branching_times}{Numeric vector of one or more elements where the first
+element is the colonisation time and subsequent elements are the branching
+times on the island.}
+
+\item{endemic_clade}{Named vector with all the species from a clade.}
 }
 \value{
 Nothing

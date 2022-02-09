@@ -72,7 +72,33 @@ setClass(
   validity = check_island_colonist
 )
 
-# Constructor for Island_colonist
-island_colonist <- function() {
-  methods::new("Island_colonist")
+#' Constructor for Island_colonist
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return Object of `Island_colonist` class.
+#' @export
+#'
+#' @examples
+#' # Without initial values
+#' colonist <- island_colonist()
+#'
+#' # With initial values
+#' colonist <- island_colonist(
+#'   clade_name = "bird",
+#'   status = "endemic",
+#'   missing_species = 0,
+#'   branching_times = 0.5
+#')
+island_colonist <- function(clade_name = NA_character_,
+                            status = NA_character_,
+                            missing_species = NA_real_,
+                            branching_times = NA_real_) {
+  methods::new(
+    "Island_colonist",
+    clade_name = clade_name,
+    status = status,
+    missing_species = missing_species,
+    branching_times = branching_times
+  )
 }

@@ -8,6 +8,14 @@
 #' @param x An object whose class is determined by the signature.
 #' @param value A value which can take several forms to be assigned to an object
 #' of a class.
+#' @param clade_name Character name of the colonising clade.
+#' @param status Character endemicity status of the colonising clade.
+#' @param missing_species Numeric number of missing species from the phylogeny
+#' that belong to the colonising clade.
+#' @param branching_times Numeric vector of one or more elements where the first
+#' element is the colonisation time and subsequent elements are the branching
+#' times on the island.
+#' @param endemic_clade Named vector with all the species from a clade.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert

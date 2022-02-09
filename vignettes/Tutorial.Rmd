@@ -97,7 +97,7 @@ a data. This `island_tbl` object can then easily be converted to a
 on this to below).
 
 ```{r create island_tbl}
-island_tbl <- methods::new("island_tbl")
+island_tbl <- island_tbl()
 island_tbl
 ```
 

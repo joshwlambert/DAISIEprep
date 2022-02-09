@@ -20,7 +20,7 @@ extract_endemic <- function(phylod,
                             species_label) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- methods::new("island_colonist")
+  island_col <- island_colonist()
 
   #TODO: write check that the species_label refers to nonendemic species
 

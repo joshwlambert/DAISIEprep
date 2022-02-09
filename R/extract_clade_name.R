@@ -1,13 +1,12 @@
-#' Title
+#' Creates a name for a clade depending on whether all the species of the clade
+#' have the same genus name or whether the clade is composed of multiple genera,
+#' in which case it will create a unique clade name by concatinating the genus
+#' names
 #'
-#' @param phylod
-#' @param endemic_clade
+#' @inheritParams default_params_doc
 #'
-#' @return
-#' @export
-#'
-#' @examples
-extract_clade_name <- function(phylod, endemic_clade) {
+#' @return Character
+extract_clade_name <- function(endemic_clade) {
 
   # get the names of the species in the clade
   species_names <- names(endemic_clade)

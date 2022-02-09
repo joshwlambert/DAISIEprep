@@ -7,11 +7,15 @@
 is_multi_tip_species(phylod, species_label)
 }
 \arguments{
-\item{species_label}{}
+\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+phylogenetic and endemicity data for each species.}
+
+\item{species_label}{The tip label of the species of interest.}
 }
 \value{
-
+Boolean
 }
 \description{
 Checks if a non-endemic species is represented in the tree as multiple tips
 }
+\keyword{internal}
