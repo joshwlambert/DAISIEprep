@@ -9,9 +9,15 @@ NULL
 #' @rdname Island_tbl-accessors
 #' @export
 #' @examples
-#'   tbl <- island_tbl()
-#'   get_island_tbl(tbl)
-#'   set_island_tbl(tbl) <- 0
+#' tbl <- island_tbl()
+#' get_island_tbl(tbl)
+#' set_island_tbl(tbl) <- data.frame(
+#'   clade_name = "birds",
+#'   status = "endemic",
+#'   missing_species = 0,
+#'   branching_times = I(list(c(1.0, 0.5)))
+#' )
+
 setGeneric("get_island_tbl", function(x) standardGeneric("get_island_tbl"))
 
 #' @rdname Island_tbl-accessors

@@ -11,11 +11,11 @@ NULL
 #' @examples
 #'   colonist <- island_colonist()
 #'   get_clade_name(colonist)
-#'   set_clde_name(colonist) <- "abc"
+#'   set_clade_name(colonist) <- "abc"
 #'   get_status(colonist)
 #'   set_status(colonist) <- "abc"
 #'   get_missing_species(colonist)
-#'   set_missing_specie(colonist) <- 0
+#'   set_missing_species(colonist) <- 0
 #'   get_branching_times(colonist)
 #'   set_branching_times(colonist) <- 0
 setGeneric("get_clade_name", function(x) standardGeneric("get_clade_name"))
@@ -23,15 +23,16 @@ setGeneric("get_clade_name", function(x) standardGeneric("get_clade_name"))
 #' @rdname Island_colonist-accessors
 #' @aliases get_clade_name,Island_colonist-method
 #' @export
-setMethod("get_clade_name", "Island_colonist", function(x) slot(x, "clade_name"))
+setMethod("get_clade_name", "Island_colonist", function(x) methods::slot(x, "clade_name"))
 
 
 #' @rdname Island_colonist-accessors
 setGeneric("set_clade_name<-", function(x, value) standardGeneric("set_clade_name<-"))
 
+#' @rdname Island_colonist-accessors
 #' @export
 setMethod("set_clade_name<-", "Island_colonist", function(x, value) {
-  slot(x, "clade_name") <- value
+  methods::slot(x, "clade_name") <- value
   x
 })
 
@@ -48,7 +49,7 @@ setGeneric("set_status<-", function(x, value) standardGeneric("set_status<-"))
 #' @rdname Island_colonist-accessors
 #' @export
 setMethod("set_status<-", "Island_colonist", function(x, value) {
-  slot(x, "status") <- value
+  methods::slot(x, "status") <- value
   x
 })
 

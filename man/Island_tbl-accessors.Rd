@@ -27,9 +27,14 @@ Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_tbl}} class
 }
 \examples{
-  tbl <- island_tbl()
-  get_island_tbl(tbl)
-  set_island_tbl(tbl) <- 0
+tbl <- island_tbl()
+get_island_tbl(tbl)
+set_island_tbl(tbl) <- data.frame(
+  clade_name = "birds",
+  status = "endemic",
+  missing_species = 0,
+  branching_times = I(list(c(1.0, 0.5)))
+)
 }
 \author{
 Joshua W. Lambert

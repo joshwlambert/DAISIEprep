@@ -4,6 +4,7 @@
 \alias{get_clade_name}
 \alias{get_clade_name,Island_colonist-method}
 \alias{set_clade_name<-}
+\alias{set_clade_name<-,Island_colonist-method}
 \alias{get_status}
 \alias{get_status,Island_colonist-method}
 \alias{set_status<-}
@@ -24,6 +25,8 @@ get_clade_name(x)
 \S4method{get_clade_name}{Island_colonist}(x)
 
 set_clade_name(x) <- value
+
+\S4method{set_clade_name}{Island_colonist}(x) <- value
 
 get_status(x)
 
@@ -62,11 +65,11 @@ Accessor functions for the data (slots) in objects of the
 \examples{
   colonist <- island_colonist()
   get_clade_name(colonist)
-  set_clde_name(colonist) <- "abc"
+  set_clade_name(colonist) <- "abc"
   get_status(colonist)
   set_status(colonist) <- "abc"
   get_missing_species(colonist)
-  set_missing_specie(colonist) <- 0
+  set_missing_species(colonist) <- 0
   get_branching_times(colonist)
   set_branching_times(colonist) <- 0
 }

@@ -17,8 +17,10 @@ check_island_tbl <- function(object) {
   }
 
   col_names <- names(object@island_tbl)
-  if (col_names !=
-      c("clade_name", "status", "missing_species", "branching_times")) {
+  match_col_names <- identical(
+    col_names, c("clade_name", "status", "missing_species", "branching_times")
+  )
+  if (isFALSE(match_col_names)) {
     msg <- paste(
       "Names of island_tbl are ", col_names, ". Should be 'clade_name',
       'status', 'missing_species', 'branching_times'",

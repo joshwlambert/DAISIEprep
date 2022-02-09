@@ -10,7 +10,12 @@ default_params_doc(
   phylod,
   species_label,
   x,
-  value
+  value,
+  clade_name,
+  status,
+  missing_species,
+  branching_times,
+  endemic_clade
 )
 }
 \arguments{

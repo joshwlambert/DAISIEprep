@@ -2,10 +2,10 @@
 % Please edit documentation in R/check_phylo_data.R
 \name{check_phylo_data}
 \alias{check_phylo_data}
-\title{Checks whether phylo (or phylo4 or phylo4d) object conforms
-to the requirements of the DAISIEprep package. If TRUE is returned the data
-is ready to be used, if FALSE is returned the data requires some
-pre-processing before DAISIEprep can be used}
+\title{Checks whether `\linkS4class{phylo4d}` object conforms
+to the requirements of the DAISIEprep package. If the function does not
+return anything the data is ready to be used, if an error is returned the
+data requires some pre-processing before DAISIEprep can be used}
 \usage{
 check_phylo_data(phylod)
 }
@@ -14,20 +14,21 @@ check_phylo_data(phylod)
 phylogenetic and endemicity data for each species.}
 }
 \value{
-Nothing
+Nothing or error message
 }
 \description{
-Checks whether phylo (or phylo4 or phylo4d) object conforms
-to the requirements of the DAISIEprep package. If TRUE is returned the data
-is ready to be used, if FALSE is returned the data requires some
-pre-processing before DAISIEprep can be used
+Checks whether `\linkS4class{phylo4d}` object conforms
+to the requirements of the DAISIEprep package. If the function does not
+return anything the data is ready to be used, if an error is returned the
+data requires some pre-processing before DAISIEprep can be used
 }
 \examples{
+library(phylobase)
 set.seed(1)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
-                     phylo <- as(phylo, "phylo4")
+phylo <- methods::as(phylo, "phylo4")
 endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
                               size = length(phylobase::tipLabels(phylo)),
                               replace = TRUE)

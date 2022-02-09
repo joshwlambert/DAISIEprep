@@ -24,6 +24,11 @@ default_params_doc <- function(island_colonist,
                                phylod,
                                species_label,
                                x,
-                               value) {
+                               value,
+                               clade_name,
+                               status,
+                               missing_species,
+                               branching_times,
+                               endemic_clade) {
   # nothing
 }

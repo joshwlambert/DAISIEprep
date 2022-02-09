@@ -1,28 +1,31 @@
-#' Checks whether phylo (or phylo4 or phylo4d) object conforms
-#' to the requirements of the DAISIEprep package. If TRUE is returned the data
-#' is ready to be used, if FALSE is returned the data requires some
-#' pre-processing before DAISIEprep can be used
+#' Checks whether `\linkS4class{phylo4d}` object conforms
+#' to the requirements of the DAISIEprep package. If the function does not
+#' return anything the data is ready to be used, if an error is returned the
+#' data requires some pre-processing before DAISIEprep can be used
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return Nothing
+#' @return Nothing or error message
 #' @export
 #'
 #' @examples
+#' library(phylobase)
 #' set.seed(1)
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
-#'                      phylo <- as(phylo, "phylo4")
+#' phylo <- methods::as(phylo, "phylo4")
 #' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
 #'                               size = length(phylobase::tipLabels(phylo)),
 #'                               replace = TRUE)
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' check_phylo_data(phylod)
 check_phylo_data <- function(phylod) {
-  if (isFALSE(is(phylod, "phylo4d"))) {
+  if (isFALSE(methods::is(phylod, "phylo4d"))) {
     stop("Object must be of the class phylo4d")
   }
+
+  # write if that checks tip labels are in the form genus_species_marker
 
   if (isFALSE(phylobase::hasTipData(phylod))) {
     stop("Object must have endemicity status stored as tip data")
