@@ -56,7 +56,7 @@ extract_island_species <- function(phylod,
       }
 
       # check if colonist has already been stored in island_tbl class
-      duplicate_colonist <- check_duplicate_colonist(
+      duplicate_colonist <- is_duplicate_colonist(
         island_colonist = island_colonist,
         island_tbl = tbl
       )
@@ -75,7 +75,7 @@ extract_island_species <- function(phylod,
       )
 
       # check if colonist has already been stored in island_tbl class
-      duplicate_colonist <- check_duplicate_colonist(
+      duplicate_colonist <- is_duplicate_colonist(
         island_colonist = island_colonist,
         island_tbl = tbl
       )

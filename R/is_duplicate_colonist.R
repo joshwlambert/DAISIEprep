@@ -1,6 +1,6 @@
-#' Check if colonist has already been stored in `Island_tbl` class. This is used
-#' to stop endemic clades from being stored multiple times in the island table
-#' by checking if the endemicity status and branching times are identical.
+#' Determines if colonist has already been stored in `Island_tbl` class. This is
+#' used to stop endemic clades from being stored multiple times in the island
+#' table by checking if the endemicity status and branching times are identical.
 #'
 #' @inheritParams default_params_doc
 #'
@@ -15,11 +15,11 @@
 #'   branching_times = c(1.0, 0.5)
 #' )
 #' island_tbl <- island_tbl()
-#' check_duplicate_colonist(
+#' is_duplicate_colonist(
 #'   island_colonist = island_col,
 #'   island_tbl = island_tbl
 #' )
-check_duplicate_colonist <- function(island_colonist,
+is_duplicate_colonist <- function(island_colonist,
                                      island_tbl) {
 
   # extract data from island_colonist class
