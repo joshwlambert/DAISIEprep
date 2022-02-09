@@ -25,7 +25,49 @@ check_phylo_data <- function(phylod) {
     stop("Object must be of the class phylo4d")
   }
 
-  # write if that checks tip labels are in the form genus_species_marker
+  # extract the tip labels from the tree
+  tip_labels <- unname(phylobase::tipLabels(phylod))
+  split_tip_labels <- strsplit(tip_labels, split = "_")
+
+  # check the tip labels are in genus_species_marker format (marker is optional)
+  correct_structure <- all(sapply(split_tip_labels, function(x) {
+    length(x) >= 2
+  }))
+
+  if (isFALSE(correct_structure)) {
+    stop("Tip labels on the phylogeny need to be in the format genus underscore
+         species and then optionally underscore and molecular marker or
+         collection tag")
+  }
+
+  # extract genus names
+  genus_name <- lapply(split_tip_labels, "[[", 1)
+
+  #check genus name only contains letters
+  correct_genus_name <- lapply(genus_name, function(x) {
+    grep(pattern = "^[A-z]+$", x)
+  })
+  correct_genus_name <- all(sapply(correct_genus_name, function(x) {
+    isTRUE(x == 1)
+  }))
+
+  # extract species names
+  species_name <- lapply(split_tip_labels, "[[", 2)
+
+  # check species name only contains letters
+  correct_species_name <- sapply(species_name, function(x) {
+    grep(pattern = "^[A-z]+$", x)
+  })
+  correct_species_name <- all(sapply(correct_species_name, function(x) {
+    isTRUE(x == 1)
+  }))
+
+  correct_name <- correct_genus_name && correct_species_name
+
+  if (isFALSE(correct_name)) {
+    stop("The genus or species names in the tip labels contain non-alphabetic
+         characters")
+  }
 
   if (isFALSE(phylobase::hasTipData(phylod))) {
     stop("Object must have endemicity status stored as tip data")

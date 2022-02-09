@@ -20,7 +20,7 @@
 #'   island_tbl = island_tbl
 #' )
 is_duplicate_colonist <- function(island_colonist,
-                                     island_tbl) {
+                                  island_tbl) {
 
   # extract data from island_colonist class
   colonist_clade_name <- get_clade_name(island_colonist)
