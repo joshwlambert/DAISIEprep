@@ -82,8 +82,8 @@ ggtree::ggtree(phylod) +
     ggplot2::aes(colour = endemicity_status), 
     size = 3
   ) +
-  ggtree::geom_tiplab(as_ylab = TRUE) +
-  ggtree::theme_tree2()
+  ggtree::theme_tree2() + 
+  ggtree::geom_tiplab(as_ylab = TRUE)
 ```
 
 Now that we can see the tips that are present on the island we can start to 
@@ -183,7 +183,7 @@ island_species <- data.frame(
   tip_endemicity_status = c("nonendemic", "nonendemic")
 )
 
-endemicity_status <- set_endemicity_status(
+endemicity_status <- create_endemicity_status(
   phylo = coccyzus_tree,
   island_species = island_species
 )
