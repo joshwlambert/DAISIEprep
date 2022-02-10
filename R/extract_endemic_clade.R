@@ -23,27 +23,26 @@ extract_endemic_clade <- function(phylod,
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
-  # recursive tree traversal to find all endemic species in clade
-  all_siblings_endemic <- TRUE
-  ancestor <- species_label
-  descendants <- species_label
-  while (all_siblings_endemic) {
-    ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
-    # save a copy of descendants for when loop stops
-    endemic_clade <- descendants
-    descendants <- phylobase::descendants(phy = phylod, node = ancestor)
-    # get endemicity of siblings
-    which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-    sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
-    all_siblings_endemic <- all(sibling_endemicity == "endemic")
-    # terminate the loop if the whole tree is endemic
-    all_phylo_endemic <- all(
-      as.character(phylobase::tipLabels(phylod)) %in% names(descendants)
-    )
-    if (all_phylo_endemic) {
-      # include all species in the endemic clade
+
+  # if not all species in the tree are endemic find endemic clade
+  all_phylo_endemic <- all(
+    phylobase::tipData(phylod)$endemicity_status %in% "endemic"
+  )
+
+  if (isFALSE(all_phylo_endemic)) {
+    # recursive tree traversal to find all endemic species in clade
+    all_siblings_endemic <- TRUE
+    ancestor <- species_label
+    descendants <- species_label
+    while (all_siblings_endemic) {
+      ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
+      # save a copy of descendants for when loop stops
       endemic_clade <- descendants
-      break
+      descendants <- phylobase::descendants(phy = phylod, node = ancestor)
+      # get endemicity of siblings
+      which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
+      sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
+      all_siblings_endemic <- all(sibling_endemicity == "endemic")
     }
   }
 
@@ -54,24 +53,30 @@ extract_endemic_clade <- function(phylod,
     from = "min_tip"
   ))
 
+  # subset the endemic clade from the rest of the tree
+  endemic_clade_phylod <- phylobase::subset(
+    x = phylod,
+    tips.include = endemic_clade
+  )
+
   # extract branching times (time before present)
-  branching_times <- c()
-  for (tip in endemic_clade) {
-    branching_times <- c(
-      branching_times,
-      as.numeric(phylobase::nodeHeight(
-        x = phylod,
-        node = phylobase::ancestor(phy = phylod, node = tip),
-        from = "min_tip"
-      ))
+  node_heights <- c()
+  for (i in seq_len(phylobase::nEdges(endemic_clade_phylod))) {
+    node_heights[i] <- phylobase::nodeHeight(
+      x = endemic_clade_phylod,
+      node = i,
+      from = "min_tip"
     )
   }
 
+  # remove any duplicates if two species come from the same branching event
+  branching_times <- sort(unique(node_heights), decreasing = TRUE)
+
+  # remove any zero valued branching times
+  branching_times <- branching_times[-which(branching_times == 0)]
+
   # add the colonisation time to the branching times
   branching_times <- c(col_time, branching_times)
-
-  # remove any duplicates if two species come from the same branching event
-  branching_times <- unique(branching_times)
 
   # extract clade name from species labels
   clade_name <- extract_clade_name(endemic_clade)
