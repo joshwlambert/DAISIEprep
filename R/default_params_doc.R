@@ -19,6 +19,11 @@
 #' must have colonised the island by. This is known when there is a branching
 #' on the island, either in species or subspecies.
 #' @param endemic_clade Named vector with all the species from a clade.
+#' @param phylo A `phylo4` object from the package `phylobase`.
+#' @param island_species Data frame with two columns. The first is a character
+#' string of the tip_labels with the tip names of the species on the island.
+#' The second column a character string of the endemicity status of the species,
+#' either endemic or nonendemic.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -33,6 +38,8 @@ default_params_doc <- function(island_colonist,
                                missing_species,
                                branching_times,
                                min_age,
-                               endemic_clade) {
+                               endemic_clade,
+                               phylo,
+                               island_species) {
   # nothing
 }

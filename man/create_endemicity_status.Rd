@@ -9,6 +9,14 @@ phylogeny and a data frame of the island species and their endemicity (either
 \usage{
 create_endemicity_status(phylo, island_species)
 }
+\arguments{
+\item{phylo}{A `phylo4` object from the package `phylobase`.}
+
+\item{island_species}{Data frame with two columns. The first is a character
+string of the tip_labels with the tip names of the species on the island.
+The second column a character string of the endemicity status of the species,
+either endemic or nonendemic.}
+}
 \value{
 Data frame with single column of character strings and row names
 }

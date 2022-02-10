@@ -16,7 +16,9 @@ default_params_doc(
   missing_species,
   branching_times,
   min_age,
-  endemic_clade
+  endemic_clade,
+  phylo,
+  island_species
 )
 }
 \arguments{
@@ -50,6 +52,13 @@ must have colonised the island by. This is known when there is a branching
 on the island, either in species or subspecies.}
 
 \item{endemic_clade}{Named vector with all the species from a clade.}
+
+\item{phylo}{A `phylo4` object from the package `phylobase`.}
+
+\item{island_species}{Data frame with two columns. The first is a character
+string of the tip_labels with the tip names of the species on the island.
+The second column a character string of the endemicity status of the species,
+either endemic or nonendemic.}
 }
 \value{
 Nothing
