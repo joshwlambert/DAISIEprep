@@ -252,9 +252,9 @@ setophaga_tree <- ape::read.nexus(
 
 To see an example of the DAISIE_datatable object see
 
-```{r Galapagos data table, eval=FALSE}
+```{r Galapagos data table}
 data("Galapagos_datatable", package = "DAISIE")
-Galapagagos_datatable
+knitr::kable(Galapagos_datatable)
 ```
 
 Each row in the table represents an independent colonisation event. The table has four columns:
