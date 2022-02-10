@@ -10,20 +10,23 @@ finches_tree <- as(finches_tree, "phylo4")
 # Galapagos
 finches_tree <- phylobase::subset(x = finches_tree, tips.exclude = "P_ino")
 
-finches_endemicity_status <- data.frame(
-  endemicity_status = c(
+finches_island_species <- data.frame(
+  tip_labels = c("C_fus", "C_hel", "C_oliv", "C_pal", "C_par", "C_pau", "C_psi",
+                "G_con", "G_diff", "G_for", "G_ful", "G_mag", "G_scan", "G_sep",
+                "P_cras"),
+  tip_endemicity_status = c(
     "endemic", "endemic", "endemic", "endemic", "endemic", "endemic", "endemic",
     "endemic", "endemic", "endemic", "endemic", "endemic", "endemic", "endemic",
-    "endemic", "endemic"
+    "endemic")
   )
-)
-rownames(finches_endemicity_status) <- c(
-  "C_fus", "C_hel", "C_oliv", "C_pal", "C_par", "C_pau", "C_psi", "G_con",
-  "G_diff", "G_for", "G_ful", "G_mag", "G_scan", "G_sep", "P_cras", "T_bi"
-)
+
+finches_endemicity_status <- set_endemicity_status(
+  phylo = finches_tree,
+  island_species = finches_island_species)
 
 finches_phylod <- phylobase::phylo4d(finches_tree, finches_endemicity_status)
 
+#missing some branching times, should be 15
 island_tbl <- extract_island_species(phylod = finches_phylod)
 
 saveRDS(coccyzus_phylod, file = "inst/extdata/coccyzus_phylod.rds")

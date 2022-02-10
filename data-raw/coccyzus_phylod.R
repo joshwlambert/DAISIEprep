@@ -6,6 +6,9 @@ coccyzus_tree <- ape::read.nexus(
 
 coccyzus_tree <- as(coccyzus_tree, "phylo4")
 
+
+## change to use new function set_endemicity_status()
+
 coccyzus_endemicity_status <- data.frame(
   endemicity_status = c(
     "not_present", "not_present", "not_present", "not_present", "not_present",
