@@ -54,3 +54,4 @@ Collate:
     'island_tbl-accessors.R'
     'island_tbl-methods.R'
     'print-methods.R'
+    'set_endemicity_status.R'

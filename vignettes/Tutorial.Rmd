@@ -81,7 +81,9 @@ ggtree::ggtree(phylod) +
   ggtree::geom_tippoint(
     ggplot2::aes(colour = endemicity_status), 
     size = 3
-  )
+  ) +
+  ggtree::geom_tiplab(as_ylab = TRUE) +
+  ggtree::theme_tree2()
 ```
 
 Now that we can see the tips that are present on the island we can start to 
@@ -167,37 +169,25 @@ Now that all of the phylogenies are loaded we can inspect them.
 phylobase::plot(coccyzus_tree, cex = 0.1)
 ```
 
+We can now use a table (data frame) of the species that are on the island and
+their island endemicity status.
+
+The species names on the tree (tips labels) can be extracted by using 
+`phylobase::tiplabels(coccyzus_tree)`. Make sure the spelling matches exactly
+including any whitespace and underscores, and the case of the names.
+
 ```{r}
-endemicity_status <- data.frame(
-  endemicity_status = c(
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "not_present", "not_present",
-    "not_present", "not_present", "not_present", "nonendemic", "nonendemic"
-  )
+island_species <- data.frame(
+  tip_labels = c("Coccyzus_melacoryphus_GALAPAGOS_L569A",
+                 "Coccyzus_melacoryphus_GALAPAGOS_L571A"),
+  tip_endemicity_status = c("nonendemic", "nonendemic")
 )
-rownames(endemicity_status) <- c(
-    "Coccyzus_americanus_AF204993",
-    "Coccyzus_americanus_AY509696",
-    "Coccyzus_americanus_HE793186",
-    "Coccyzus_americanus_Mexico_AY046908",
-    "Coccyzus_americanus_Mexico_AY046909",
-    "Coccyzus_americanus_NewMexico_AY046905",
-    "Coccyzus_americanus_U09265__CAU09265_",
-    "Coccyzus_americanus_americanus_AY046910",
-    "Coccyzus_americanus_americanus_Minnesota_AF249270",
-    "Coccyzus_americanus_americanus_Minnesota_AF249271",
-    "Coccyzus_americanus_occidentalis_Alaska_AF249268",
-    "Coccyzus_americanus_occidentalis_Alaska_AF249269",
-    "Coccyzus_americanus_occidentalis_NewMexico_AY046906",
-    "Coccyzus_americanus_occidentalis_NewMexico_AY046907",
-    "Coccyzus_erythropthalmus_AF082048",
-    "Coccyzus_erythropthalmus_U09266__CEU09266_",
-    "Coccyzus_erythropthalmus__Minnesota_AF249272",
-    "Coccyzus_melacoryphus_Brasil_AF204994",
-    "Coccyzus_melacoryphus_GALAPAGOS_L569A",
-    "Coccyzus_melacoryphus_GALAPAGOS_L571A"
+
+endemicity_status <- set_endemicity_status(
+  phylo = coccyzus_tree,
+  island_species = island_species
 )
+
 phylod <- phylobase::phylo4d(coccyzus_tree, endemicity_status)
 ```
 
@@ -210,6 +200,8 @@ ggtree::ggtree(phylod) +
     size = 3
   )
 ```
+
+TODO change colours: not_present in black, nonendemic in blue, endemic in red.
 
 ```{r}
 island_tbl <- extract_island_species(phylod = phylod)
