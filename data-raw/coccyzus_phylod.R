@@ -12,7 +12,7 @@ coccyzus_island_species <- data.frame(
   tip_endemicity_status = c("nonendemic", "nonendemic")
 )
 
-coccyzus_endemicity_status <- set_endemicity_status(
+coccyzus_endemicity_status <- create_endemicity_status(
   phylo = coccyzus_tree,
   island_species = coccyzus_island_species
 )

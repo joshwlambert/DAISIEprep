@@ -38,6 +38,7 @@ Collate:
     'as_daisie_datatable.R'
     'bind_colonist_to_tbl.R'
     'check_phylo_data.R'
+    'create_endemicity_status.R'
     'default_params_doc.R'
     'extract_clade_name.R'
     'extract_endemic.R'
@@ -54,4 +55,3 @@ Collate:
     'island_tbl-accessors.R'
     'island_tbl-methods.R'
     'print-methods.R'
-    'set_endemicity_status.R'

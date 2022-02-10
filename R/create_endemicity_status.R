@@ -1,4 +1,28 @@
-set_endemicity_status <- function(phylo, island_species) {
+#' Creates a data frame with the endemicity status (either 'endemic',
+#' 'nonendemic', 'not_present') of every species in the phylogeny using a
+#' phylogeny and a data frame of the island species and their endemicity (either
+#' 'endemic' or 'nonendemic') provided.
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return Data frame with single column of character strings and row names
+#' @export
+#'
+#' @examples
+#' set.seed(1)
+#' phylo <- ape::rcoal(4)
+#' phylo$tip.label <- c("species_a", "species_b", "species_c", "species_d")
+#' phylo <- as(phylo, "phylo4")
+#' island_species <- data.frame(
+#'   tip_labels = c("species_a", "species_b", "species_c", "species_d"),
+#'   tip_endemicity_status = c("endemic", "endemic", "endemic", "nonendemic")
+#' )
+#' endemicity_status <- create_endemicity_status(
+#'   phylo = phylo,
+#'   island_species = island_species
+#' )
+
+create_endemicity_status <- function(phylo, island_species) {
 
   # check the phylo input
   correct_class <- class(phylo) %in% c("phylo", "phylo4")

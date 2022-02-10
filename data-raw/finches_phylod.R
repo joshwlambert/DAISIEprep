@@ -22,7 +22,7 @@ finches_island_species <- data.frame(
   )
 )
 
-finches_endemicity_status <- set_endemicity_status(
+finches_endemicity_status <- create_endemicity_status(
   phylo = finches_tree,
   island_species = finches_island_species
 )
