@@ -30,6 +30,10 @@ create_endemicity_status <- function(phylo, island_species) {
     stop("The phylo object should be a 'phylo' or 'phylo4' object")
   }
 
+  if (class(phylo) == "phylo") {
+    phylo <- as(phylo, "phylo4")
+  }
+
   # check the data frame input
   correct_colnames <- identical(
     colnames(island_species),
