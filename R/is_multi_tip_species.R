@@ -14,14 +14,23 @@ is_multi_tip_species <- function(phylod, species_label) {
     focal_genus_name, focal_species_name, sep = "_"
   )
 
-  # get the species names (genus_species) for all species
-  split_species_names <- strsplit(x = phylod@label, split = "_")
-  genus_name <- sapply(split_species_names, "[[", 1)
-  species_name <- sapply(split_species_names, "[[", 2)
-  genus_species_name <- paste(genus_name, species_name, sep = "_")
-
-  # count number of matches for species name
-  num_species_tip <- sum(focal_genus_species_name == genus_species_name)
+  num_species_tip <- 0
+  all_siblings_conspecific <- TRUE
+  ancestor <- species_label
+  descendants <- species_label
+  while (all_siblings_conspecific) {
+    ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
+    # save a copy of descendants for when loop stops
+    conspecific_clade <- descendants
+    descendants <- phylobase::descendants(phy = phylod, node = ancestor)
+    # get the species names (genus_species) for sister species
+    split_species_names <- strsplit(x = names(descendants), split = "_")
+    genus_name <- sapply(split_species_names, "[[", 1)
+    species_name <- sapply(split_species_names, "[[", 2)
+    genus_species_name <- paste(genus_name, species_name, sep = "_")
+    all_siblings_conspecific <- length(unique(genus_species_name)) == 1
+    num_species_tip <- num_species_tip + 1
+  }
 
   # if number of matches is greater than 1 (it will match with itself)
   if (num_species_tip > 1) {
