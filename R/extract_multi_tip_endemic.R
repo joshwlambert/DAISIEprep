@@ -75,7 +75,7 @@ extract_multi_tip_endemic <- function(phylod, species_label) {
   species_name <- unlist(strsplit(x = species_label, split = "_"))[1:2]
   species_name <- paste(species_name, collapse = "_")
   set_clade_name(island_col) <- species_name
-  set_status(island_col) <- "nonendemic"
+  set_status(island_col) <- "endemic"
   set_missing_species(island_col) <- 0
   set_branching_times(island_col) <- col_time
   set_min_age(island_col) <- min_age
