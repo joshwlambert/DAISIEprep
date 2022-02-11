@@ -5,14 +5,4 @@ columbiformes_tree <- ape::read.nexus(
   file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
 )
 
-mimus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
-)
-myiarchus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
-)
 
-
-setophaga_tree <- ape::read.nexus(
-  file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
-)
