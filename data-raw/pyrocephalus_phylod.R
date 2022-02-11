@@ -4,7 +4,7 @@ pyrocephalus_tree <- ape::read.nexus(
   file = system.file("extdata", "Pyrocephalus.tre", package = "DAISIEprep")
 )
 
-pyrocephalus_tree <- as(pyrocephalus_tree, "phylo4")
+pyrocephalus_tree <- methods::as(pyrocephalus_tree, "phylo4")
 
 pyrocephalus_endemicity_status <- data.frame(
   endemicity_status = c(

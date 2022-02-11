@@ -11,9 +11,7 @@ mimus_tree <- ape::read.nexus(
 myiarchus_tree <- ape::read.nexus(
   file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
 )
-progne_tree <- ape::read.nexus(
-  file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
-)
+
 
 setophaga_tree <- ape::read.nexus(
   file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
