@@ -30,7 +30,7 @@ phylogeny and a data frame of the island species and their endemicity (either
 set.seed(1)
 phylo <- ape::rcoal(4)
 phylo$tip.label <- c("species_a", "species_b", "species_c", "species_d")
-phylo <- as(phylo, "phylo4")
+phylo <- methods::as(phylo, "phylo4")
 island_species <- data.frame(
   tip_labels = c("species_a", "species_b", "species_c", "species_d"),
   tip_endemicity_status = c("endemic", "endemic", "endemic", "nonendemic")

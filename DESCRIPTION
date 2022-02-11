@@ -23,7 +23,8 @@ Imports:
     ape,
     phylobase,
     ggplot2,
-    ggtree
+    ggtree,
+    DAISIE
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
@@ -44,10 +45,11 @@ Collate:
     'extract_endemic.R'
     'extract_endemic_clade.R'
     'extract_island_species.R'
+    'extract_multi_tip_endemic.R'
     'extract_multi_tip_nonendemic.R'
     'extract_nonendemic.R'
     'is_duplicate_colonist.R'
-    'is_island_clade.R'
+    'is_endemic_clade.R'
     'is_multi_tip_species.R'
     'island_colonist-class.R'
     'island_colonist-accessors.R'

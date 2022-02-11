@@ -4,7 +4,7 @@ coccyzus_tree <- ape::read.nexus(
   file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
 )
 
-coccyzus_tree <- as(coccyzus_tree, "phylo4")
+coccyzus_tree <- methods::as(coccyzus_tree, "phylo4")
 
 coccyzus_island_species <- data.frame(
   tip_labels = c("Coccyzus_melacoryphus_GALAPAGOS_L569A",

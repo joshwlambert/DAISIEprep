@@ -25,7 +25,7 @@ in an `island_colonist` class
 \examples{
 set.seed(1)
 phylo <- ape::rcoal(10)
-phylo <- as(phylo, "phylo4")
+phylo <- methods::as(phylo, "phylo4")
 endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
                               size = length(phylobase::tipLabels(phylo)),
                               replace = TRUE)

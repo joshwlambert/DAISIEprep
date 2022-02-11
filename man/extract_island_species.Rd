@@ -25,7 +25,7 @@ set.seed(1)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
-phylo <- as(phylo, "phylo4")
+phylo <- methods::as(phylo, "phylo4")
 endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
                             size = length(phylobase::tipLabels(phylo)),
                             replace = TRUE)

@@ -1,3 +1,12 @@
+#' Extracts the information for a nonendemic species which has multiple tips in
+#' the phylogeny (i.e. more than one sample per species) from a phylogeny
+#' (specifically `phylo4d`  object from `phylobase` package)
+#' and stores it in an `island_colonist` class
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return An object of `Island_colonist` class
+#' @export
 extract_multi_tip_nonendemic <- function(phylod, species_label) {
 
   # create an instance of the island_colonist class to store data

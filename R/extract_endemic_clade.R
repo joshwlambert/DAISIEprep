@@ -5,18 +5,23 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return An object of `island_colonist` class
+#' @return An object of `Island_colonist` class
 #' @export
 #'
 #' @examples
 #' set.seed(1)
 #' phylo <- ape::rcoal(10)
-#' phylo <- as(phylo, "phylo4")
+#' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+#'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
+#' phylo <- methods::as(phylo, "phylo4")
 #' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
 #'                               size = length(phylobase::tipLabels(phylo)),
 #'                               replace = TRUE)
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-#' extract_endemic(phylod = phylod, species_label = "t1")
+#' island_col <- extract_endemic_clade(
+#'   phylod = phylod,
+#'   species_label = "bird_i"
+#' )
 extract_endemic_clade <- function(phylod,
                                   species_label) {
 
