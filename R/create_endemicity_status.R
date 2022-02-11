@@ -12,7 +12,7 @@
 #' set.seed(1)
 #' phylo <- ape::rcoal(4)
 #' phylo$tip.label <- c("species_a", "species_b", "species_c", "species_d")
-#' phylo <- as(phylo, "phylo4")
+#' phylo <- methods::as(phylo, "phylo4")
 #' island_species <- data.frame(
 #'   tip_labels = c("species_a", "species_b", "species_c", "species_d"),
 #'   tip_endemicity_status = c("endemic", "endemic", "endemic", "nonendemic")
@@ -22,7 +22,8 @@
 #'   island_species = island_species
 #' )
 
-create_endemicity_status <- function(phylo, island_species) {
+create_endemicity_status <- function(phylo,
+                                     island_species) {
 
   # check the phylo input
   correct_class <- class(phylo) %in% c("phylo", "phylo4")
@@ -31,7 +32,7 @@ create_endemicity_status <- function(phylo, island_species) {
   }
 
   if (class(phylo) == "phylo") {
-    phylo <- as(phylo, "phylo4")
+    phylo <- methods::as(phylo, "phylo4")
   }
 
   # check the data frame input
@@ -53,7 +54,7 @@ create_endemicity_status <- function(phylo, island_species) {
   rownames(endemicity_status) <- tip_labels
 
   # replace the species endemicity status with those given in island_species
-  tips_found <- which(island_species$tip_labels %in% rownames(endemicity_status))
+  tips_found <- which(rownames(endemicity_status) %in% island_species$tip_labels)
   endemicity_status[tips_found, ] <- island_species$tip_endemicity_status
 
   # return endemicity_status
