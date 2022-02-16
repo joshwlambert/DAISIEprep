@@ -182,6 +182,18 @@ ggtree::ggtree(phylod) +
   ggtree::geom_tiplab(as_ylab = TRUE)
 ```
 
+Now we can extract the colonisation and diversification from the phylogeny
+using the ancestral reconstructed island presence/absence. 
+
+#TODO: remove eval = FALSE below when working
+
+```{r, eval = FALSE}
+island_tbl <- extract_island_species(
+  phylod = phylod, 
+  colonisation_time = "min"
+)
+```
+
 In the previous example we used a single phylogeny and extracted the
 colonisation and branching events from it. However, it could be the case that 
 island species are from different phylogenies. Here we look at the case of the 
@@ -276,7 +288,7 @@ TODO change colours: not_present in black, nonendemic in blue, endemic in red.
 ```{r}
 island_tbl <- extract_island_species(
   phylod = phylod, 
-  colonisation_time = "asr"
+  colonisation_time = "min"
 )
 ```
 
