@@ -18,12 +18,21 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' extract_island_species(phylod)
 extract_island_species <- function(phylod,
+                                   colonisation_time,
                                    island_tbl = NULL) {
 
   if (is.null(island_tbl)) {
     tbl <- island_tbl()
   } else {
     tbl <- island_tbl
+  }
+
+  # check colonisation_time and asr_method input
+  missing_node_data <- "island_status" %in% names(phylobase::nodeData(phylod))
+
+  if (colonisation_time == "asr" && isFALSE(missing_node_data)) {
+    stop("Using colonisation times from ancestral state reconstruction requires
+         data of the island presence at the nodes")
   }
 
   # if no species are on the island
@@ -51,6 +60,7 @@ extract_island_species <- function(phylod,
       } else {
         island_colonist <- extract_nonendemic(
           phylod = phylod,
+          colonisation_time = colonisation_time,
           species_label = as.character(phylod@label[i])
         )
       }

@@ -4,6 +4,9 @@
 #' @param island_tbl An instance of the `Island_tbl` class.
 #' @param phylod A `phylo4d` object from the package `phylobase` containing
 #' phylogenetic and endemicity data for each species.
+#' @param colonisation_time A character string specifying whether the
+#' colonisation time extracted is the minimum time (`max`) (before the present),
+#' or the most probable time under ancestral state reconstruction (`asr`).
 #' @param species_label The tip label of the species of interest.
 #' @param x An object whose class is determined by the signature.
 #' @param value A value which can take several forms to be assigned to an object
@@ -30,6 +33,7 @@
 default_params_doc <- function(island_colonist,
                                island_tbl,
                                phylod,
+                               colonisation_time,
                                species_label,
                                x,
                                value,

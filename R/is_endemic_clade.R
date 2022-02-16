@@ -36,7 +36,8 @@ is_endemic_clade <- function(phylod,
     no_siblings_conspecific <- length(unique(genus_species_name)) > 1
     # get endemicity of siblings
     which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-    sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
+    sibling_endemicity <-
+      phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
     all_siblings_endemic <- all(sibling_endemicity == "endemic")
     num_species_clade <- num_species_clade + 1
   }

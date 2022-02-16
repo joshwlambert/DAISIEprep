@@ -5,11 +5,15 @@
 \title{Extracts the colonisation, diversification, and endemicty data from
 phylogenetic and endemicity data and stores it in an `Island_tbl` object}
 \usage{
-extract_island_species(phylod, island_tbl = NULL)
+extract_island_species(phylod, colonisation_time, island_tbl = NULL)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
+
+\item{colonisation_time}{A character string specifying whether the
+colonisation time extracted is the minimum time (`max`) (before the present),
+or the most probable time under ancestral state reconstruction (`asr`).}
 
 \item{island_tbl}{An instance of the `Island_tbl` class.}
 }

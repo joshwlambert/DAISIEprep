@@ -46,7 +46,8 @@ extract_endemic_clade <- function(phylod,
       descendants <- phylobase::descendants(phy = phylod, node = ancestor)
       # get endemicity of siblings
       which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-      sibling_endemicity <- phylobase::tdata(phylod)[which_siblings, ]
+      sibling_endemicity <-
+        phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
       all_siblings_endemic <- all(sibling_endemicity == "endemic")
     }
   }

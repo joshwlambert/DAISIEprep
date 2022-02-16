@@ -48,6 +48,8 @@ Collate:
     'extract_multi_tip_endemic.R'
     'extract_multi_tip_nonendemic.R'
     'extract_nonendemic.R'
+    'extract_nonendemic_asr.R'
+    'extract_nonendemic_min.R'
     'is_duplicate_colonist.R'
     'is_endemic_clade.R'
     'is_multi_tip_species.R'
