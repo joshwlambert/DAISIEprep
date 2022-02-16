@@ -19,6 +19,7 @@ library(DAISIEprep)
 library(ape)
 library(phylobase)
 library(ggtree)
+library(castor)
 ```
 
 First we simulate a phylogeny using the package `ape`
@@ -136,9 +137,11 @@ to convert the phylogeny back to this type and then run the analysis.
 
 ```{r calculate ancestral states}
 phylo <- as(phylo, "phylo")
-results = asr_max_parsimony(phylo, tip_states)
+results = castor::asr_max_parsimony(phylo, tip_states)
 node_states = max.col(results$ancestral_likelihoods)
 ```
+
+#TODO: give examples of other asr methods from castor.
 
 These values can now be converted back to string to make them more readable.
 
@@ -271,7 +274,10 @@ ggtree::ggtree(phylod) +
 TODO change colours: not_present in black, nonendemic in blue, endemic in red.
 
 ```{r}
-island_tbl <- extract_island_species(phylod = phylod)
+island_tbl <- extract_island_species(
+  phylod = phylod, 
+  colonisation_time = "asr"
+)
 ```
 
 Instead of assigning the endemicity to each of the Galapagos bird phylogenies 
