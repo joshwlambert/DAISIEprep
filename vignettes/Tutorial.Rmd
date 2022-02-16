@@ -108,8 +108,75 @@ this data frame with information on the island colonisation and diversification
 events we can run:
 
 ```{r extract island data, eval=FALSE}
-island_tbl <- extract_island_species(phylod = phylod)
+island_tbl <- extract_island_species(
+  phylod = phylod, 
+  colonisation_time = "min"
+)
 island_tbl
+```
+
+However, if we do not want to extract the minimum colonisation time before the 
+present, and instead want to extract the most likely colonisation from ancestral
+state reconstruction we need to know the probability of the ancestors of the 
+island species being on the island to determine the time of colonisation. To do 
+this we can fit one of many ancestral state reconstruction methods. Here we use 
+maximum parsimony as it is a simple method that should prove reliable for 
+reconstructing the ancestral species areas (i.e. on the island or not on the
+island). First we translate our extant species endemicity status to a numeric
+representation of whether that species is on the island. We add one as the 
+ancestral state reconstruction method cannot handle zero as a state. 
+
+```{r, create island presence tip states}
+tip_states <- as.numeric(grepl(pattern = "endemic", x = endemicity_status)) + 1
+```
+
+The maximum parsimony ancestral state reconstruction is from the R package
+`castor`. The `castor` package only works with S3 `phylo` objects, so we need
+to convert the phylogeny back to this type and then run the analysis.
+
+```{r calculate ancestral states}
+phylo <- as(phylo, "phylo")
+results = asr_max_parsimony(phylo, tip_states)
+node_states = max.col(results$ancestral_likelihoods)
+```
+
+These values can now be converted back to string to make them more readable.
+
+```{r}
+node_states <- gsub(pattern = "2", replacement = "island", x = node_states)
+node_states <- gsub(pattern = "1", replacement = "not_present", x = node_states)
+```
+
+Now the ancestral states at the nodes is available we can combine it into our
+`phylod` object.
+
+```{r combine node data into phylod}
+node_data <- data.frame(
+  island_status = node_states,
+  row.names = phylobase::nodeId(phylod, "internal")
+)
+phylod <- phylo4d(
+  phylo,
+  tip.data = as.data.frame(endemicity_status),
+  node.data = node_data
+)
+```
+
+Lastly, we can plot the phylogeny, this time with the node labels for the 
+ancestral island presence.
+
+```{r plot phylogeny with tip and node data}
+ggtree::ggtree(phylod) +
+  ggtree::geom_tippoint(
+    ggplot2::aes(colour = endemicity_status),
+    size = 3,
+  ) +
+  ggtree::geom_nodepoint(
+    ggplot2::aes(colour = island_status),
+    size = 3
+  ) +
+  ggtree::theme_tree2() +
+  ggtree::geom_tiplab(as_ylab = TRUE)
 ```
 
 In the previous example we used a single phylogeny and extracted the
