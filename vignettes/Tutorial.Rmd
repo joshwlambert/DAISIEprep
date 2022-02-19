@@ -137,8 +137,28 @@ to convert the phylogeny back to this type and then run the analysis.
 
 ```{r calculate ancestral states}
 phylo <- as(phylo, "phylo")
-results = castor::asr_max_parsimony(phylo, tip_states)
-node_states = max.col(results$ancestral_likelihoods)
+asr <- castor::asr_max_parsimony(phylo, tip_states)
+``` 
+
+This provides us with a matrix with the probabilities of the states (island 
+presence/absence) at each node in the phylogeny. The first column of the matrix is not present on the island and the second colum of the matrix is present on 
+the island.
+
+```{r view ancestral state reconstruction likelihoods}
+colnames(asr$ancestral_likelihoods) <- c("not_present", "island")
+asr$ancestral_likelihoods
+```
+Once we have the matrix with the likelihood of the states we can chose the most
+probable state at each node using the `max.col()` function. Here we need to
+make a decision that will have downstream consequences for the DAISIE data 
+extracted from the tree, which is when a node has island presence and absence equally probable we need to decide whether that species should be considered on
+the island. To consider it on the island use `ties.method = "last"` in the 
+`max.col()` function, if you consider it not on the island use 
+`ties.method = "first"`. For this example we will assume that species are on the island, but for completeness it may be worth running both and then seeing if 
+there are significant downstream consequences.
+
+```{r collapse node probabilities into a single state}
+node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
 ```
 
 #TODO: give examples of other asr methods from castor.
