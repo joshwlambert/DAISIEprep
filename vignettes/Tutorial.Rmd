@@ -160,7 +160,6 @@ there are significant downstream consequences.
 ```{r collapse node probabilities into a single state}
 node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
 ```
-
 #TODO: give examples of other asr methods from castor.
 
 These values can now be converted back to string to make them more readable.
@@ -200,6 +199,32 @@ ggtree::ggtree(phylod) +
   ) +
   ggtree::theme_tree2() +
   ggtree::geom_tiplab(as_ylab = TRUE)
+```
+
+Quick sidenote: if you are wondering what the probabilities are at each node
+and whether this should influence your decision to pick a preference for island
+or mainland when the likelihood for each state are equal we can plot the
+probabilities at the nodes to visualise the ancestral state reconstruction.
+
+```{r plot ancestral state likelihoods}
+node_ids <- phylobase::nodeId(phylod)[which(
+  phylobase::tdata(phylod)$island_status == "island"
+)]
+
+node_pies <- data.frame(
+  asr$ancestral_likelihoods[, 1],
+  asr$ancestral_likelihoods[, 2],
+  node = node_ids)
+
+pies <- ggtree::nodepie(node_pies, cols = 1:2)
+
+p <- ggtree::ggtree(phylod) +
+  ggtree::geom_tippoint(
+    ggplot2::aes(colour = endemicity_status),
+    size = 3
+  )
+
+ggtree::inset(tree_view = p, insets = pies, width = 0.1, height = 0.1)
 ```
 
 Now we can extract the colonisation and diversification from the phylogeny
