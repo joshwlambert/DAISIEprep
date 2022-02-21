@@ -42,61 +42,25 @@ extract_island_species <- function(phylod,
 
   for (i in seq_len(nrow(phylod@data))) {
 
-    # extract any nonendemic and endemic species is on the island
-    if (identical(phylod@data$endemicity_status[i], "nonendemic")) {
+    # if species is not on the island no need to extract this species
+    if (identical(phylod@data$endemicity_status[i], "not_present")) {
+      next
+    }
 
-      # does species have multiple tips in the tree (i.e. population sampling)
-      multi_tip_species <- is_multi_tip_species(
+    if (extraction_method == "asr") {
+      # extract species using the ancestral state reconstruction data
+      tbl <- extract_species_asr(
         phylod = phylod,
-        species_label = as.character(phylod@label[i])
-      )
-
-      # if the nonendemic is a single tip or multi tip
-      if (isTRUE(multi_tip_species)) {
-        island_colonist <- extract_multi_tip_nonendemic(
-          phylod = phylod,
-          species_label = as.character(phylod@label[i])
-        )
-      } else {
-        island_colonist <- extract_nonendemic(
-          phylod = phylod,
-          extraction_method = extraction_method,
-          species_label = as.character(phylod@label[i])
-        )
-      }
-
-      # check if colonist has already been stored in island_tbl class
-      duplicate_colonist <- is_duplicate_colonist(
-        island_colonist = island_colonist,
+        species_label = as.character(phylod@label[i]),
         island_tbl = tbl
       )
-
-      if (!duplicate_colonist) {
-        # bind data from island_colonist class into island_tbl class
-        tbl <- bind_colonist_to_tbl(
-          island_colonist = island_colonist,
-          island_tbl = tbl
-        )
-      }
-    } else if (identical(phylod@data$endemicity_status[i], "endemic")) {
-      island_colonist <- extract_endemic(
+    } else if (extraction_method == "min") {
+      tbl <- extract_species_min(
         phylod = phylod,
-        species_label = as.character(phylod@label[i])
-      )
-
-      # check if colonist has already been stored in island_tbl class
-      duplicate_colonist <- is_duplicate_colonist(
-        island_colonist = island_colonist,
+        species_label = as.character(phylod@label[i]),
+        species_endemicity = phylod@data$endemicity_status[i],
         island_tbl = tbl
       )
-
-      if (!duplicate_colonist) {
-        # bind data from island_colonist class into island_tbl class
-        tbl <- bind_colonist_to_tbl(
-          island_colonist = island_colonist,
-          island_tbl = tbl
-        )
-      }
     }
   }
 

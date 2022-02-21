@@ -17,7 +17,8 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' extract_nonendemic(phylod = phylod, species_label = "t7")
 extract_species_asr <- function(phylod,
-                                species_label) {
+                                species_label,
+                                island_tbl) {
 
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
