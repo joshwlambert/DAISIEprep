@@ -17,21 +17,19 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' extract_nonendemic(phylod = phylod, species_label = "t7")
 extract_nonendemic <- function(phylod,
-                               colonisation_time,
                                species_label) {
 
-  # choose which method of colonisation time extraction
-  if (colonisation_time == "min") {
-    island_col <- extract_nonendemic_min(
-      phylod = phylod,
-      species_label = species_label
-    )
-  } else if (colonisation_time == "asr") {
-    island_col <- extract_nonendemic_asr(
-      phylod = phylod,
-      species_label = species_label
-    )
-  }
+    # create an instance of the island_colonist class to store data
+    island_col <- island_colonist()
+
+    #TODO: write check that the species_label refers to nonendemic species
+
+    # assign data to instance of island_colonist class
+    set_clade_name(island_col) <- species_label
+    set_status(island_col) <- "nonendemic"
+    set_missing_species(island_col) <- 0
+    set_branching_times(island_col) <-
+      as.numeric(phylobase::edgeLength(phylod, species_label))
 
   #return instance of island_colonist class
   island_col

@@ -111,7 +111,7 @@ events we can run:
 ```{r extract island data, eval=FALSE}
 island_tbl <- extract_island_species(
   phylod = phylod, 
-  colonisation_time = "min"
+  extraction_method = "min"
 )
 island_tbl
 ```
@@ -235,7 +235,7 @@ using the ancestral reconstructed island presence/absence.
 ```{r, eval = FALSE}
 island_tbl <- extract_island_species(
   phylod = phylod, 
-  colonisation_time = "min"
+  extraction_method = "min"
 )
 ```
 
@@ -333,7 +333,7 @@ TODO change colours: not_present in black, nonendemic in blue, endemic in red.
 ```{r}
 island_tbl <- extract_island_species(
   phylod = phylod, 
-  colonisation_time = "min"
+  extraction_method = "min"
 )
 ```
 

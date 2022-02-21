@@ -6,14 +6,14 @@
 (specifically `phylo4d`  object from `phylobase` package) and stores it in
 in an `island_colonist` class}
 \usage{
-extract_nonendemic(phylod, colonisation_time, species_label)
+extract_nonendemic(phylod, extraction_method, species_label)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 
-\item{colonisation_time}{A character string specifying whether the
-colonisation time extracted is the minimum time (`max`) (before the present),
+\item{extraction_method}{A character string specifying whether the
+colonisation time extracted is the minimum time (`min`) (before the present),
 or the most probable time under ancestral state reconstruction (`asr`).}
 
 \item{species_label}{The tip label of the species of interest.}

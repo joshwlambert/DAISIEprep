@@ -8,7 +8,7 @@ default_params_doc(
   island_colonist,
   island_tbl,
   phylod,
-  colonisation_time,
+  extraction_method,
   species_label,
   x,
   value,
@@ -30,8 +30,8 @@ default_params_doc(
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 
-\item{colonisation_time}{A character string specifying whether the
-colonisation time extracted is the minimum time (`max`) (before the present),
+\item{extraction_method}{A character string specifying whether the
+colonisation time extracted is the minimum time (`min`) (before the present),
 or the most probable time under ancestral state reconstruction (`asr`).}
 
 \item{species_label}{The tip label of the species of interest.}
