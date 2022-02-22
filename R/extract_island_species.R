@@ -52,6 +52,7 @@ extract_island_species <- function(phylod,
       tbl <- extract_species_asr(
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
+        species_endemicity = phylod@data$endemicity_status[i],
         island_tbl = tbl
       )
     } else if (extraction_method == "min") {

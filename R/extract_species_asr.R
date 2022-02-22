@@ -18,8 +18,9 @@
 #' extract_nonendemic(phylod = phylod, species_label = "t7")
 extract_species_asr <- function(phylod,
                                 species_label,
+                                species_endemicity,
                                 island_tbl) {
-
+browser()
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
@@ -35,9 +36,41 @@ extract_species_asr <- function(phylod,
     # get the island status at the ancestor (node)
     ancestor_island_status <-
       phylobase::tdata(phylod)[ancestor, "island_status"]
+    # save a copy of descendants for when loop stops
+    endemic_clade <- descendants
+    descendants <- phylobase::descendants(phy = phylod, node = ancestor)
     is_root <- unname(phylobase::nodeType(phylod)[ancestor])
     island_ancestor <- ancestor_island_status == "island" && !is_root == "root"
   }
+
+
+
+  # extract nonendemic singleton
+  if (species_endemicity == "nonendemic") {
+
+    # check if species has multiple tips
+    multi_tip_species <- is_multi_tip_species(
+      phylod = phylod,
+      species_label = species_label
+    )
+
+    if (isTRUE(multi_tip_species)) {
+      # extact multi-tip nonendemic
+      extract_multi_tip_nonendemic_asr()
+    } else {
+      # extract singleton nonendemic
+      extract_nonendemic_asr()
+    }
+  } else if (species_endemicity == "endemic") {
+
+    # extract endemic singleton
+    extract_endemic_asr()
+
+    # extract endemic clade
+  }
+
+
+
 
   # extract colonisation time as stem age of clade (time before present)
   col_time <- as.numeric(phylobase::nodeHeight(
@@ -54,4 +87,20 @@ extract_species_asr <- function(phylod,
 
   #return instance of island_colonist class
   island_col
+
+  # check if colonist has already been stored in island_tbl class
+  duplicate_colonist <- is_duplicate_colonist(
+    island_colonist = island_colonist,
+    island_tbl = tbl
+  )
+
+  if (!duplicate_colonist) {
+    # bind data from island_colonist class into island_tbl class
+    tbl <- bind_colonist_to_tbl(
+      island_colonist = island_colonist,
+      island_tbl = tbl
+    )
+  }
+  #return instance of island_tbl class
+  island_tbl
 }

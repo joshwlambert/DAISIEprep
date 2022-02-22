@@ -39,14 +39,14 @@ extract_species_min <- function(phylod,
     # check if colonist has already been stored in island_tbl class
     duplicate_colonist <- is_duplicate_colonist(
       island_colonist = island_colonist,
-      island_tbl = tbl
+      island_tbl = island_tbl
     )
 
     if (!duplicate_colonist) {
       # bind data from island_colonist class into island_tbl class
       tbl <- bind_colonist_to_tbl(
         island_colonist = island_colonist,
-        island_tbl = tbl
+        island_tbl = island_tbl
       )
     }
   } else if (identical(species_endemicity, "endemic")) {
@@ -58,16 +58,17 @@ extract_species_min <- function(phylod,
     # check if colonist has already been stored in island_tbl class
     duplicate_colonist <- is_duplicate_colonist(
       island_colonist = island_colonist,
-      island_tbl = tbl
+      island_tbl = island_tbl
     )
 
     if (!duplicate_colonist) {
       # bind data from island_colonist class into island_tbl class
       tbl <- bind_colonist_to_tbl(
         island_colonist = island_colonist,
-        island_tbl = tbl
+        island_tbl = island_tbl
       )
     }
   }
+  #return instance of island_tbl class
+  island_tbl
 }
-
