@@ -36,38 +36,56 @@ browser()
     # get the island status at the ancestor (node)
     ancestor_island_status <-
       phylobase::tdata(phylod)[ancestor, "island_status"]
-    # save a copy of descendants for when loop stops
-    endemic_clade <- descendants
-    descendants <- phylobase::descendants(phy = phylod, node = ancestor)
     is_root <- unname(phylobase::nodeType(phylod)[ancestor])
     island_ancestor <- ancestor_island_status == "island" && !is_root == "root"
   }
 
+  descendants <- phylobase::descendants(phy = phylod, node = ancestor)
+  num_descendants <- length(descendants)
 
-
-  # extract nonendemic singleton
-  if (species_endemicity == "nonendemic") {
-
-    # check if species has multiple tips
-    multi_tip_species <- is_multi_tip_species(
-      phylod = phylod,
-      species_label = species_label
-    )
+  if (num_descendants == 1) {
+    # extract nonendemic singleton
+    if (species_endemicity == "nonendemic") {
+      # extract singleton nonendemic
+      island_colonist <- extract_nonendemic(
+        phylod = phylod,
+        species_label = species_label
+      )
+    } else if (species_endemicity == "endemic") {
+      #extract singleton endemic
+      island_colonist <- extract_endemic(
+        phylod = phylod,
+        species_label = species_label
+      )
+    }
+  } else {
+    # check if all descendants are the same species
+    multi_tip_species <- all_descendants_conspecific()
 
     if (isTRUE(multi_tip_species)) {
-      # extact multi-tip nonendemic
-      extract_multi_tip_nonendemic_asr()
+      if (species_endemicity == "nonendemic") {
+        # extact multi-tip nonendemic
+        island_colonist <- extract_multi_tip_nonendemic(
+          phylod = phylod,
+          species_label = species_label
+        )
+      } else if (species_endemicity == "endemic") {
+        # extract multi-tip endemic
+        island_colonist <- extract_multi_tip_endemic(
+          phylod = phylod,
+          species_label = species_label
+        )
+      }
     } else {
-      # extract singleton nonendemic
-      extract_nonendemic_asr()
+      island_colonist <- extract_asr_clade(
+        phylod = phylod,
+        species_label = species_label
+      )
     }
-  } else if (species_endemicity == "endemic") {
-
-    # extract endemic singleton
-    extract_endemic_asr()
-
-    # extract endemic clade
   }
+
+
+
 
 
 
