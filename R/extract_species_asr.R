@@ -28,6 +28,9 @@ extract_species_asr <- function(phylod,
   while (island_ancestor) {
     # get species ancestor (node)
     ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
+    # save a copy of descendants for when loop stops
+    clade <- descendants
+    descendants <- phylobase::descendants(phy = phylod, node = ancestor)
     # get the island status at the ancestor (node)
     ancestor_island_status <-
       phylobase::tdata(phylod)[ancestor, "island_status"]
@@ -35,8 +38,7 @@ extract_species_asr <- function(phylod,
     island_ancestor <- ancestor_island_status == "island" && !is_root == "root"
   }
 
-  descendants <- phylobase::descendants(phy = phylod, node = ancestor)
-  num_descendants <- length(descendants)
+  num_descendants <- length(clade)
 
   if (num_descendants == 1) {
     # extract nonendemic singleton
