@@ -6,10 +6,10 @@
 #' @inheritParams default_params_doc
 #'
 #' @return Character
-extract_clade_name <- function(endemic_clade) {
+extract_clade_name <- function(clade) {
 
   # get the names of the species in the clade
-  species_names <- names(endemic_clade)
+  species_names <- names(clade)
 
   # extract only the genus names
   split_species_names <- strsplit(x = species_names, split = "_")

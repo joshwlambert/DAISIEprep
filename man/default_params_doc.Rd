@@ -19,7 +19,8 @@ default_params_doc(
   min_age,
   endemic_clade,
   phylo,
-  island_species
+  island_species,
+  descendants
 )
 }
 \arguments{
@@ -64,6 +65,9 @@ on the island, either in species or subspecies.}
 string of the tip_labels with the tip names of the species on the island.
 The second column a character string of the endemicity status of the species,
 either endemic or nonendemic.}
+
+\item{descendants}{A vector character strings with the names of species to
+determine whether they are the same species}
 }
 \value{
 Nothing

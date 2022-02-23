@@ -7,10 +7,7 @@ have the same genus name or whether the clade is composed of multiple genera,
 in which case it will create a unique clade name by concatinating the genus
 names}
 \usage{
-extract_clade_name(endemic_clade)
-}
-\arguments{
-\item{endemic_clade}{Named vector with all the species from a clade.}
+extract_clade_name(clade)
 }
 \value{
 Character

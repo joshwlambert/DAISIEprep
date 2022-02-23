@@ -85,7 +85,7 @@ extract_endemic_clade <- function(phylod,
   branching_times <- c(col_time, branching_times)
 
   # extract clade name from species labels
-  clade_name <- extract_clade_name(endemic_clade)
+  clade_name <- extract_clade_name(clade = endemic_clade)
 
   # assign data to instance of island_colonist class
   set_clade_name(island_col) <- species_label #clade_name

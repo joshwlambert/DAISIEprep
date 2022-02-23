@@ -27,6 +27,8 @@
 #' string of the tip_labels with the tip names of the species on the island.
 #' The second column a character string of the endemicity status of the species,
 #' either endemic or nonendemic.
+#' @param descendants A vector character strings with the names of species to
+#' determine whether they are the same species
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -44,6 +46,7 @@ default_params_doc <- function(island_colonist,
                                min_age,
                                endemic_clade,
                                phylo,
-                               island_species) {
+                               island_species,
+                               descendants) {
   # nothing
 }

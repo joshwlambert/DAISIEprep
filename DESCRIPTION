@@ -35,12 +35,14 @@ Remotes:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
+    'all_descendants_conspecific.R'
     'any_back_colonisation.R'
     'as_daisie_datatable.R'
     'bind_colonist_to_tbl.R'
     'check_phylo_data.R'
     'create_endemicity_status.R'
     'default_params_doc.R'
+    'extract_asr_clade.R'
     'extract_clade_name.R'
     'extract_endemic.R'
     'extract_endemic_clade.R'
@@ -59,3 +61,5 @@ Collate:
     'island_tbl-accessors.R'
     'island_tbl-methods.R'
     'print-methods.R'
+    'temp_test_1.R'
+    'temp_test_2.R'

@@ -20,11 +20,6 @@ extract_species_asr <- function(phylod,
                                 species_label,
                                 species_endemicity,
                                 island_tbl) {
-browser()
-  # create an instance of the island_colonist class to store data
-  island_col <- island_colonist()
-
-  #TODO: write check that the species_label refers to nonendemic species
 
   # recursive tree traversal to find colonisation time from node states
   island_ancestor <- TRUE
@@ -60,7 +55,9 @@ browser()
     }
   } else {
     # check if all descendants are the same species
-    multi_tip_species <- all_descendants_conspecific()
+    multi_tip_species <- all_descendants_conspecific(
+      descendants = names(descendants)
+    )
 
     if (isTRUE(multi_tip_species)) {
       if (species_endemicity == "nonendemic") {
@@ -79,44 +76,24 @@ browser()
     } else {
       island_colonist <- extract_asr_clade(
         phylod = phylod,
-        species_label = species_label
+        species_label = species_label,
+        ancestor = ancestor,
+        clade = descendants
       )
     }
   }
 
-
-
-
-
-
-
-  # extract colonisation time as stem age of clade (time before present)
-  col_time <- as.numeric(phylobase::nodeHeight(
-    x = phylod,
-    node = ancestor,
-    from = "min_tip"
-  ))
-
-  # assign data to instance of island_colonist class
-  set_clade_name(island_col) <- species_label
-  set_status(island_col) <- "nonendemic"
-  set_missing_species(island_col) <- 0
-  set_branching_times(island_col) <- col_time
-
-  #return instance of island_colonist class
-  island_col
-
   # check if colonist has already been stored in island_tbl class
   duplicate_colonist <- is_duplicate_colonist(
     island_colonist = island_colonist,
-    island_tbl = tbl
+    island_tbl = island_tbl
   )
 
   if (!duplicate_colonist) {
     # bind data from island_colonist class into island_tbl class
-    tbl <- bind_colonist_to_tbl(
+    island_tbl <- bind_colonist_to_tbl(
       island_colonist = island_colonist,
-      island_tbl = tbl
+      island_tbl = island_tbl
     )
   }
   #return instance of island_tbl class
