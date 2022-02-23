@@ -9,20 +9,24 @@ is_back_colonisation <- function(phylod, species_label) {
   if (!identical(species_endemicity, "endemic")) {
 
     # recursive tree traversal to find colonisation time from node states
-    island_ancestor <- TRUE
+    back_colonist <- FALSE
+    keep_traversing <- TRUE
     ancestor <- species_label
     descendants <- species_label
-    while (island_ancestor) {
+    while (keep_traversing) {
       # get species ancestor (node)
       ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
-      # save a copy of descendants for when loop stops
-      clade <- descendants
-      descendants <- phylobase::descendants(phy = phylod, node = ancestor)
       # get the island status at the ancestor (node)
       ancestor_island_status <-
         phylobase::tdata(phylod)[ancestor, "island_status"]
+      if (ancestor_island_status == "island") {
+        back_colonist <- TRUE
+        break
+      }
       is_root <- unname(phylobase::nodeType(phylod)[ancestor])
-      island_ancestor <- ancestor_island_status == "island" && !is_root == "root"
+      keep_traversing <- !is_root == "root"
     }
   }
+  # return back_colonist
+  back_colonist
 }
