@@ -3,20 +3,13 @@
 #' detailed documentation see the help documentation in the DAISIE package
 #' (?DAISIE::DAISIE_dataprep).
 #'
-#' @param island_tbl
-#' @param island_age
-#' @param num_mainland_species
-#' @param num_clade_types
-#' @param list_type2_clades
-#' @param prop_type2_pool
-#' @param epss
-#' @param verbose
+#' @inheritParams default_params_doc
 #'
 #' @return DAISIE data list
 #' @export
 #'
 #' @examples
-create_daisie_data <- function(island_tbl,
+create_daisie_data <- function(daisie_datatable,
                                island_age,
                                num_mainland_species,
                                num_clade_types,
@@ -25,7 +18,7 @@ create_daisie_data <- function(island_tbl,
                                epss,
                                verbose) {
   DAISIE::DAISIE_dataprep(
-    datatable = datatable,
+    datatable = data_table,
     island_age = island_age,
     M = num_mainland_species,
     number_clade_types = num_clade_types,

@@ -7,6 +7,13 @@
 #' @export
 #'
 #' @examples
+#' # Example where species are not conspecific
+#' descendants <- c("bird_a", "bird_b", "bird_c")
+#' all_descendants_conspecific(descendants = descendants)
+#'
+#' # Example where species are conspecific
+#' descendants <- c("bird_a_1", "bird_a_2", "bird_a_3")
+#' all_descendants_conspecific(descendants = descendants)
 all_descendants_conspecific <- function(descendants) {
 
   # get the species names (genus_species) for sister species

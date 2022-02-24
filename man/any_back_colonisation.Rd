@@ -28,3 +28,15 @@ island). This function is useful if using extraction_method = "min" in
 DAISIEprep::extract_island_species() as it may brake up a single colonist
 into multiple colonists because of back-colonisation.
 }
+\examples{
+set.seed(1)
+phylo <- ape::rcoal(10)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+                     "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
+phylo <- methods::as(phylo, "phylo4")
+endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
+                            size = length(phylobase::tipLabels(phylo)),
+                            replace = TRUE)
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+any_back_colonisation(phylod)
+}

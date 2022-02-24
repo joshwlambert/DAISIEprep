@@ -6,12 +6,13 @@ as_daisie_datatable <- function(island_tbl) {
                                  Branching_times = numeric())
 
   # extract data frame from island_tbl class
-  island_tbl <- get_island_tbl(island_tbl)
+  daisie_datatable <- get_island_tbl(island_tbl)
+  colnames(daisie_datatable) <- c(
+    "Clade_name", "Status", "Missing_species", "Branching_times"
+  )
 
-  for (i in seq_len(nrow(island_tbl))) {
-    print(i)
-  }
-
+  # if min age is given merge into branching times
+  #TODO
 
   # return daisie_datatable
   daisie_datatable
