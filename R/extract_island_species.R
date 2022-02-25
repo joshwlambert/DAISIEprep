@@ -16,7 +16,7 @@
 #'                             size = length(phylobase::tipLabels(phylo)),
 #'                             replace = TRUE)
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-#' extract_island_species(phylod)
+#' extract_island_species(phylod, extraction_method = "min")
 extract_island_species <- function(phylod,
                                    extraction_method,
                                    island_tbl = NULL) {

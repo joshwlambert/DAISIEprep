@@ -2,15 +2,15 @@
 #' species presence on the island, therefore this clade can contain
 #' non-endemic species as well as endemic species.
 #'
-#' @param phylod
-#' @param species_label
-#' @param ancestor
-#' @param clade
+#' @inheritParams default_params_doc
 #'
-#' @return
+#' @return An object of `Island_colonist` class
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' extract_asr_clade()
+#' }
 extract_asr_clade <- function(phylod,
                               species_label,
                               ancestor,

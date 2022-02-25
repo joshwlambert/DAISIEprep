@@ -9,7 +9,7 @@ all_descendants_conspecific(descendants)
 }
 \arguments{
 \item{descendants}{A vector character strings with the names of species to
-determine whether they are the same species}
+determine whether they are the same species.}
 }
 \value{
 Boolean

@@ -1,21 +1,47 @@
-#' Extracts the information for a non-endemic species from a phylogeny
-#' (specifically `phylo4d`  object from `phylobase` package) and stores it in
-#' in an `island_colonist` class
+#' Extracts the colonisation, diversification, and endemicty data from
+#' phylogenetic and endemicity data and stores it in an `Island_tbl` object
+#' using the "asr" algorithm that extract island species given their ancestral
+#' states of either island presence or absence.
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return An object of `island_colonist` class
+#' @return An object of `island_tbl` class
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' set.seed(1)
 #' phylo <- ape::rcoal(10)
+#' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+#'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
 #' phylo <- methods::as(phylo, "phylo4")
 #' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
 #'                               size = length(phylobase::tipLabels(phylo)),
 #'                               replace = TRUE)
-#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-#' extract_nonendemic(phylod = phylod, species_label = "t7")
+#' tip_states <- as.numeric(grepl(pattern = "endemic", x = endemicity_status)) + 1
+#' phylo <- as(phylo, "phylo")
+#' asr <- castor::asr_max_parsimony(phylo, tip_states)
+#' colnames(asr$ancestral_likelihoods) <- c("not_present", "island")
+#' node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
+#' node_states <- gsub(pattern = "2", replacement = "island", x = node_states)
+#' node_states <- gsub(pattern = "1", replacement = "not_present", x = node_states)
+#' node_data <- data.frame(
+#'   island_status = node_states,
+#'   row.names = phylobase::nodeId(phylod, "internal")
+#' )
+#' phylod <- phylo4d(
+#'   phylo,
+#'   tip.data = as.data.frame(endemicity_status),
+#'   node.data = node_data
+#' )
+#' island_tbl <- island_tbl()
+#' extract_species_asr(
+#'   phylod = phylod,
+#'   species_label = "bird_g",
+#'   species_endemicity = "endemic",
+#'   island_tbl = island_tbl
+#' )
+#' }
 extract_species_asr <- function(phylod,
                                 species_label,
                                 species_endemicity,

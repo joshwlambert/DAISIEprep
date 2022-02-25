@@ -8,6 +8,9 @@
 #' colonisation time extracted is the minimum time (`min`) (before the present),
 #' or the most probable time under ancestral state reconstruction (`asr`).
 #' @param species_label The tip label of the species of interest.
+#' @param species_endemicity A character string with the endemicity, either
+#' "endemic" or "nonendemic" of an island species, or "not_present" if not on
+#' the island.
 #' @param x An object whose class is determined by the signature.
 #' @param value A value which can take several forms to be assigned to an object
 #' of a class.
@@ -27,8 +30,12 @@
 #' string of the tip_labels with the tip names of the species on the island.
 #' The second column a character string of the endemicity status of the species,
 #' either endemic or nonendemic.
+#' @param ancestor A numeric indexing which species is the ancestor of an island
+#' clade.
 #' @param descendants A vector character strings with the names of species to
-#' determine whether they are the same species
+#' determine whether they are the same species.
+#' @param clade A numeric vector which the indices of the species which are
+#' in the island clade.
 #' @param daisie_datatable A data frame where each row on the table represents
 #' an independent colonisation event. The table has the following four columns:
 #' * Clade_name: name of independent colonisation event
@@ -94,6 +101,7 @@ default_params_doc <- function(island_colonist,
                                phylod,
                                extraction_method,
                                species_label,
+                               species_endemicity,
                                x,
                                value,
                                clade_name,
@@ -104,7 +112,9 @@ default_params_doc <- function(island_colonist,
                                endemic_clade,
                                phylo,
                                island_species,
+                               ancestor,
                                descendants,
+                               clade,
                                daisie_datatable,
                                island_age,
                                num_mainland_species,

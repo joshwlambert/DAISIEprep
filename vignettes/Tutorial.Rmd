@@ -19,6 +19,7 @@ library(DAISIEprep)
 library(ape)
 library(phylobase)
 library(ggtree)
+library(ggimage)
 library(castor)
 ```
 
@@ -218,13 +219,16 @@ node_pies <- data.frame(
 
 pies <- ggtree::nodepie(node_pies, cols = 1:2)
 
-p <- ggtree::ggtree(phylod) +
+ggtree::ggtree(phylod) +
   ggtree::geom_tippoint(
     ggplot2::aes(colour = endemicity_status),
     size = 3
+  ) + 
+  ggtree::geom_inset(
+    insets = pies, 
+    width = 0.1, 
+    height = 0.1
   )
-
-ggtree::inset(tree_view = p, insets = pies, width = 0.2, height = 0.2)
 ```
 
 Now we can extract the colonisation and diversification from the phylogeny

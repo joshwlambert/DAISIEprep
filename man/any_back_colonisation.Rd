@@ -29,6 +29,7 @@ DAISIEprep::extract_island_species() as it may brake up a single colonist
 into multiple colonists because of back-colonisation.
 }
 \examples{
+\dontrun{
 set.seed(1)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
@@ -39,4 +40,5 @@ endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
                             replace = TRUE)
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 any_back_colonisation(phylod)
+}
 }

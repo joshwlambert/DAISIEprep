@@ -15,7 +15,7 @@ phylogenetic and endemicity data for each species.}
 \item{species_label}{The tip label of the species of interest.}
 }
 \value{
-An object of `island_colonist` class
+An object of `Island_colonist` class
 }
 \description{
 Extracts the information for an endemic species from a phylogeny

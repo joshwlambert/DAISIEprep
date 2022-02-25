@@ -9,13 +9,27 @@ non-endemic species as well as endemic species.}
 extract_asr_clade(phylod, species_label, ancestor, clade)
 }
 \arguments{
-\item{clade}{}
+\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+phylogenetic and endemicity data for each species.}
+
+\item{species_label}{The tip label of the species of interest.}
+
+\item{ancestor}{A numeric indexing which species is the ancestor of an island
+clade.}
+
+\item{clade}{A numeric vector which the indices of the species which are
+in the island clade.}
 }
 \value{
-
+An object of `Island_colonist` class
 }
 \description{
 Extracts an island clade based on the ancestral state reconstruction of the
 species presence on the island, therefore this clade can contain
 non-endemic species as well as endemic species.
+}
+\examples{
+\dontrun{
+extract_asr_clade()
+}
 }

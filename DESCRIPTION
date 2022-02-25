@@ -24,7 +24,9 @@ Imports:
     phylobase,
     ggplot2,
     ggtree,
-    DAISIE
+    ggimage,
+    DAISIE,
+    castor
 Suggests: 
     testthat (>= 3.0.0),
     knitr,

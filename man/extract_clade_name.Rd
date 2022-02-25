@@ -9,6 +9,10 @@ names}
 \usage{
 extract_clade_name(clade)
 }
+\arguments{
+\item{clade}{A numeric vector which the indices of the species which are
+in the island clade.}
+}
 \value{
 Character
 }

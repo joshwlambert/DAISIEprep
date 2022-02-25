@@ -4,7 +4,7 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return An object of `island_colonist` class
+#' @return An object of `Island_colonist` class
 #' @export
 #'
 #' @examples

@@ -12,6 +12,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' set.seed(1)
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
@@ -22,6 +23,7 @@
 #'                             replace = TRUE)
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' any_back_colonisation(phylod)
+#' }
 any_back_colonisation <- function(phylod) {
 
 
@@ -43,7 +45,7 @@ any_back_colonisation <- function(phylod) {
     )
 
     # if tip is back colonist give it the name of the species
-    if (isTRUE(is_back_col)) {
+    if (isTRUE(back_cols[i])) {
       back_cols_spec <- unname(phylobase::tipLabels(phylod))[i]
     } else {
       back_cols_spec <- NA_character_
