@@ -22,7 +22,7 @@ add_asr_node_states <- function(phylod,
     )) + 1
 
   # castor asr functions require S3 phylo objects
-  phylo <- methods::as(phylo, "phylo")
+  phylo <- methods::as(phylod, "phylo")
 
   if (asr_method == "parsimony") {
     asr <- castor::asr_max_parsimony(tree = phylo, tip_states = tip_states)
@@ -57,7 +57,6 @@ add_asr_node_states <- function(phylod,
     pattern = "1", replacement = "not_present", x = node_states
   )
 
-  # combine node data into phylod
   node_data <- data.frame(
     island_status = node_states,
     row.names = phylobase::nodeId(phylod, "internal")
@@ -68,6 +67,7 @@ add_asr_node_states <- function(phylod,
     row.names = phylobase::nodeId(phylod, "tip")
   )
 
+  # combine node data into phylod
   phylod <- phylobase::phylo4d(
     phylo,
     tip.data = tip_data,
