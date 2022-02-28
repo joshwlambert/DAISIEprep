@@ -6,8 +6,8 @@
 #' @export
 #'
 #' @examples
-#' tbl <- island_tbl()
-#' check_island_tbl(tbl)
+#' island_tbl <- island_tbl()
+#' check_island_tbl(island_tbl)
 check_island_tbl <- function(object) {
   errors <- character()
   num_col <- ncol(object@island_tbl)

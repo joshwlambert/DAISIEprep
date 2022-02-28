@@ -27,9 +27,9 @@ Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_tbl}} class
 }
 \examples{
-tbl <- island_tbl()
-get_island_tbl(tbl)
-set_island_tbl(tbl) <- data.frame(
+island_tbl <- island_tbl()
+get_island_tbl(island_tbl)
+set_island_tbl(island_tbl) <- data.frame(
   clade_name = "birds",
   status = "endemic",
   missing_species = 0,

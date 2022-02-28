@@ -63,9 +63,14 @@ add_asr_node_states <- function(phylod,
     row.names = phylobase::nodeId(phylod, "internal")
   )
 
+  tip_data <- data.frame(
+    endemicity_status = phylobase::tipData(phylod)$endemicity_status,
+    row.names = phylobase::nodeId(phylod, "tip")
+  )
+
   phylod <- phylobase::phylo4d(
     phylo,
-    tip.data = as.data.frame(phylobase::tipData(phylod)$endemicity_status),
+    tip.data = tip_data,
     node.data = node_data
   )
 

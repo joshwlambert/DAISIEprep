@@ -66,4 +66,4 @@
 #
 # ggtree::inset(tree_view = p, insets = pies, width = 0.3, height = 0.3)
 #
-# tbl <- extract_island_species(phylod = phylod, extraction_method = "asr")
+# island_tbl <- extract_island_species(phylod = phylod, extraction_method = "asr")

@@ -22,9 +22,9 @@ extract_island_species <- function(phylod,
                                    island_tbl = NULL) {
 
   if (is.null(island_tbl)) {
-    tbl <- island_tbl()
+    island_tbl <- island_tbl()
   } else {
-    tbl <- island_tbl
+    island_tbl <- island_tbl
   }
 
   # check extraction_method and asr_method input
@@ -37,7 +37,7 @@ extract_island_species <- function(phylod,
 
   # if no species are on the island
   if (all(identical(phylod@data$endemicity_status, "not_present"))) {
-    return(tbl)
+    return(island_tbl)
   }
 
   for (i in seq_len(phylobase::nTips(phylod))) {
@@ -49,22 +49,22 @@ extract_island_species <- function(phylod,
 
     if (extraction_method == "asr") {
       # extract species using the ancestral state reconstruction data
-      tbl <- extract_species_asr(
+      island_tbl <- extract_species_asr(
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
         species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = tbl
+        island_tbl = island_tbl
       )
     } else if (extraction_method == "min") {
-      tbl <- extract_species_min(
+      island_tbl <- extract_species_min(
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
         species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = tbl
+        island_tbl = island_tbl
       )
     }
   }
 
   # return island_tbl class
-  tbl
+  island_tbl
 }
