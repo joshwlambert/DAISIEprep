@@ -36,6 +36,22 @@
 #' determine whether they are the same species.
 #' @param clade A numeric vector which the indices of the species which are
 #' in the island clade.
+#' @param asr_method A character string, either "parsimony" or "mk" determines
+#' whether a maximum parsimony or continuous-time markov model reconstructs the
+#' ancestral states at each node. See documentation in
+#' `castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
+#' for details on the methods used.
+#' @param tie_preference Character string, either "island" or "mainland" to
+#' choose the most probable state at each node using the `max.col()` function.
+#' When a node has island presence and absence equally probable we need to
+#' decide whether that species should be considered on the island. To consider
+#' it on the island use `ties.method = "last"` in the `max.col()` function, if
+#' you consider it not on the island use `ties.method = "first"`. Default is
+#' "island".
+#' @param earliest_col A boolean to determine whether to take the colonisation
+#' time as the most probable time (FALSE) or the earliest possible colonisation
+#' time (TRUE), where the probability of a species being on the island is
+#' non-zero. Default is FALSE.
 #' @param daisie_datatable A data frame where each row on the table represents
 #' an independent colonisation event. The table has the following four columns:
 #' * Clade_name: name of independent colonisation event
@@ -115,6 +131,9 @@ default_params_doc <- function(island_colonist,
                                ancestor,
                                descendants,
                                clade,
+                               asr_method,
+                               tie_preference,
+                               earliest_col,
                                daisie_datatable,
                                island_age,
                                num_mainland_species,

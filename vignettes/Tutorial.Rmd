@@ -185,6 +185,14 @@ phylod <- phylo4d(
 )
 ```
 
+The details above are given to make it clear the process involved in
+reconstructing and assigning node states. However, to make this step easier the
+above steps are in the `add_asr_node_states` function. 
+
+```{r}
+phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
+```
+
 Lastly, we can plot the phylogeny, this time with the node labels for the 
 ancestral island presence.
 

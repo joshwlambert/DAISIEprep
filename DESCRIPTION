@@ -37,6 +37,7 @@ Remotes:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
+    'add_asr_node_states.R'
     'all_descendants_conspecific.R'
     'any_back_colonisation.R'
     'any_incomplete_lineage_sorting.R'
