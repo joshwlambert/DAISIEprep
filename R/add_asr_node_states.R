@@ -22,7 +22,8 @@ add_asr_node_states <- function(phylod,
     )) + 1
 
   # castor asr functions require S3 phylo objects
-  phylo <- methods::as(phylod, "phylo")
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
 
   if (asr_method == "parsimony") {
     asr <- castor::asr_max_parsimony(tree = phylo, tip_states = tip_states)
