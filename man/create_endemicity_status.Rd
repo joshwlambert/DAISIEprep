@@ -27,7 +27,12 @@ phylogeny and a data frame of the island species and their endemicity (either
 'endemic' or 'nonendemic') provided.
 }
 \examples{
-set.seed(1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
 phylo <- ape::rcoal(4)
 phylo$tip.label <- c("species_a", "species_b", "species_c", "species_d")
 phylo <- methods::as(phylo, "phylo4")

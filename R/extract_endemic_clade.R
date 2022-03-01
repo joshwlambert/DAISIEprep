@@ -9,7 +9,12 @@
 #' @export
 #'
 #' @examples
-#' set.seed(1)
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
@@ -27,7 +32,6 @@ extract_endemic_clade <- function(phylod,
 
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
-
 
   # if not all species in the tree are endemic find endemic clade
   all_phylo_endemic <- all(
@@ -50,6 +54,9 @@ extract_endemic_clade <- function(phylod,
         phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
       all_siblings_endemic <- all(sibling_endemicity == "endemic")
     }
+  } else {
+    ancestor <- phylobase::nodeId(phylod, "root")
+    endemic_clade <- phylobase::descendants(phy = phylod, node = ancestor)
   }
 
   # extract colonisation time as stem age of clade (time before present)
@@ -83,6 +90,9 @@ extract_endemic_clade <- function(phylod,
 
   # add the colonisation time to the branching times
   branching_times <- c(col_time, branching_times)
+
+  # remove duplicate values if colonisation and first branching time are equal
+  branching_times <- unique(branching_times)
 
   # extract clade name from species labels
   clade_name <- extract_clade_name(clade = endemic_clade)

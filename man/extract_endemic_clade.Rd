@@ -25,7 +25,12 @@ from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
 and stores it in an `island_colonist` class
 }
 \examples{
-set.seed(1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")

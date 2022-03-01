@@ -3,7 +3,12 @@
 # library(phylobase)
 # library(ggtree)
 # library(castor)
-# set.seed(1)
+# set.seed(
+#   1,
+#   kind = "Mersenne-Twister",
+#   normal.kind = "Inversion",
+#   sample.kind = "Rejection"
+# )
 # phylo <- ape::rcoal(3)
 # phylo$tip.label <- c("bird_a_1", "bird_a_2", "bird_b")
 # ape::plot.phylo(phylo)

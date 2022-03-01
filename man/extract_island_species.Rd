@@ -5,7 +5,12 @@
 \title{Extracts the colonisation, diversification, and endemicty data from
 phylogenetic and endemicity data and stores it in an `Island_tbl` object}
 \usage{
-extract_island_species(phylod, extraction_method, island_tbl = NULL)
+extract_island_species(
+  phylod,
+  extraction_method,
+  island_tbl = NULL,
+  include_not_present = FALSE
+)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
@@ -16,6 +21,10 @@ colonisation time extracted is the minimum time (`min`) (before the present),
 or the most probable time under ancestral state reconstruction (`asr`).}
 
 \item{island_tbl}{An instance of the `Island_tbl` class.}
+
+\item{include_not_present}{A boolean determining whether species not present
+on the island should be included in island colonist when embedded within an
+island clade. Default is FALSE.}
 }
 \value{
 An object of `island_tbl` class
@@ -25,7 +34,12 @@ Extracts the colonisation, diversification, and endemicty data from
 phylogenetic and endemicity data and stores it in an `Island_tbl` object
 }
 \examples{
-set.seed(1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")

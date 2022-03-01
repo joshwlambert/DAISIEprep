@@ -7,7 +7,12 @@
 #' @export
 #'
 #' @examples
-#' set.seed(1)
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
@@ -19,7 +24,8 @@
 #' extract_island_species(phylod, extraction_method = "min")
 extract_island_species <- function(phylod,
                                    extraction_method,
-                                   island_tbl = NULL) {
+                                   island_tbl = NULL,
+                                   include_not_present = FALSE) {
 
   if (is.null(island_tbl)) {
     island_tbl <- island_tbl()
@@ -53,7 +59,8 @@ extract_island_species <- function(phylod,
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
         species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = island_tbl
+        island_tbl = island_tbl,
+        include_not_present = include_not_present
       )
     } else if (extraction_method == "min") {
       island_tbl <- extract_species_min(

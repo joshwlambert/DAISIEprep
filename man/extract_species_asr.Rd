@@ -7,7 +7,13 @@ phylogenetic and endemicity data and stores it in an `Island_tbl` object
 using the "asr" algorithm that extract island species given their ancestral
 states of either island presence or absence.}
 \usage{
-extract_species_asr(phylod, species_label, species_endemicity, island_tbl)
+extract_species_asr(
+  phylod,
+  species_label,
+  species_endemicity,
+  island_tbl,
+  include_not_present
+)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
@@ -20,6 +26,10 @@ phylogenetic and endemicity data for each species.}
 the island.}
 
 \item{island_tbl}{An instance of the `Island_tbl` class.}
+
+\item{include_not_present}{A boolean determining whether species not present
+on the island should be included in island colonist when embedded within an
+island clade. Default is FALSE.}
 }
 \value{
 An object of `island_tbl` class
@@ -32,7 +42,12 @@ states of either island presence or absence.
 }
 \examples{
 \dontrun{
-set.seed(1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
 phylo <- ape::rcoal(10)
 phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")

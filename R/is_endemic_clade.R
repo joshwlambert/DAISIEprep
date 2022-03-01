@@ -10,6 +10,16 @@
 is_endemic_clade <- function(phylod,
                             species_label) {
 
+  # if not all species in the tree are endemic find endemic clade
+  all_phylo_endemic <- all(
+    phylobase::tipData(phylod)$endemicity_status %in% "endemic"
+  )
+
+  # if every species in the tree is endemic then it must be an endemic clade
+  if (isTRUE(all_phylo_endemic)) {
+    return(TRUE)
+  }
+
   # get the species name (genus_species) from the focal species
   focal_split_species_names <- strsplit(x = species_label, split = "_")
   focal_genus_name <- sapply(focal_split_species_names, "[[", 1)

@@ -23,8 +23,8 @@ is_back_colonisation <- function(phylod, species_label) {
         back_colonist <- TRUE
         break
       }
-      is_root <- unname(phylobase::nodeType(phylod)[ancestor])
-      keep_traversing <- !is_root == "root"
+      node_type <- unname(phylobase::nodeType(phylod)[ancestor])
+      keep_traversing <- !node_type == "root"
     }
   }
   # return back_colonist

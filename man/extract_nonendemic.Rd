@@ -23,7 +23,12 @@ Extracts the information for a non-endemic species from a phylogeny
 in an `island_colonist` class
 }
 \examples{
-set.seed(1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
 phylo <- ape::rcoal(10)
 phylo <- methods::as(phylo, "phylo4")
 endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),

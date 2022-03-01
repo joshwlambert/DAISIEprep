@@ -10,7 +10,12 @@
 #'
 #' @examples
 #' \dontrun{
-#' set.seed(1)
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
@@ -45,7 +50,8 @@
 extract_species_asr <- function(phylod,
                                 species_label,
                                 species_endemicity,
-                                island_tbl) {
+                                island_tbl,
+                                include_not_present) {
 
   # recursive tree traversal to find colonisation time from node states
   island_ancestor <- TRUE
@@ -60,8 +66,34 @@ extract_species_asr <- function(phylod,
     # get the island status at the ancestor (node)
     ancestor_island_status <-
       phylobase::tdata(phylod)[ancestor, "island_status"]
-    is_root <- unname(phylobase::nodeType(phylod)[ancestor])
-    island_ancestor <- ancestor_island_status == "island" && !is_root == "root"
+    node_type <- unname(phylobase::nodeType(phylod)[ancestor])
+    # if the root state is island then all species in the tree are in the clade
+    if (node_type == "root" && ancestor_island_status == "island") {
+      clade <- phylobase::descendants(phy = phylod, node = ancestor)
+      break
+    }
+    island_ancestor <- ancestor_island_status == "island"
+  }
+
+  # remove not present species from the island clade
+  if (isFALSE(include_not_present)) {
+    # subset the clade from the rest of the tree
+    clade_phylod <- phylobase::subset(
+      x = phylod,
+      tips.include = clade
+    )
+
+    # find which species are not present
+    species_not_present <-
+      which(phylobase::tipData(phylod)$endemicity_status == "not_present")
+
+    name_not_present <- phylobase::tipLabels(phylod)[species_not_present]
+
+    # remove not present species from the clade
+    clade <- phylobase::subset(
+      x = clade_phylod,
+      tips.exclude = name_not_present
+    )
   }
 
   num_descendants <- length(clade)
@@ -91,19 +123,19 @@ extract_species_asr <- function(phylod,
       if (species_endemicity == "nonendemic") {
         # extact multi-tip nonendemic
         island_colonist <- extract_multi_tip_nonendemic(
-          phylod = phylod,
+          phylod = clade,
           species_label = species_label
         )
       } else if (species_endemicity == "endemic") {
         # extract multi-tip endemic
         island_colonist <- extract_multi_tip_endemic(
-          phylod = phylod,
+          phylod = clade,
           species_label = species_label
         )
       }
     } else {
       island_colonist <- extract_asr_clade(
-        phylod = phylod,
+        phylod = clade,
         species_label = species_label,
         ancestor = ancestor,
         clade = descendants

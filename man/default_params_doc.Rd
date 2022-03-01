@@ -27,6 +27,7 @@ default_params_doc(
   asr_method,
   tie_preference,
   earliest_col,
+  include_not_present,
   daisie_datatable,
   island_age,
   num_mainland_species,
@@ -111,6 +112,10 @@ you consider it not on the island use `ties.method = "first"`. Default is
 time as the most probable time (FALSE) or the earliest possible colonisation
 time (TRUE), where the probability of a species being on the island is
 non-zero. Default is FALSE.}
+
+\item{include_not_present}{A boolean determining whether species not present
+on the island should be included in island colonist when embedded within an
+island clade. Default is FALSE.}
 
 \item{daisie_datatable}{A data frame where each row on the table represents
 an independent colonisation event. The table has the following four columns:
