@@ -66,6 +66,7 @@ Collate:
     'island_tbl-class.R'
     'island_tbl-accessors.R'
     'island_tbl-methods.R'
+    'multi_island_tbl-class.R'
     'print-methods.R'
     'temp_test_1.R'
     'temp_test_2.R'
