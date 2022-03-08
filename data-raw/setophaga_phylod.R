@@ -4,7 +4,7 @@ setophaga_tree <- ape::read.nexus(
   file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
 )
 
-setophaga_tree <- methods::as(setophaga_tree, "phylo4")
+setophaga_tree <- phylobase::phylo4(setophaga_tree)
 
 # the names do not conform to the format required as there are also a couple of
 # species that have the molecular marker before the species name so this needs

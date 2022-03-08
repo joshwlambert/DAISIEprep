@@ -46,5 +46,8 @@ setClass(
 #'
 #' @export
 multi_island_tbl <- function() {
-  methods::new("Multi_island_tbl", multi_island_tbl = list(new("Island_tbl")))
+  methods::new(
+    "Multi_island_tbl",
+    multi_island_tbl = list(methods::new("Island_tbl"))
+  )
 }

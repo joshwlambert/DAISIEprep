@@ -4,7 +4,7 @@ progne_tree <- ape::read.nexus(
   file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
 )
 
-progne_tree <- methods::as(progne_tree, "phylo4")
+progne_tree <- phylobase::phylo4(progne_tree)
 
 progne_island_species <- data.frame(
   tip_labels = c("Progne_modesta_GALAPAGOS_L573A",

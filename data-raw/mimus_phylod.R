@@ -4,7 +4,7 @@ mimus_tree <- ape::read.nexus(
   file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
 )
 
-mimus_tree <- methods::as(mimus_tree, "phylo4")
+mimus_tree <- phylobase::phylo4(mimus_tree)
 
 mimus_island_species <- data.frame(
   tip_labels = c(

@@ -55,7 +55,7 @@ Then we convert to the phylogeny to a `phylo4` class defined in the package
 phylogeny, for example island endemicity status.
 
 ```{r convert phylo to phylo4}
-phylo <- as(phylo, "phylo4")
+phylo <- phylobase::phylo4(phylo)
 phylobase::plot(phylo)
 ```
 

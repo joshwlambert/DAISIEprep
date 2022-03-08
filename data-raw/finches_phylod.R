@@ -4,7 +4,7 @@ finches_tree <- ape::read.nexus(
   file = system.file("extdata", "Finches.tre", package = "DAISIEprep")
 )
 
-finches_tree <- methods::as(finches_tree, "phylo4")
+finches_tree <- phylobase::phylo4(finches_tree)
 
 # remove the Cocos finch, Pinaroloxias inornata (P_ino) as it is not on the
 # Galapagos
