@@ -76,8 +76,9 @@ extract_species_asr <- function(phylod,
   }
 
   # remove not present species from the island clade
-  if (isFALSE(include_not_present)) {
-    # subset the clade from the rest of the tree
+  if (isFALSE(include_not_present) && length(clade) >= 2) {
+
+    # subset the clade
     clade_phylod <- phylobase::subset(
       x = phylod,
       tips.include = clade
@@ -89,14 +90,22 @@ extract_species_asr <- function(phylod,
 
     name_not_present <- phylobase::tipLabels(phylod)[species_not_present]
 
-    # remove not present species from the clade
-    clade <- phylobase::subset(
-      x = clade_phylod,
-      tips.exclude = name_not_present
-    )
+    num_subset_species <- phylobase::nTips(phylod) - length(name_not_present)
+    # if the number of species remaining is a tree with minimum two species
+    if (num_subset_species >= 2) {
+      # remove not present species from the clade
+      clade <- phylobase::subset(
+        x = clade_phylod,
+        tips.exclude = name_not_present
+      )
+      num_descendants <- length(clade)
+    } else {
+      # the clade has less than 2 tips so must be a singleton
+      num_descendants <- 1
+    }
+  } else {
+    num_descendants <- length(clade)
   }
-
-  num_descendants <- length(clade)
 
   if (num_descendants == 1) {
     # extract nonendemic singleton
