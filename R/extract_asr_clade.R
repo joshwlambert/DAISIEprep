@@ -13,30 +13,51 @@
 #' }
 extract_asr_clade <- function(phylod,
                               species_label,
-                              ancestor,
-                              clade) {
-browser()
+                              clade,
+                              include_not_present) {
+
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
   # extract colonisation time as stem age of clade (time before present)
   col_time <- as.numeric(phylobase::nodeHeight(
     x = phylod,
-    node = ancestor,
+    node = phylobase::nodeId(phylod, "root"),
     from = "min_tip"
   ))
 
   # subset the clade from the rest of the tree
-  clade_phylod <- phylobase::subset(
+  phylod <- phylobase::subset(
     x = phylod,
     tips.include = clade
   )
 
+  # remove not present species from the island clade
+  if (isFALSE(include_not_present)) {
+
+    # find which species are not present
+    species_not_present <-
+      which(phylobase::tipData(phylod)$endemicity_status == "not_present")
+
+    #get names of species not present
+    name_not_present <- phylobase::tipLabels(phylod)[species_not_present]
+
+    num_subset_species <- phylobase::nTips(phylod) - length(name_not_present)
+
+    if (num_subset_species >= 2) {
+      # remove not present species from the clade
+      phylod <- phylobase::subset(
+        x = phylod,
+        tips.exclude = name_not_present
+      )
+    }
+  }
+
   # extract branching times (time before present)
   node_heights <- c()
-  for (i in seq_len(phylobase::nEdges(clade_phylod))) {
+  for (i in seq_len(phylobase::nEdges(phylod))) {
     node_heights[i] <- phylobase::nodeHeight(
-      x = clade_phylod,
+      x = phylod,
       node = i,
       from = "min_tip"
     )
@@ -55,7 +76,9 @@ browser()
   branching_times <- unique(branching_times)
 
   # extract clade name from species labels
-  clade_name <- extract_clade_name(clade = clade)
+  clade_name <- extract_clade_name(
+    clade = clade
+  )
 
   # assign data to instance of island_colonist class
   set_clade_name(island_col) <- species_label #clade_name
