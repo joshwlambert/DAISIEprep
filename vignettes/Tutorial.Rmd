@@ -252,7 +252,7 @@ using the ancestral reconstructed island presence/absence.
 ```{r, eval = FALSE}
 island_tbl <- extract_island_species(
   phylod = phylod, 
-  extraction_method = "min"
+  extraction_method = "asr"
 )
 ```
 

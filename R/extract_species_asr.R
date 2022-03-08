@@ -52,7 +52,7 @@ extract_species_asr <- function(phylod,
                                 species_endemicity,
                                 island_tbl,
                                 include_not_present) {
-
+browser()
   # recursive tree traversal to find colonisation time from node states
   island_ancestor <- TRUE
   ancestor <- species_label
@@ -94,17 +94,17 @@ extract_species_asr <- function(phylod,
     # if the number of species remaining is a tree with minimum two species
     if (num_subset_species >= 2) {
       # remove not present species from the clade
-      clade <- phylobase::subset(
+      clade_phylod <- phylobase::subset(
         x = clade_phylod,
         tips.exclude = name_not_present
       )
-      num_descendants <- length(clade)
+      num_descendants <- phylobase::nTips(clade_phylod)
     } else {
       # the clade has less than 2 tips so must be a singleton
       num_descendants <- 1
     }
   } else {
-    num_descendants <- length(clade)
+    num_descendants <- phylobase::nTips(phylod)
   }
 
   if (num_descendants == 1) {
@@ -132,19 +132,19 @@ extract_species_asr <- function(phylod,
       if (species_endemicity == "nonendemic") {
         # extact multi-tip nonendemic
         island_colonist <- extract_multi_tip_nonendemic(
-          phylod = clade,
+          phylod = clade_phylod,
           species_label = species_label
         )
       } else if (species_endemicity == "endemic") {
         # extract multi-tip endemic
         island_colonist <- extract_multi_tip_endemic(
-          phylod = clade,
+          phylod = clade_phylod,
           species_label = species_label
         )
       }
     } else {
       island_colonist <- extract_asr_clade(
-        phylod = clade,
+        phylod = clade_phylod,
         species_label = species_label,
         ancestor = ancestor,
         clade = descendants
