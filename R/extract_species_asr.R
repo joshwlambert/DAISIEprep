@@ -102,7 +102,7 @@ extract_species_asr <- function(phylod,
       )
     } else if (species_endemicity == "endemic") {
       #extract singleton endemic
-      island_colonist <- extract_endemic(
+      island_colonist <- extract_endemic_singleton(
         phylod = phylod,
         species_label = species_label
       )

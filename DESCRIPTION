@@ -51,6 +51,7 @@ Collate:
     'extract_clade_name.R'
     'extract_endemic.R'
     'extract_endemic_clade.R'
+    'extract_endemic_singleton.R'
     'extract_island_species.R'
     'extract_multi_tip_endemic.R'
     'extract_multi_tip_nonendemic.R'
