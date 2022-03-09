@@ -81,7 +81,7 @@ extract_species_asr <- function(phylod,
   } else {
 
     # which species are in the clade
-    tips_in_clade <- phylobase::tipLabels(phylod) %in% clade
+    tips_in_clade <- phylobase::tipLabels(phylod) %in% names(clade)
 
     # which species are not present
     not_present <- phylobase::tipData(phylod)$endemicity_status == "not_present"

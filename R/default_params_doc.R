@@ -30,8 +30,6 @@
 #' string of the tip_labels with the tip names of the species on the island.
 #' The second column a character string of the endemicity status of the species,
 #' either endemic or nonendemic.
-#' @param ancestor A numeric indexing which species is the ancestor of an island
-#' clade.
 #' @param descendants A vector character strings with the names of species to
 #' determine whether they are the same species.
 #' @param clade A numeric vector which the indices of the species which are
@@ -131,7 +129,6 @@ default_params_doc <- function(island_colonist,
                                endemic_clade,
                                phylo,
                                island_species,
-                               ancestor,
                                descendants,
                                clade,
                                asr_method,

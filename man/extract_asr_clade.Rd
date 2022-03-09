@@ -6,7 +6,7 @@
 species presence on the island, therefore this clade can contain
 non-endemic species as well as endemic species.}
 \usage{
-extract_asr_clade(phylod, species_label, ancestor, clade)
+extract_asr_clade(phylod, species_label, clade, include_not_present)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
@@ -14,11 +14,12 @@ phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
 
-\item{ancestor}{A numeric indexing which species is the ancestor of an island
-clade.}
-
 \item{clade}{A numeric vector which the indices of the species which are
 in the island clade.}
+
+\item{include_not_present}{A boolean determining whether species not present
+on the island should be included in island colonist when embedded within an
+island clade. Default is FALSE.}
 }
 \value{
 An object of `Island_colonist` class

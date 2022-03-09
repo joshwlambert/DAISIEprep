@@ -21,7 +21,6 @@ default_params_doc(
   endemic_clade,
   phylo,
   island_species,
-  ancestor,
   descendants,
   clade,
   asr_method,
@@ -84,9 +83,6 @@ on the island, either in species or subspecies.}
 string of the tip_labels with the tip names of the species on the island.
 The second column a character string of the endemicity status of the species,
 either endemic or nonendemic.}
-
-\item{ancestor}{A numeric indexing which species is the ancestor of an island
-clade.}
 
 \item{descendants}{A vector character strings with the names of species to
 determine whether they are the same species.}
