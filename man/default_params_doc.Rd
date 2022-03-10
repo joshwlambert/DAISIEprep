@@ -27,6 +27,7 @@ default_params_doc(
   tie_preference,
   earliest_col,
   include_not_present,
+  missing_species_df,
   daisie_datatable,
   island_age,
   num_mainland_species,
@@ -112,6 +113,11 @@ non-zero. Default is FALSE.}
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
+
+\item{missing_species_df}{A data frame containing the names of the clades
+extracted from the phylogeny and the number of missing species in each clade.
+Not every clade extracted from the phylogeny needs to be included if the
+number of missing species in them clades is zero.}
 
 \item{daisie_datatable}{A data frame where each row on the table represents
 an independent colonisation event. The table has the following four columns:

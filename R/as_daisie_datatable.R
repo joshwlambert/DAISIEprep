@@ -14,6 +14,8 @@ as_daisie_datatable <- function(island_tbl) {
   # if min age is given merge into branching times
   #TODO
 
+  # if branching_time is older than the island age make a max age
+
   # return daisie_datatable
   daisie_datatable
 }

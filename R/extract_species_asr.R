@@ -53,6 +53,9 @@ extract_species_asr <- function(phylod,
                                 island_tbl,
                                 include_not_present) {
 
+  # check input data
+  check_phylo_data(phylod)
+
   # recursive tree traversal to find colonisation time from node states
   island_ancestor <- TRUE
   ancestor <- species_label

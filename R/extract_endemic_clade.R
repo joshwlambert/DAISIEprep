@@ -30,6 +30,8 @@
 extract_endemic_clade <- function(phylod,
                                   species_label) {
 
+  #TODO add check_phylo_data
+
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
