@@ -26,7 +26,7 @@
 #' plot_phylod(phylod)
 plot_phylod <- function(phylod,
                         node_pies = FALSE) {
-browser()
+
   node_pie_data <-
     all(c("island_prob", "not_present_prob", "a") %in%
           names(phylobase::tdata(phylod)))
@@ -40,32 +40,37 @@ browser()
 
   #generate plot
   p <- ggtree::ggtree(phylod) +
-    ggtree::geom_tippoint(
-      ggplot2::aes(colour = endemicity_status),
-      size = 3,
-    ) +
     ggtree::theme_tree2() +
     ggtree::geom_tiplab(as_ylab = TRUE)
 
+
   if (!is.null(phylobase::nodeData(phylod)$island_status)) {
     p <- p +
-      ggtree::geom_nodepoint(
-        ggplot2::aes(colour = island_status),
-        size = 3
+      ggtree::geom_tippoint(
+        ggplot2::aes(colour = endemicity_status),
+        size = 3,
       )
   }
 
   if (isTRUE(node_pies)) {
-    node_pies <- phylobase::nodeData(phylod)[, c("island_prob", "not_present_prob")]
-    node_pies <- cbind(node_pies2, node = rownames(node_pies2))
+    node_pies <-
+      phylobase::nodeData(phylod)[, c("island_prob", "not_present_prob")]
+    node_pies <- cbind(node_pies, node = rownames(node_pies))
 
-    pies <- ggtree::nodepie(node_pies2, cols = 1:2)
+    pies <- ggtree::nodepie(node_pies, cols = 1:2)
 
-    p +
+    p <- p +
       ggtree::geom_inset(
         insets = pies,
         width = 0.1,
-        height = 0.1
+        height = 0.1,
+      )
+
+  } else if (!is.null(phylobase::nodeData(phylod)$island_status)) {
+    p <- p +
+      ggtree::geom_nodepoint(
+        ggplot2::aes(colour = island_status),
+        size = 3
       )
   }
 
