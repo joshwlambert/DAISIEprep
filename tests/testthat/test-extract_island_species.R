@@ -1,15 +1,5 @@
 test_that("nonendemic singleton, 2 species tree, min algorithm", {
-  set.seed(
-    1,
-    kind = "Mersenne-Twister",
-    normal.kind = "Inversion",
-    sample.kind = "Rejection"
-  )
-  phylo <- ape::rcoal(2)
-  phylo$tip.label <- c("bird_a", "bird_b")
-  phylo <- phylobase::phylo4(phylo)
-  endemicity_status <- c("not_present", "nonendemic")
-  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+  phylod <- create_test_phylod(test_scenario = 1)
   island_tbl <- extract_island_species(
     phylod = phylod,
     extraction_method = "min"
