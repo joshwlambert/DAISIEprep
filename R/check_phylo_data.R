@@ -97,9 +97,9 @@ check_phylo_data <- function(phylod) {
   }
 
   # check if thre are no species are on the island
-  all_not_present <- all(identical(
-    phylobase::tipData(phylod)$endemicity_status, "not_present"
-  ))
+  all_not_present <- all(
+    phylobase::tipData(phylod)$endemicity_status %in% "not_present"
+  )
 
   if (all_not_present) {
     stop("No species in the phylogeny are on the island")

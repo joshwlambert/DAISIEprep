@@ -14,6 +14,9 @@ add_asr_node_states <- function(phylod,
                                 tie_preference = "island",
                                 earliest_col = FALSE) {
 
+  # check the phylod input
+  check_phylo_data(phylod)
+
   # add one as the asr method cannot handle zero as a state
   tip_states <-
     as.numeric(grepl(

@@ -1,24 +1,12 @@
 test_that("0 nonendemic, 2 species tree, min algorithm", {
   phylod <- create_test_phylod(test_scenario = 0)
-  island_tbl <- extract_island_species(
-    phylod = phylod,
-    extraction_method = "min"
+  expect_error(
+    extract_island_species(
+      phylod = phylod,
+      extraction_method = "min"
+    ),
+    regexp = "No species in the phylogeny are on the island"
   )
-
-  expect_s4_class(island_tbl, "Island_tbl")
-  expect_true(is.data.frame(get_island_tbl(island_tbl)))
-  expect_equal(
-    colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
-  )
-  expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
-  expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
-  expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
-  expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
 
 test_that("nonendemic singleton, 2 species tree, min algorithm", {
