@@ -581,63 +581,6 @@ test_that("endemic singleton, 4 species tree, asr algorithm, non-outgroup", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
 
-test_that("2 endemics, 2 species tree, min algorithm", {
-  set.seed(1)
-  phylo <- ape::rcoal(2)
-  phylo$tip.label <- c("bird_a", "bird_b")
-  phylo <- phylobase::phylo4(phylo)
-  endemicity_status <- c("endemic", "endemic")
-  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-  island_tbl <- extract_island_species(
-    phylod = phylod,
-    extraction_method = "min"
-  )
-
-  expect_s4_class(island_tbl, "Island_tbl")
-  expect_true(is.data.frame(get_island_tbl(island_tbl)))
-  expect_equal(
-    colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
-  )
-  expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
-  expect_equal(get_island_tbl(island_tbl)$status, "endemic")
-  expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
-  expect_true(is.na(get_island_tbl(island_tbl)$min_age))
-})
-
-test_that("2 endemics, 2 species tree, asr algorithm", {
-  set.seed(1)
-  phylo <- ape::rcoal(2)
-  phylo$tip.label <- c("bird_a", "bird_b")
-  phylo <- phylobase::phylo4(phylo)
-  endemicity_status <- c("endemic", "endemic")
-  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-  phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
-  island_tbl <- extract_island_species(
-    phylod = phylod,
-    extraction_method = "asr"
-  )
-
-  expect_s4_class(island_tbl, "Island_tbl")
-  expect_true(is.data.frame(get_island_tbl(island_tbl)))
-  expect_equal(
-    colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
-  )
-  expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
-  expect_equal(get_island_tbl(island_tbl)$status, "endemic")
-  expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
-  expect_true(is.na(get_island_tbl(island_tbl)$min_age))
-})
-
 test_that("2 endemics, 3 species tree, min algorithm, sister species", {
   set.seed(1)
   phylo <- ape::rcoal(3)
@@ -695,62 +638,6 @@ test_that("2 endemics, 3 species tree, asr algorithm, sister species", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
 
-test_that("2 endemics, 3 species tree, min algorithm, non-sister species", {
-  set.seed(1)
-  phylo <- ape::rcoal(3)
-  phylo$tip.label <- c("bird_a", "bird_b", "bird_c")
-  phylo <- phylobase::phylo4(phylo)
-  endemicity_status <- c("not_present", "endemic", "endemic")
-  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-  island_tbl <- extract_island_species(
-    phylod = phylod,
-    extraction_method = "min"
-  )
-
-  expect_s4_class(island_tbl, "Island_tbl")
-  expect_true(is.data.frame(get_island_tbl(island_tbl)))
-  expect_equal(
-    colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
-  )
-  expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_b", "bird_c"))
-  expect_equal(get_island_tbl(island_tbl)$status, c("endemic", "endemic"))
-  expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709), c(1.43337005682)))
-  )
-  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
-})
-
-test_that("2 endemics, 3 species tree, asr algorithm, non-sister species", {
-  set.seed(1)
-  phylo <- ape::rcoal(3)
-  phylo$tip.label <- c("bird_a", "bird_b", "bird_c")
-  phylo <- phylobase::phylo4(phylo)
-  endemicity_status <- c("not_present", "endemic", "endemic")
-  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-  phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
-  island_tbl <- extract_island_species(
-    phylod = phylod,
-    extraction_method = "asr"
-  )
-
-  expect_s4_class(island_tbl, "Island_tbl")
-  expect_true(is.data.frame(get_island_tbl(island_tbl)))
-  expect_equal(
-    colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
-  )
-  expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
-  expect_equal(get_island_tbl(island_tbl)$status, "endemic")
-  expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.433370056817)))
-  )
-  expect_true(is.na(get_island_tbl(island_tbl)$min_age))
-})
 #
 # test_that("endemic singleton, 4 species tree, min algorithm, outgroup", {
 #   set.seed(1)

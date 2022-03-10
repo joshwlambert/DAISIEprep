@@ -9,7 +9,6 @@
 #' @export
 #'
 #' @examples
-#' library(phylobase)
 #' set.seed(
 #'   1,
 #'   kind = "Mersenne-Twister",
@@ -19,10 +18,13 @@
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
-#' phylo <- methods::as(phylo, "phylo4")
-#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
-#'                               size = length(phylobase::tipLabels(phylo)),
-#'                               replace = TRUE)
+#' phylo <- phylobase::phylo4(phylo)
+#' endemicity_status <- sample(
+#'   c("not_present", "endemic", "nonendemic"),
+#'   size = length(phylobase::tipLabels(phylo)),
+#'   replace = TRUE,
+#'   prob = c(0.6, 0.2, 0.2)
+#' )
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' check_phylo_data(phylod)
 check_phylo_data <- function(phylod) {
