@@ -4,7 +4,7 @@
 \alias{plot_phylod}
 \title{Plots the phylogenetic tree and its associated tip and/or node data}
 \usage{
-plot_phylod(phylod)
+plot_phylod(phylod, node_pies = FALSE)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing

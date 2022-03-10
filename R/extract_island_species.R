@@ -47,11 +47,6 @@ extract_island_species <- function(phylod,
          data of the island presence at the nodes")
   }
 
-  # if no species are on the island
-  if (all(identical(phylod@data$endemicity_status, "not_present"))) {
-    return(island_tbl)
-  }
-
   for (i in seq_len(phylobase::nTips(phylod))) {
 
     # if species is not on the island no need to extract this species

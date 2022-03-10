@@ -48,6 +48,7 @@ Collate:
     'check_phylo_data.R'
     'create_daisie_data.R'
     'create_endemicity_status.R'
+    'create_test_phylod.R'
     'default_params_doc.R'
     'extract_asr_clade.R'
     'extract_clade_name.R'

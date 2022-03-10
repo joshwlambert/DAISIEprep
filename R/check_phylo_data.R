@@ -80,17 +80,29 @@ check_phylo_data <- function(phylod) {
     stop("Object must have endemicity status stored as tip data")
   }
 
-  correct_tip_data <-
-    all(names(phylobase::tipData(phylod)) %in%
-        c("endemicity_status", "island_status"))
-  if (isFALSE(correct_tip_data)) {
-    stop("Tip data must be called endemicity_status and/or island_status")
+  correct_trait_data <-
+    all(names(phylobase::tdata(phylod)) %in%
+        c("endemicity_status", "island_status",
+          "island_prob", "not_present_prob"))
+  if (isFALSE(correct_trait_data)) {
+    stop("Tip data must be called endemicity_status, node data must be called
+         island_status, and node probabilities are called island_prob and
+         not_present_prob")
   }
 
   status <- phylobase::tipData(phylod)$endemicity_status
   if (isFALSE(all(status %in% c("endemic", "nonendemic", "not_present")))) {
     stop("Endemicity status must be either 'endemic', 'nonendemic', or
          'not_present'")
+  }
+
+  # check if thre are no species are on the island
+  all_not_present <- all(identical(
+    phylobase::tipData(phylod)$endemicity_status, "not_present"
+  ))
+
+  if (all_not_present) {
+    stop("No species in the phylogeny are on the island")
   }
 
   # check there is a not present outgroup for stem age colonisation
