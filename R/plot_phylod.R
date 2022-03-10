@@ -24,7 +24,15 @@
 #' )
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' plot_phylod(phylod)
-plot_phylod <- function(phylod) {
+plot_phylod <- function(phylod,
+                        node_pies = FALSE) {
+browser()
+  node_pie_data <-
+    all(c("island_prob", "not_present_prob", "a") %in%
+          names(phylobase::tdata(phylod)))
+  if (isTRUE(node_pies) && node_pie_data) {
+    stop("To plot probabilities in at the nodes they must be given in phylod")
+  }
 
   # Fix build warnings
   endemicity_status <- NULL; rm(endemicity_status) # nolint, fixes warning: no visible binding for global variable
@@ -44,6 +52,20 @@ plot_phylod <- function(phylod) {
       ggtree::geom_nodepoint(
         ggplot2::aes(colour = island_status),
         size = 3
+      )
+  }
+
+  if (isTRUE(node_pies)) {
+    node_pies <- phylobase::nodeData(phylod)[, c("island_prob", "not_present_prob")]
+    node_pies <- cbind(node_pies2, node = rownames(node_pies2))
+
+    pies <- ggtree::nodepie(node_pies2, cols = 1:2)
+
+    p +
+      ggtree::geom_inset(
+        insets = pies,
+        width = 0.1,
+        height = 0.1
       )
   }
 

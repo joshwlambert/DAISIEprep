@@ -65,9 +65,12 @@ equal probability of being not on the island (`"not_present"`), endemic to the
 island (`"endemic"`) or non-endemic to the island (`"nonendemic"`).
 
 ```{r create island endemcity data}
-endemicity_status <- sample(c("not_present", "endemic", "nonendemic"), 
-                            size = length(phylobase::tipLabels(phylo)), 
-                            replace = TRUE)
+endemicity_status <- sample(
+  x = c("not_present", "endemic", "nonendemic"), 
+  size = length(phylobase::tipLabels(phylo)), 
+  replace = TRUE,
+  prob = c(0.6, 0.2, 0.2)
+)
 ```
 
 Next we can add the endemicity data to our phylogenetic data using the `phylo4d`
@@ -181,9 +184,11 @@ Now the ancestral states at the nodes is available we can combine it into our
 ```{r combine node data into phylod}
 node_data <- data.frame(
   island_status = node_states,
+  island_prob = asr$ancestral_likelihoods[, "island"],
+  not_present_prob = asr$ancestral_likelihoods[, "not_present"],
   row.names = phylobase::nodeId(phylod, "internal")
 )
-phylod <- phylo4d(
+phylod <- phylobase::phylo4d(
   phylo,
   tip.data = as.data.frame(endemicity_status),
   node.data = node_data
@@ -221,27 +226,7 @@ or mainland when the likelihood for each state are equal we can plot the
 probabilities at the nodes to visualise the ancestral state reconstruction.
 
 ```{r plot ancestral state likelihoods}
-node_ids <- phylobase::nodeId(phylod)[which(
-  !is.na(phylobase::tdata(phylod)$island_status)
-)]
-
-node_pies <- data.frame(
-  asr$ancestral_likelihoods[, "not_present"],
-  asr$ancestral_likelihoods[, "island"],
-  node = node_ids)
-
-pies <- ggtree::nodepie(node_pies, cols = 1:2)
-
-ggtree::ggtree(phylod) +
-  ggtree::geom_tippoint(
-    ggplot2::aes(colour = endemicity_status),
-    size = 3
-  ) + 
-  ggtree::geom_inset(
-    insets = pies, 
-    width = 0.1, 
-    height = 0.1
-  )
+plot_phylod(phylod = phylod, node_pies = TRUE)
 ```
 
 Now we can extract the colonisation and diversification from the phylogeny

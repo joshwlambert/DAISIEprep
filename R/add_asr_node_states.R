@@ -60,6 +60,8 @@ add_asr_node_states <- function(phylod,
 
   node_data <- data.frame(
     island_status = node_states,
+    island_prob = asr$ancestral_likelihoods[, "island"],
+    not_present_prob = asr$ancestral_likelihoods[, "not_present"],
     row.names = phylobase::nodeId(phylod, "internal")
   )
 
