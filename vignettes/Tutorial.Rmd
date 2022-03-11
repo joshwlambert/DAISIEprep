@@ -324,34 +324,67 @@ and converting them to `phylo4d` objects, this has already been done and the
 data objects have been prepared in advance and are ready to be used.
 
 ```{r load galapagos phylod data, eval=FALSE}
-coccyzus_tree <- readRDS(
+coccyzus_phylod <- readRDS(
   file = system.file("extdata", "coccyzus_phylod.rds", package = "DAISIEprep")
 )
-columbiformes_tree <- readRDS(
+columbiformes_phylod <- readRDS(
   file = system.file(
     "extdata", "columbiformes_phylod.rds", package = "DAISIEprep"
   )
 )
-finches_tree <- readRDS(
+finches_phylod <- readRDS(
   file = system.file("extdata", "finches_phylod.rds", package = "DAISIEprep")
 )
-mimus_tree <- readRDS(
+mimus_phylod <- readRDS(
   file = system.file("extdata", "mimus_phylod.rds", package = "DAISIEprep")
 )
-myiarchus_tree <- readRDS(
+myiarchus_phylod <- readRDS(
   file = system.file("extdata", "myiarchus_phylod.rds", package = "DAISIEprep")
 )
-progne_tree <- readRDS(
+progne_phylod <- readRDS(
   file = system.file("extdata", "progne_phylod.rds", package = "DAISIEprep")
 )
-pyrocephalus_tree <- readRDS(
+pyrocephalus_phylod <- readRDS(
   file = system.file(
     "extdata", "pyrocephalus_phylod.rds", package = "DAISIEprep"
   )
 )
-setophaga_tree <- readRDS(
+setophaga_phylod <- readRDS(
   file = system.file("extdata", "setophaga_phylod.rds", package = "DAISIEprep")
 )
+```
+
+Now that we have all our data in the correct format, we are ready to extract the
+island data from these trees using `extract_island_species()`. 
+
+```{r extract first Galapagos clade}
+island_tbl <- extract_island_species(
+  phylod = coccyzus_phylod,
+  extraction_method = "min",
+  island_tbl = NULL
+)
+```
+
+We can now loop through the rest of the Galapagos colonists and add them to the 
+island data.
+
+```{r extract the other Galapagos clades}
+galapagos_clades <- c(
+  "coccyzus_phylod", "columbiformes_phylod", "finches_phylod", "mimus_phylod",
+  "myiarchus_phylod", "progne_phylod", "pyrocephalus_phylod", "setophaga_phylod"
+)
+
+for (clade in galapagos_clades) {
+  island_tbl <- extract_island_species(
+    phylod = clade,
+    extraction_method = "min",
+    island_tbl = island_tbl
+  )
+}
+```
+
+```{r inspect final island table}
+island_tbl
 ```
 
 To see an example of the DAISIE_datatable object see
