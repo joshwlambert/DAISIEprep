@@ -9,6 +9,10 @@ plot_phylod(phylod, node_pies = FALSE)
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
+
+\item{node_pies}{Boolean determining if pie charts of the probabilities of
+a species being present on the island. If TRUE the correct data is required
+in the phylod object.}
 }
 \value{
 `ggplot` object

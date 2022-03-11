@@ -24,7 +24,6 @@ setophaga_island_species <- data.frame(
   tip_endemicity_status = c("nonendemic", "nonendemic")
 )
 
-
 setophaga_endemicity_status <- create_endemicity_status(
   phylo = setophaga_tree,
   island_species = setophaga_island_species
@@ -34,4 +33,4 @@ setophaga_phylod <- phylobase::phylo4d(
   setophaga_tree, setophaga_endemicity_status
 )
 
-saveRDS(myiarchus_phylod, file = "inst/extdata/setophaga_phylod.rds")
+saveRDS(setophaga_phylod, file = "inst/extdata/setophaga_phylod.rds")

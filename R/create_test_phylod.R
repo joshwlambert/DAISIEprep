@@ -1,3 +1,11 @@
+#' Creates phylod objects to be used in tests
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return A `phylo4d` object
+#'
+#' @examples
+#' create_test_phylod(test_scenario = 1)
 create_test_phylod <- function(test_scenario) {
   set.seed(
     1,

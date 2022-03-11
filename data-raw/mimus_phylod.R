@@ -25,4 +25,4 @@ mimus_phylod <- phylobase::phylo4d(
   mimus_tree, mimus_endemicity_status
 )
 
-saveRDS(myiarchus_phylod, file = "inst/extdata/myiarchus_phylod.rds")
+saveRDS(mimus_phylod, file = "inst/extdata/mimus_phylod.rds")

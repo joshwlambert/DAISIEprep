@@ -44,7 +44,7 @@ plot_phylod <- function(phylod,
     ggtree::geom_tiplab(as_ylab = TRUE)
 
 
-  if (!is.null(phylobase::nodeData(phylod)$island_status)) {
+  if (!is.null(phylobase::nodeData(phylod)$endemicity_status)) {
     p <- p +
       ggtree::geom_tippoint(
         ggplot2::aes(colour = endemicity_status),

@@ -28,6 +28,7 @@ default_params_doc(
   earliest_col,
   include_not_present,
   missing_species_df,
+  node_pies,
   daisie_datatable,
   island_age,
   num_mainland_species,
@@ -118,6 +119,10 @@ island clade. Default is FALSE.}
 extracted from the phylogeny and the number of missing species in each clade.
 Not every clade extracted from the phylogeny needs to be included if the
 number of missing species in them clades is zero.}
+
+\item{node_pies}{Boolean determining if pie charts of the probabilities of
+a species being present on the island. If TRUE the correct data is required
+in the phylod object.}
 
 \item{daisie_datatable}{A data frame where each row on the table represents
 an independent colonisation event. The table has the following four columns:
