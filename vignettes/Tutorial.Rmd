@@ -369,12 +369,12 @@ We can now loop through the rest of the Galapagos colonists and add them to the
 island data.
 
 ```{r extract the other Galapagos clades}
-galapagos_clades <- c(
-  "coccyzus_phylod", "columbiformes_phylod", "finches_phylod", "mimus_phylod",
-  "myiarchus_phylod", "progne_phylod", "pyrocephalus_phylod", "setophaga_phylod"
+galapagos_phylod <- list(
+  coccyzus_phylod, columbiformes_phylod, finches_phylod, mimus_phylod,
+  myiarchus_phylod, progne_phylod, pyrocephalus_phylod, setophaga_phylod
 )
 
-for (clade in galapagos_clades) {
+for (phylo in galapagos_phylod) {
   island_tbl <- extract_island_species(
     phylod = clade,
     extraction_method = "min",
