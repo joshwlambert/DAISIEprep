@@ -36,8 +36,14 @@ pyrocephalus_phylod <- phylobase::phylo4d(
 
 # remove rubinus from pyrocephalus tip labels to treat subspecies as full species
 phylobase::tipLabels(pyrocephalus_phylod) <- gsub(
-  pattern = "rubinus_",
-  replacement = "",
+  pattern = "rubinus_nanus",
+  replacement = "nanus",
+  x = phylobase::tipLabels(pyrocephalus_phylod)
+)
+
+phylobase::tipLabels(pyrocephalus_phylod) <- gsub(
+  pattern = "rubinus_dubius",
+  replacement = "dubius",
   x = phylobase::tipLabels(pyrocephalus_phylod)
 )
 

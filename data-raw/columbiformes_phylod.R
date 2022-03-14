@@ -22,4 +22,11 @@ columbiformes_phylod <- phylobase::phylo4d(
   columbiformes_endemicity_status
 )
 
+# fix typo in one of the species tip labels
+phylobase::tipLabels(columbiformes_phylod) <- gsub(
+  pattern = "Chalcophaps_indica5_Australia_Queensland_KT02336",
+  replacement = "Chalcophaps_indica_Australia_Queensland_KT02336",
+  x = phylobase::tipLabels(columbiformes_phylod)
+)
+
 saveRDS(columbiformes_phylod, file = "inst/extdata/columbiformes_phylod.rds")

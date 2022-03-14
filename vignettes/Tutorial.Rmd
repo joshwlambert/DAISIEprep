@@ -323,7 +323,7 @@ Instead of assigning the endemicity to each of the Galapagos bird phylogenies
 and converting them to `phylo4d` objects, this has already been done and the 
 data objects have been prepared in advance and are ready to be used.
 
-```{r load galapagos phylod data, eval=FALSE}
+```{r load galapagos phylod data}
 coccyzus_phylod <- readRDS(
   file = system.file("extdata", "coccyzus_phylod.rds", package = "DAISIEprep")
 )
@@ -374,9 +374,9 @@ galapagos_phylod <- list(
   myiarchus_phylod, progne_phylod, pyrocephalus_phylod, setophaga_phylod
 )
 
-for (phylo in galapagos_phylod) {
+for (phylod in galapagos_phylod) {
   island_tbl <- extract_island_species(
-    phylod = clade,
+    phylod = phylod,
     extraction_method = "min",
     island_tbl = island_tbl
   )
