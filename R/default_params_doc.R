@@ -60,6 +60,7 @@
 #' @param node_pies Boolean determining if pie charts of the probabilities of
 #' a species being present on the island. If TRUE the correct data is required
 #' in the phylod object.
+#' @param test_scenario Integer specifying which test phylod object to create.
 #' @param daisie_datatable A data frame where each row on the table represents
 #' an independent colonisation event. The table has the following four columns:
 #' * Clade_name: name of independent colonisation event
@@ -144,6 +145,7 @@ default_params_doc <- function(island_colonist,
                                include_not_present,
                                missing_species_df,
                                node_pies,
+                               test_scenario,
                                daisie_datatable,
                                island_age,
                                num_mainland_species,

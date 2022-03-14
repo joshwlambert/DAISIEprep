@@ -6,6 +6,9 @@
 \usage{
 create_test_phylod(test_scenario)
 }
+\arguments{
+\item{test_scenario}{Integer specifying which test phylod object to create.}
+}
 \value{
 A `phylo4d` object
 }
@@ -13,5 +16,5 @@ A `phylo4d` object
 Creates phylod objects to be used in tests
 }
 \examples{
-create_test_phylod(test_scenario = 1)
+DAISIEprep:::create_test_phylod(test_scenario = 1)
 }

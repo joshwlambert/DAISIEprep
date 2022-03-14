@@ -5,7 +5,7 @@
 #' @return A `phylo4d` object
 #'
 #' @examples
-#' create_test_phylod(test_scenario = 1)
+#' DAISIEprep:::create_test_phylod(test_scenario = 1)
 create_test_phylod <- function(test_scenario) {
   set.seed(
     1,
@@ -30,7 +30,6 @@ create_test_phylod <- function(test_scenario) {
     phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
     phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
   }
-
 
   # return phylod
   phylod

@@ -29,6 +29,7 @@ default_params_doc(
   include_not_present,
   missing_species_df,
   node_pies,
+  test_scenario,
   daisie_datatable,
   island_age,
   num_mainland_species,
@@ -123,6 +124,8 @@ number of missing species in them clades is zero.}
 \item{node_pies}{Boolean determining if pie charts of the probabilities of
 a species being present on the island. If TRUE the correct data is required
 in the phylod object.}
+
+\item{test_scenario}{Integer specifying which test phylod object to create.}
 
 \item{daisie_datatable}{A data frame where each row on the table represents
 an independent colonisation event. The table has the following four columns:
