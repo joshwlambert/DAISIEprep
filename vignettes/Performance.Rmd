@@ -1,0 +1,140 @@
+---
+title: "Performance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Performance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(DAISIEprep)
+library(ape)
+library(microbenchmark)
+```
+
+```{r create parameter space}
+parameter_space <- expand.grid(
+  tree_size = c(10, 100, 1000, 10000),
+  prob_on_island = c(0.2, 0.5),
+  prob_endemic = c(0.2, 0.8),
+  sampling_type = c("uniform", "clustered")
+)
+```
+
+```{r tree simulation} 
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
+phylo <- ape::rcoal(n = parameter_space$tree_size[1])
+
+# generate a set of unique tip labels that conform to standard
+tip_labels <- expand.grid(letters, letters, letters)
+tip_labels <- do.call(paste0, tip_labels)
+tip_labels <- tip_labels[1:parameter_space$tree_size[1]]
+tip_labels <- paste("bird", tip_labels, sep = "_")
+phylo$tip.label <- tip_labels
+```
+
+```{r endemicity simulation}
+prob_not_present <- 1 - parameter_space$prob_on_island[1]
+prob_endemic <- 
+  parameter_space$prob_endemic[1] * parameter_space$prob_on_island[1]
+prob_nonendemic <- 
+  (1 - parameter_space$prob_endemic[1]) * parameter_space$prob_on_island[1]
+
+# uniform sampling
+endemicity_status <- sample(
+  x = c("endemic", "nonendemic", "not_present"),
+  size = parameter_space$tree_size[1],
+  replace = TRUE,
+  prob = c(prob_endemic, prob_nonendemic, prob_not_present)
+)
+
+# clustered sampling
+#TODO
+```
+
+```{r format data for DAISIEprep}
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+phylod <- add_asr_node_states(
+  phylod = phylod,
+  asr_method = "parsimony",
+  tie_preference = "island",
+  earliest_col = FALSE
+)
+```
+
+```{r run extraction}
+time <- microbenchmark::microbenchmark(
+  island_tbl <- extract_island_species(
+    phylod = phylod,
+    extraction_method = "min",
+    island_tbl = NULL,
+    include_not_present = FALSE
+  ),
+  times = 10L
+)
+```
+
+```{r run performance analysis, eval=FALSE}
+time <- c()
+for (i in seq_len(nrow(parameter_space))) {
+  
+  # simulate phylogeny
+  phylo <- ape::rcoal(n = parameter_space$tree_size[i])
+  
+  # generate a set of unique tip labels that conform to standard
+  tip_labels <- expand.grid(letters, letters, letters)
+  tip_labels <- do.call(paste0, tip_labels)
+  tip_labels <- tip_labels[1:parameter_space$tree_size[i]]
+  tip_labels <- paste("bird", tip_labels, sep = "_")
+  phylo$tip.label <- tip_labels
+  prob_not_present <- 1 - parameter_space$prob_on_island[i]
+  prob_endemic <- parameter_space$prob_endemic[i]
+  prob_nonendemic <- 1 - parameter_space$prob_endemic[i]
+  
+  if (parameter_space$sampling_type[i] == "uniform") {
+    # generate tip states under uniform sampling
+    endemicity_status <- sample(
+      x = c("endemic", "nonendemic", "not_present"),
+      size = parameter_space$tree_size[i],
+      replace = TRUE,
+      prob = c(prob_endemic, prob_nonendemic, prob_not_present)
+    )  
+  } else if (parameter_space$sampling_type[i] == "clustered") {
+    # clustered sampling
+    #TODO
+  }
+  
+  # format data for DAISIEprep
+  phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+  phylod <- add_asr_node_states(
+    phylod = phylod,
+    asr_method = "parsimony",
+    tie_preference = "island",
+    earliest_col = FALSE
+  )
+  
+  # run extraction
+  time[i] <- microbenchmark::microbenchmark(
+    island_tbl <- extract_island_species(
+      phylod = phylod,
+      extraction_method = "min",
+      island_tbl = NULL,
+      include_not_present = FALSE
+    ),
+    times = 10L
+  )
+}
+```
