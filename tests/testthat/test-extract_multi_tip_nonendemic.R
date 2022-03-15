@@ -59,6 +59,3 @@ test_that("3 tips nonendemic, 4 species tree, sisters", {
   expect_equal(get_branching_times(island_colonist), 0.665451291928)
   expect_equal(get_min_age(island_colonist), 0.519744565224)
 })
-
-
-

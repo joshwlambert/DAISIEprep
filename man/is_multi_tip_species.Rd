@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_multi_tip_species.R
 \name{is_multi_tip_species}
 \alias{is_multi_tip_species}
-\title{Checks if a non-endemic species is represented in the tree as multiple tips}
+\title{Checks if a species is represented in the tree as multiple tips}
 \usage{
 is_multi_tip_species(phylod, species_label)
 }
@@ -16,6 +16,6 @@ phylogenetic and endemicity data for each species.}
 Boolean
 }
 \description{
-Checks if a non-endemic species is represented in the tree as multiple tips
+Checks if a species is represented in the tree as multiple tips
 }
 \keyword{internal}
