@@ -35,8 +35,6 @@ extract_island_species <- function(phylod,
 
   if (is.null(island_tbl)) {
     island_tbl <- island_tbl()
-  } else {
-    island_tbl <- island_tbl
   }
 
   # check extraction_method and asr_method input

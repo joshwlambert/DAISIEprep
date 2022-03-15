@@ -24,17 +24,18 @@
 extract_nonendemic <- function(phylod,
                                species_label) {
 
-    # create an instance of the island_colonist class to store data
-    island_col <- island_colonist()
+  # check input data
+  check_phylo_data(phylod)
 
-    #TODO: write check that the species_label refers to nonendemic species
+  # create an instance of the island_colonist class to store data
+  island_col <- island_colonist()
 
-    # assign data to instance of island_colonist class
-    set_clade_name(island_col) <- species_label
-    set_status(island_col) <- "nonendemic"
-    set_missing_species(island_col) <- 0
-    set_branching_times(island_col) <-
-      as.numeric(phylobase::edgeLength(phylod, species_label))
+  # assign data to instance of island_colonist class
+  set_clade_name(island_col) <- species_label
+  set_status(island_col) <- "nonendemic"
+  set_missing_species(island_col) <- 0
+  set_branching_times(island_col) <-
+    as.numeric(phylobase::edgeLength(phylod, species_label))
 
   #return instance of island_colonist class
   island_col

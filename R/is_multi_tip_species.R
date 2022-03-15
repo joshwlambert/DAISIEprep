@@ -1,4 +1,4 @@
-#' Checks if a non-endemic species is represented in the tree as multiple tips
+#' Checks if a species is represented in the tree as multiple tips
 #'
 #' @inheritParams default_params_doc
 #'
@@ -20,8 +20,6 @@ is_multi_tip_species <- function(phylod, species_label) {
   descendants <- species_label
   while (all_siblings_conspecific) {
     ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
-    # save a copy of descendants for when loop stops
-    conspecific_clade <- descendants
     descendants <- phylobase::descendants(phy = phylod, node = ancestor)
     # get the species names (genus_species) for sister species
     split_species_names <- strsplit(x = names(descendants), split = "_")

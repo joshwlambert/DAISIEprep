@@ -31,7 +31,8 @@ Suggests:
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    covr
+    covr,
+    microbenchmark
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr

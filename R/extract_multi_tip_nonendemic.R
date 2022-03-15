@@ -9,10 +9,11 @@
 #' @export
 extract_multi_tip_nonendemic <- function(phylod, species_label) {
 
+  # check input data
+  check_phylo_data(phylod)
+
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
-
-  #TODO: write check that the species_label refers to nonendemic species
 
   # recursive tree traversal to find all nonendemic species in clade
   all_same_species <- TRUE
@@ -52,7 +53,24 @@ extract_multi_tip_nonendemic <- function(phylod, species_label) {
     from = "min_tip"
   ))
 
-  #TODO extract min age
+  # subset the multi-tip nonendemic species from the rest of the tree
+  nonendemic_species_phylod <- phylobase::subset(
+    x = phylod,
+    tips.include = nonendemic_species_tips
+  )
+
+  # extract branching times (time before present)
+  node_heights <- c()
+  for (i in seq_len(phylobase::nEdges(nonendemic_species_phylod))) {
+    node_heights[i] <- phylobase::nodeHeight(
+      x = nonendemic_species_phylod,
+      node = i,
+      from = "min_tip"
+    )
+  }
+
+  # extract minimum time as crown age of species pops (time before present)
+  min_age <- max(node_heights)
 
   # assign data to instance of island_colonist class
   # extract species name from species label
@@ -62,6 +80,7 @@ extract_multi_tip_nonendemic <- function(phylod, species_label) {
   set_status(island_col) <- "nonendemic"
   set_missing_species(island_col) <- 0
   set_branching_times(island_col) <- col_time
+  set_min_age(island_col) <- min_age
 
   # return instance of island_colonist class
   island_col
