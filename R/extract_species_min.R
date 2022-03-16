@@ -52,9 +52,10 @@ extract_species_min <- function(phylod,
 
     # if the nonendemic is a single tip or multi tip
     if (isTRUE(multi_tip_species)) {
-      island_colonist <- extract_multi_tip_nonendemic(
+      island_colonist <- extract_multi_tip_species(
         phylod = phylod,
-        species_label = species_label
+        species_label = species_label,
+        species_endemicity = "nonendemic"
       )
     } else {
       island_colonist <- extract_nonendemic(
@@ -63,39 +64,27 @@ extract_species_min <- function(phylod,
       )
     }
 
-    # check if colonist has already been stored in island_tbl class
-    duplicate_colonist <- is_duplicate_colonist(
-      island_colonist = island_colonist,
-      island_tbl = island_tbl
-    )
-
-    if (!duplicate_colonist) {
-      # bind data from island_colonist class into island_tbl class
-      island_tbl <- bind_colonist_to_tbl(
-        island_colonist = island_colonist,
-        island_tbl = island_tbl
-      )
-    }
   } else if (identical(species_endemicity, "endemic")) {
     island_colonist <- extract_endemic(
       phylod = phylod,
       species_label = species_label
     )
+  }
 
-    # check if colonist has already been stored in island_tbl class
-    duplicate_colonist <- is_duplicate_colonist(
+  # check if colonist has already been stored in island_tbl class
+  duplicate_colonist <- is_duplicate_colonist(
+    island_colonist = island_colonist,
+    island_tbl = island_tbl
+  )
+
+  if (!duplicate_colonist) {
+    # bind data from island_colonist class into island_tbl class
+    island_tbl <- bind_colonist_to_tbl(
       island_colonist = island_colonist,
       island_tbl = island_tbl
     )
-
-    if (!duplicate_colonist) {
-      # bind data from island_colonist class into island_tbl class
-      island_tbl <- bind_colonist_to_tbl(
-        island_colonist = island_colonist,
-        island_tbl = island_tbl
-      )
-    }
   }
+
   #return instance of island_tbl class
   island_tbl
 }

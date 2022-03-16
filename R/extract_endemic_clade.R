@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' set.seed(
-#'   1,
+#'   3,
 #'   kind = "Mersenne-Twister",
 #'   normal.kind = "Inversion",
 #'   sample.kind = "Rejection"
@@ -19,9 +19,12 @@
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
 #' phylo <- methods::as(phylo, "phylo4")
-#' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
-#'                               size = length(phylobase::tipLabels(phylo)),
-#'                               replace = TRUE)
+#' endemicity_status <- sample(
+#'   x = c("not_present", "endemic", "nonendemic"),
+#'   size = length(phylobase::tipLabels(phylo)),
+#'   replace = TRUE,
+#'   prob = c(0.7, 0.3, 0)
+#' )
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' island_col <- extract_endemic_clade(
 #'   phylod = phylod,
@@ -30,7 +33,8 @@
 extract_endemic_clade <- function(phylod,
                                   species_label) {
 
-  #TODO add check_phylo_data
+  # check input data
+  check_phylo_data(phylod)
 
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()

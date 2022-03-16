@@ -117,19 +117,12 @@ extract_species_asr <- function(phylod,
     )
 
     if (isTRUE(multi_tip_species)) {
-      if (species_endemicity == "nonendemic") {
-        # extact multi-tip nonendemic
-        island_colonist <- extract_multi_tip_nonendemic(
-          phylod = phylod,
-          species_label = species_label
-        )
-      } else if (species_endemicity == "endemic") {
-        # extract multi-tip endemic
-        island_colonist <- extract_multi_tip_endemic(
-          phylod = phylod,
-          species_label = species_label
-        )
-      }
+      # extact multi-tip species
+      island_colonist <- extract_multi_tip_species(
+        phylod = phylod,
+        species_label = species_label,
+        species_endemicity = species_endemicity
+      )
     } else {
       island_colonist <- extract_asr_clade(
         phylod = phylod,

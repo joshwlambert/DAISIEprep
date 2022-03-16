@@ -52,7 +52,11 @@ extract_endemic <- function(phylod,
   if (singleton_endemic) {
     island_col <- extract_endemic_singleton(phylod, species_label)
   } else if (multi_tip_endemic) {
-    island_col <- extract_multi_tip_endemic(phylod, species_label)
+    island_col <- extract_multi_tip_species(
+      phylod = phylod,
+      species_label = species_label,
+      species_endemicity = "endemic"
+    )
   } else if (endemic_clade) {
     island_col <- extract_endemic_clade(phylod, species_label)
   }

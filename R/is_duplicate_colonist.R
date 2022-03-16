@@ -22,6 +22,11 @@
 is_duplicate_colonist <- function(island_colonist,
                                   island_tbl) {
 
+  # if island_tbl is empty colonist cannot be a duplicate
+  if (nrow(get_island_tbl(island_tbl)) == 0) {
+    return(FALSE)
+  }
+
   # extract data from island_colonist class
   colonist_clade_name <- get_clade_name(island_colonist)
   colonist_status <- get_status(island_colonist)
@@ -36,7 +41,7 @@ is_duplicate_colonist <- function(island_colonist,
   # check if the branching times are duplicates
   branching_times_duplicate <- unlist(
     lapply(island_tbl$branching_times, function(x) {
-      identical(x, colonist_branching_times)
+      isTRUE(all.equal(x, colonist_branching_times))
     })
   )
 
@@ -54,9 +59,6 @@ is_duplicate_colonist <- function(island_colonist,
     is_duplicate <- clade_name_duplicate && is_duplicate
   }
 
-  if (isTRUE(is_duplicate)) {
-    TRUE
-  } else {
-    FALSE
-  }
+  # return is_duplicate
+  isTRUE(is_duplicate)
 }

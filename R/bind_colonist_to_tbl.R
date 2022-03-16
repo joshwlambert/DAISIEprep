@@ -18,7 +18,8 @@
 #'   island_colonist = island_col,
 #'   island_tbl = island_tbl
 #' )
-bind_colonist_to_tbl <- function(island_colonist, island_tbl) {
+bind_colonist_to_tbl <- function(island_colonist,
+                                 island_tbl) {
 
   # group island_colonist data into data frame
   # I(list(c(...))) keeps vector together

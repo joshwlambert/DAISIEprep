@@ -20,6 +20,4 @@ Boolean
 Checks whether the focal species (given by its tip lable in species_label
 argument) is part of an endemic clade on the island
 }
-\examples{
-x = 1
-}
+\keyword{internal}
