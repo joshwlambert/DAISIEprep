@@ -191,19 +191,6 @@ create_test_phylod <- function(test_scenario) {
     phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
   }
 
-  if (test_scenario == 17) {
-
-  }
-
-  if (test_scenario == 18) {
-
-  }
-
-  if (test_scenario == 19) {
-
-  }
-
-
   # return phylod
   phylod
 }
