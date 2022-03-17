@@ -81,6 +81,7 @@ extract_species_asr <- function(phylod,
   # count number of island species in the clade
   if (include_not_present) {
     num_descendants <- length(clade)
+
   } else {
 
     # which species are in the clade
