@@ -17,7 +17,11 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(DAISIEprep)
 library(ape)
-requireNamespace(microbenchmark)
+if (requireNamespace("microbenchmark", quietly = TRUE)) {
+  library(microbenchmark)
+} else {
+  stop("Microbenchmark package needed for this vignette")
+}
 ```
 
 ```{r create parameter space}
