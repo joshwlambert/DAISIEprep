@@ -11,11 +11,11 @@ create_daisie_data(
   daisie_datatable,
   island_age,
   num_mainland_species,
-  num_clade_types,
-  list_type2_clades,
-  prop_type2_pool,
-  epss,
-  verbose
+  num_clade_types = 1,
+  list_type2_clades = NA,
+  prop_type2_pool = "proportional",
+  epss = 1e-05,
+  verbose = FALSE
 )
 }
 \arguments{

@@ -37,7 +37,8 @@ default_params_doc(
   list_type2_clades,
   prop_type2_pool,
   epss,
-  verbose
+  verbose,
+  col_uncertainty
 )
 }
 \arguments{
@@ -191,6 +192,11 @@ possible colonisation times.}
 
 \item{verbose}{Boolean. States if intermediate results should be printed to
 console. Defaults to TRUE.}
+
+\item{col_uncertainty}{A character, either "max", "min", or NULL. "max" makes
+everything a max age colonisation, "min" applies min ages when available,
+and NULL uses the precise times of colonisation, or the min ages when they
+are informative.}
 }
 \value{
 Nothing

@@ -26,11 +26,12 @@
 create_daisie_data <- function(daisie_datatable,
                                island_age,
                                num_mainland_species,
-                               num_clade_types,
-                               list_type2_clades,
-                               prop_type2_pool,
-                               epss,
-                               verbose) {
+                               num_clade_types = 1,
+                               list_type2_clades = NA,
+                               prop_type2_pool = "proportional",
+                               epss = 1e-5,
+                               verbose = FALSE) {
+
   DAISIE::DAISIE_dataprep(
     datatable = daisie_datatable,
     island_age = island_age,
@@ -40,4 +41,5 @@ create_daisie_data <- function(daisie_datatable,
     prop_type2_pool = prop_type2_pool,
     epss = epss,
     verbose = verbose)
+
 }
