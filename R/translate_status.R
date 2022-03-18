@@ -40,4 +40,6 @@ translate_status <- function(status) {
   if (any(grepl("^nonendemicmaxageminage$", status, ignore.case = TRUE))) {
     return("nonendemic_max_age_min_age")
   }
+
+  stop("Status not recognised")
 }

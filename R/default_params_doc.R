@@ -122,6 +122,8 @@
 #' everything a max age colonisation, "min" applies min ages when available,
 #' and NULL uses the precise times of colonisation, or the min ages when they
 #' are informative.
+#' @param n A numeric to be rounded
+#' @param digits A numeric specifying which decimal places to round to
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -158,6 +160,8 @@ default_params_doc <- function(island_colonist,
                                prop_type2_pool,
                                epss,
                                verbose,
-                               col_uncertainty) {
+                               col_uncertainty,
+                               n,
+                               digits) {
   # nothing
 }

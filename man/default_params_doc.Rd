@@ -38,7 +38,9 @@ default_params_doc(
   prop_type2_pool,
   epss,
   verbose,
-  col_uncertainty
+  col_uncertainty,
+  n,
+  digits
 )
 }
 \arguments{
@@ -197,6 +199,10 @@ console. Defaults to TRUE.}
 everything a max age colonisation, "min" applies min ages when available,
 and NULL uses the precise times of colonisation, or the min ages when they
 are informative.}
+
+\item{n}{A numeric to be rounded}
+
+\item{digits}{A numeric specifying which decimal places to round to}
 }
 \value{
 Nothing

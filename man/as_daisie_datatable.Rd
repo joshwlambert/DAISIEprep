@@ -29,7 +29,7 @@ data table (see DAISIE R package for details). This can then be input into
 the DAISIE ML models.
 }
 \examples{
-phylod <- create_test_phylod(10)
+phylod <- DAISIEprep:::create_test_phylod(10)
 island_tbl <- extract_island_species(
   phylod = phylod,
   extraction_method = "asr"

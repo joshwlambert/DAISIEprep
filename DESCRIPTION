@@ -74,3 +74,4 @@ Collate:
     'plot_phylod.R'
     'print-methods.R'
     'translate_status.R'
+    'utils.R'
