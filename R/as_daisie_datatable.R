@@ -7,6 +7,7 @@
 #'
 #' @return A data frame in the format of a DAISIE data table
 #' @export
+#' @author Joshua W. Lambert, Pedro Neves
 #'
 #' @examples
 #' phylod <- create_test_phylod(10)
@@ -58,25 +59,51 @@ as_daisie_datatable <- function(island_tbl,
     status_suffix <- ""
     min_age_available <- !is.na(island_tbl[i, "min_age"])
     # MaxAge cases
-    if ((brts[1] >= island_age || is.na(brts)) || col_uncertainty == "max") {
-      status_suffix <- "_MaxAge"
-      col_time <- island_age - 1e-5
-      if (length(brts) > 1 && brts[2] >= island_age) {
-        brts_before_island <- which(brts > island_age)
-        #TODO: check this line #########
-        daisie_datatable[i, "Branching_times"] <-
-          c(col_time, brts[-brts_before_island])
+    if (is.na(brts)) {
+      daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+        island_age - 1e-5
+      ))
+    } else {
+      if (brts[1] >= island_age || col_uncertainty == "max") {
+        status_suffix <- "_MaxAge"
+        if (brts[1] >= island_age) {
+          if (length(brts) > 1) {
+            if (brts[2] >= island_age) {
+              # remove branching times are older than the island
+              brts_before_island <- which(brts > island_age)
+              daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+                island_age - 1e-5, brts[-brts_before_island]
+              ))
+            } else {
+              # add the max age col time daisie datatable
+              daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+                island_age - 1e-5, brts[-1]
+              ))
+            }
+          } else {
+            daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+              island_age - 1e-5
+            ))
+          }
+        } else {
+          daisie_datatable[i, "Branching_times"][[1]] <- list(c(brts))
+        }
       }
-
     }
     # MinAge normal use and MinAge favouring cases (stac_handlings == "min")
     if ((isTRUE(min_age_available) && isTRUE(brts[1] >= island_age)) ||
         (isTRUE(min_age_available) && col_uncertainty == "min"))  {
       status_suffix <- "_MaxAgeMinAge"
-      daisie_datatable[i, "Branching_times"] <- c(
-        daisie_datatable[i, "Branching_times"],
-        island_tbl[i, "min_age"]
-      )
+
+      if (brts[1] >= island_age) {
+        daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+          island_age - 1e-5, island_tbl[i, "min_age"]
+        ))
+      } else {
+        daisie_datatable[i, "Branching_times"][[1]] <- list(c(
+          brts, island_tbl[i, "min_age"]
+        ))
+      }
     }
 
     daisie_datatable[i, "Status"] <- paste0(

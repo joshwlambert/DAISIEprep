@@ -73,3 +73,4 @@ Collate:
     'multi_island_tbl-class.R'
     'plot_phylod.R'
     'print-methods.R'
+    'translate_status.R'

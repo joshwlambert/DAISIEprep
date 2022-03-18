@@ -7,7 +7,7 @@ data table (see DAISIE R package for details). This can then be input into
 `DAISIEprep::create_daisie_data` function which creates the list input into
 the DAISIE ML models.}
 \usage{
-as_daisie_datatable(island_tbl, island_age, col_uncertainty = NULL)
+as_daisie_datatable(island_tbl, island_age, col_uncertainty = "none")
 }
 \arguments{
 \item{island_tbl}{An instance of the `Island_tbl` class.}
@@ -34,9 +34,21 @@ island_tbl <- extract_island_species(
   phylod = phylod,
   extraction_method = "asr"
 )
+
+# Example where precise colonisation times are known
 daisie_datatable <- as_daisie_datatable(
   island_tbl = island_tbl,
   island_age = 0.2,
-  col_uncertainty = "no"
+  col_uncertainty = "none"
 )
+
+# Example where colonisation times are uncertain and set to max ages
+daisie_datatable <- as_daisie_datatable(
+  island_tbl = island_tbl,
+  island_age = 0.2,
+  col_uncertainty = "max"
+)
+}
+\author{
+Joshua W. Lambert, Pedro Neves
 }
