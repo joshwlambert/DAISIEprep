@@ -10,7 +10,7 @@
 #' @author Joshua W. Lambert, Pedro Neves
 #'
 #' @examples
-#' phylod <- create_test_phylod(10)
+#' phylod <- DAISIEprep:::create_test_phylod(10)
 #' island_tbl <- extract_island_species(
 #'   phylod = phylod,
 #'   extraction_method = "asr"
@@ -59,7 +59,7 @@ as_daisie_datatable <- function(island_tbl,
     status_suffix <- ""
     min_age_available <- !is.na(island_tbl[i, "min_age"])
     # MaxAge cases
-    if (is.na(brts)) {
+    if (all(is.na(brts))) {
       daisie_datatable[i, "Branching_times"][[1]] <- list(c(
         island_age - 1e-5
       ))

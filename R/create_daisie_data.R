@@ -31,25 +31,22 @@ create_daisie_data <- function(daisie_datatable,
                                prop_type2_pool = "proportional",
                                epss = 1e-5,
                                verbose = FALSE) {
-  browser()
 
   num_col <- nrow(daisie_datatable)
-  datalist <- list()
   if (num_clade_types == 1) {
-    datalist[[1]] <- list(
+    datalist <- list(
       island_age = island_age,
       not_present = (num_mainland_species - num_col)
     )
   }
   if (num_clade_types == 2) {
     num_type2_colonisations <- length(list_type2_clades)
-    num_type1_colonisations <- num_colonisations -
-      num_type2_colonisations
+    num_type1_colonisations <- num_col - num_type2_colonisations
     if (prop_type2_pool == "proportional") {
-      not_present_type1 <- DDD::roundn( (num_mainland_species / num_colonisations) *
+      not_present_type1 <- DDD::roundn( (num_mainland_species / num_col) *
                                           num_type1_colonisations) -
         num_type1_colonisations
-      not_present_type2 <- DDD::roundn( (num_mainland_species / num_colonisations) *
+      not_present_type2 <- DDD::roundn( (num_mainland_species / num_col) *
                                           num_type2_colonisations) -
         num_type2_colonisations
     } else {
@@ -63,26 +60,16 @@ create_daisie_data <- function(daisie_datatable,
                           not_present_type2 = not_present_type2)
   }
 
-  datalist_cols <- unlist(daisie_datatable, recursive = FALSE)
-  datalist <- list(datalist, datalist_cols)
-
-  # replace Clade_name with colonist_name
-  datalist <- lapply(datalist, function(x) {
-   if (!is.null(x$Clade_name)) {
-     names(x)[which(names(x) == "Clade_name")] <- "colonist_name"
-   }
-  })
-
-  # replace Status with stac
-
-  # replace Missing_species with missing_species
-
-  # replace Brancing_times with branching_times
-
-  # append type1or2 to each element apart from first
-  #datalist <- lapply ... type1or2 = 1
-
+  # loop over every colonist excluding metadata (first element)
   for (i in seq_len(nrow(daisie_datatable))) {
+
+    datalist[[i]] <- list(
+      colonist_name = daisie_datatable[i, "Clade_name"],
+      branching_times = NA,
+      stac = NA,
+      missing_species = daisie_datatable[i, "Missing_species"],
+      type1or2 = 1
+    )
 
     brts <- sort(
       unlist(daisie_datatable[i, "Branching_times"]),
@@ -91,16 +78,9 @@ create_daisie_data <- function(daisie_datatable,
 
     # get the status of the colonist
     status <- translate_status(daisie_datatable[i, "Status"])
-
+browser()
     if (is.na(brts[1])) {
       brts <- island_age
-
-      if (status == "endemic") {
-        daisie_datatable[i, "Status"] <-"Endemic_MaxAge"
-      }
-      if (status == "nonendemic") {
-        daisie_datatable[i,"Status"] <-"Non_endemic_MaxAge"
-      }
     }
 
     if (max(brts) > island_age) {
@@ -121,13 +101,15 @@ create_daisie_data <- function(daisie_datatable,
       }
     }
 
-    if(length(brts) == 1) {
-      datalist[[i + 1]]$branching_times <-
-        c(island_age, min(brts, island_age - epss))
+    if (length(brts) == 1) {
+      datalist[[i]]$branching_times <- c(
+        island_age,
+        min(brts, island_age - epss)
+      )
     }
     if (length(brts) > 1) {
-      brts[1] <- min(brts[1],island_age - epss)
-      datalist[[i + 1]]$branching_times <- c(island_age,brts)
+      brts[1] <- min(brts[1], island_age - epss)
+      datalist[[i]]$branching_times <- c(island_age, brts)
       if (brts[2] >= brts[1]) {
         stop(paste(
           "Cladogenetic event or minimum colonisation time in ",
@@ -138,7 +120,7 @@ create_daisie_data <- function(daisie_datatable,
       }
     }
 
-    if (status == "nonendemic_max_age") {
+    if (status %in% c("nonendemic", "nonendemic_max_age")) {
 
       if (length(brts) > 1) {
         stop(paste(
@@ -158,44 +140,27 @@ create_daisie_data <- function(daisie_datatable,
         ))
       }
 
-      datalist[[i + 1]]$stac = 1
-
+      if (status == "nonendemic") {
+        datalist[[i]]$stac <- 4
+      } else {
+        datalist[[i]]$stac <- 1
+      }
     }
 
     if (status == "endemic") {
-      datalist[[i + 1]]$stac = 2
+      datalist[[i]]$stac <- 2
     }
 
     if (status == "endemic&nonendemic") {
-      datalist[[i + 1]]$stac = 3
-    }
-
-    if (status == "nonendemic") {
-      if (length(brts) > 1) {
-        stop(paste(
-          "Only one branching time should be provided for ",
-          daisie_datatable[i,"Clade_name"],
-          " because it is a non-endemic species. If you mean to specifiy a minimum age as well, please use Non_Endemic_MaxAgeMinAge.",
-          sep = ""
-        ))
-      }
-      if (daisie_datatable[i, "Missing_species"] > 0) {
-        stop(paste(
-          "Missing species for ",
-          daisie_datatable[i,"Clade_name"],
-          " should be 0 because it is a non-endemic species.",
-          sep = ""
-        ))
-      }
-      datalist[[i + 1]]$stac = 4
+      datalist[[i]]$stac <- 3
     }
 
     if(status == "endemic_max_age") {
       if (length(brts) == 1) {
-        datalist[[i + 1]]$stac = 5
+        datalist[[i]]$stac <- 5
       }
       if (length(brts) > 1) {
-        datalist[[i + 1]]$stac = 6
+        datalist[[i]]$stac <- 6
       }
       if (max(brts)>island_age) {
         if (length(brts) > 1) {
@@ -210,16 +175,16 @@ create_daisie_data <- function(daisie_datatable,
     }
 
     if(status == "nonendemic_max_age_min_age") {
-      datalist[[i + 1]]$stac = 8
+      datalist[[i]]$stac <- 8
     }
 
     if (status == "endemic_max_age_min_age") {
-      datalist[[i + 1]]$stac = 9
+      datalist[[i]]$stac <- 9
     }
 
     if(num_clade_types == 2) {
       if(length(which(list_type2_clades == daisie_datatable[i,"Clade_name"])) > 0) {
-        datalist[[i + 1]]$type1or2 = 2
+        datalist[[i]]$type1or2 <- 2
       }
     }
   }
@@ -227,10 +192,6 @@ create_daisie_data <- function(daisie_datatable,
   if (length(which(is.na(unlist(datalist)[which(names(unlist(datalist)) == 'stac')]) == TRUE)) > 0) {
     stop("The status of one or more lineages is incorrectly spelled in the source table and has not been assigned.")
   }
-
-
-  # make sure branching times are sorted
-  #datalist <- lapply ... sort(..., decreasing = TRUE)
 
   # return datalist
   datalist
