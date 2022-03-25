@@ -39,7 +39,7 @@ extract_species_min <- function(phylod,
                                 island_tbl) {
 
   # check input data
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   # extract any nonendemic and endemic species is on the island
   if (identical(species_endemicity, "nonendemic")) {

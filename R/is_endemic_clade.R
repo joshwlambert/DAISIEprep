@@ -9,7 +9,7 @@ is_endemic_clade <- function(phylod,
                              species_label) {
 
   # check input data
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   # get the species name (genus_species) from the focal species
   focal_split_species_names <- strsplit(x = species_label, split = "_")

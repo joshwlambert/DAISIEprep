@@ -15,7 +15,7 @@ add_asr_node_states <- function(phylod,
                                 earliest_col = FALSE) {
 
   # check the phylod input
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   # add one as the asr method cannot handle zero as a state
   tip_states <-

@@ -30,7 +30,7 @@ extract_endemic_singleton <- function(phylod,
                                       species_label) {
 
   # check input data
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()

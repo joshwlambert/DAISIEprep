@@ -31,7 +31,7 @@ extract_island_species <- function(phylod,
                                    include_not_present = FALSE) {
 
   # check the input data
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   if (is.null(island_tbl)) {
     island_tbl <- island_tbl()

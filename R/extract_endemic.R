@@ -33,7 +33,7 @@ extract_endemic <- function(phylod,
                             species_label) {
 
   # check input data
-  check_phylo_data(phylod)
+  phylod <- check_phylo_data(phylod)
 
   # check whether the focal species is in an endemic clade
   clade <- is_endemic_clade(phylod, species_label)
