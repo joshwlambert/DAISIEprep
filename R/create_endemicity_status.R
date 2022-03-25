@@ -26,7 +26,6 @@
 #'   phylo = phylo,
 #'   island_species = island_species
 #' )
-
 create_endemicity_status <- function(phylo,
                                      island_species) {
 
@@ -59,8 +58,20 @@ create_endemicity_status <- function(phylo,
   rownames(endemicity_status) <- tip_labels
 
   # replace the species endemicity status with those given in island_species
-  tips_found <- which(rownames(endemicity_status) %in% island_species$tip_labels)
-  endemicity_status[tips_found, ] <- island_species$tip_endemicity_status
+  for (i in seq_along(island_species$tip_labels)) {
+    on_island <- grepl(
+      pattern = island_species$tip_labels[i],
+      x = rownames(endemicity_status)
+    )
+    if (any(on_island)) {
+      if (sum(on_island) > 1) {
+        warning("There are multiple tips matched to a single species")
+      }
+      island <- which(on_island)
+      endemicity_status[island, ] <- island_species$tip_endemicity_status[i]
+    }
+  }
+
 
   # return endemicity_status
   endemicity_status

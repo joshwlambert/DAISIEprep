@@ -42,7 +42,7 @@ is_duplicate_colonist <- function(island_colonist,
   branching_times_duplicate <- unlist(
     lapply(island_tbl$branching_times, function(x) {
       if (length(x) == length(colonist_branching_times)) {
-        all(x == colonist_branching_times)
+        all(abs(x - colonist_branching_times) < 1e-10)
       } else {
         FALSE
       }
