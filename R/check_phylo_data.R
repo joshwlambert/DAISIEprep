@@ -28,90 +28,96 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' check_phylo_data(phylod)
 check_phylo_data <- function(phylod) {
-  if (isFALSE(methods::is(phylod, "phylo4d"))) {
-    stop("Object must be of the class phylo4d")
-  }
 
-  # extract the tip labels from the tree
-  tip_labels <- unname(phylobase::tipLabels(phylod))
-  split_tip_labels <- strsplit(tip_labels, split = "_")
+  # only check if object has not be previously checked
+  if (!isTRUE(phylod@metadata$checked)) {
 
-  # check the tip labels are in genus_species_marker format (marker is optional)
-  correct_structure <- all(sapply(split_tip_labels, function(x) {
-    length(x) >= 2
-  }))
+    if (isFALSE(methods::is(phylod, "phylo4d"))) {
+      stop("Object must be of the class phylo4d")
+    }
 
-  if (isFALSE(correct_structure)) {
-    stop("Tip labels on the phylogeny need to be in the format genus underscore
+    # extract the tip labels from the tree
+    tip_labels <- unname(phylobase::tipLabels(phylod))
+    split_tip_labels <- strsplit(tip_labels, split = "_")
+
+    # check the tip labels are in genus_species_marker format (marker is optional)
+    correct_structure <- all(sapply(split_tip_labels, function(x) {
+      length(x) >= 2
+    }))
+
+    if (isFALSE(correct_structure)) {
+      stop("Tip labels on the phylogeny need to be in the format genus underscore
          species and then optionally underscore and molecular marker or
          collection tag")
-  }
+    }
 
-  # extract genus names
-  genus_name <- lapply(split_tip_labels, "[[", 1)
+    # extract genus names
+    genus_name <- lapply(split_tip_labels, "[[", 1)
 
-  #check genus names only contains letters
-  correct_genus_name <- lapply(genus_name, function(x) {
-    grep(pattern = "^[A-z]+$", x)
-  })
-  correct_genus_name <- all(sapply(correct_genus_name, function(x) {
-    isTRUE(x == 1)
-  }))
+    #check genus names only contains letters
+    correct_genus_name <- lapply(genus_name, function(x) {
+      grep(pattern = "^[A-z]+$", x)
+    })
+    correct_genus_name <- all(sapply(correct_genus_name, function(x) {
+      isTRUE(x == 1)
+    }))
 
-  # extract species names
-  species_name <- lapply(split_tip_labels, "[[", 2)
+    # extract species names
+    species_name <- lapply(split_tip_labels, "[[", 2)
 
-  # check species names only contains letters
-  correct_species_name <- sapply(species_name, function(x) {
-    grep(pattern = "^[A-z]+$", x)
-  })
-  correct_species_name <- all(sapply(correct_species_name, function(x) {
-    isTRUE(x == 1)
-  }))
+    # check species names only contains letters
+    correct_species_name <- sapply(species_name, function(x) {
+      grep(pattern = "^[A-z]+$", x)
+    })
+    correct_species_name <- all(sapply(correct_species_name, function(x) {
+      isTRUE(x == 1)
+    }))
 
-  correct_name <- correct_genus_name && correct_species_name
+    correct_name <- correct_genus_name && correct_species_name
 
-  if (isFALSE(correct_name)) {
-    stop("The genus or species names in the tip labels contain non-alphabetic
+    if (isFALSE(correct_name)) {
+      stop("The genus or species names in the tip labels contain non-alphabetic
          characters")
-  }
+    }
 
-  if (isFALSE(phylobase::hasTipData(phylod))) {
-    stop("Object must have endemicity status stored as tip data")
-  }
+    if (isFALSE(phylobase::hasTipData(phylod))) {
+      stop("Object must have endemicity status stored as tip data")
+    }
 
-  correct_trait_data <-
-    all(names(phylobase::tdata(phylod)) %in%
-        c("endemicity_status", "island_status",
-          "island_prob", "not_present_prob"))
-  if (isFALSE(correct_trait_data)) {
-    stop("Tip data must be called endemicity_status, node data must be called
+    correct_trait_data <-
+      all(names(phylobase::tdata(phylod)) %in%
+            c("endemicity_status", "island_status",
+              "island_prob", "not_present_prob"))
+    if (isFALSE(correct_trait_data)) {
+      stop("Tip data must be called endemicity_status, node data must be called
          island_status, and node probabilities are called island_prob and
          not_present_prob")
-  }
+    }
 
-  status <- phylobase::tipData(phylod)$endemicity_status
-  if (isFALSE(all(status %in% c("endemic", "nonendemic", "not_present")))) {
-    stop("Endemicity status must be either 'endemic', 'nonendemic', or
+    status <- phylobase::tipData(phylod)$endemicity_status
+    if (isFALSE(all(status %in% c("endemic", "nonendemic", "not_present")))) {
+      stop("Endemicity status must be either 'endemic', 'nonendemic', or
          'not_present'")
-  }
+    }
 
-  # check if there are no species are on the island
-  all_not_present <- all(
-    phylobase::tipData(phylod)$endemicity_status %in% "not_present"
-  )
+    # check if there are no species are on the island
+    all_not_present <- all(
+      phylobase::tipData(phylod)$endemicity_status %in% "not_present"
+    )
 
-  if (all_not_present) {
-    stop("No species in the phylogeny are on the island")
-  }
+    if (all_not_present) {
+      stop("No species in the phylogeny are on the island")
+    }
 
-  # check there is a not present outgroup for stem age colonisation
-  any_outgroup <- any_outgroup(phylod = phylod)
+    # check there is a not present outgroup for stem age colonisation
+    any_outgroup <- any_outgroup(phylod = phylod)
 
-  if (isFALSE(any_outgroup)) {
-    stop("Phylogeny must contain an outgroup not present on the island to
+    if (isFALSE(any_outgroup)) {
+      stop("Phylogeny must contain an outgroup not present on the island to
           extract stem age of the island colonisation")
-  }
+    }
 
+    phylod@metadata$checked <- TRUE
+  }
   invisible(phylod)
 }

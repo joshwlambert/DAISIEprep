@@ -131,13 +131,20 @@ for (i in seq_len(nrow(parameter_space))) {
     prob_nonendemic <- 1 - parameter_space$prob_endemic[i]
     
     if (parameter_space$sampling_type[i] == "uniform") {
-      # generate tip states under uniform sampling
-      endemicity_status <- sample(
-        x = c("endemic", "nonendemic", "not_present"),
-        size = parameter_space$tree_size[i],
-        replace = TRUE,
-        prob = c(prob_endemic, prob_nonendemic, prob_not_present)
-      )  
+      
+      empty_island <- TRUE
+      while (empty_island) {
+        # generate tip states under uniform sampling
+        endemicity_status <- sample(
+          x = c("endemic", "nonendemic", "not_present"),
+          size = parameter_space$tree_size[i],
+          replace = TRUE,
+          prob = c(prob_endemic, prob_nonendemic, prob_not_present)
+        )
+        if (any(endemicity_status != "not_present")) {
+          empty_island <- FALSE
+        }
+      }
     } else if (parameter_space$sampling_type[i] == "clustered") {
       # clustered sampling
       #TODO
