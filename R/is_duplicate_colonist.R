@@ -41,7 +41,11 @@ is_duplicate_colonist <- function(island_colonist,
   # check if the branching times are duplicates
   branching_times_duplicate <- unlist(
     lapply(island_tbl$branching_times, function(x) {
-      isTRUE(all.equal(x, colonist_branching_times))
+      if (length(x) == length(colonist_branching_times)) {
+        all(x == colonist_branching_times)
+      } else {
+        FALSE
+      }
     })
   )
 
