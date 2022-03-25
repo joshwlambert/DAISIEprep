@@ -2,6 +2,7 @@
 
 export(add_asr_node_states)
 export(add_missing_species)
+export(add_outgroup)
 export(all_descendants_conspecific)
 export(any_back_colonisation)
 export(any_outgroup)

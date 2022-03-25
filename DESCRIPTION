@@ -40,6 +40,7 @@ Config/testthat/edition: 3
 Collate: 
     'add_asr_node_states.R'
     'add_missing_species.R'
+    'add_outgroup.R'
     'all_descendants_conspecific.R'
     'any_back_colonisation.R'
     'any_outgroup.R'

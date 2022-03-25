@@ -25,7 +25,8 @@
 #' must have colonised the island by. This is known when there is a branching
 #' on the island, either in species or subspecies.
 #' @param endemic_clade Named vector with all the species from a clade.
-#' @param phylo A `phylo4` object from the package `phylobase`.
+#' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or
+#' `phylo4` (from the `phylobase` package) object.
 #' @param island_species Data frame with two columns. The first is a character
 #' string of the tip_labels with the tip names of the species on the island.
 #' The second column a character string of the endemicity status of the species,
