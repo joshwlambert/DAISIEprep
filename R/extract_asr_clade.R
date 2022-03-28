@@ -19,12 +19,20 @@ extract_asr_clade <- function(phylod,
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
   # extract colonisation time as stem age of clade (time before present)
-  col_time <- as.numeric(phylobase::nodeHeight(
-    x = phylod,
-    node = phylobase::nodeId(phylod, "root"),
-    from = "min_tip"
-  ))
+  mrca <- ape::getMRCA(phylo, tip = clade)
+  stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
+  col_times <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert from distance from root to distance from tip
+  col_times <- abs(col_times - max(col_times))
+
+  # get only the stem age
+  col_time <- col_times[stem]
 
   # subset the clade from the rest of the tree
   phylod <- phylobase::subset(
@@ -53,15 +61,15 @@ extract_asr_clade <- function(phylod,
     }
   }
 
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
   # extract branching times (time before present)
-  node_heights <- c()
-  for (i in seq_len(phylobase::nEdges(phylod))) {
-    node_heights[i] <- phylobase::nodeHeight(
-      x = phylod,
-      node = i,
-      from = "min_tip"
-    )
-  }
+  node_heights <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert from distance from root to distance from tip
+  node_heights <- abs(node_heights - max(node_heights))
 
   # remove any duplicates if two species come from the same branching event
   branching_times <- sort(unique(node_heights), decreasing = TRUE)
