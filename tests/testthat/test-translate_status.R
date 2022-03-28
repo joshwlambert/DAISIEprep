@@ -10,6 +10,8 @@ test_that("translate_status works on nonendemic variants", {
   expect_equal(translate_status("NonEndemic"), "nonendemic")
   expect_equal(translate_status("Nonendemic"), "nonendemic")
   expect_equal(translate_status("non_endemic"), "nonendemic")
+  expect_equal(translate_status("Non-endemic"), "nonendemic")
+  expect_equal(translate_status("non-endemic"), "nonendemic")
 })
 
 test_that("translate_status works on endemic_max_age variants", {

@@ -68,7 +68,10 @@ create_endemicity_status <- function(phylo,
         warning("There are multiple tips matched to a single species")
       }
       island <- which(on_island)
-      endemicity_status[island, ] <- island_species$tip_endemicity_status[i]
+      species_endemicity <- translate_status(
+        status = island_species$tip_endemicity_status[i]
+      )
+      endemicity_status[island, ] <- species_endemicity
     }
   }
 

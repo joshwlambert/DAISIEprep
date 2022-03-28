@@ -12,6 +12,7 @@
 translate_status <- function(status) {
 
   status <- gsub(pattern = "_", replacement = "", x = status)
+  status <- gsub(pattern = "-", replacement = "", x = status)
 
   if (any(grepl("^endemic$", status, ignore.case = TRUE))) {
     return("endemic")

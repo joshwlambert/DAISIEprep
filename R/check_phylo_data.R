@@ -58,9 +58,7 @@ check_phylo_data <- function(phylod) {
     correct_genus_name <- lapply(genus_name, function(x) {
       grep(pattern = "^[A-z]+$", x)
     })
-    correct_genus_name <- all(sapply(correct_genus_name, function(x) {
-      isTRUE(x == 1)
-    }))
+    correct_genus_name <- all(unlist(correct_genus_name) == 1)
 
     # extract species names
     species_name <- lapply(split_tip_labels, "[[", 2)
@@ -69,9 +67,7 @@ check_phylo_data <- function(phylod) {
     correct_species_name <- sapply(species_name, function(x) {
       grep(pattern = "^[A-z]+$", x)
     })
-    correct_species_name <- all(sapply(correct_species_name, function(x) {
-      isTRUE(x == 1)
-    }))
+    correct_species_name <- all(unlist(correct_species_name) == 1)
 
     correct_name <- correct_genus_name && correct_species_name
 
