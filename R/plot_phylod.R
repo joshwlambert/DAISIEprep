@@ -31,17 +31,23 @@ plot_phylod <- function(phylod,
     all(c("nonendemic_prob", "not_present_prob") %in%
           names(phylobase::tdata(phylod)))
   if (node_pies && !node_pie_data) {
-    stop("To plot probabilities in at the nodes they must be given in phylod")
+    stop("To plot probabilities in at the nodes they must be in phylod")
   }
 
   # Fix build warnings
   endemicity_status <- NULL; rm(endemicity_status) # nolint, fixes warning: no visible binding for global variable
   island_status <- NULL; rm(island_status) # nolint, fixes warning: no visible binding for global variable
 
-  #generate plot
-  p <- ggtree::ggtree(phylod) +
+  # generate plot
+  # suppress Scale for 'y' is already present.
+  p <- suppressMessages(ggtree::ggtree(phylod) +
     ggtree::theme_tree2() +
-    ggtree::geom_tiplab(as_ylab = TRUE)
+    ggtree::geom_tiplab(as_ylab = TRUE))
+
+  # suppress Scale for 'x' is already present.
+  p <- suppressMessages(ggtree::revts(treeview = p) +
+    ggplot2::scale_x_continuous(labels = abs) +
+    ggplot2::xlab("Time (Million years ago)"))
 
 
   if (!is.null(phylobase::nodeData(phylod)$endemicity_status)) {
@@ -49,7 +55,8 @@ plot_phylod <- function(phylod,
       ggtree::geom_tippoint(
         ggplot2::aes(colour = endemicity_status),
         size = 3,
-      )
+      ) +
+      ggplot2::labs(colour = "Endemicity status")
   }
 
   if (isTRUE(node_pies)) {
