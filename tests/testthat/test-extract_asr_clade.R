@@ -15,7 +15,7 @@ test_that("2 nonendemics, 3 species tree, sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(1.433370056817, 0.251727277709)
+    c(Inf, 0.251727277709)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -37,7 +37,7 @@ test_that("2 nonendemics, 4 species tree, sister", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.125863638855)
+    c(0.519744565224, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -59,7 +59,7 @@ test_that("2 nonendemics, 4 species tree, non-sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.519744565224)
+    c(Inf, 0.519744565224)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -81,14 +81,14 @@ test_that("2 endemics, 3 species tree, sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(1.433370056817, 0.251727277709)
+    c(Inf, 0.251727277709)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
 
 test_that("2 endemics, 4 species tree, sisters", {
   phylod <- create_test_phylod(test_scenario = 15)
-  clade <- c(3, 4)
+  clade <- c(1, 2, 3, 4)
   names(clade) <- c("bird_c", "bird_d")
   island_colonist <- extract_asr_clade(
     phylod = phylod,
@@ -103,7 +103,7 @@ test_that("2 endemics, 4 species tree, sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.125863638855)
+    c(Inf, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -125,7 +125,7 @@ test_that("2 endemics, 4 species tree, non-sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.519744565224)
+    c(Inf, 0.519744565224)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -147,7 +147,7 @@ test_that("2 nonendemics, 3 species tree, sisters, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(1.433370056817, 0.251727277709)
+    c(Inf, 1.433370056817, 0.251727277709)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -169,7 +169,7 @@ test_that("2 nonendemics, 4 species tree, sister, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.125863638855)
+    c(0.519744565224, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -191,7 +191,7 @@ test_that("2 nonendemics, 4 species tree, non-sisters, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.519744565224, 0.125863638855)
+    c(Inf, 0.665451291928, 0.519744565224, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -213,14 +213,14 @@ test_that("2 endemics, 3 species tree, sisters, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(1.433370056817, 0.251727277709)
+    c(Inf, 1.433370056817, 0.251727277709)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
 
 test_that("2 endemics, 4 species tree, sisters, include_not_present", {
   phylod <- create_test_phylod(test_scenario = 15)
-  clade <- c(3, 4)
+  clade <- c(1, 2, 3, 4)
   names(clade) <- c("bird_c", "bird_d")
   island_colonist <- extract_asr_clade(
     phylod = phylod,
@@ -235,7 +235,7 @@ test_that("2 endemics, 4 species tree, sisters, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.125863638855)
+    c(Inf, 0.665451291928, 0.519744565224, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })
@@ -257,7 +257,7 @@ test_that("2 endemics, 4 species tree, non-sisters, include_not_present", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(
     get_branching_times(island_colonist),
-    c(0.665451291928, 0.519744565224, 0.125863638855)
+    c(Inf, 0.665451291928, 0.519744565224, 0.125863638855)
   )
   expect_true(is.na(get_min_age(island_colonist)))
 })

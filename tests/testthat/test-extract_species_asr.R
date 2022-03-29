@@ -1,12 +1,12 @@
 test_that("1 nonendemic, 2 species tree, asr", {
   phylod <- create_test_phylod(test_scenario = 1)
-  island_tbl <- extract_species_asr(
+  island_tbl <- suppressWarnings(extract_species_asr(
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "nonendemic",
     island_tbl = island_tbl(),
     include_not_present = FALSE
-  )
+  ))
 
   expect_s4_class(island_tbl, "Island_tbl")
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
@@ -26,13 +26,13 @@ test_that("1 nonendemic, 2 species tree, asr", {
 
 test_that("1 nonendemic, 3 species tree, asr, outgroup", {
   phylod <- create_test_phylod(test_scenario = 2)
-  island_tbl <- extract_species_asr(
+  island_tbl <- suppressWarnings(extract_species_asr(
     phylod = phylod,
     species_label = "bird_c",
     species_endemicity = "nonendemic",
     island_tbl = island_tbl(),
     include_not_present = FALSE
-  )
+  ))
 
   expect_s4_class(island_tbl, "Island_tbl")
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
