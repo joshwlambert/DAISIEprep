@@ -28,9 +28,9 @@ plot_phylod <- function(phylod,
                         node_pies = FALSE) {
 
   node_pie_data <-
-    all(c("island_prob", "not_present_prob", "a") %in%
+    all(c("nonendemic_prob", "not_present_prob") %in%
           names(phylobase::tdata(phylod)))
-  if (isTRUE(node_pies) && node_pie_data) {
+  if (node_pies && !node_pie_data) {
     stop("To plot probabilities in at the nodes they must be given in phylod")
   }
 
@@ -53,8 +53,15 @@ plot_phylod <- function(phylod,
   }
 
   if (isTRUE(node_pies)) {
+
+    if ("endemic_prob" %in% names(phylobase::tdata(phylod))) {
+      states <- c("endemic_prob", "nonendemic_prob", "not_present_prob")
+    } else {
+      states <- c("nonendemic_prob", "not_present_prob")
+    }
+
     node_pies <-
-      phylobase::nodeData(phylod)[, c("island_prob", "not_present_prob")]
+      phylobase::nodeData(phylod)[, states]
     node_pies <- cbind(node_pies, node = rownames(node_pies))
 
     pies <- ggtree::nodepie(node_pies, cols = 1:2)
@@ -62,8 +69,8 @@ plot_phylod <- function(phylod,
     p <- p +
       ggtree::geom_inset(
         insets = pies,
-        width = 0.1,
-        height = 0.1,
+        width = 0.2,
+        height = 0.2,
       )
 
   } else if (!is.null(phylobase::nodeData(phylod)$island_status)) {

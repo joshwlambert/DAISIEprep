@@ -17,24 +17,40 @@ add_asr_node_states <- function(phylod,
   # check the phylod input
   phylod <- check_phylo_data(phylod)
 
-  # add one as the asr method cannot handle zero as a state
-  tip_states <-
-    as.numeric(grepl(
-      pattern = "endemic",
-      x = phylobase::tipData(phylod)$endemicity_status
-    )) + 1
+  # encode tip states as numerics, the asr method cannot handle zero as a state
+  tip_states <- c()
+  endemicity_status <- phylobase::tipData(phylod)$endemicity_status
+  for (i in seq_along(endemicity_status)) {
+    if (grepl(pattern = "^not_present$", x = endemicity_status[i])) {
+      tip_states[i] <- 1
+    } else if (grepl(pattern = "^nonendemic$", x = endemicity_status[i])) {
+      tip_states[i] <- 2
+    } else if (grepl(pattern = "^endemic$", x = endemicity_status[i])) {
+      tip_states[i] <- 3
+    }
+  }
 
   # castor asr functions require S3 phylo objects
   # suppress warnings about tree conversion as they are fine
   phylo <- suppressWarnings(methods::as(phylod, "phylo"))
 
   if (asr_method == "parsimony") {
-    asr <- castor::asr_max_parsimony(tree = phylo, tip_states = tip_states)
+    asr <- castor::asr_max_parsimony(
+      tree = phylo,
+      tip_states = tip_states,
+      transition_costs = "sequential"
+    )
   } else if (asr_method == "mk") {
     asr <- castor::asr_mk_model(tree = phylo, tip_states = tip_states)
   }
 
-  colnames(asr$ancestral_likelihoods) <- c("not_present", "island")
+  if (ncol(asr$ancestral_likelihoods) == 2) {
+    colnames(asr$ancestral_likelihoods) <- c("not_present", "nonendemic")
+  } else if (ncol(asr$ancestral_likelihoods) == 3) {
+    colnames(asr$ancestral_likelihoods) <-
+      c("not_present", "nonendemic", "endemic")
+  }
+
 
   if (isFALSE(earliest_col)) {
     if (tie_preference == "island") {
@@ -55,18 +71,31 @@ add_asr_node_states <- function(phylod,
 
   # convert numeric to string
   node_states <- gsub(
-    pattern = "2", replacement = "island", x = node_states
-  )
-  node_states <- gsub(
     pattern = "1", replacement = "not_present", x = node_states
   )
-
-  node_data <- data.frame(
-    island_status = node_states,
-    island_prob = asr$ancestral_likelihoods[, "island"],
-    not_present_prob = asr$ancestral_likelihoods[, "not_present"],
-    row.names = phylobase::nodeId(phylod, "internal")
+  node_states <- gsub(
+    pattern = "2", replacement = "nonendemic", x = node_states
   )
+  node_states <- gsub(
+    pattern = "3", replacement = "endemic", x = node_states
+  )
+
+  if (ncol(asr$ancestral_likelihoods) == 2) {
+    node_data <- data.frame(
+      island_status = node_states,
+      nonendemic_prob = asr$ancestral_likelihoods[, "nonendemic"],
+      not_present_prob = asr$ancestral_likelihoods[, "not_present"],
+      row.names = phylobase::nodeId(phylod, "internal")
+    )
+  } else if (ncol(asr$ancestral_likelihoods) == 3) {
+    node_data <- data.frame(
+      island_status = node_states,
+      endemic_prob = asr$ancestral_likelihoods[, "endemic"],
+      nonendemic_prob = asr$ancestral_likelihoods[, "nonendemic"],
+      not_present_prob = asr$ancestral_likelihoods[, "not_present"],
+      row.names = phylobase::nodeId(phylod, "internal")
+    )
+  }
 
   tip_data <- data.frame(
     endemicity_status = phylobase::tipData(phylod)$endemicity_status,

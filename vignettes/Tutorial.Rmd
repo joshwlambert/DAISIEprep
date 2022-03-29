@@ -140,7 +140,11 @@ to convert the phylogeny back to this type and then run the analysis.
 
 ```{r calculate ancestral states}
 phylo <- as(phylo, "phylo")
-asr <- castor::asr_max_parsimony(phylo, tip_states)
+asr <- castor::asr_max_parsimony(
+  tree = phylo,
+  tip_states = tip_states,
+  transition_costs = "sequential"
+)
 ``` 
 
 This provides us with a matrix with the probabilities of the states (island 

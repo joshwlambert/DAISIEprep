@@ -19,20 +19,33 @@ extract_asr_clade <- function(phylod,
   # create an instance of the island_colonist class to store data
   island_col <- island_colonist()
 
-  # use S3 phylo objects for speed
-  # suppress warnings about tree conversion as they are fine
-  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+  # get the ancestral state at the root
+  root_state <-
+    phylobase::tdata(phylod)[phylobase::rootNode(phylod), "island_status"]
 
-  # extract colonisation time as stem age of clade (time before present)
-  mrca <- ape::getMRCA(phylo, tip = clade)
-  stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
-  col_times <- ape::node.depth.edgelength(phy = phylo)
+  # if the root is on the island not not try to extract colonisation time
+  if (root_state %in% c("endemic", "nonendemic")) {
 
-  # convert from distance from root to distance from tip
-  col_times <- abs(col_times - max(col_times))
+    # set colonisation time to infinite when stem age of clade is not available
+     col_time <- Inf
 
-  # get only the stem age
-  col_time <- col_times[stem]
+  } else {
+
+    # use S3 phylo objects for speed
+    # suppress warnings about tree conversion as they are fine
+    phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
+    # extract colonisation time as stem age of clade (time before present)
+    mrca <- ape::getMRCA(phylo, tip = clade)
+    stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
+    col_times <- ape::node.depth.edgelength(phy = phylo)
+
+    # convert from distance from root to distance from tip
+    col_times <- abs(col_times - max(col_times))
+
+    # get only the stem age
+    col_time <- col_times[stem]
+  }
 
   # subset the clade from the rest of the tree
   phylod <- phylobase::subset(

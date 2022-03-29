@@ -83,11 +83,11 @@ check_phylo_data <- function(phylod) {
     correct_trait_data <-
       all(names(phylobase::tdata(phylod)) %in%
             c("endemicity_status", "island_status",
-              "island_prob", "not_present_prob"))
+              "endemic_prob", "nonendemic_prob", "not_present_prob"))
     if (isFALSE(correct_trait_data)) {
       stop("Tip data must be called endemicity_status, node data must be called
-         island_status, and node probabilities are called island_prob and
-         not_present_prob")
+         island_status, and node probabilities are called endemic_prob,
+         nonendemic_prob and not_present_prob")
     }
 
     status <- phylobase::tipData(phylod)$endemicity_status

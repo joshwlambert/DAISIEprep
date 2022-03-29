@@ -71,11 +71,15 @@ extract_species_asr <- function(phylod,
       phylobase::tdata(phylod)[ancestor, "island_status"]
     node_type <- unname(phylobase::nodeType(phylod)[ancestor])
     # if the root state is island then all species in the tree are in the clade
-    if (node_type == "root" && ancestor_island_status == "island") {
+    if (node_type == "root" &&
+        ancestor_island_status %in% c("endemic", "nonendemic")) {
       clade <- phylobase::descendants(phy = phylod, node = ancestor)
+      warning("Root of the phylogeny is on the island so the colonisation
+              time from the stem age cannot be collected, colonisation time
+              will be set to infinite.")
       break
     }
-    island_ancestor <- ancestor_island_status == "island"
+    island_ancestor <- ancestor_island_status %in% c("endemic", "nonendemic")
   }
 
   # count number of island species in the clade

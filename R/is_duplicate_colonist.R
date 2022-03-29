@@ -42,7 +42,10 @@ is_duplicate_colonist <- function(island_colonist,
   branching_times_duplicate <- unlist(
     lapply(island_tbl$branching_times, function(x) {
       if (length(x) == length(colonist_branching_times)) {
-        all(abs(x - colonist_branching_times) < 1e-10)
+        all(is.infinite(x) == is.infinite(colonist_branching_times))
+        finite_branching_times <-
+          colonist_branching_times[which(is.finite(colonist_branching_times))]
+        all(abs(x[which(is.finite(x))] - finite_branching_times) < 1e-10)
       } else {
         FALSE
       }
