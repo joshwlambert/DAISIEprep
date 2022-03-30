@@ -64,6 +64,9 @@ extract_species_min <- function(phylod,
       )
     }
 
+    # append species in clade to island_tbl
+    #set_extracted_species(island_tbl) <- names(clade)
+
   } else if (identical(species_endemicity, "endemic")) {
     island_colonist <- extract_endemic(
       phylod = phylod,
@@ -76,6 +79,10 @@ extract_species_min <- function(phylod,
     island_colonist = island_colonist,
     island_tbl = island_tbl
   )
+
+  if (duplicate_colonist) {
+    print("here")
+  }
 
   if (!duplicate_colonist) {
     # bind data from island_colonist class into island_tbl class

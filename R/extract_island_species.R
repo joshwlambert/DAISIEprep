@@ -45,10 +45,21 @@ extract_island_species <- function(phylod,
          data of the island presence at the nodes")
   }
 
-  for (i in seq_len(phylobase::nTips(phylod))) {
+  # create extracted_species vector
+  extracted_species <- c()
 
+  for (i in seq_len(phylobase::nTips(phylod))) {
+print(i)
     # if species is not on the island no need to extract this species
-    if (identical(phylod@data$endemicity_status[i], "not_present")) {
+    not_present <- identical(
+      phylobase::tdata(phylod)$endemicity_status[i],
+      "not_present"
+    )
+
+    # if species has already been extracted in a clade no need to extract again
+    extracted <- phylobase::tipLabels(phylod)[i] %in% extracted_species
+
+    if (not_present || extracted) {
       next
     }
 
@@ -69,6 +80,12 @@ extract_island_species <- function(phylod,
         island_tbl = island_tbl
       )
     }
+
+    # append extracted species to vector
+    extracted_species <- c(extracted_species, get_extracted_species(island_tbl))
+
+    # clear the extracted species from the island_tbl for next iteration
+    set_extracted_species(island_tbl) <- NA_integer_
   }
 
   # return island_tbl class

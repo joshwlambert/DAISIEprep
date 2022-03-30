@@ -56,10 +56,13 @@ extract_species_asr <- function(phylod,
   # check input data
   phylod <- check_phylo_data(phylod)
 
-  # recursive tree traversal to find colonisation time from node states
+  # set up variables to be modified in the loop
   island_ancestor <- TRUE
   ancestor <- species_label
-  descendants <- species_label
+  descendants <- 1
+  names(descendants) <- species_label
+
+  # recursive tree traversal to find colonisation time from node states
   while (island_ancestor) {
     # get species ancestor (node)
     ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
@@ -151,6 +154,10 @@ extract_species_asr <- function(phylod,
       island_tbl = island_tbl
     )
   }
+
+  # append species in clade to island_tbl
+  set_extracted_species(island_tbl) <- names(clade)
+
   #return instance of island_tbl class
   island_tbl
 }
