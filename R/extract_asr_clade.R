@@ -81,6 +81,11 @@ extract_asr_clade <- function(phylod,
   # extract branching times (time before present)
   node_heights <- ape::node.depth.edgelength(phy = phylo)
 
+  # convert units from million years to years and round to nearest 10 years to
+  # prevent duplicate branching times that differ due to numerical imprecision
+  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
+  node_heights <- node_heights / 1e5
+
   # convert from distance from root to distance from tip
   node_heights <- abs(node_heights - max(node_heights))
 
