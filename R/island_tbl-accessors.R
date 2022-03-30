@@ -17,7 +17,6 @@ NULL
 #'   missing_species = 0,
 #'   branching_times = I(list(c(1.0, 0.5)))
 #' )
-
 setGeneric("get_island_tbl", function(x) standardGeneric("get_island_tbl"))
 
 #' @rdname Island_tbl-accessors
@@ -34,3 +33,36 @@ setMethod("set_island_tbl<-", "Island_tbl", function(x, value) {
   x
 })
 
+#' @rdname Island_tbl-accessors
+setGeneric("get_extracted_species", function(x) standardGeneric("get_extracted_species"))
+
+#' @rdname Island_tbl-accessors
+#' @export
+setMethod("get_extracted_species", "Island_tbl", function(x) x@metadata$extracted_species)
+
+#' @rdname Island_tbl-accessors
+setGeneric("set_extracted_species<-", function(x, value) standardGeneric("set_extracted_species<-"))
+
+#' @rdname Island_tbl-accessors
+#' @export
+setMethod("set_extracted_species<-", "Island_tbl", function(x, value) {
+  x@metadata$extracted_species <- value
+  x
+})
+
+#' @rdname Island_tbl-accessors
+setGeneric("get_num_phylo_used", function(x) standardGeneric("get_num_phylo_used"))
+
+#' @rdname Island_tbl-accessors
+#' @export
+setMethod("get_num_phylo_used", "Island_tbl", function(x) x@metadata$num_phylo_used)
+
+#' @rdname Island_tbl-accessors
+setGeneric("set_num_phylo_used<-", function(x, value) standardGeneric("set_num_phylo_used<-"))
+
+#' @rdname Island_tbl-accessors
+#' @export
+setMethod("set_num_phylo_used<-", "Island_tbl", function(x, value) {
+  x@metadata$num_phylo_used <- value
+  x
+})

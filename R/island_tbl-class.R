@@ -30,6 +30,22 @@ check_island_tbl <- function(object) {
     errors <- c(errors, msg)
   }
 
+  if (!is.list(object@metadata)) {
+    msg <- paste("metadata must be a list")
+    errors <- c(errors, msg)
+  }
+
+  match_list_names <- all(
+    c("extracted_species", "num_phylo_used") %in% names(object@metadata)
+  )
+  if (isFALSE(match_list_names)) {
+    msg <- paste(
+      "metadata must contain 'extracted_species' and 'num_phylo_used'"
+    )
+    errors <- c(errors, msg)
+  }
+
+
   if (length(errors) == 0) {
     TRUE
   } else {
@@ -48,7 +64,8 @@ setClass(
 
   # define the types of the class
   slots = c(
-    island_tbl = "data.frame"
+    island_tbl = "data.frame",
+    metadata = "list"
   ),
 
   # define the default values of the slots
@@ -59,6 +76,10 @@ setClass(
       missing_species = numeric(),
       branching_times = numeric(),
       min_age = numeric()
+    ),
+    metadata = list(
+      extracted_species = NA_integer_,
+      num_phylo_used = NA_integer_
     )
   ),
 

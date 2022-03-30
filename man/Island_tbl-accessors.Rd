@@ -5,6 +5,14 @@
 \alias{get_island_tbl,Island_tbl-method}
 \alias{set_island_tbl<-}
 \alias{set_island_tbl<-,Island_tbl-method}
+\alias{get_extracted_species}
+\alias{get_extracted_species,Island_tbl-method}
+\alias{set_extracted_species<-}
+\alias{set_extracted_species<-,Island_tbl-method}
+\alias{get_num_phylo_used}
+\alias{get_num_phylo_used,Island_tbl-method}
+\alias{set_num_phylo_used<-}
+\alias{set_num_phylo_used<-,Island_tbl-method}
 \title{Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_tbl}} class}
 \usage{
@@ -15,6 +23,22 @@ get_island_tbl(x)
 set_island_tbl(x) <- value
 
 \S4method{set_island_tbl}{Island_tbl}(x) <- value
+
+get_extracted_species(x)
+
+\S4method{get_extracted_species}{Island_tbl}(x)
+
+set_extracted_species(x) <- value
+
+\S4method{set_extracted_species}{Island_tbl}(x) <- value
+
+get_num_phylo_used(x)
+
+\S4method{get_num_phylo_used}{Island_tbl}(x)
+
+set_num_phylo_used(x) <- value
+
+\S4method{set_num_phylo_used}{Island_tbl}(x) <- value
 }
 \arguments{
 \item{x}{An object whose class is determined by the signature.}
