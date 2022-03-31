@@ -29,4 +29,4 @@ finches_endemicity_status <- create_endemicity_status(
 
 finches_phylod <- phylobase::phylo4d(finches_tree, finches_endemicity_status)
 
-saveRDS(coccyzus_phylod, file = "inst/extdata/finches_phylod.rds")
+saveRDS(finches_phylod, file = "inst/extdata/finches_phylod.rds")

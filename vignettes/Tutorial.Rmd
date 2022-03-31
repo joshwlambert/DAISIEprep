@@ -111,7 +111,7 @@ We can see that this is a class containing an empty data frame. In order to fill
 this data frame with information on the island colonisation and diversification
 events we can run:
 
-```{r extract island data, eval=FALSE}
+```{r extract island data}
 island_tbl <- extract_island_species(
   phylod = phylod, 
   extraction_method = "min"
@@ -243,9 +243,7 @@ plot_phylod(phylod = phylod, node_pies = TRUE)
 Now we can extract the colonisation and diversification from the phylogeny
 using the ancestral reconstructed island presence/absence. 
 
-#TODO: remove eval = FALSE below when working
-
-```{r, eval = FALSE}
+```{r}
 island_tbl <- extract_island_species(
   phylod = phylod, 
   extraction_method = "asr"

@@ -25,7 +25,6 @@ setGeneric("get_clade_name", function(x) standardGeneric("get_clade_name"))
 #' @export
 setMethod("get_clade_name", "Island_colonist", function(x) methods::slot(x, "clade_name"))
 
-
 #' @rdname Island_colonist-accessors
 setGeneric("set_clade_name<-", function(x, value) standardGeneric("set_clade_name<-"))
 

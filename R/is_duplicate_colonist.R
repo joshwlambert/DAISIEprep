@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-#' island_col <- island_colonist(
+#' island_colonist <- island_colonist(
 #'   clade_name = "bird",
 #'   status = "endemic",
 #'   missing_species = 0,
@@ -16,7 +16,7 @@
 #' )
 #' island_tbl <- island_tbl()
 #' is_duplicate_colonist(
-#'   island_colonist = island_col,
+#'   island_colonist = island_colonist,
 #'   island_tbl = island_tbl
 #' )
 is_duplicate_colonist <- function(island_colonist,

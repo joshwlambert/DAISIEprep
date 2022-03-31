@@ -6,8 +6,8 @@
 #' @export
 #'
 #' @examples
-#' island_col <- island_colonist()
-#' check_island_colonist(island_col)
+#' island_colonist <- island_colonist()
+#' check_island_colonist(island_colonist)
 check_island_colonist <- function(object) {
   errors <- character()
   length_clade_name <- length(object@clade_name)

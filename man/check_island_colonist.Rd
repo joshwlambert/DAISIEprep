@@ -16,6 +16,6 @@ Boolean or errors
 Checks the validity of the Island_colonist class
 }
 \examples{
-island_col <- island_colonist()
-check_island_colonist(island_col)
+island_colonist <- island_colonist()
+check_island_colonist(island_colonist)
 }

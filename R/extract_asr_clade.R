@@ -17,7 +17,7 @@ extract_asr_clade <- function(phylod,
                               include_not_present) {
 
   # create an instance of the island_colonist class to store data
-  island_col <- island_colonist()
+  island_colonist <- island_colonist()
 
   # get the ancestral state at the root
   root_state <-
@@ -107,11 +107,11 @@ extract_asr_clade <- function(phylod,
   )
 
   # assign data to instance of island_colonist class
-  set_clade_name(island_col) <- species_label #clade_name
-  set_status(island_col) <- "endemic"
-  set_missing_species(island_col) <- 0
-  set_branching_times(island_col) <- branching_times
+  set_clade_name(island_colonist) <- species_label #clade_name
+  set_status(island_colonist) <- "endemic"
+  set_missing_species(island_colonist) <- 0
+  set_branching_times(island_colonist) <- branching_times
 
   # return island_colonist class
-  island_col
+  island_colonist
 }

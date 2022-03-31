@@ -15,7 +15,7 @@ extract_multi_tip_species <- function(phylod,
   phylod <- check_phylo_data(phylod)
 
   # create an instance of the island_colonist class to store data
-  island_col <- island_colonist()
+  island_colonist <- island_colonist()
 
   # recursive tree traversal to find all nonendemic species in clade
   all_same_species <- TRUE
@@ -79,12 +79,12 @@ extract_multi_tip_species <- function(phylod,
   # extract species name from species label
   species_name <- unlist(strsplit(x = species_label, split = "_"))[1:2]
   species_name <- paste(species_name, collapse = "_")
-  set_clade_name(island_col) <- species_name
-  set_status(island_col) <- species_endemicity
-  set_missing_species(island_col) <- 0
-  set_branching_times(island_col) <- col_time
-  set_min_age(island_col) <- min_age
+  set_clade_name(island_colonist) <- species_name
+  set_status(island_colonist) <- species_endemicity
+  set_missing_species(island_colonist) <- 0
+  set_branching_times(island_colonist) <- col_time
+  set_min_age(island_colonist) <- min_age
 
   # return instance of island_colonist class
-  island_col
+  island_colonist
 }

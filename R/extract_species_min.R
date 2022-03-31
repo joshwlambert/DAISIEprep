@@ -65,13 +65,37 @@ extract_species_min <- function(phylod,
     }
 
     # append species in clade to island_tbl
-    #set_extracted_species(island_tbl) <- names(clade)
+    set_extracted_species(island_tbl) <- species_label
 
   } else if (identical(species_endemicity, "endemic")) {
-    island_colonist <- extract_endemic(
+
+    # check whether the focal species is in an endemic clade
+    endemic_species <- get_endemic_species(phylod, species_label)
+    endemic_clade <- length(endemic_species) > 1
+
+    # does species have multiple tips in the tree (i.e. population sampling)
+    multi_tip_species <- is_multi_tip_species(
       phylod = phylod,
       species_label = species_label
     )
+
+    singleton_endemic <- isFALSE(endemic_clade) && isFALSE(multi_tip_species)
+    multi_tip_endemic <- isFALSE(endemic_clade) && multi_tip_species
+
+    if (singleton_endemic) {
+      island_colonist <- extract_endemic_singleton(phylod, species_label)
+    } else if (multi_tip_endemic) {
+      island_colonist <- extract_multi_tip_species(
+        phylod = phylod,
+        species_label = species_label,
+        species_endemicity = "endemic"
+      )
+    } else {
+      island_colonist <- extract_endemic_clade(phylod, species_label)
+    }
+
+    # append species in clade to island_tbl
+    set_extracted_species(island_tbl) <- names(endemic_species)
   }
 
   # check if colonist has already been stored in island_tbl class
@@ -81,7 +105,7 @@ extract_species_min <- function(phylod,
   )
 
   if (duplicate_colonist) {
-    print("here")
+    print("here") #delete
   }
 
   if (!duplicate_colonist) {

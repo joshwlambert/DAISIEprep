@@ -58,6 +58,9 @@ check_island_tbl <- function(object) {
 #' `daisie_data_tbl`
 #'
 #' @slot island_tbl data frame.
+#' @slot metadata list.
+#'
+#' @export
 setClass(
   # name of the class
   Class = "Island_tbl",

@@ -15,5 +15,7 @@ from the phylogenetic and island data to be used for constructing a
 
 \describe{
 \item{\code{island_tbl}}{data frame.}
+
+\item{\code{metadata}}{list.}
 }}
 

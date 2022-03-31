@@ -42,7 +42,7 @@ endemicity_status <- sample(
   prob = c(0.7, 0.3, 0)
 )
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-island_col <- extract_endemic_clade(
+island_colonist <- extract_endemic_clade(
   phylod = phylod,
   species_label = "bird_i"
 )

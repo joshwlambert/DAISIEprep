@@ -49,7 +49,7 @@ extract_island_species <- function(phylod,
   extracted_species <- c()
 
   for (i in seq_len(phylobase::nTips(phylod))) {
-print(i)
+
     # if species is not on the island no need to extract this species
     not_present <- identical(
       phylobase::tdata(phylod)$endemicity_status[i],

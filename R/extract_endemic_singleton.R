@@ -33,15 +33,15 @@ extract_endemic_singleton <- function(phylod,
   phylod <- check_phylo_data(phylod)
 
   # create an instance of the island_colonist class to store data
-  island_col <- island_colonist()
+  island_colonist <- island_colonist()
 
   # assign data to instance of island_colonist class
-  set_clade_name(island_col) <- species_label
-  set_status(island_col) <- "endemic"
-  set_missing_species(island_col) <- 0
-  set_branching_times(island_col) <-
+  set_clade_name(island_colonist) <- species_label
+  set_status(island_colonist) <- "endemic"
+  set_missing_species(island_colonist) <- 0
+  set_branching_times(island_colonist) <-
     as.numeric(phylobase::edgeLength(phylod, species_label))
 
   #return instance of island_colonist class
-  island_col
+  island_colonist
 }

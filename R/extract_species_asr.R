@@ -147,6 +147,10 @@ extract_species_asr <- function(phylod,
     island_tbl = island_tbl
   )
 
+  if (duplicate_colonist) {
+    print("here") #delete
+  }
+
   if (!duplicate_colonist) {
     # bind data from island_colonist class into island_tbl class
     island_tbl <- bind_colonist_to_tbl(

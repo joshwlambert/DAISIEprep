@@ -20,7 +20,7 @@ Takes an existing instance of an `Island_tbl` class and bind the information
 from the instance of an `Island_colonist` class to it
 }
 \examples{
-island_col <- DAISIEprep::island_colonist(
+island_colonist <- DAISIEprep::island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
@@ -28,7 +28,7 @@ island_col <- DAISIEprep::island_colonist(
 )
 island_tbl <- island_tbl()
 bind_colonist_to_tbl(
-  island_colonist = island_col,
+  island_colonist = island_colonist,
   island_tbl = island_tbl
 )
 }

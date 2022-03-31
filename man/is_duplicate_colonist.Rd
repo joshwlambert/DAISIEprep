@@ -22,7 +22,7 @@ used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.
 }
 \examples{
-island_col <- island_colonist(
+island_colonist <- island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
@@ -30,7 +30,7 @@ island_col <- island_colonist(
 )
 island_tbl <- island_tbl()
 is_duplicate_colonist(
-  island_colonist = island_col,
+  island_colonist = island_colonist,
   island_tbl = island_tbl
 )
 }
