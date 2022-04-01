@@ -13,7 +13,7 @@ Description: DAISIEprep extract colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.2
