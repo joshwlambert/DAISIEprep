@@ -28,7 +28,12 @@ See [tutorial](vignettes/Tutorial.Rmd).
 
 ## Help
 
-To report a bug please open an [issue](https://github.com/Neves-P/DAISIEprep/issues/new) or email at j.w.l.lambert@rug.nl.
+To report a bug please open an [issue](https://github.com/joshwlambert/DAISIEprep/issues/new) or email at j.w.l.lambert@rug.nl.
+
+## Contribute
+
+The DAISIE team always welcomes contributions to any of its packages. If you
+would like to contribute to this package please follow the [contributing guidelines](https://github.com/joshwlambert/DAISIEprep/tree/master/.github/CONTRIBUTING.md)
 
 ## Code of Conduct
 
