@@ -36,7 +36,7 @@ create_endemicity_status <- function(phylo,
   }
 
   if (class(phylo) == "phylo") {
-    phylo <- methods::as(phylo, "phylo4")
+    phylo <- phylobase::phylo4(phylo)
   }
 
   # check the data frame input
