@@ -40,7 +40,8 @@ default_params_doc(
   verbose,
   col_uncertainty,
   n,
-  digits
+  digits,
+  include_crown_age
 )
 }
 \arguments{
@@ -204,6 +205,9 @@ are informative.}
 \item{n}{A numeric to be rounded}
 
 \item{digits}{A numeric specifying which decimal places to round to}
+
+\item{include_crown_age}{A boolean determining whether the crown age gets
+plotted with the stem age.}
 }
 \value{
 Nothing

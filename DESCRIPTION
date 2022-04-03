@@ -71,6 +71,7 @@ Collate:
     'island_tbl-accessors.R'
     'island_tbl-methods.R'
     'multi_island_tbl-class.R'
+    'plot_colonisation.R'
     'plot_phylod.R'
     'print-methods.R'
     'translate_status.R'

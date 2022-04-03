@@ -16,7 +16,7 @@ add_outgroup <- function(phylo) {
     stop("The phylo object should be a 'phylo' or 'phylo4' object")
   }
 
-  if (identical(class(phylo), "phylo4")) {
+  if (class(phylo) == "phylo4") {
     # require S3 phylo objects
     # suppress warnings about tree conversion as they are fine
     phylo <- suppressWarnings(methods::as(phylo, "phylo"))

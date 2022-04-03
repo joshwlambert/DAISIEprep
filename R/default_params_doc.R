@@ -125,6 +125,8 @@
 #' are informative.
 #' @param n A numeric to be rounded
 #' @param digits A numeric specifying which decimal places to round to
+#' @param include_crown_age A boolean determining whether the crown age gets
+#' plotted with the stem age.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -163,6 +165,7 @@ default_params_doc <- function(island_colonist,
                                verbose,
                                col_uncertainty,
                                n,
-                               digits) {
+                               digits,
+                               include_crown_age) {
   # nothing
 }
