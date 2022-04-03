@@ -18,6 +18,13 @@ setMethod("print", signature(x = "Island_tbl"),
           }
 )
 
+setMethod("print", signature(x = "Multi_island_tbl"),
+          function(x) {
+            cat("Class: ", methods::is(x), "\n")
+            cat(length(x), "Island_tbls")
+          }
+)
+
 setMethod("show", signature(object = "Island_colonist"),
           function(object) {
             print(object)
@@ -25,6 +32,12 @@ setMethod("show", signature(object = "Island_colonist"),
 )
 
 setMethod("show", signature(object = "Island_tbl"),
+          function(object) {
+            print(object)
+          }
+)
+
+setMethod("show", signature(object = "Multi_island_tbl"),
           function(object) {
             print(object)
           }

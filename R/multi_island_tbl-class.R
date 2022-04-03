@@ -29,9 +29,7 @@ setClass(
   Class = "Multi_island_tbl",
 
   # define the types of the class
-  slots = c(
-    multi_island_tbl = "list"
-  ),
+  contains = "list",
 
   # define the default values of the slots
   prototype = list(
@@ -46,8 +44,7 @@ setClass(
 #'
 #' @export
 multi_island_tbl <- function() {
-  methods::new(
-    "Multi_island_tbl",
-    multi_island_tbl = list(methods::new("Island_tbl"))
-  )
+  multi_island_tbl <- methods::new("Multi_island_tbl")
+  multi_island_tbl[[1]] <- island_tbl()
+  multi_island_tbl
 }
