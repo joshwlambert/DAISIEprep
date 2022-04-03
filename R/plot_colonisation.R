@@ -29,7 +29,19 @@
 plot_colonisation <- function(island_tbl,
                                island_age,
                                include_crown_age = TRUE) {
-browser()
+
+  # write check for island_tbl is correct class, island_age is numeric and include_crown_age is boolean
+  if (!class(island_tbl) == "Island_tbl") {
+    stop("island_tbl must be an object of class Island_tbl")
+  }
+  if (!is.numeric(island_age)) {
+    stop("island_age must be numeric")
+  }
+  if (!is.logical(include_crown_age)) {
+    stop("include_crown_age must be either TRUE or FALSE")
+  }
+
+
   # convert island_tbl to daisie_datatable
   daisie_datatable <- as_daisie_datatable(
     island_tbl = island_tbl,
@@ -101,7 +113,7 @@ browser()
     ggplot2::scale_y_discrete(limits = rev) +
     ggplot2::scale_color_brewer(
       palette = "Set1",
-      labels = c("Crown age", "Stem Age")
+      labels = c("Stem Age", "Crown age")
     ) +
     ggplot2::theme(legend.position = c(0.3, 0.8))
 
