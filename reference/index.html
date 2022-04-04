@@ -54,6 +54,23 @@
 
       <dl><dt>
           
+          <code><a href="Island_colonist-accessors.html">get_clade_name()</a></code> <code><a href="Island_colonist-accessors.html">`set_clade_name&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_status()</a></code> <code><a href="Island_colonist-accessors.html">`set_status&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_missing_species()</a></code> <code><a href="Island_colonist-accessors.html">`set_missing_species&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_branching_times()</a></code> <code><a href="Island_colonist-accessors.html">`set_branching_times&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_min_age()</a></code> <code><a href="Island_colonist-accessors.html">`set_min_age&lt;-`()</a></code> 
+        </dt>
+        <dd>Accessor functions for the data (slots) in objects of the
+<code>Island_colonist</code> class</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Island_tbl-accessors.html">get_island_tbl()</a></code> <code><a href="Island_tbl-accessors.html">`set_island_tbl&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_extracted_species()</a></code> <code><a href="Island_tbl-accessors.html">`set_extracted_species&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_num_phylo_used()</a></code> <code><a href="Island_tbl-accessors.html">`set_num_phylo_used&lt;-`()</a></code> 
+        </dt>
+        <dd>Accessor functions for the data (slots) in objects of the
+<code>Island_tbl</code> class</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Multi_island_tbl-class.html">Multi_island_tbl-class</a></code> 
+        </dt>
+        <dd>Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.</dd>
+      </dl><dl><dt>
+          
           <code><a href="add_asr_node_states.html">add_asr_node_states()</a></code> 
         </dt>
         <dd>Fits a model of ancestral state reconstruction of island presence</dd>
@@ -126,7 +143,7 @@ from the instance of an `Island_colonist` class to it</dd>
           
           <code><a href="check_phylo_data.html">check_phylo_data()</a></code> 
         </dt>
-        <dd>Checks whether `<a href="https://rdrr.io/pkg/phylobase/man/phylo4d-class.html" class="external-link">phylo4d</a>` object conforms
+        <dd>Checks whether `phylo4d` object conforms
 to the requirements of the DAISIEprep package. If the function does not
 return anything the data is ready to be used, if an error is returned the
 data requires some pre-processing before DAISIEprep can be used</dd>
@@ -225,42 +242,6 @@ using the "min" algorithm that extract island species as the shortest time
 to the present.</dd>
       </dl><dl><dt>
           
-          <code><a href="Island_colonist-accessors.html">get_clade_name()</a></code> <code><a href="Island_colonist-accessors.html">`set_clade_name&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_status()</a></code> <code><a href="Island_colonist-accessors.html">`set_status&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_missing_species()</a></code> <code><a href="Island_colonist-accessors.html">`set_missing_species&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_branching_times()</a></code> <code><a href="Island_colonist-accessors.html">`set_branching_times&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_min_age()</a></code> <code><a href="Island_colonist-accessors.html">`set_min_age&lt;-`()</a></code> 
-        </dt>
-        <dd>Accessor functions for the data (slots) in objects of the
-<code><a href="https://rdrr.io/pkg/DAISIEprep/man/Island_colonist-class.html" class="external-link">Island_colonist</a></code> class</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Island_colonist-class.html">Island_colonist-class</a></code> 
-        </dt>
-        <dd>Defines the `island_tbl` class which is used when extracting information
-from the phylogenetic and island data to be used for constructing a
-`daisie_data_tbl`</dd>
-      </dl><dl><dt>
-          
-          <code><a href="island_colonist.html">island_colonist()</a></code> 
-        </dt>
-        <dd>Constructor for Island_colonist</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Island_tbl-accessors.html">get_island_tbl()</a></code> <code><a href="Island_tbl-accessors.html">`set_island_tbl&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_extracted_species()</a></code> <code><a href="Island_tbl-accessors.html">`set_extracted_species&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_num_phylo_used()</a></code> <code><a href="Island_tbl-accessors.html">`set_num_phylo_used&lt;-`()</a></code> 
-        </dt>
-        <dd>Accessor functions for the data (slots) in objects of the
-<code><a href="https://rdrr.io/pkg/DAISIEprep/man/Island_tbl-class.html" class="external-link">Island_tbl</a></code> class</dd>
-      </dl><dl><dt>
-          
-          <code><a href="Island_tbl-class.html">Island_tbl-class</a></code> 
-        </dt>
-        <dd>Defines the `island_tbl` class which is used when extracting information
-from the phylogenetic and island data to be used for constructing a
-`daisie_data_tbl`</dd>
-      </dl><dl><dt>
-          
-          <code><a href="island_tbl.html">island_tbl()</a></code> 
-        </dt>
-        <dd>Constructor function for `Island_tbl` class</dd>
-      </dl><dl><dt>
-          
           <code><a href="is_back_colonisation.html">is_back_colonisation()</a></code> 
         </dt>
         <dd>Checks whether species has undergone back-colonisation from</dd>
@@ -273,9 +254,28 @@ used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.</dd>
       </dl><dl><dt>
           
-          <code><a href="Multi_island_tbl-class.html">Multi_island_tbl-class</a></code> 
+          <code><a href="island_colonist-class.html">Island_colonist-class</a></code> 
         </dt>
-        <dd>Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.</dd>
+        <dd>Defines the `island_tbl` class which is used when extracting information
+from the phylogenetic and island data to be used for constructing a
+`daisie_data_tbl`</dd>
+      </dl><dl><dt>
+          
+          <code><a href="island_colonist.html">island_colonist()</a></code> 
+        </dt>
+        <dd>Constructor for Island_colonist</dd>
+      </dl><dl><dt>
+          
+          <code><a href="island_tbl-class.html">Island_tbl-class</a></code> 
+        </dt>
+        <dd>Defines the `island_tbl` class which is used when extracting information
+from the phylogenetic and island data to be used for constructing a
+`daisie_data_tbl`</dd>
+      </dl><dl><dt>
+          
+          <code><a href="island_tbl.html">island_tbl()</a></code> 
+        </dt>
+        <dd>Constructor function for `Island_tbl` class</dd>
       </dl><dl><dt>
           
           <code><a href="multi_island_tbl.html">multi_island_tbl()</a></code> 
