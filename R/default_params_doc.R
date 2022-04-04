@@ -127,6 +127,9 @@
 #' @param digits A numeric specifying which decimal places to round to
 #' @param include_crown_age A boolean determining whether the crown age gets
 #' plotted with the stem age.
+#' @param only_tips A boolean determing whether only the tips (i.e. terminal
+#' branches) are searched for back colonisation events.
+#' @param node_label A numeric label for a node within a phylogeny
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -166,6 +169,8 @@ default_params_doc <- function(island_colonist,
                                col_uncertainty,
                                n,
                                digits,
-                               include_crown_age) {
+                               include_crown_age,
+                               only_tips,
+                               node_label) {
   # nothing
 }

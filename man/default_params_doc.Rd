@@ -41,7 +41,9 @@ default_params_doc(
   col_uncertainty,
   n,
   digits,
-  include_crown_age
+  include_crown_age,
+  only_tips,
+  node_label
 )
 }
 \arguments{
@@ -208,6 +210,11 @@ are informative.}
 
 \item{include_crown_age}{A boolean determining whether the crown age gets
 plotted with the stem age.}
+
+\item{only_tips}{A boolean determing whether only the tips (i.e. terminal
+branches) are searched for back colonisation events.}
+
+\item{node_label}{A numeric label for a node within a phylogeny}
 }
 \value{
 Nothing
