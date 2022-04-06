@@ -20,7 +20,7 @@ test_that("1 nonendemic, precise col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -46,7 +46,7 @@ test_that("1 nonendemic, max col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -72,7 +72,7 @@ test_that("1 nonendemic, min col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -96,7 +96,7 @@ test_that("1 nonendemic, precise col time before island age", {
   expect_equal(daisie_datatable$Clade_name, "bird_b")
   expect_equal(daisie_datatable$Status, "nonendemic_MaxAge")
   expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.49999))))
+  expect_equal(daisie_datatable$Branching_times, list(c(0.755181833128)))
 })
 
 test_that("1 nonendemic, max col time before island age", {
@@ -119,7 +119,7 @@ test_that("1 nonendemic, max col time before island age", {
   expect_equal(daisie_datatable$Clade_name, "bird_b")
   expect_equal(daisie_datatable$Status, "nonendemic_MaxAge")
   expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.49999))))
+  expect_equal(daisie_datatable$Branching_times, list(c(0.755181833128)))
 })
 
 test_that("1 nonendemic, min col time before island age", {
@@ -142,7 +142,7 @@ test_that("1 nonendemic, min col time before island age", {
   expect_equal(daisie_datatable$Clade_name, "bird_b")
   expect_equal(daisie_datatable$Status, "nonendemic_MaxAge")
   expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.49999))))
+  expect_equal(daisie_datatable$Branching_times, list(c(0.755181833128)))
 })
 
 test_that("1 endemic, precise col time after island age", {
@@ -167,7 +167,7 @@ test_that("1 endemic, precise col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -193,7 +193,7 @@ test_that("1 endemic, max col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -219,7 +219,7 @@ test_that("1 endemic, min col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -243,7 +243,7 @@ test_that("1 endemic, precise col time before island age", {
   expect_equal(daisie_datatable$Clade_name, "bird_b")
   expect_equal(daisie_datatable$Status, "endemic_MaxAge")
   expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.49999))))
+  expect_equal(daisie_datatable$Branching_times, list(c(0.755181833128)))
 })
 
 test_that("1 endemic, max col time before island age", {
@@ -268,7 +268,7 @@ test_that("1 endemic, max col time before island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.755181833128)))
+    list(c(0.755181833128))
   )
 })
 
@@ -292,7 +292,7 @@ test_that("1 endemic, min col time before island age", {
   expect_equal(daisie_datatable$Clade_name, "bird_b")
   expect_equal(daisie_datatable$Status, "endemic_MaxAge")
   expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.49999))))
+  expect_equal(daisie_datatable$Branching_times, list(c(0.755181833128)))
 })
 
 test_that("2 nonendemics, precise col time after island age", {
@@ -317,7 +317,7 @@ test_that("2 nonendemics, precise col time after island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.251727277709), c(0.251727277709)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -346,7 +346,7 @@ test_that("2 nonendemics, max col time after island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.251727277709), c(0.251727277709)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -372,7 +372,7 @@ test_that("2 nonendemics, min col time after island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.251727277709), c(0.251727277709)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -401,7 +401,7 @@ test_that("2 nonendemics, precise col time before island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.09999), c(0.09999)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -430,7 +430,7 @@ test_that("2 nonendemics, max col time before island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.09999), c(0.09999)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -459,7 +459,7 @@ test_that("2 nonendemics, min col time before island age", {
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.09999), c(0.09999)))
+    list(c(0.251727277709), c(0.251727277709))
   )
 })
 
@@ -485,7 +485,7 @@ test_that("2 endemics, precise col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -511,7 +511,7 @@ test_that("2 endemics, max col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -537,7 +537,7 @@ test_that("2 endemics, min col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -558,12 +558,12 @@ test_that("2 endemics, precise col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.99999, 0.251727277709)))
+    list(c(1.43337005682), c(0.251727277709))
   )
 })
 
@@ -584,12 +584,12 @@ test_that("2 endemics, max col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.99999, 0.251727277709)))
+    list(c(1.43337005682), c(0.251727277709))
   )
 })
 
@@ -610,12 +610,12 @@ test_that("2 endemics, min col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.99999, 0.251727277709)))
+    list(c(1.43337005682), c(0.251727277709))
   )
 })
 
@@ -636,10 +636,13 @@ test_that("2 endemics, precise col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.09999))))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(
+    daisie_datatable$Branching_times,
+    list(c(1.43337005682), c(0.251727277709))
+  )
 })
 
 test_that("2 endemics, max col time and brts before island age", {
@@ -659,10 +662,13 @@ test_that("2 endemics, max col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.09999))))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(
+    daisie_datatable$Branching_times,
+    list(c(1.43337005682), c(0.251727277709))
+  )
 })
 
 test_that("2 endemics, min col time and brts before island age", {
@@ -682,10 +688,13 @@ test_that("2 endemics, min col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
-  expect_equal(daisie_datatable$Missing_species, 0)
-  expect_equal(daisie_datatable$Branching_times, I(list(c(0.09999))))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(
+    daisie_datatable$Branching_times,
+    list(c(1.43337005682), c(0.251727277709))
+  )
 })
 
 test_that("2 tips nonendemic, precise col time after island age", {
@@ -715,7 +724,7 @@ test_that("2 tips nonendemic, precise col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.43337005682)))
+    list(c(1.43337005682))
   )
 })
 
@@ -746,7 +755,7 @@ test_that("2 tips nonendemic, max col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.43337005682)))
+    list(c(1.43337005682))
   )
 })
 
@@ -777,7 +786,7 @@ test_that("2 tips nonendemic, min col time after island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -808,7 +817,7 @@ test_that("2 tips nonendemic, precise col time before island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.999990000000, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -839,7 +848,7 @@ test_that("2 tips nonendemic, max col time before island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.999990000000, 0.251727277709)))
+    list(c(1.433370056817, 0.251727277709))
   )
 })
 
@@ -870,6 +879,6 @@ test_that("2 tips nonendemic, min col time before island age", {
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    I(list(c(0.999990000000, 0.251727277709)))
+    list(c(1.4333700568166, 0.251727277709))
   )
 })
