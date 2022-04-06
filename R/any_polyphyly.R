@@ -9,9 +9,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' "WIP"
-#' }
+#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 1)
+#' any_polyphyly(phylod)
 any_polyphyly <- function(phylod) {
 
   # check phylod
@@ -43,8 +42,11 @@ any_polyphyly <- function(phylod) {
     )
   }
 
+  # check if any subspecies polyphyletic
+  polyphyly <- isFALSE(all(conspecific))
+
   # return boolean
-  all(conspecific)
+  polyphyly
 }
 
 

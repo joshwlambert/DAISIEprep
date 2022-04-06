@@ -23,7 +23,6 @@ paraphyletic (i.e. are their subspecies more distantly related to each other
 than to other subspecies or species).
 }
 \examples{
-\dontrun{
-"WIP"
-}
+phylod <- DAISIEprep:::create_test_phylod(test_scenario = 1)
+any_polyphyly(phylod)
 }
