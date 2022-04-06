@@ -115,6 +115,14 @@ island. This is critical when extracting data from the phylogeny so the
 stem age (colonisation time) is correct.</dd>
       </dl><dl><dt>
           
+          <code><a href="any_polyphyly.html">any_polyphyly()</a></code> 
+        </dt>
+        <dd>Checks whether there are any species in the phylogeny that have multiple
+tips (i.e. multiple subspecies per species) and whether any of those tips are
+paraphyletic (i.e. are their subspecies more distantly related to each other
+than to other subspecies or species).</dd>
+      </dl><dl><dt>
+          
           <code><a href="as_daisie_datatable.html">as_daisie_datatable()</a></code> 
         </dt>
         <dd>Converts the `island_tbl` class to a data frame in the format of a DAISIE
