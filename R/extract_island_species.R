@@ -3,7 +3,7 @@
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return An object of `island_tbl` class
+#' @return An object of `Island_tbl` class
 #' @export
 #'
 #' @examples

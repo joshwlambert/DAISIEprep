@@ -27,7 +27,7 @@ on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
 }
 \value{
-An object of `island_tbl` class
+An object of `Island_tbl` class
 }
 \description{
 Extracts the colonisation, diversification, and endemicty data from
