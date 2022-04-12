@@ -49,12 +49,20 @@ extract_multi_tip_species <- function(phylod,
     }
   }
 
-  # extract colonisation time as stem age of species pops (time before present)
-  col_time <- as.numeric(phylobase::nodeHeight(
-    x = phylod,
-    node = ancestor,
-    from = "min_tip"
-  ))
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
+  # extract colonisation time as stem age of clade (time before present)
+  mrca <- ape::getMRCA(phylo, tip = species_tips)
+  stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
+  col_times <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert from distance from root to distance from tip
+  col_times <- abs(col_times - max(col_times))
+
+  # get only the stem age
+  col_time <- col_times[stem]
 
   # subset the multi-tip nonendemic species from the rest of the tree
   multi_tip_species_phylod <- phylobase::subset(
@@ -62,18 +70,29 @@ extract_multi_tip_species <- function(phylod,
     tips.include = species_tips
   )
 
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(multi_tip_species_phylod, "phylo"))
+
   # extract branching times (time before present)
-  node_heights <- c()
-  for (i in seq_len(phylobase::nEdges(multi_tip_species_phylod))) {
-    node_heights[i] <- phylobase::nodeHeight(
-      x = multi_tip_species_phylod,
-      node = i,
-      from = "min_tip"
-    )
-  }
+  node_heights <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert units from million years to years and round to nearest 10 years to
+  # prevent duplicate branching times that differ due to numerical imprecision
+  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
+  node_heights <- node_heights / 1e5
+
+  # convert from distance from root to distance from tip
+  node_heights <- abs(node_heights - max(node_heights))
+
+  # remove any duplicates if two species come from the same branching event
+  branching_times <- sort(unique(node_heights), decreasing = TRUE)
+
+  # remove any zero valued branching times
+  branching_times <- branching_times[-which(branching_times == 0)]
 
   # extract minimum time as crown age of species pops (time before present)
-  min_age <- max(node_heights)
+  min_age <- max(branching_times)
 
   # assign data to instance of island_colonist class
   # extract species name from species label

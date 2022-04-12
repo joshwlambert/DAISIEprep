@@ -189,7 +189,7 @@ test_that("2 endemics, same colonist", {
     clade_name = "bird_a",
     status = "endemic",
     missing_species = 0,
-    branching_times = I(list(c(1.43337005682, 0.251727277709 ))),
+    branching_times = I(list(c(1.43337005682, 0.25173))),
     min_age = NA
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)

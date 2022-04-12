@@ -93,7 +93,7 @@ test_that("endemic clade", {
   expect_equal(daisie_data[[2]]$colonist_name, "bird_a")
   expect_equal(
     daisie_data[[2]]$branching_times,
-    c(3.0, 1.433370056817, 0.251727277709)
+    c(3.0, 1.433370056817, 0.25173)
   )
   expect_equal(daisie_data[[2]]$stac, 2)
   expect_equal(daisie_data[[2]]$missing_species, 0)

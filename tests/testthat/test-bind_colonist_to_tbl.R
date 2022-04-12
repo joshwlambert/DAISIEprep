@@ -74,7 +74,7 @@ test_that("2 endemics, empty tbl", {
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    I(list(c(1.433370056817, 0.25173)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
@@ -109,7 +109,7 @@ test_that("2 tips nonendemic, empty tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(c(1.43337005682)))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, 0.251727277709)
+  expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
 })
 
 test_that("2 tips endemic, empty_tbl", {
@@ -142,7 +142,7 @@ test_that("2 tips endemic, empty_tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(c(1.43337005682)))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, 0.251727277709)
+  expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
 })
 
 test_that("1 nonendemic, non-empty tbl", {
@@ -251,7 +251,7 @@ test_that("2 endemics, empty tbl", {
   expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.5), c(1.433370056817, 0.251727277709)))
+    I(list(c(0.5), c(1.433370056817, 0.25173)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
 })
@@ -296,7 +296,7 @@ test_that("2 tips nonendemic, empty tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(c(0.5), c(1.43337005682)))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.251727277709))
+  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
 })
 
 test_that("2 tips endemic, empty_tbl", {
@@ -339,5 +339,5 @@ test_that("2 tips endemic, empty_tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(c(0.5), c(1.43337005682)))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.251727277709))
+  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
 })

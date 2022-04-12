@@ -58,12 +58,20 @@ extract_endemic_clade <- function(phylod,
     all_siblings_endemic <- all(sibling_endemicity == "endemic")
   }
 
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
   # extract colonisation time as stem age of clade (time before present)
-  col_time <- as.numeric(phylobase::nodeHeight(
-    x = phylod,
-    node = ancestor,
-    from = "min_tip"
-  ))
+  mrca <- ape::getMRCA(phylo, tip = endemic_clade)
+  stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
+  col_times <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert from distance from root to distance from tip
+  col_times <- abs(col_times - max(col_times))
+
+  # get only the stem age
+  col_time <- col_times[stem]
 
   # prune species with multiple subspecies to a single species
   split_species_names <- strsplit(x = names(endemic_clade), split = "_")
@@ -80,15 +88,20 @@ extract_endemic_clade <- function(phylod,
     tips.include = endemic_clade
   )
 
+  # use S3 phylo objects for speed
+  # suppress warnings about tree conversion as they are fine
+  phylo <- suppressWarnings(methods::as(endemic_clade_phylod, "phylo"))
+
   # extract branching times (time before present)
-  node_heights <- c()
-  for (i in seq_len(phylobase::nEdges(endemic_clade_phylod))) {
-    node_heights[i] <- phylobase::nodeHeight(
-      x = endemic_clade_phylod,
-      node = i,
-      from = "min_tip"
-    )
-  }
+  node_heights <- ape::node.depth.edgelength(phy = phylo)
+
+  # convert units from million years to years and round to nearest 10 years to
+  # prevent duplicate branching times that differ due to numerical imprecision
+  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
+  node_heights <- node_heights / 1e5
+
+  # convert from distance from root to distance from tip
+  node_heights <- abs(node_heights - max(node_heights))
 
   # remove any duplicates if two species come from the same branching event
   branching_times <- sort(unique(node_heights), decreasing = TRUE)

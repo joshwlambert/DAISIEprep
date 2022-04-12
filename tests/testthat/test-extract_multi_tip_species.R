@@ -16,7 +16,7 @@ test_that("2 tips nonendemic, 3 species tree, sisters", {
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 1.43337005682)
-  expect_equal(get_min_age(island_colonist), 0.251727277709)
+  expect_equal(get_min_age(island_colonist), 0.25173)
 })
 
 test_that("2 tips nonendemic, 4 species tree, sisters", {
@@ -38,7 +38,7 @@ test_that("2 tips nonendemic, 4 species tree, sisters", {
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 0.519744565224)
-  expect_equal(get_min_age(island_colonist), 0.125863638855)
+  expect_equal(get_min_age(island_colonist), 0.12586)
 })
 
 test_that("2 tips endemic, 3 species tree, sisters", {
@@ -59,7 +59,7 @@ test_that("2 tips endemic, 3 species tree, sisters", {
   expect_equal(get_status(island_colonist), "endemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 1.43337005682)
-  expect_equal(get_min_age(island_colonist), 0.251727277709)
+  expect_equal(get_min_age(island_colonist), 0.25173)
 })
 
 test_that("2 tips endemic, 4 species tree, sisters", {
@@ -80,7 +80,7 @@ test_that("2 tips endemic, 4 species tree, sisters", {
   expect_equal(get_status(island_colonist), "endemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 0.519744565224)
-  expect_equal(get_min_age(island_colonist), 0.125863638855)
+  expect_equal(get_min_age(island_colonist), 0.12586)
 })
 
 test_that("3 tips nonendemic, 4 species tree, sisters", {
@@ -102,7 +102,7 @@ test_that("3 tips nonendemic, 4 species tree, sisters", {
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 0.665451291928)
-  expect_equal(get_min_age(island_colonist), 0.519744565224)
+  expect_equal(get_min_age(island_colonist), 0.51974)
 })
 
 test_that("3 tips endemic, 4 species tree, sisters", {
@@ -123,5 +123,5 @@ test_that("3 tips endemic, 4 species tree, sisters", {
   expect_equal(get_status(island_colonist), "endemic")
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_branching_times(island_colonist), 0.665451291928)
-  expect_equal(get_min_age(island_colonist), 0.519744565224)
+  expect_equal(get_min_age(island_colonist), 0.51974)
 })

@@ -343,7 +343,7 @@ test_that("2 endemics, 3 species tree, min, sisters", {
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.433370056817, 0.251727277709)))
+    I(list(c(1.433370056817, 0.25173)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
@@ -368,7 +368,7 @@ test_that("2 endemics, 4 species tree, min, sisters", {
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224, 0.125863638855)))
+    I(list(c(0.519744565224, 0.12586)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
 })
