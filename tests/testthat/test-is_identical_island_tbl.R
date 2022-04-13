@@ -24,4 +24,12 @@ test_that("is_identical_island_tbl works correctly for non-identical tbls", {
       multi_island_tbl[[2]]
     )
   )
+  expect_true(
+    is.character(
+      is_identical_island_tbl(
+        multi_island_tbl[[1]],
+        multi_island_tbl[[2]]
+      )
+    )
+  )
 })
