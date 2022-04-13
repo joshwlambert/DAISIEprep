@@ -21,3 +21,11 @@ Checks whether two `Island_tbl` objects are identical. If they are different
 comparisons are made to report which components of the `Island_tbls` are
 different.
 }
+\examples{
+multi_island_tbl <- multi_extract_island_species(
+  multi_phylod = list(
+    DAISIEprep:::create_test_phylod(test_scenario = 1),
+    DAISIEprep:::create_test_phylod(test_scenario = 1)),
+ extraction_method = "min")
+is_identical_island_tbl(multi_island_tbl[[1]], multi_island_tbl[[2]])
+}
