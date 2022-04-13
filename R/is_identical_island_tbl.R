@@ -2,8 +2,7 @@
 #' comparisons are made to report which components of the `Island_tbls` are
 #' different.
 #'
-#' @param island_tbl_1 stub
-#' @param island_tbl_2 stub
+#' @inheritParams default_params_doc
 #'
 #' @return Either TRUE or a character string with the differences
 #' @export

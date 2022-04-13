@@ -8,7 +8,7 @@ nearest even number method used by the base function `round`.}
 round_up(n, digits = 0)
 }
 \arguments{
-\item{n}{A numeric to be rounded}
+\item{n}{A numeric to be rounded.}
 
 \item{digits}{A numeric specifying which decimal places to round to}
 }

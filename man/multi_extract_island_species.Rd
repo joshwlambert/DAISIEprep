@@ -10,11 +10,13 @@ stored in a `Multi_island_tbl` object.}
 multi_extract_island_species(
   multi_phylod,
   extraction_method,
-  island_tbl,
-  include_not_present
+  island_tbl = NULL,
+  include_not_present = FALSE
 )
 }
 \arguments{
+\item{multi_phylod}{A list of phylod objects.}
+
 \item{extraction_method}{A character string specifying whether the
 colonisation time extracted is the minimum time (`min`) (before the present),
 or the most probable time under ancestral state reconstruction (`asr`).}
@@ -38,4 +40,10 @@ stored in a `Multi_island_tbl` object.
 multi_phylod <- list()
 multi_phylod[[1]] <- DAISIEprep:::create_test_phylod(test_scenario = 1)
 multi_phylod[[2]] <- DAISIEprep:::create_test_phylod(test_scenario = 2)
+multi_island_tbl <- multi_extract_island_species(
+  multi_phylod = multi_phylod,
+  extraction_method = "min",
+  island_tbl = NULL,
+  include_not_present = FALSE
+)
 }

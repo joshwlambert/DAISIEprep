@@ -123,13 +123,16 @@
 #' everything a max age colonisation, "min" applies min ages when available,
 #' and NULL uses the precise times of colonisation, or the min ages when they
 #' are informative.
-#' @param n A numeric to be rounded
+#' @param n A numeric to be rounded.
 #' @param digits A numeric specifying which decimal places to round to
 #' @param include_crown_age A boolean determining whether the crown age gets
 #' plotted with the stem age.
 #' @param only_tips A boolean determing whether only the tips (i.e. terminal
 #' branches) are searched for back colonisation events.
-#' @param node_label A numeric label for a node within a phylogeny
+#' @param node_label A numeric label for a node within a phylogeny.
+#' @param multi_phylod A list of phylod objects.
+#' @param island_tbl_1 An object of `Island_tbl` class to be comparedl
+#' @param island_tbl_2 An object of `Island_tbl` class to be compared.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -171,6 +174,9 @@ default_params_doc <- function(island_colonist,
                                digits,
                                include_crown_age,
                                only_tips,
-                               node_label) {
+                               node_label,
+                               multi_phylod,
+                               island_tbl_1,
+                               island_tbl_2) {
   # nothing
 }

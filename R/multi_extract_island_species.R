@@ -20,8 +20,8 @@
 #' )
 multi_extract_island_species <- function(multi_phylod,
                                          extraction_method,
-                                         island_tbl,
-                                         include_not_present) {
+                                         island_tbl = NULL,
+                                         include_not_present = FALSE) {
 
   # check each phylod
   multi_phylod <- lapply(multi_phylod, check_phylo_data)

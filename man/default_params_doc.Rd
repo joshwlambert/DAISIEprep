@@ -43,7 +43,10 @@ default_params_doc(
   digits,
   include_crown_age,
   only_tips,
-  node_label
+  node_label,
+  multi_phylod,
+  island_tbl_1,
+  island_tbl_2
 )
 }
 \arguments{
@@ -204,7 +207,7 @@ everything a max age colonisation, "min" applies min ages when available,
 and NULL uses the precise times of colonisation, or the min ages when they
 are informative.}
 
-\item{n}{A numeric to be rounded}
+\item{n}{A numeric to be rounded.}
 
 \item{digits}{A numeric specifying which decimal places to round to}
 
@@ -214,7 +217,13 @@ plotted with the stem age.}
 \item{only_tips}{A boolean determing whether only the tips (i.e. terminal
 branches) are searched for back colonisation events.}
 
-\item{node_label}{A numeric label for a node within a phylogeny}
+\item{node_label}{A numeric label for a node within a phylogeny.}
+
+\item{multi_phylod}{A list of phylod objects.}
+
+\item{island_tbl_1}{An object of `Island_tbl` class to be comparedl}
+
+\item{island_tbl_2}{An object of `Island_tbl` class to be compared.}
 }
 \value{
 Nothing

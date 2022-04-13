@@ -10,7 +10,7 @@ is_back_colonisation(phylod, node_label)
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 
-\item{node_label}{A numeric label for a node within a phylogeny}
+\item{node_label}{A numeric label for a node within a phylogeny.}
 }
 \value{
 A character string or FALSE. Character string is in the format
