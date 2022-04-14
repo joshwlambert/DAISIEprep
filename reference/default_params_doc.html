@@ -91,7 +91,10 @@
   <span class="va">digits</span>,
   <span class="va">include_crown_age</span>,
   <span class="va">only_tips</span>,
-  <span class="va">node_label</span>
+  <span class="va">node_label</span>,
+  <span class="va">multi_phylod</span>,
+  <span class="va">island_tbl_1</span>,
+  <span class="va">island_tbl_2</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -255,7 +258,7 @@ everything a max age colonisation, "min" applies min ages when available,
 and NULL uses the precise times of colonisation, or the min ages when they
 are informative.</p></dd>
 <dt>n</dt>
-<dd><p>A numeric to be rounded</p></dd>
+<dd><p>A numeric to be rounded.</p></dd>
 <dt>digits</dt>
 <dd><p>A numeric specifying which decimal places to round to</p></dd>
 <dt>include_crown_age</dt>
@@ -265,7 +268,13 @@ plotted with the stem age.</p></dd>
 <dd><p>A boolean determing whether only the tips (i.e. terminal
 branches) are searched for back colonisation events.</p></dd>
 <dt>node_label</dt>
-<dd><p>A numeric label for a node within a phylogeny</p></dd>
+<dd><p>A numeric label for a node within a phylogeny.</p></dd>
+<dt>multi_phylod</dt>
+<dd><p>A list of phylod objects.</p></dd>
+<dt>island_tbl_1</dt>
+<dd><p>An object of `Island_tbl` class to be comparedl</p></dd>
+<dt>island_tbl_2</dt>
+<dd><p>An object of `Island_tbl` class to be compared.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>

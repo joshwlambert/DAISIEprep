@@ -265,6 +265,13 @@ used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.</dd>
       </dl><dl><dt>
           
+          <code><a href="is_identical_island_tbl.html">is_identical_island_tbl()</a></code> 
+        </dt>
+        <dd>Checks whether two `Island_tbl` objects are identical. If they are different
+comparisons are made to report which components of the `Island_tbls` are
+different.</dd>
+      </dl><dl><dt>
+          
           <code><a href="island_colonist-class.html">Island_colonist-class</a></code> 
         </dt>
         <dd>Defines the `island_tbl` class which is used when extracting information
@@ -287,6 +294,14 @@ from the phylogenetic and island data to be used for constructing a
           <code><a href="island_tbl.html">island_tbl()</a></code> 
         </dt>
         <dd>Constructor function for `Island_tbl` class</dd>
+      </dl><dl><dt>
+          
+          <code><a href="multi_extract_island_species.html">multi_extract_island_species()</a></code> 
+        </dt>
+        <dd>Extracts the colonisation, diversification, and endemicty data from multiple
+`phylod` (`phylo4d` class from `phylobase`) objects (composed of phylogenetic
+and endemicity data) and stores each in an `Island_tbl` object which are
+stored in a `Multi_island_tbl` object.</dd>
       </dl><dl><dt>
           
           <code><a href="multi_island_tbl.html">multi_island_tbl()</a></code> 

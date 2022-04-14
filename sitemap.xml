@@ -130,6 +130,9 @@
     <loc>https://joshwlambert.github.io/DAISIEprep/reference/is_duplicate_colonist.html</loc>
   </url>
   <url>
+    <loc>https://joshwlambert.github.io/DAISIEprep/reference/is_identical_island_tbl.html</loc>
+  </url>
+  <url>
     <loc>https://joshwlambert.github.io/DAISIEprep/reference/is_multi_tip_species.html</loc>
   </url>
   <url>
@@ -143,6 +146,9 @@
   </url>
   <url>
     <loc>https://joshwlambert.github.io/DAISIEprep/reference/island_tbl.html</loc>
+  </url>
+  <url>
+    <loc>https://joshwlambert.github.io/DAISIEprep/reference/multi_extract_island_species.html</loc>
   </url>
   <url>
     <loc>https://joshwlambert.github.io/DAISIEprep/reference/multi_island_tbl.html</loc>
