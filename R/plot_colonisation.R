@@ -87,15 +87,21 @@ plot_colonisation <- function(island_tbl,
       x = colonisation_times,
       y = stats::reorder(clade_names, colonisation_times),
       colour = stem_or_crown_age),
-      size = 3,
-      alpha = 0.75
+      size = 3
     )
 
   if (!all(colonisations$stem_or_crown_age == "stem")) {
-    p <- p + ggplot2::geom_line(mapping = ggplot2::aes(
-      x = colonisation_times,
-      y = stats::reorder(clade_names, colonisation_times),
-      group = clade_names))
+    p <- ggplot2::ggplot(data = colonisations) +
+      ggplot2::geom_line(mapping = ggplot2::aes(
+        x = colonisation_times,
+        y = stats::reorder(clade_names, colonisation_times),
+        group = clade_names)) +
+      ggplot2::geom_point(mapping = ggplot2::aes(
+        x = colonisation_times,
+        y = stats::reorder(clade_names, colonisation_times),
+        colour = stem_or_crown_age),
+        size = 3
+      )
   }
   p <- p + ggplot2::geom_vline(
     xintercept = island_age,
@@ -113,7 +119,7 @@ plot_colonisation <- function(island_tbl,
     ggplot2::scale_y_discrete(limits = rev) +
     ggplot2::scale_color_brewer(
       palette = "Set1",
-      labels = c("Stem Age", "Crown age")
+      labels = c("Crown Age", "Stem age")
     ) +
     ggplot2::theme(legend.position = c(0.3, 0.8))
 
