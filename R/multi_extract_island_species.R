@@ -21,7 +21,8 @@
 multi_extract_island_species <- function(multi_phylod,
                                          extraction_method,
                                          island_tbl = NULL,
-                                         include_not_present = FALSE) {
+                                         include_not_present = FALSE,
+                                         verbose = FALSE) {
 
   # check each phylod
   multi_phylod <- lapply(multi_phylod, check_phylo_data)
@@ -31,6 +32,11 @@ multi_extract_island_species <- function(multi_phylod,
 
   # loop over each phylod and store in multi_island_tbl
   for (i in seq_along(multi_phylod)) {
+
+    if (verbose) {
+      message("Extracting tree ", i, " of ", length(multi_phylod))
+    }
+
     multi_island_tbl[[i]] <- extract_island_species(
       phylod = multi_phylod[[i]],
       extraction_method = extraction_method,
