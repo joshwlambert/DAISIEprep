@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' create an empty island_tbl to add to
+#' # create an empty island_tbl to add to
 #' island_tbl <- island_tbl()
 #'
 #' # add a new island colonist

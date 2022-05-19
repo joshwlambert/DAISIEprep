@@ -40,23 +40,16 @@ Adds an island colonists (can be either a singleton lineage or an island
 clade) to the island community (island_tbl).
 }
 \examples{
-island_colonist <- DAISIEprep::island_colonist(
-  clade_name = "bird",
+# create an empty island_tbl to add to
+island_tbl <- island_tbl()
+
+# add a new island colonist
+island_tbl <- add_island_colonist(
+  island_tbl,
+  clade_name = "new_clade",
   status = "endemic",
   missing_species = 0,
-  branching_times = c(1, 0.5)
-)
-island_tbl <- island_tbl()
-bind_colonist_to_tbl(
-  island_colonist = island_colonist,
-  island_tbl = island_tbl
-)
-island_tbl <- add_island_colonist(
- island_tbl,
- clade_name = "new_clade",
- status = "endemic",
- missing_species = 0,
- branching_times = 1,
- min_age = NA
+  branching_times = 1,
+  min_age = NA
 )
 }
