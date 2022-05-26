@@ -37,7 +37,8 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    microbenchmark
+    microbenchmark,
+    diversitree
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
