@@ -21,7 +21,7 @@ Description: DAISIEprep extract colonisation and branching times of island
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Depends: R (>= 4.0)
 Imports:
     methods,
@@ -68,6 +68,9 @@ Collate:
     'extract_nonendemic.R'
     'extract_species_asr.R'
     'extract_species_min.R'
+    'extract_stem_age.R'
+    'extract_stem_age_asr.R'
+    'extract_stem_age_min.R'
     'get_endemic_species.R'
     'is_back_colonisation.R'
     'is_duplicate_colonist.R'
@@ -84,6 +87,7 @@ Collate:
     'plot_colonisation.R'
     'plot_phylod.R'
     'print-methods.R'
+    'temp_corHMM.R'
     'translate_status.R'
     'utils.R'
 URL: https://joshwlambert.github.io/DAISIEprep
