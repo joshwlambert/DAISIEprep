@@ -21,7 +21,7 @@ library(DAISIEprep)
 The methods that `DAISIEprep` provides to run ancestral state reconstruction 
 (ASR) are parsimony and the Markov model (Mk) using functionality from the R package `castor`. These are provided as standard in the `DAISIEprep::add_asr_node_states()` function to easily allow a user to run a
 reconstruction to be later used by the `asr` algorithm in the `extract_island_species()` function (this being the central function of the
-`DAISIEprep` package). The parsimony and the Mk model provide a simple models 
+`DAISIEprep` package). The parsimony and the Mk model provide simple models 
 that have been widely used in evolutionary biology since their development. For
 details on the parsimony method see documentation for `castor::asr_max_parsimony()` and for details on the Mk model see documentation
 for `castor::asr_mk_model()`.
@@ -73,20 +73,22 @@ developed to allow for packages to [extend the language](https://cran.r-project.
 to allow each extension of ASR methods for incorporation with key functions 
 (e.g. `extract_island_species()`). 
 
-Here we give examples of three packages that can be used an extensions: `diversitree`, `BioGeoBEARS` and `corHMM`. `diversitree` is a packages 
-containing a suite of State Speciation and Extinction (SSE) model which can
+Here we give examples of three packages that can be used an extensions: `diversitree`, `BioGeoBEARS` and `corHMM`. 
+
+`diversitree` is a packages containing a suite of State Speciation and 
+Extinction (SSE) model which can
 reconstruct ancestral states under a model in which the rates of speciation,
 extinction and transition between states all influence the reconstruction. These
 models prevent the bias of having many species in a state because of high speciation but a model, such as the Mk model, assumes it is due to high 
 transition rates into that state (see Maddison, 2006). The example we give uses
-the BiSSE model with a binary state, but other SSE models in `diversitree` can
-be applied in the same manner. `BioGeoBEARS` is a widely used package that includes the DEC and DEC+J models of biogeographic reconstruction. Therefore,
-it may be that people familiar with these models want to apply them for 
-extracting island colonisations for DAISIE. Lastly, `corHMM` is a package that 
-implements a hidden markov model of evolution, similar to the Mk model, but can
-better account for rate heterogeneity by introducing hidden states into the 
-model. Each model can be argued for or against; with the choice influenced by
-the taxonomic group being studied.
+the MuSSE model with a three states (island endemic, island non-endemic and not 
+present on the island), but other SSE models in `diversitree` can
+be applied in the same manner. 
+
+`BioGeoBEARS` is a widely used package that includes the DEC and DEC+J models of biogeographic reconstruction. Therefore, it may be that people familiar with 
+these models want to apply them for extracting island colonisations for DAISIE. 
+
+Lastly, `corHMM` is a package that implements a hidden markov model of evolution, similar to the Mk model, but can better account for rate heterogeneity by introducing hidden states into the model. Each model can be argued for or against; with the choice influenced by the taxonomic group being studied.
 
 ## MuSSE
 
@@ -108,12 +110,29 @@ fit <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
 asr <- diversitree::asr.marginal(lik = lik, pars = coef(fit))
 ```
 
+We can convert the phylogeny to a `phylo4d` object with the tip states 
+
+```{r}
+phylo <- phylobase::phylo4(phy)
+endemicity_status <- gsub(
+  pattern = "1", replacement = "not_present", x = phy$tip.state
+)
+endemicity_status <- gsub(
+  pattern = "2", replacement = "nonendemic", x = endemicity_status
+)
+endemicity_status <- gsub(
+  pattern = "3", replacement = "endemic", x = endemicity_status
+)
+
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+```
+
 Now we can link the ancestral states with the tree
 
 ```{r bind asr to phylo}
 asr <- t(asr)
 colnames(asr) <- c("not_present", "nonendemic", "endemic")
-node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
+node_states <- max.col(asr, ties.method = "last")
 node_states <- gsub(
   pattern = "1", replacement = "not_present", x = node_states
 )
@@ -124,11 +143,6 @@ node_states <- gsub(
   pattern = "3", replacement = "endemic", x = node_states
 )
 
-phylo <- phylobase::phylo4(phy)
-phylod <- phylobase::phylo4d(
-  phylo,
-  tip.data = phy$tip.state
-)
 
 node_data <- data.frame(
   island_status = node_states,
@@ -138,9 +152,15 @@ node_data <- data.frame(
   row.names = phylobase::nodeId(phylod, "internal")
 )
 
+tip_data <- data.frame(
+  endemicity_status = phylobase::tipData(phylod)$endemicity_status,
+  row.names = phylobase::nodeId(phylod, "tip")
+)
+
+# combine node data into phylod
 phylod <- phylobase::phylo4d(
-  phylo, 
-  tip.data = phy$tip.state, 
+  phylo,
+  tip.data = tip_data,
   node.data = node_data
 )
 ```
