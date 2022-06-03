@@ -9,10 +9,12 @@ test_that("extract_stem_age works for island clade without constraint", {
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "endemic", "endemic", "endemic", "not_present")
   phylod <- phylobase::phylo4d(tree, as.data.frame(endemicity_status))
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   stem_age <- extract_stem_age(
     genus_name = "parrot",
@@ -21,7 +23,7 @@ test_that("extract_stem_age works for island clade without constraint", {
     constrain_to_island = FALSE
   )
 
-  expect_equal(stem_age, 1.5)
+  expect_equal(stem_age, 0.764855342311)
 })
 
 test_that("extract_stem_age works for island clade with constraint", {
@@ -35,10 +37,12 @@ test_that("extract_stem_age works for island clade with constraint", {
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "endemic", "endemic", "endemic", "not_present")
   phylod <- phylobase::phylo4d(tree, as.data.frame(endemicity_status))
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   stem_age <- extract_stem_age(
     genus_name = "parrot",
@@ -47,7 +51,7 @@ test_that("extract_stem_age works for island clade with constraint", {
     constrain_to_island = TRUE
   )
 
-  expect_equal(stem_age, 0.7)
+  expect_equal(stem_age, 0.764855342311)
 })
 
 test_that("extract_stem_age works for no island species without constraint", {
@@ -56,16 +60,17 @@ test_that("extract_stem_age works for no island species without constraint", {
   tree$tip.label <- c(
     "passerine_a", "passerine_b", "passerine_c", "passerine_d", "passerine_e",
     "passerine_f", "parrot_a", "parrot_b", "parrot_c", "passerine_j")
-  plot(tree)
   tree <- phylobase::phylo4(tree)
   endemicity_status <- c(
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "endemic", "not_present", "not_present", "not_present")
   phylod <- phylobase::phylo4d(tree, as.data.frame(endemicity_status))
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   stem_age <- extract_stem_age(
     genus_name = "parrot",
@@ -74,7 +79,7 @@ test_that("extract_stem_age works for no island species without constraint", {
     constrain_to_island = FALSE
   )
 
-  expect_equal(stem_age, 1.5)
+  expect_equal(stem_age, 0.764855342311)
 })
 
 test_that("extract_stem_age fails for no island species with constraint", {
@@ -83,23 +88,23 @@ test_that("extract_stem_age fails for no island species with constraint", {
   tree$tip.label <- c(
     "passerine_a", "passerine_b", "passerine_c", "passerine_d", "passerine_e",
     "passerine_f", "parrot_a", "parrot_b", "parrot_c", "passerine_j")
-  plot(tree)
   tree <- phylobase::phylo4(tree)
   endemicity_status <- c(
     "not_present", "not_present", "not_present", "not_present", "not_present",
     "not_present", "endemic", "not_present", "not_present", "not_present")
   phylod <- phylobase::phylo4d(tree, as.data.frame(endemicity_status))
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
   phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
-  DAISIEprep::plot_phylod(phylod)
+  # commented out plot can be uncommented for checking
+  # DAISIEprep::plot_phylod(phylod)
 
-  stem_age <- extract_stem_age(
+  expect_error(extract_stem_age(
     genus_name = "parrot",
     phylod = phylod,
     extraction_method = "min",
-    constrain_to_island = FALSE
-  )
-
-  expect_equal(stem_age, 1.5)
+    constrain_to_island = TRUE
+  ),
+  regexp = "constrain_to_island = TRUE but no island species in genus found")
 })

@@ -49,7 +49,7 @@ extract_stem_age <- function(genus_name,
                              phylod,
                              extraction_method,
                              constrain_to_island = FALSE) {
-browser()
+
   # get genus name from tip labels in tree
   species_names <- unname(phylobase::tipLabels(phylod))
   split_species_names <- strsplit(x = species_names, split = "_")
@@ -64,7 +64,7 @@ browser()
 
   endemicity_status <-
     phylobase::tdata(phylod)[genus_in_tree, "endemicity_status"]
-  if (all(endemicity_status == "not_present")) {
+  if (all(endemicity_status == "not_present") && constrain_to_island) {
     stop("constrain_to_island = TRUE but no island species in genus found")
   }
 
