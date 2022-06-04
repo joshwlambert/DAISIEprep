@@ -8,11 +8,22 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' missing_species_df <- data.frame(clade_name = "bird_a", missing_species = 1)
-#' island_tbl <- NULL
-#' add_missing_species(island_tbl, missing_species)
-#' }
+#' missing_species <- data.frame(clade_name = "bird_c", missing_species = 1)
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
+#' phylo <- ape::rcoal(5)
+#' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e")
+#' phylo <- phylobase::phylo4(phylo)
+#' endemicity_status <- c(
+#'   "not_present", "not_present", "endemic", "not_present", "not_present"
+#' )
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' island_tbl <- extract_island_species(phylod, extraction_method = "min")
+#' island_tbl <- add_missing_species(island_tbl, missing_species)
 add_missing_species <- function(island_tbl,
                                 missing_species_df) {
 
@@ -31,14 +42,22 @@ add_missing_species <- function(island_tbl,
     stop("missing_species needs to be a data frame with the clade and the
          number of missing species")
   }
+  # loop over each clade in the missing species data frame
+  for (i in seq_len(nrow(missing_species_df))) {
+    # get which clades have missing species
+    missing_species_clades <- grep(
+      pattern = missing_species_df[i, "clade_name"],
+      x = island_tbl@island_tbl$clade_name
+    )
 
-  # get which clades have missing species
-  missing_species_clades <-
-    which(island_tbl@island_tbl$clade_name %in% missing_species_df$clade_name)
+    if (length(missing_species_clades) > 1) {
+      warning("Number of missing specie being assigned to two island colonists")
+    }
 
-  # input the missing species from data frame into island_tbl
-  island_tbl@island_tbl$missing_species[missing_species_clades] <-
-    missing_species_df$missing_species[missing_species_clades]
+    # input the missing species from data frame into island_tbl
+    island_tbl@island_tbl$missing_species[missing_species_clades] <-
+      missing_species_df[i, "missing_species"]
+  }
 
   # return island_tbl
   island_tbl

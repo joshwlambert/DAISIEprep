@@ -25,9 +25,20 @@ tree in the Island_tbl object. This is to be used after
 extract_island_species to input missing species.
 }
 \examples{
-\dontrun{
-missing_species_df <- data.frame(clade_name = "bird_a", missing_species = 1)
-island_tbl <- NULL
-add_missing_species(island_tbl, missing_species)
-}
+missing_species <- data.frame(clade_name = "bird_c", missing_species = 1)
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
+phylo <- ape::rcoal(5)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e")
+phylo <- phylobase::phylo4(phylo)
+endemicity_status <- c(
+  "not_present", "not_present", "endemic", "not_present", "not_present"
+)
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+island_tbl <- extract_island_species(phylod, extraction_method = "min")
+island_tbl <- add_missing_species(island_tbl, missing_species)
 }
