@@ -22,7 +22,8 @@ multi_extract_island_species <- function(multi_phylod,
                                          extraction_method,
                                          island_tbl = NULL,
                                          include_not_present = FALSE,
-                                         verbose = FALSE) {
+                                         verbose = FALSE,
+                                         unique_clade_name = TRUE) {
 
   # check each phylod
   multi_phylod <- lapply(multi_phylod, check_phylo_data)
@@ -41,7 +42,8 @@ multi_extract_island_species <- function(multi_phylod,
       phylod = multi_phylod[[i]],
       extraction_method = extraction_method,
       island_tbl = island_tbl,
-      include_not_present = include_not_present
+      include_not_present = include_not_present,
+      unique_clade_name = unique_clade_name
     )
   }
 
