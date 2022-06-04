@@ -11,7 +11,7 @@ is_identical_island_tbl(island_tbl_1, island_tbl_2)
 \arguments{
 \item{island_tbl_1}{An object of `Island_tbl` class to be comparedl}
 
-\item{island_tbl_2}{An object of `Island_tbl` class to be compared.}
+\item{island_tbl_2}{An object of `Island_tbl` class to be compared}
 }
 \value{
 Either TRUE or a character string with the differences

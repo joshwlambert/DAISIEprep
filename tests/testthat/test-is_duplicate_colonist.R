@@ -50,7 +50,8 @@ test_that("2 endemics, different colonist", {
   phylod <- create_test_phylod(test_scenario = 14)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_a"
+    species_label = "bird_a",
+    unique_clade_name = TRUE
   )
   island_tbl <- island_tbl()
   island_colonist_df <- data.frame(
@@ -182,7 +183,8 @@ test_that("2 endemics, same colonist", {
   phylod <- create_test_phylod(test_scenario = 14)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_a"
+    species_label = "bird_a",
+    unique_clade_name = TRUE
   )
   island_tbl <- island_tbl()
   island_colonist_df <- data.frame(

@@ -56,7 +56,8 @@ test_that("2 endemics, empty tbl", {
   phylod <- create_test_phylod(test_scenario = 14)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_a"
+    species_label = "bird_a",
+    unique_clade_name = TRUE
   )
   island_tbl <- bind_colonist_to_tbl(
     island_colonist = island_colonist,
@@ -223,7 +224,8 @@ test_that("2 endemics, empty tbl", {
   phylod <- create_test_phylod(test_scenario = 14)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_a"
+    species_label = "bird_a",
+    unique_clade_name = TRUE
   )
   island_tbl <- island_tbl()
   island_colonist_df <- data.frame(

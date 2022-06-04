@@ -132,7 +132,19 @@
 #' @param node_label A numeric label for a node within a phylogeny.
 #' @param multi_phylod A list of phylod objects.
 #' @param island_tbl_1 An object of `Island_tbl` class to be comparedl
-#' @param island_tbl_2 An object of `Island_tbl` class to be compared.
+#' @param island_tbl_2 An object of `Island_tbl` class to be compared
+#' @param unique_clade_name Boolean determining whether a unique species
+#' identifier is used as the clade name in the Island_tbl object or a genus
+#' name which may not be unique if that genus has several independent island
+#' colonisations
+#' @param genus_name Character string of genus name to be matched with a genus name from
+#' the tip labels in the phylogeny
+#' @param constrain_to_island Boolean determining whether the stem age extracted
+#' is constrain to the species in the genus that are on the island, (i.e. stem
+#' age of the island species). If FALSE the stem age of the genus is found
+#' independent of whether its constituent species are on the island or not
+#' @param genus_in_tree A numeric vector that indicates which species in the
+#' genus are in the tree
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -177,6 +189,10 @@ default_params_doc <- function(island_colonist,
                                node_label,
                                multi_phylod,
                                island_tbl_1,
-                               island_tbl_2) {
+                               island_tbl_2,
+                               unique_clade_name,
+                               genus_name,
+                               constrain_to_island,
+                               genus_in_tree) {
   # nothing
 }

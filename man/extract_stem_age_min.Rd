@@ -9,8 +9,16 @@ of the same genus are in the phylogeny using the 'min' extraction method}
 extract_stem_age_min(genus_in_tree, phylod, constrain_to_island)
 }
 \arguments{
+\item{genus_in_tree}{A numeric vector that indicates which species in the
+genus are in the tree}
+
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
+
+\item{constrain_to_island}{Boolean determining whether the stem age extracted
+is constrain to the species in the genus that are on the island, (i.e. stem
+age of the island species). If FALSE the stem age of the genus is found
+independent of whether its constituent species are on the island or not}
 }
 \value{
 Numeric

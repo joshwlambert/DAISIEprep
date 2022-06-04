@@ -4,7 +4,8 @@ test_that("1 nonendemic, 2 species tree, min", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -29,7 +30,8 @@ test_that("1 nonendemic, 3 species tree, min, outgroup", {
     phylod = phylod,
     species_label = "bird_c",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -54,7 +56,8 @@ test_that("1 nonendemic, 3 species tree, min, non-outgroup", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -79,7 +82,8 @@ test_that("1 nonendemic, 4 species tree, min, outgroup", {
     phylod = phylod,
     species_label = "bird_a",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -104,7 +108,8 @@ test_that("1 nonendemic, 4 species tree, min, non-outgroup", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -129,7 +134,8 @@ test_that("1 endemic, 2 species tree, min", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -154,7 +160,8 @@ test_that("1 endemic, 3 species tree, min, outgroup", {
     phylod = phylod,
     species_label = "bird_c",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -179,7 +186,8 @@ test_that("1 endemic, 3 species tree, min, non-outgroup", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -204,7 +212,8 @@ test_that("1 endemic, 4 species tree, min, outgroup", {
     phylod = phylod,
     species_label = "bird_a",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -229,7 +238,8 @@ test_that("1 endemic, 4 species tree, min, non-outgroup", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -254,7 +264,8 @@ test_that("2 nonendemics, 3 species tree, min, sisters", {
     phylod = phylod,
     species_label = "bird_a",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -279,7 +290,8 @@ test_that("2 nonendemics, 4 species tree, min, sister", {
     phylod = phylod,
     species_label = "bird_c",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -304,7 +316,8 @@ test_that("2 nonendemics, 4 species tree, min, non-sisters", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "nonendemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -329,7 +342,8 @@ test_that("2 endemics, 3 species tree, min, sisters", {
     phylod = phylod,
     species_label = "bird_a",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -354,7 +368,8 @@ test_that("2 endemics, 4 species tree, min, sisters", {
     phylod = phylod,
     species_label = "bird_c",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")
@@ -379,7 +394,8 @@ test_that("2 endemics, 4 species tree, min, non-sisters", {
     phylod = phylod,
     species_label = "bird_b",
     species_endemicity = "endemic",
-    island_tbl = island_tbl()
+    island_tbl = island_tbl(),
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_tbl, "Island_tbl")

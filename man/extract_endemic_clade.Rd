@@ -7,13 +7,18 @@ the island more closely related to each other than other mainland species)
 from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
 and stores it in an `island_colonist` class}
 \usage{
-extract_endemic_clade(phylod, species_label)
+extract_endemic_clade(phylod, species_label, unique_clade_name)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
+
+\item{unique_clade_name}{Boolean determining whether a unique species
+identifier is used as the clade name in the Island_tbl object or a genus
+name which may not be unique if that genus has several independent island
+colonisations}
 }
 \value{
 An object of `Island_colonist` class
@@ -44,6 +49,7 @@ endemicity_status <- sample(
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 island_colonist <- extract_endemic_clade(
   phylod = phylod,
-  species_label = "bird_i"
+  species_label = "bird_i",
+  unique_clade_name = TRUE
 )
 }

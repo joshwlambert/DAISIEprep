@@ -31,12 +31,14 @@
 #'   phylod = phylod,
 #'   species_label = "bird_g",
 #'   species_endemicity = "nonendemic",
-#'   island_tbl = island_tbl
+#'   island_tbl = island_tbl,
+#'   unique_clade_name = TRUE
 #' )
 extract_species_min <- function(phylod,
                                 species_label,
                                 species_endemicity,
-                                island_tbl) {
+                                island_tbl,
+                                unique_clade_name) {
 
   # check input data
   phylod <- check_phylo_data(phylod)
@@ -91,7 +93,11 @@ extract_species_min <- function(phylod,
         species_endemicity = "endemic"
       )
     } else {
-      island_colonist <- extract_endemic_clade(phylod, species_label)
+      island_colonist <- extract_endemic_clade(
+        phylod = phylod,
+        species_label = species_label,
+        unique_clade_name = unique_clade_name
+      )
     }
 
     # append species in clade to island_tbl

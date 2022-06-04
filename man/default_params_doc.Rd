@@ -46,7 +46,11 @@ default_params_doc(
   node_label,
   multi_phylod,
   island_tbl_1,
-  island_tbl_2
+  island_tbl_2,
+  unique_clade_name,
+  genus_name,
+  constrain_to_island,
+  genus_in_tree
 )
 }
 \arguments{
@@ -223,7 +227,23 @@ branches) are searched for back colonisation events.}
 
 \item{island_tbl_1}{An object of `Island_tbl` class to be comparedl}
 
-\item{island_tbl_2}{An object of `Island_tbl` class to be compared.}
+\item{island_tbl_2}{An object of `Island_tbl` class to be compared}
+
+\item{unique_clade_name}{Boolean determining whether a unique species
+identifier is used as the clade name in the Island_tbl object or a genus
+name which may not be unique if that genus has several independent island
+colonisations}
+
+\item{genus_name}{Character string of genus name to be matched with a genus name from
+the tip labels in the phylogeny}
+
+\item{constrain_to_island}{Boolean determining whether the stem age extracted
+is constrain to the species in the genus that are on the island, (i.e. stem
+age of the island species). If FALSE the stem age of the genus is found
+independent of whether its constituent species are on the island or not}
+
+\item{genus_in_tree}{A numeric vector that indicates which species in the
+genus are in the tree}
 }
 \value{
 Nothing

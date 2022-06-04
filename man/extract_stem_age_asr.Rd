@@ -9,6 +9,9 @@ of the same genus are in the phylogeny using the 'asr' extraction method}
 extract_stem_age_asr(genus_in_tree, phylod)
 }
 \arguments{
+\item{genus_in_tree}{A numeric vector that indicates which species in the
+genus are in the tree}
+
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 }

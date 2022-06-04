@@ -28,10 +28,12 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' island_colonist <- extract_endemic_clade(
 #'   phylod = phylod,
-#'   species_label = "bird_i"
+#'   species_label = "bird_i",
+#'   unique_clade_name = TRUE
 #' )
 extract_endemic_clade <- function(phylod,
-                                  species_label) {
+                                  species_label,
+                                  unique_clade_name) {
 
   # check input data
   phylod <- check_phylo_data(phylod)
@@ -119,7 +121,11 @@ extract_endemic_clade <- function(phylod,
   clade_name <- extract_clade_name(clade = endemic_clade)
 
   # assign data to instance of island_colonist class
-  set_clade_name(island_colonist) <- species_label #clade_name
+  if (unique_clade_name) {
+    set_clade_name(island_colonist) <- species_label
+  } else {
+    set_clade_name(island_colonist) <- clade_name
+  }
   set_status(island_colonist) <- "endemic"
   set_missing_species(island_colonist) <- 0
   set_branching_times(island_colonist) <- branching_times

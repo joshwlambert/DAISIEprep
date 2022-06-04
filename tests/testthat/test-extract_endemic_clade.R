@@ -2,7 +2,8 @@ test_that("2 endemics, 3 species tree, sisters", {
   phylod <- create_test_phylod(test_scenario = 14)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_a"
+    species_label = "bird_a",
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_colonist, "Island_colonist")
@@ -21,7 +22,8 @@ test_that("2 endemics, 4 species tree, sisters", {
   phylod <- create_test_phylod(test_scenario = 15)
   island_colonist <- extract_endemic_clade(
     phylod = phylod,
-    species_label = "bird_c"
+    species_label = "bird_c",
+    unique_clade_name = TRUE
   )
 
   expect_s4_class(island_colonist, "Island_colonist")

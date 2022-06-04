@@ -28,7 +28,8 @@
 extract_island_species <- function(phylod,
                                    extraction_method,
                                    island_tbl = NULL,
-                                   include_not_present = FALSE) {
+                                   include_not_present = FALSE,
+                                   unique_clade_name = TRUE) {
 
   # check the input data
   phylod <- check_phylo_data(phylod)
@@ -74,7 +75,8 @@ extract_island_species <- function(phylod,
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
         species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = island_tbl
+        island_tbl = island_tbl,
+        unique_clade_name = unique_clade_name
       )
     }
 
