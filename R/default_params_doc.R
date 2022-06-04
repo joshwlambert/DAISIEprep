@@ -24,6 +24,8 @@
 #' @param min_age Numeric minimum age (time before the present) that the species
 #' must have colonised the island by. This is known when there is a branching
 #' on the island, either in species or subspecies.
+#' @param species Character vector of one or more elements containing the name
+#' of the species included in the colonising clade.
 #' @param endemic_clade Named vector with all the species from a clade.
 #' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or
 #' `phylo4` (from the `phylobase` package) object.
@@ -161,6 +163,7 @@ default_params_doc <- function(island_colonist,
                                missing_species,
                                branching_times,
                                min_age,
+                               species,
                                endemic_clade,
                                phylo,
                                island_species,

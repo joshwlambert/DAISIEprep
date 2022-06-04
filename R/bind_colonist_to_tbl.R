@@ -28,7 +28,8 @@ bind_colonist_to_tbl <- function(island_colonist,
     status = get_status(island_colonist),
     missing_species = get_missing_species(island_colonist),
     branching_times = I(list(get_branching_times(island_colonist))),
-    min_age = get_min_age(island_colonist)
+    min_age = get_min_age(island_colonist),
+    species = I(list(get_species(island_colonist)))
   )
 
   # combine island colonist data frame with island tbl data frame

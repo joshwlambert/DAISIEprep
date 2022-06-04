@@ -21,6 +21,10 @@
 \alias{get_min_age,Island_colonist-method}
 \alias{set_min_age<-}
 \alias{set_min_age<-,Island_colonist-method}
+\alias{get_species}
+\alias{get_species,Island_colonist-method}
+\alias{set_species<-}
+\alias{set_species<-,Island_colonist-method}
 \title{Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_colonist}} class}
 \usage{
@@ -63,6 +67,14 @@ get_min_age(x)
 set_min_age(x) <- value
 
 \S4method{set_min_age}{Island_colonist}(x) <- value
+
+get_species(x)
+
+\S4method{get_species}{Island_colonist}(x)
+
+set_species(x) <- value
+
+\S4method{set_species}{Island_colonist}(x) <- value
 }
 \arguments{
 \item{x}{An object whose class is determined by the signature.}

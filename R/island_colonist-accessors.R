@@ -103,3 +103,20 @@ setMethod("set_min_age<-", "Island_colonist", function(x, value) {
   x
 })
 
+#' @rdname Island_colonist-accessors
+setGeneric("get_species", function(x) standardGeneric("get_species"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("get_species", "Island_colonist", function(x) x@species)
+
+#' @rdname Island_colonist-accessors
+setGeneric("set_species<-", function(x, value) standardGeneric("set_species<-"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("set_species<-", "Island_colonist", function(x, value) {
+  x@species <- value
+  x
+})
+

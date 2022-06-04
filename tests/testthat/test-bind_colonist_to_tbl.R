@@ -13,7 +13,8 @@ test_that("1 nonendemic, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
@@ -23,6 +24,7 @@ test_that("1 nonendemic, empty tbl", {
     I(list(c(0.755181833128)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
 })
 
 test_that("1 endemic, empty tbl", {
@@ -40,7 +42,8 @@ test_that("1 endemic, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
@@ -50,6 +53,7 @@ test_that("1 endemic, empty tbl", {
     I(list(c(0.755181833128)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
 })
 
 test_that("2 endemics, empty tbl", {
@@ -68,7 +72,8 @@ test_that("2 endemics, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
@@ -78,6 +83,10 @@ test_that("2 endemics, empty tbl", {
     I(list(c(1.433370056817, 0.25173)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a", "bird_b")))
+  )
 })
 
 test_that("2 tips nonendemic, empty tbl", {
@@ -101,7 +110,8 @@ test_that("2 tips nonendemic, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
@@ -111,6 +121,10 @@ test_that("2 tips nonendemic, empty tbl", {
     I(list(c(1.43337005682)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a_1", "bird_a_2")))
+  )
 })
 
 test_that("2 tips endemic, empty_tbl", {
@@ -134,7 +148,8 @@ test_that("2 tips endemic, empty_tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
@@ -144,6 +159,10 @@ test_that("2 tips endemic, empty_tbl", {
     I(list(c(1.43337005682)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a_1", "bird_a_2")))
+  )
 })
 
 test_that("1 nonendemic, non-empty tbl", {
@@ -158,7 +177,8 @@ test_that("1 nonendemic, non-empty tbl", {
     status = "nonendemic",
     missing_species = 0,
     branching_times = I(list(0.5)),
-    min_age = NA
+    min_age = NA,
+    species = I(list("bird_z"))
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -171,7 +191,8 @@ test_that("1 nonendemic, non-empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_z", "bird_b"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "nonendemic"))
@@ -181,6 +202,7 @@ test_that("1 nonendemic, non-empty tbl", {
     I(list(c(0.5), c(0.755181833128)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_z", "bird_b")))
 })
 
 test_that("1 endemic, non-empty tbl", {
@@ -195,7 +217,8 @@ test_that("1 endemic, non-empty tbl", {
     status = "nonendemic",
     missing_species = 0,
     branching_times = I(list(0.5)),
-    min_age = NA
+    min_age = NA,
+    species = I(list("bird_z"))
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -208,7 +231,8 @@ test_that("1 endemic, non-empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_z", "bird_b"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "endemic"))
@@ -218,6 +242,7 @@ test_that("1 endemic, non-empty tbl", {
     I(list(c(0.5), c(0.755181833128)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_z", "bird_b")))
 })
 
 test_that("2 endemics, empty tbl", {
@@ -233,7 +258,8 @@ test_that("2 endemics, empty tbl", {
     status = "nonendemic",
     missing_species = 0,
     branching_times = I(list(0.5)),
-    min_age = NA
+    min_age = NA,
+    species = I(list("bird_z"))
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -246,7 +272,8 @@ test_that("2 endemics, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_z", "bird_a"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "endemic"))
@@ -256,6 +283,10 @@ test_that("2 endemics, empty tbl", {
     I(list(c(0.5), c(1.433370056817, 0.25173)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list("bird_z", c("bird_a", "bird_b")))
+  )
 })
 
 test_that("2 tips nonendemic, empty tbl", {
@@ -276,7 +307,8 @@ test_that("2 tips nonendemic, empty tbl", {
     status = "nonendemic",
     missing_species = 0,
     branching_times = I(list(0.5)),
-    min_age = NA
+    min_age = NA,
+    species = I(list("bird_z"))
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -289,7 +321,8 @@ test_that("2 tips nonendemic, empty tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_z", "bird_a"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "nonendemic"))
@@ -299,6 +332,10 @@ test_that("2 tips nonendemic, empty tbl", {
     I(list(c(0.5), c(1.43337005682)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list("bird_z", c("bird_a_1", "bird_a_2")))
+  )
 })
 
 test_that("2 tips endemic, empty_tbl", {
@@ -319,7 +356,8 @@ test_that("2 tips endemic, empty_tbl", {
     status = "nonendemic",
     missing_species = 0,
     branching_times = I(list(0.5)),
-    min_age = NA
+    min_age = NA,
+    species = I(list("bird_z"))
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -332,7 +370,8 @@ test_that("2 tips endemic, empty_tbl", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "branching_times", "min_age",
+      "species")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_z", "bird_a"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "endemic"))
@@ -342,4 +381,8 @@ test_that("2 tips endemic, empty_tbl", {
     I(list(c(0.5), c(1.43337005682)))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list("bird_z", c("bird_a_1", "bird_a_2")))
+  )
 })

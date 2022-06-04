@@ -41,6 +41,7 @@ extract_endemic_singleton <- function(phylod,
   set_missing_species(island_colonist) <- 0
   set_branching_times(island_colonist) <-
     as.numeric(phylobase::edgeLength(phylod, species_label))
+  set_species(island_colonist) <- species_label
 
   #return instance of island_colonist class
   island_colonist

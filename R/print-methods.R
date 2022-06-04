@@ -8,6 +8,7 @@ setMethod("print", signature(x = "Island_colonist"),
             cat("  Missing species: ", x@missing_species, "\n")
             cat("  Branching times: ", x@branching_times, "\n")
             cat("  Min age: ", x@min_age, "\n")
+            cat("  Species: ", x@species, "\n")
           }
 )
 

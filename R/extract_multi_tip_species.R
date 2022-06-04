@@ -103,6 +103,7 @@ extract_multi_tip_species <- function(phylod,
   set_missing_species(island_colonist) <- 0
   set_branching_times(island_colonist) <- col_time
   set_min_age(island_colonist) <- min_age
+  set_species(island_colonist) <- names(species_tips)
 
   # return instance of island_colonist class
   island_colonist

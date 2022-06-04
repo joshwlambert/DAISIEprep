@@ -129,6 +129,7 @@ extract_endemic_clade <- function(phylod,
   set_status(island_colonist) <- "endemic"
   set_missing_species(island_colonist) <- 0
   set_branching_times(island_colonist) <- branching_times
+  set_species(island_colonist) <- names(endemic_clade)
 
   # return island_colonist class
   island_colonist

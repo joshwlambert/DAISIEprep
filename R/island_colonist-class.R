@@ -69,7 +69,8 @@ setClass(
     status = "character",
     missing_species = "numeric",
     branching_times = "numeric",
-    min_age = "numeric"
+    min_age = "numeric",
+    species = "character"
   ),
 
   # define the default values of the slots
@@ -78,7 +79,8 @@ setClass(
     status = NA_character_,
     missing_species = NA_real_,
     branching_times = NA_real_,
-    min_age = NA_real_
+    min_age = NA_real_,
+    species = NA_character_
   ),
 
   # check validity of class
@@ -107,13 +109,15 @@ island_colonist <- function(clade_name = NA_character_,
                             status = NA_character_,
                             missing_species = NA_real_,
                             branching_times = NA_real_,
-                            min_age = NA_real_) {
+                            min_age = NA_real_,
+                            species = NA_character_) {
   methods::new(
     "Island_colonist",
     clade_name = clade_name,
     status = status,
     missing_species = missing_species,
     branching_times = branching_times,
-    min_age = min_age
+    min_age = min_age,
+    species = species
   )
 }
