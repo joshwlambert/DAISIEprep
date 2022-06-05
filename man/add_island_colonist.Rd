@@ -11,7 +11,8 @@ add_island_colonist(
   status,
   missing_species,
   branching_times,
-  min_age
+  min_age,
+  species
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ times on the island.}
 \item{min_age}{Numeric minimum age (time before the present) that the species
 must have colonised the island by. This is known when there is a branching
 on the island, either in species or subspecies.}
+
+\item{species}{Character vector of one or more elements containing the name
+of the species included in the colonising clade.}
 }
 \value{
 An object of `Island_tbl` class
@@ -50,6 +54,7 @@ island_tbl <- add_island_colonist(
   status = "endemic",
   missing_species = 0,
   branching_times = 1,
-  min_age = NA
+  min_age = NA,
+  species = "new_clade"
 )
 }
