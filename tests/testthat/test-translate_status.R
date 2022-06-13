@@ -383,3 +383,12 @@ test_that("translate_status works on nonendemic_max_age_min_age variants", {
     "nonendemic_max_age_min_age"
   )
 })
+
+test_that("translate_status works on breeding endemic variants", {
+  expect_equal(translate_status("breeding endemic"), "endemic")
+  expect_equal(translate_status("breeding Endemic"), "endemic")
+  expect_equal(translate_status("Breeding endemic"), "endemic")
+  expect_equal(translate_status("Breeding Endemic"), "endemic")
+  expect_equal(translate_status("breeding-endemic"), "endemic")
+  expect_equal(translate_status("breeding_endemic"), "endemic")
+})
