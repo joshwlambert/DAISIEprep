@@ -25,47 +25,48 @@
 #' any_outgroup(phylod)
 any_outgroup <- function(phylod) {
 
-  # get species not present on the island
-  species_not_present <- which(
-    phylobase::tipData(phylod)$endemicity_status %in% "not_present"
+  # get the root node of the tree
+  root_node <- phylobase::rootNode(phylod)
+
+  # get descendants from ancestral node
+  descendants <- phylobase::descendants(
+    phy = phylod,
+    node = root_node,
+    type = "children"
   )
 
-  # is_outgroup is a flag to stop once outgroup is found
-  is_outgroup <- FALSE
+  # get endemicity status of immediate descendants of root node
+  descendant_not_present <-
+    phylobase::tdata(phylod)[descendants, "endemicity_status"]
 
-  # loop over all species not present on the island
-  for (i in species_not_present) {
+  # remove NAs from descendants_not_present
+  descendant_not_present <- stats::na.omit(descendant_not_present)
 
-    # stops the loop once outgroup is found
-    if (is_outgroup) {
-      break
-    }
+  # if any of the immediate descendants of the root are not_present tips there
+  # is an outgroup
+  if (any(descendant_not_present == "not_present")) {
+    return(TRUE)
+  } else {
 
-    # get the name of the species and its ancestor node
-    species_label <- phylobase::labels(phylod)[i]
+    # get all the tip descended from the two descendants of root node
+    tips <- lapply(
+      as.list(descendants),
+      phylobase::descendants,
+      phy = phylod,
+      type = "tips"
+    )
 
-    # recursive tree traversal to find root
-    all_siblings_not_present <- TRUE
-    ancestor <- species_label
-    descendants <- species_label
-    while (all_siblings_not_present) {
-      # get ancestral node
-      ancestor <- phylobase::ancestor(phy = phylod, node = ancestor)
-      is_outgroup <- identical(ancestor, phylobase::rootNode(phylod))
-      if (is_outgroup) {
-        break
+    for (i in seq_along(tips)) {
+      # get endemicity status of descendants
+      tip_status <-
+        phylobase::tdata(phylod)[tips[[i]], "endemicity_status"]
+
+      if (all(tip_status == "not_present")) {
+        return(TRUE)
       }
-      # get descendants from ancestral node
-      descendants <- phylobase::descendants(phy = phylod, node = ancestor)
-      # get presence of siblings
-      which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-      sibling_presence <-
-        phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
-      # check if all siblings are not present on the island
-      all_siblings_not_present <- all(sibling_presence == "not_present")
     }
   }
 
-  # return is_group
-  is_outgroup
+  # if none of the conditions for an outgroup species are met return FALSE
+  FALSE
 }
