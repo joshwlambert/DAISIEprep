@@ -50,25 +50,35 @@ extract_stem_age_asr <- function(genus_in_tree,
       island_ancestor <- ancestor_island_status %in% c("endemic", "nonendemic")
     }
 
-    # use S3 phylo objects for speed
-    # suppress warnings about tree conversion as they are fine
-    phylo <- suppressWarnings(methods::as(phylod, "phylo"))
-
-    # extract colonisation time as stem age of clade (time before present)
-    mrca <- ape::getMRCA(phylo, tip = clade)
-    stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
-    col_times <- ape::node.depth.edgelength(phy = phylo)
-
-    # convert from distance from root to distance from tip
-    col_times <- abs(col_times - max(col_times))
-
-    if (all(phylobase::tipLabels(phylod) %in% names(clade))) {
-      # get only the stem age
-      col_time <- max(col_times)
+    # count the number of species in the focal clade
+    if (length(clade) == 1) {
+      # when only one species is in the clade use the edge length
+      col_time <- as.numeric(phylobase::edgeLength(phylod, clade))
     } else {
-      # get only the stem age
-      col_time <- col_times[stem]
+
+      # when more than one species is in the clade extract the stem age
+      # use S3 phylo objects for speed
+      # suppress warnings about tree conversion as they are fine
+      phylo <- suppressWarnings(methods::as(phylod, "phylo"))
+
+      # extract colonisation time as stem age of clade (time before present)
+      mrca <- ape::getMRCA(phylo, tip = clade)
+      stem <- phylo$edge[which(phylo$edge[, 2] == mrca), 1]
+      col_times <- ape::node.depth.edgelength(phy = phylo)
+
+      # convert from distance from root to distance from tip
+      col_times <- abs(col_times - max(col_times))
+
+      # if all the species in
+      if (all(phylobase::tipLabels(phylod) %in% names(clade))) {
+        # get only the stem age
+        col_time <- max(col_times)
+      } else {
+        # get only the stem age
+        col_time <- col_times[stem]
+      }
     }
+
     # add stem age
     extracted_col_times <- c(extracted_col_times, col_time)
   }
