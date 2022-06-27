@@ -105,8 +105,15 @@ as_daisie_datatable <- function(island_tbl,
           split_clade <- split_clade + 1
           daisie_datatable[i, "Branching_times"] <- brts[1]
           brts <- brts[-1]
-          daisie_datatable[i, "Missing_species"] <-
-            island_tbl[1, "missing_species"]
+          if (length(brts) > 0) {
+            # split singletons do not get assigned any missing species
+            daisie_datatable[i, "Missing_species"] <- 0
+          } else {
+            # the last clade gets assigned the missing species
+            daisie_datatable[i, "Missing_species"] <-
+              island_tbl[1, "missing_species"]
+          }
+
           daisie_datatable[i, "Status"] <- paste0(
             island_tbl[1, "status"],
             "_MaxAge"
