@@ -77,7 +77,8 @@ extract_stem_age <- function(genus_name,
   genus_in_tree <- which(genus_name == genus_names)
 
   if (length(genus_in_tree) == 0) {
-    stop("Genus input is not found in the tree")
+    message("Genus input is not found in the tree")
+    return(NaN)
   }
 
   endemicity_status <-
