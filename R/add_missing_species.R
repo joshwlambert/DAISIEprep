@@ -51,7 +51,7 @@ add_missing_species <- function(island_tbl,
     )
 
     if (length(missing_species_clades) > 1) {
-      warning("Number of missing specie being assigned to two island colonists")
+      warning("Number of missing species being assigned to two island colonists")
     }
 
     # input the missing species from data frame into island_tbl

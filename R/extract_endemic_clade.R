@@ -1,7 +1,7 @@
 #' Extracts the information for an endemic clade (i.e. more than one species on
 #' the island more closely related to each other than other mainland species)
 #' from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-#' and stores it in an `island_colonist` class
+#' and stores it in an `Island_colonist` class
 #'
 #' @inheritParams default_params_doc
 #'
@@ -111,11 +111,10 @@ extract_endemic_clade <- function(phylod,
   # remove any zero valued branching times
   branching_times <- branching_times[-which(branching_times == 0)]
 
-  # add the colonisation time to the branching times
-  branching_times <- c(col_time, branching_times)
-
   # remove duplicate values if colonisation and first branching time are equal
-  branching_times <- unique(branching_times)
+  if (col_time == branching_times[1]) {
+    branching_times <- branching_times[-1]
+  }
 
   # extract clade name from species labels
   clade_name <- extract_clade_name(clade = endemic_clade)
@@ -128,8 +127,11 @@ extract_endemic_clade <- function(phylod,
   }
   set_status(island_colonist) <- "endemic"
   set_missing_species(island_colonist) <- 0
+  set_col_time(island_colonist) <- col_time
+  set_col_max_age(island_colonist) <- FALSE
   set_branching_times(island_colonist) <- branching_times
   set_species(island_colonist) <- names(endemic_clade)
+  set_clade_type(island_colonist) <- 1
 
   # return island_colonist class
   island_colonist

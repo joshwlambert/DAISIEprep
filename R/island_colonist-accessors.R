@@ -16,8 +16,18 @@ NULL
 #'   set_status(colonist) <- "abc"
 #'   get_missing_species(colonist)
 #'   set_missing_species(colonist) <- 0
+#'   get_col_time(colonist)
+#'   set_col_time(colonist) <- 1
+#'   get_col_max_age(colonist)
+#'   set_col_max_age(colonist) <- FALSE
 #'   get_branching_times(colonist)
 #'   set_branching_times(colonist) <- 0
+#'   get_min_age(colonist)
+#'   set_min_age(colonist) <- 0.1
+#'   get_species(colonist)
+#'   set_species(colonist) <- "abc_a"
+#'   get_clade_type(colonist)
+#'   set_clade_type(colonist) <- 1
 setGeneric("get_clade_name", function(x) standardGeneric("get_clade_name"))
 
 #' @rdname Island_colonist-accessors

@@ -16,17 +16,23 @@
 #'   clade_name = "new_clade",
 #'   status = "endemic",
 #'   missing_species = 0,
-#'   branching_times = 1,
+#'   col_time = 1,
+#'   col_max_age = FALSE,
+#'   branching_times = NA,
 #'   min_age = NA,
-#'   species = "new_clade"
+#'   species = "new_clade",
+#'   clade_type = 1
 #' )
 add_island_colonist <- function(island_tbl,
                                 clade_name,
                                 status,
                                 missing_species,
+                                col_time,
+                                col_max_age,
                                 branching_times,
                                 min_age,
-                                species) {
+                                species,
+                                clade_type) {
 
   # group island_colonist data into data frame
   # I(list(c(...))) keeps vector together
@@ -34,9 +40,12 @@ add_island_colonist <- function(island_tbl,
     clade_name = clade_name,
     status = status,
     missing_species = missing_species,
+    col_time = col_time,
+    col_max_age = col_max_age,
     branching_times = I(list(branching_times)),
     min_age = min_age,
-    species = I(list(species))
+    species = I(list(species)),
+    clade_type = clade_type
   )
 
   # combine island colonist data frame with island tbl data frame
