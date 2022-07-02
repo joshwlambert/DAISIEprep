@@ -70,6 +70,40 @@ setMethod("set_missing_species<-", "Island_colonist", function(x, value) {
 })
 
 #' @rdname Island_colonist-accessors
+setGeneric("get_col_time", function(x) standardGeneric("get_col_time"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("get_col_time", "Island_colonist", function(x) x@col_time)
+
+#' @rdname Island_colonist-accessors
+setGeneric("set_col_time<-", function(x, value) standardGeneric("set_col_time<-"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("set_col_time<-", "Island_colonist", function(x, value) {
+  x@col_time <- value
+  x
+})
+
+#' @rdname Island_colonist-accessors
+setGeneric("get_col_max_age", function(x) standardGeneric("get_col_max_age"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("get_col_max_age", "Island_colonist", function(x) x@col_max_age)
+
+#' @rdname Island_colonist-accessors
+setGeneric("set_col_max_age<-", function(x, value) standardGeneric("set_col_max_age<-"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("set_col_max_age<-", "Island_colonist", function(x, value) {
+  x@col_max_age <- value
+  x
+})
+
+#' @rdname Island_colonist-accessors
 setGeneric("get_branching_times", function(x) standardGeneric("get_branching_times"))
 
 #' @rdname Island_colonist-accessors
@@ -120,3 +154,19 @@ setMethod("set_species<-", "Island_colonist", function(x, value) {
   x
 })
 
+#' @rdname Island_colonist-accessors
+setGeneric("get_clade_type", function(x) standardGeneric("get_clade_type"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("get_clade_type", "Island_colonist", function(x) x@clade_type)
+
+#' @rdname Island_colonist-accessors
+setGeneric("set_clade_type<-", function(x, value) standardGeneric("set_clade_type<-"))
+
+#' @rdname Island_colonist-accessors
+#' @export
+setMethod("set_clade_type<-", "Island_colonist", function(x, value) {
+  x@clade_type <- value
+  x
+})
