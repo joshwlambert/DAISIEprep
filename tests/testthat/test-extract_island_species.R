@@ -558,7 +558,7 @@ test_that("2 nonendemics, 3 species tree, asr, sisters", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
     get_island_tbl(island_tbl)$species,
-    I(list(c("bird_c", "bird_a", "bird_b")))
+    I(list(c("bird_a", "bird_b")))
   )
 })
 
@@ -664,7 +664,7 @@ test_that("2 nonendemics, 4 species tree, asr, non-sisters", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
     get_island_tbl(island_tbl)$species,
-    I(list(c("bird_a", "bird_b", "bird_c", "bird_d")))
+    I(list(c("bird_b", "bird_d")))
   )
 })
 
@@ -720,7 +720,7 @@ test_that("2 endemics, 3 species tree, asr, sisters", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
     get_island_tbl(island_tbl)$species,
-    I(list(c("bird_c", "bird_a", "bird_b")))
+    I(list(c("bird_a", "bird_b")))
   )
 })
 
@@ -776,7 +776,7 @@ test_that("2 endemics, 4 species tree, asr, sisters", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
     get_island_tbl(island_tbl)$species,
-    I(list(c("bird_a", "bird_b", "bird_c", "bird_d")))
+    I(list(c("bird_c", "bird_d")))
   )
 })
 
@@ -829,7 +829,7 @@ test_that("2 endemics, 4 species tree, asr, non-sisters", {
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
     get_island_tbl(island_tbl)$species,
-    I(list(c("bird_a", "bird_b", "bird_c", "bird_d")))
+    I(list(c("bird_b", "bird_d")))
   )
 })
 

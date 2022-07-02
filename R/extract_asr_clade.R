@@ -53,6 +53,9 @@ extract_asr_clade <- function(phylod,
     tips.include = clade
   )
 
+  # get the names of the species in the clade
+  species_in_clade <- names(clade)
+
   # remove not present species from the island clade
   if (isFALSE(include_not_present)) {
 
@@ -60,8 +63,14 @@ extract_asr_clade <- function(phylod,
     species_not_present <-
       which(phylobase::tipData(phylod)$endemicity_status == "not_present")
 
-    #get names of species not present
+    # get names of species not present
     name_not_present <- phylobase::tipLabels(phylod)[species_not_present]
+
+    # remove species from clade that are not present
+    if (length(species_not_present) >= 1) {
+      rm_species <- which(species_in_clade %in% name_not_present)
+      species_in_clade <- species_in_clade[-rm_species]
+    }
 
     num_subset_species <- phylobase::nTips(phylod) - length(name_not_present)
 
@@ -111,7 +120,7 @@ extract_asr_clade <- function(phylod,
   set_status(island_colonist) <- "endemic"
   set_missing_species(island_colonist) <- 0
   set_branching_times(island_colonist) <- branching_times
-  set_species(island_colonist) <- names(clade)
+  set_species(island_colonist) <- species_in_clade
 
   # return island_colonist class
   island_colonist
