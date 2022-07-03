@@ -7,17 +7,16 @@ data table (see DAISIE R package for details). This can then be input into
 `DAISIEprep::create_daisie_data()` function which creates the list input into
 the DAISIE ML models.}
 \usage{
-as_daisie_datatable(island_tbl, island_age, col_uncertainty = "none")
+as_daisie_datatable(island_tbl, island_age, precise_col_time = TRUE)
 }
 \arguments{
 \item{island_tbl}{An instance of the `Island_tbl` class.}
 
 \item{island_age}{Age of the island in appropriate units.}
 
-\item{col_uncertainty}{A character, either "max", "min", or NULL. "max" makes
-everything a max age colonisation, "min" applies min ages when available,
-and NULL uses the precise times of colonisation, or the min ages when they
-are informative.}
+\item{precise_col_time}{Boolean, TRUE uses the precise times of colonisation,
+FALSE makes every colonist a max age colonistion and uses minimum age of
+colonisation if available.}
 }
 \value{
 A data frame in the format of a DAISIE data table
@@ -39,14 +38,14 @@ island_tbl <- extract_island_species(
 daisie_datatable <- as_daisie_datatable(
   island_tbl = island_tbl,
   island_age = 0.2,
-  col_uncertainty = "none"
+  precise_col_time = TRUE
 )
 
 # Example where colonisation times are uncertain and set to max ages
 daisie_datatable <- as_daisie_datatable(
   island_tbl = island_tbl,
   island_age = 0.2,
-  col_uncertainty = "max"
+  precise_col_time = FALSE
 )
 }
 \author{

@@ -42,7 +42,7 @@ default_params_doc(
   prop_type2_pool,
   epss,
   verbose,
-  col_uncertainty,
+  precise_col_time,
   n,
   digits,
   include_crown_age,
@@ -221,10 +221,9 @@ possible colonisation times.}
 \item{verbose}{Boolean. States if intermediate results should be printed to
 console. Defaults to TRUE.}
 
-\item{col_uncertainty}{A character, either "max", "min", or NULL. "max" makes
-everything a max age colonisation, "min" applies min ages when available,
-and NULL uses the precise times of colonisation, or the min ages when they
-are informative.}
+\item{precise_col_time}{Boolean, TRUE uses the precise times of colonisation,
+FALSE makes every colonist a max age colonistion and uses minimum age of
+colonisation if available.}
 
 \item{n}{A numeric to be rounded.}
 

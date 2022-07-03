@@ -20,18 +20,18 @@
 #' daisie_datatable <- as_daisie_datatable(
 #'   island_tbl = island_tbl,
 #'   island_age = 0.2,
-#'   col_uncertainty = "none"
+#'   precise_col_time = TRUE
 #' )
 #'
 #' # Example where colonisation times are uncertain and set to max ages
 #' daisie_datatable <- as_daisie_datatable(
 #'   island_tbl = island_tbl,
 #'   island_age = 0.2,
-#'   col_uncertainty = "max"
+#'   precise_col_time = FALSE
 #' )
 as_daisie_datatable <- function(island_tbl,
                                 island_age,
-                                col_uncertainty = "none") {
+                                precise_col_time = TRUE) {
 
   # extract data frame from island_tbl class
   island_tbl <- get_island_tbl(island_tbl)
@@ -72,38 +72,33 @@ as_daisie_datatable <- function(island_tbl,
     daisie_datatable[i, "Missing_species"] <- island_tbl[1, "missing_species"]
     daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
 
-    # island colonist is a max age if first branching time is before the
-    # island age or flagged as a max age colonist
-    max_age <- event_times[1] >= island_age || island_tbl[1, "col_max_age"]
+    # max age if first branching time is before the island age
+    if (!all(is.na(event_times))) {
+      island_age_max_age <- event_times[1] >= island_age
+    } else {
+      island_age_max_age <- TRUE
+    }
+
+    # max age if older than island or specified in precise_col_time or island_tbl
+    max_age <- isFALSE(precise_col_time) ||
+      island_tbl[1, "col_max_age"] ||
+      island_age_max_age
+
     # check if minimum age of colonisation is available
     min_age_available <- !is.na(island_tbl[1, "min_age"])
 
     # MaxAge cases
-    if (all(is.na(event_times)) ||
-        col_uncertainty == "max" &&
-        isFALSE(max_age)) {
+    if (max_age && isFALSE(min_age_available)) {
 
-      # max age after island age or no branching times
-      daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
-      daisie_datatable[i, "Status"] <- paste0(
-        island_tbl[1, "status"],
-        "_MaxAge"
-      )
-    } else if (max_age && isFALSE(min_age_available)) {
-
-      # max age before island age
-      if (length(event_times) == 1) {
-        daisie_datatable[i, "Clade_name"] <- island_tbl[1, "clade_name"]
-        daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
-        daisie_datatable[i, "Missing_species"] <-
-          island_tbl[1, "missing_species"]
+      # max age without min age
+      if (length(event_times) == 1 || !island_age_max_age) {
         daisie_datatable[i, "Status"] <- paste0(
           island_tbl[1, "status"],
           "_MaxAge"
         )
       } else {
 
-        # if there are branching times before the islanda age split the clade
+        # if there are branching times before the island age split the clade
         split_clade <- 1
         clade_name <- daisie_datatable[i, "Clade_name"]
 
@@ -149,10 +144,8 @@ as_daisie_datatable <- function(island_tbl,
           daisie_datatable[i, "Status"] <- island_tbl[1, "status"]
         }
       }
-    } else if ((min_age_available && max_age) ||
-               (min_age_available && col_uncertainty == "min")) {
-      # MinAge normal use and MinAge favouring cases (col_uncertainty == "min")
-      # Note that max cases don't take minage if available
+    } else if (max_age && min_age_available) {
+      # MaxAgeMinAge cases
       daisie_datatable[i, "Branching_times"][[1]] <- list(c(
         daisie_datatable[i, "Branching_times"][[1]],
         island_tbl[1, "min_age"]
