@@ -61,10 +61,11 @@
 #' @param include_not_present A boolean determining whether species not present
 #' on the island should be included in island colonist when embedded within an
 #' island clade. Default is FALSE.
-#' @param missing_species_df A data frame containing the names of the clades
-#' extracted from the phylogeny and the number of missing species in each clade.
-#' Not every clade extracted from the phylogeny needs to be included if the
-#' number of missing species in them clades is zero.
+#' @param num_missing_species Numeric for the number of missing species in the
+#' clade.
+#' @param species_name Character string with the name of the species to identify
+#' which clade to assign missing species to.
+#' extracted from the phylogeny and
 #' @param node_pies Boolean determining if pie charts of the probabilities of
 #' a species being present on the island. If TRUE the correct data is required
 #' in the phylod object.
@@ -180,7 +181,8 @@ default_params_doc <- function(island_colonist,
                                tie_preference,
                                earliest_col,
                                include_not_present,
-                               missing_species_df,
+                               num_missing_species,
+                               species_name,
                                node_pies,
                                test_scenario,
                                daisie_datatable,
