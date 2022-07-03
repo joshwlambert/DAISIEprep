@@ -194,7 +194,7 @@ test_that("1 nonendemic, non-empty tbl", {
     col_time = 0.5,
     col_max_age = FALSE,
     branching_times = I(list(NA_real_)),
-    min_age = NA,
+    min_age = NA_real_,
     species = I(list("bird_z")),
     clade_type = 1
   )
@@ -240,7 +240,7 @@ test_that("1 endemic, non-empty tbl", {
     col_time = 0.5,
     col_max_age = FALSE,
     branching_times = I(list(NA_real_)),
-    min_age = NA,
+    min_age = NA_real_,
     species = I(list("bird_z")),
     clade_type = 1
   )
@@ -395,7 +395,7 @@ test_that("2 tips endemic, empty_tbl", {
     col_time = 0.5,
     col_max_age = FALSE,
     branching_times = I(list(NA_real_)),
-    min_age = NA,
+    min_age = NA_real_,
     species = I(list("bird_z")),
     clade_type = 1
   )

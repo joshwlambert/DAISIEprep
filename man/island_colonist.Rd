@@ -8,9 +8,12 @@ island_colonist(
   clade_name = NA_character_,
   status = NA_character_,
   missing_species = NA_real_,
+  col_time = NA_real_,
+  col_max_age = NA,
   branching_times = NA_real_,
   min_age = NA_real_,
-  species = NA_character_
+  species = NA_character_,
+  clade_type = NA_integer_
 )
 }
 \arguments{
@@ -21,9 +24,13 @@ island_colonist(
 \item{missing_species}{Numeric number of missing species from the phylogeny
 that belong to the colonising clade.}
 
-\item{branching_times}{Numeric vector of one or more elements where the first
-element is the colonisation time and subsequent elements are the branching
-times on the island.}
+\item{col_time}{Numeric with the colonisation time of the island colonist}
+
+\item{col_max_age}{Boolean determining whether colonisation time should be
+considered a precise time of colonisation or a maximum time of colonisation}
+
+\item{branching_times}{Numeric vector of one or more elements which are the
+branching times on the island.}
 
 \item{min_age}{Numeric minimum age (time before the present) that the species
 must have colonised the island by. This is known when there is a branching
@@ -31,6 +38,10 @@ on the island, either in species or subspecies.}
 
 \item{species}{Character vector of one or more elements containing the name
 of the species included in the colonising clade.}
+
+\item{clade_type}{Numeric determining which type of clade the island colonist
+is, this determines which macroevolutionary regime (parameter set) the island
+colonist is in.}
 }
 \value{
 Object of `Island_colonist` class.
@@ -47,6 +58,11 @@ colonist <- island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
-  branching_times = 0.5
+  col_time = 0.5,
+  col_max_age = FALSE,
+  branching_times = 0.5,
+  min_age = NA_real_,
+  species = "bird_a",
+  clade_type = 1
 )
 }

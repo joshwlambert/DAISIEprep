@@ -5,7 +5,7 @@
 \title{Extracts the information for a species (endemic or non-endemic) which has
 multiple tips in the phylogeny (i.e. more than one sample per species) from
 a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `island_colonist` class}
+and stores it in an `Island_colonist` class}
 \usage{
 extract_multi_tip_species(phylod, species_label, species_endemicity)
 }
@@ -26,5 +26,26 @@ An object of `Island_colonist` class
 Extracts the information for a species (endemic or non-endemic) which has
 multiple tips in the phylogeny (i.e. more than one sample per species) from
 a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `island_colonist` class
+and stores it in an `Island_colonist` class
+}
+\examples{
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
+phylo <- ape::rcoal(10)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+                     "bird_f", "bird_g", "bird_h_1", "bird_h_2", "bird_i")
+phylo <- phylobase::phylo4(phylo)
+endemicity_status <- c("not_present", "not_present", "not_present",
+                       "not_present", "not_present", "not_present",
+                       "not_present",  "endemic", "endemic", "not_present")
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+extract_multi_tip_species(
+  phylod = phylod,
+  species_label = "bird_h_1",
+  species_endemicity = "endemic"
+)
 }

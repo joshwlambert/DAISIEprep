@@ -77,19 +77,22 @@ is_duplicate_colonist <- function(island_colonist,
   status_duplicate <- island_tbl$status == colonist_status
 
   # combine colonisation and branching times for checking
-  if (!is.na(colonist_branching_times)) {
-    colonist_event_times <- c(colonist_col_time, colonist_branching_times)
-  } else {
-    colonist_event_times <- colonist_col_time
-  }
+  colonist_event_times <- c(colonist_col_time, colonist_branching_times)
+  colonist_event_times <- colonist_event_times[!is.na(colonist_event_times)]
 
   # combine colonisation and branching times for checking
-  if (!is.na(island_tbl$branching_times)) {
-    island_tbl_event_times <- c(island_tbl$col_time, island_tbl$branching_times)
-  } else {
-    island_tbl_event_times <- island_tbl$col_time
-  }
+  island_tbl_event_times <- mapply(
+    c,
+    as.list(island_tbl$col_time),
+    island_tbl$branching_times,
+    SIMPLIFY = FALSE
+  )
 
+  # remove any NAs from branching times
+  island_tbl_event_times <- lapply(
+    island_tbl_event_times,
+    stats::na.omit
+  )
 
   # check if the event times are duplicates
   event_times_duplicate <- unlist(

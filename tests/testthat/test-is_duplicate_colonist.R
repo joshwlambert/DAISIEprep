@@ -9,8 +9,12 @@ test_that("1 nonendemic, different colonist", {
     clade_name = "bird_z",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.5)),
-    min_age = NA
+    col_time = 0.5,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_z",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -33,8 +37,12 @@ test_that("1 endemic, different colonist", {
     clade_name = "bird_z",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.5)),
-    min_age = NA
+    col_time = 0.5,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_z",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -58,8 +66,12 @@ test_that("2 endemics, different colonist", {
     clade_name = "bird_z",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.5)),
-    min_age = NA
+    col_time = 0.5,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_z",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -88,8 +100,12 @@ test_that("2 tips nonendemic, different colonist", {
     clade_name = "bird_z",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.5)),
-    min_age = NA
+    col_time = 0.5,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_z",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -118,8 +134,12 @@ test_that("2 tips endemic, different colonist", {
     clade_name = "bird_z",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.5)),
-    min_age = NA
+    col_time = 0.5,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_z",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -142,8 +162,13 @@ test_that("1 nonendemic, same colonist", {
     clade_name = "bird_b",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(0.755181833128)),
-    min_age = NA
+    col_time = 0.755181833128,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_b",
+    clade_type = 1
+
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -166,8 +191,12 @@ test_that("1 endemic, same colonist", {
     clade_name = "bird_b",
     status = "endemic",
     missing_species = 0,
-    branching_times = I(list(0.755181833128 )),
-    min_age = NA
+    col_time = 0.755181833128,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = NA_real_,
+    species = "bird_b",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -191,8 +220,12 @@ test_that("2 endemics, same colonist", {
     clade_name = "bird_a",
     status = "endemic",
     missing_species = 0,
-    branching_times = I(list(c(1.43337005682, 0.25173))),
-    min_age = NA
+    col_time = 1.43337005682,
+    col_max_age = FALSE,
+    branching_times = I(list(0.25173)),
+    min_age = NA_real_,
+    species = I(list(c("bird_a", "bird_b"))),
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -221,8 +254,12 @@ test_that("2 tips nonendemic, same colonist", {
     clade_name = "bird_a",
     status = "nonendemic",
     missing_species = 0,
-    branching_times = I(list(1.43337005682)),
-    min_age = 0.251727277709
+    col_time = 1.43337005682,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = 0.251727277709,
+    species = "bird_a",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl
@@ -251,8 +288,12 @@ test_that("2 tips endemic, same colonist", {
     clade_name = "bird_a",
     status = "endemic",
     missing_species = 0,
-    branching_times = I(list(1.43337005682)),
-    min_age = 0.251727277709
+    col_time = 1.43337005682,
+    col_max_age = FALSE,
+    branching_times = I(list(NA_real_)),
+    min_age = 0.251727277709,
+    species = "bird_a",
+    clade_type = 1
   )
   new_tbl <- rbind(get_island_tbl(island_tbl), island_colonist_df)
   set_island_tbl(island_tbl) <- new_tbl

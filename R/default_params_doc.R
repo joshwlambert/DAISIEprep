@@ -18,14 +18,19 @@
 #' @param status Character endemicity status of the colonising clade.
 #' @param missing_species Numeric number of missing species from the phylogeny
 #' that belong to the colonising clade.
-#' @param branching_times Numeric vector of one or more elements where the first
-#' element is the colonisation time and subsequent elements are the branching
-#' times on the island.
+#' @param col_time Numeric with the colonisation time of the island colonist
+#' @param col_max_age Boolean determining whether colonisation time should be
+#' considered a precise time of colonisation or a maximum time of colonisation
+#' @param branching_times Numeric vector of one or more elements which are the
+#' branching times on the island.
 #' @param min_age Numeric minimum age (time before the present) that the species
 #' must have colonised the island by. This is known when there is a branching
 #' on the island, either in species or subspecies.
 #' @param species Character vector of one or more elements containing the name
 #' of the species included in the colonising clade.
+#' @param clade_type Numeric determining which type of clade the island colonist
+#' is, this determines which macroevolutionary regime (parameter set) the island
+#' colonist is in.
 #' @param endemic_clade Named vector with all the species from a clade.
 #' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or
 #' `phylo4` (from the `phylobase` package) object.
@@ -161,9 +166,12 @@ default_params_doc <- function(island_colonist,
                                clade_name,
                                status,
                                missing_species,
+                               col_time,
+                               col_max_age,
                                branching_times,
                                min_age,
                                species,
+                               clade_type,
                                endemic_clade,
                                phylo,
                                island_species,

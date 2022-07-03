@@ -22,13 +22,49 @@ used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.
 }
 \examples{
+# with empty island_tbl
 island_colonist <- island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
-  branching_times = c(1.0, 0.5)
+  col_time = 1.0,
+  col_max_age = FALSE,
+  branching_times = 0.5,
+  species = "bird_a",
+  clade_type = 1
 )
 island_tbl <- island_tbl()
+is_duplicate_colonist(
+  island_colonist = island_colonist,
+  island_tbl = island_tbl
+)
+
+# with non-empty island_tbl
+island_colonist <- island_colonist(
+  clade_name = "bird",
+  status = "endemic",
+  missing_species = 0,
+  col_time = 1.0,
+  col_max_age = FALSE,
+  branching_times = 0.5,
+  species = c("bird_a", "bird_b"),
+  clade_type = 1
+)
+island_tbl <- island_tbl()
+island_tbl <- bind_colonist_to_tbl(
+  island_colonist = island_colonist,
+  island_tbl = island_tbl
+)
+island_colonist <- island_colonist(
+  clade_name = "bird",
+  status = "endemic",
+  missing_species = 0,
+  col_time = 1.0,
+  col_max_age = FALSE,
+  branching_times = 0.5,
+  species = c("bird_a", "bird_b"),
+  clade_type = 1
+)
 is_duplicate_colonist(
   island_colonist = island_colonist,
   island_tbl = island_tbl

@@ -1,6 +1,6 @@
-#' Converts the `island_tbl` class to a data frame in the format of a DAISIE
+#' Converts the `Island_tbl` class to a data frame in the format of a DAISIE
 #' data table (see DAISIE R package for details). This can then be input into
-#' `DAISIEprep::create_daisie_data` function which creates the list input into
+#' `DAISIEprep::create_daisie_data()` function which creates the list input into
 #' the DAISIE ML models.
 #'
 #' @inheritParams default_params_doc
@@ -49,9 +49,19 @@ as_daisie_datatable <- function(island_tbl,
   # recursively loop through island colonists
   while (nrow(island_tbl) > 0) {
 
+    # get branching times
+    brts <- unlist(island_tbl[1, "branching_times"])
+
+    # merge colonisation time and branching times
+    if (!is.na(brts)) {
+      event_times <- c(island_tbl[1, "col_time"], brts)
+    } else {
+      event_times <- island_tbl[1, "col_time"]
+    }
+
     # descending branching times
-    brts <- sort(
-      unlist(island_tbl[1, "branching_times"]),
+    event_times <- sort(
+      event_times,
       decreasing = TRUE,
       na.last = TRUE
     )
@@ -60,19 +70,21 @@ as_daisie_datatable <- function(island_tbl,
     daisie_datatable[i, "Clade_name"] <- island_tbl[1, "clade_name"]
     daisie_datatable[i, "Status"] <- island_tbl[1, "status"]
     daisie_datatable[i, "Missing_species"] <- island_tbl[1, "missing_species"]
-    daisie_datatable[i, "Branching_times"][[1]] <- list(brts)
+    daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
 
-    # check if first branching time is before the island age
-    max_age <- brts[1] >= island_age
+    # island colonist is a max age if first branching time is before the
+    # island age or flagged as a max age colonist
+    max_age <- event_times[1] >= island_age || island_tbl[1, "col_max_age"]
     # check if minimum age of colonisation is available
     min_age_available <- !is.na(island_tbl[1, "min_age"])
 
     # MaxAge cases
-    if (all(is.na(brts)) || col_uncertainty == "max" && isFALSE(max_age)) {
+    if (all(is.na(event_times)) ||
+        col_uncertainty == "max" &&
+        isFALSE(max_age)) {
 
       # max age after island age or no branching times
-      daisie_datatable[i, "Branching_times"][[1]] <-
-        island_tbl[1, "branching_times"]
+      daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
       daisie_datatable[i, "Status"] <- paste0(
         island_tbl[1, "status"],
         "_MaxAge"
@@ -80,9 +92,9 @@ as_daisie_datatable <- function(island_tbl,
     } else if (max_age && isFALSE(min_age_available)) {
 
       # max age before island age
-      if (length(brts) == 1) {
+      if (length(event_times) == 1) {
         daisie_datatable[i, "Clade_name"] <- island_tbl[1, "clade_name"]
-        daisie_datatable[i, "Branching_times"][[1]] <- list(brts)
+        daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
         daisie_datatable[i, "Missing_species"] <-
           island_tbl[1, "missing_species"]
         daisie_datatable[i, "Status"] <- paste0(
@@ -96,16 +108,16 @@ as_daisie_datatable <- function(island_tbl,
         clade_name <- daisie_datatable[i, "Clade_name"]
 
         # recursively split clade until branching times are after island age
-        while (brts[1] >= island_age) {
+        while (event_times[1] >= island_age) {
 
           # extract island colonist information
           daisie_datatable[i, "Clade_name"] <- paste(
             clade_name, split_clade, sep = "_"
           )
           split_clade <- split_clade + 1
-          daisie_datatable[i, "Branching_times"] <- brts[1]
-          brts <- brts[-1]
-          if (length(brts) > 0) {
+          daisie_datatable[i, "Branching_times"] <- event_times[1]
+          event_times <- event_times[-1]
+          if (length(event_times) > 0) {
             # split singletons do not get assigned any missing species
             daisie_datatable[i, "Missing_species"] <- 0
           } else {
@@ -123,15 +135,15 @@ as_daisie_datatable <- function(island_tbl,
           i <- nrow(daisie_datatable) + 1
 
           # if there are no more branching times stop recursion
-          if (length(brts) == 0) {
+          if (length(event_times) == 0) {
             break
           }
         }
 
         # if there are branching times left after recursion put them in a clade
-        if (length(brts) >= 1) {
+        if (length(event_times) >= 1) {
           daisie_datatable[i, "Clade_name"] <- island_tbl[1, "clade_name"]
-          daisie_datatable[i, "Branching_times"][[1]] <- list(brts)
+          daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)
           daisie_datatable[i, "Missing_species"] <-
             island_tbl[1, "missing_species"]
           daisie_datatable[i, "Status"] <- island_tbl[1, "status"]

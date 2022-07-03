@@ -143,7 +143,7 @@ setClass(
 #'   col_time = 0.5,
 #'   col_max_age = FALSE,
 #'   branching_times = 0.5,
-#'   min_age = NA,
+#'   min_age = NA_real_,
 #'   species = "bird_a",
 #'   clade_type = 1
 #')

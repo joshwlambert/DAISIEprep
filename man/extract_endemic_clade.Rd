@@ -5,7 +5,7 @@
 \title{Extracts the information for an endemic clade (i.e. more than one species on
 the island more closely related to each other than other mainland species)
 from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `island_colonist` class}
+and stores it in an `Island_colonist` class}
 \usage{
 extract_endemic_clade(phylod, species_label, unique_clade_name)
 }
@@ -27,7 +27,7 @@ An object of `Island_colonist` class
 Extracts the information for an endemic clade (i.e. more than one species on
 the island more closely related to each other than other mainland species)
 from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `island_colonist` class
+and stores it in an `Island_colonist` class
 }
 \examples{
 set.seed(

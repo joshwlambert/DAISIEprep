@@ -2,9 +2,9 @@
 % Please edit documentation in R/as_daisie_datatable.R
 \name{as_daisie_datatable}
 \alias{as_daisie_datatable}
-\title{Converts the `island_tbl` class to a data frame in the format of a DAISIE
+\title{Converts the `Island_tbl` class to a data frame in the format of a DAISIE
 data table (see DAISIE R package for details). This can then be input into
-`DAISIEprep::create_daisie_data` function which creates the list input into
+`DAISIEprep::create_daisie_data()` function which creates the list input into
 the DAISIE ML models.}
 \usage{
 as_daisie_datatable(island_tbl, island_age, col_uncertainty = "none")
@@ -23,9 +23,9 @@ are informative.}
 A data frame in the format of a DAISIE data table
 }
 \description{
-Converts the `island_tbl` class to a data frame in the format of a DAISIE
+Converts the `Island_tbl` class to a data frame in the format of a DAISIE
 data table (see DAISIE R package for details). This can then be input into
-`DAISIEprep::create_daisie_data` function which creates the list input into
+`DAISIEprep::create_daisie_data()` function which creates the list input into
 the DAISIE ML models.
 }
 \examples{
