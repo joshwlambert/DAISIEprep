@@ -53,7 +53,7 @@ as_daisie_datatable <- function(island_tbl,
     brts <- unlist(island_tbl[1, "branching_times"])
 
     # merge colonisation time and branching times
-    if (!is.na(brts)) {
+    if (!all(is.na(brts))) {
       event_times <- c(island_tbl[1, "col_time"], brts)
     } else {
       event_times <- island_tbl[1, "col_time"]
