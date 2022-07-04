@@ -152,6 +152,22 @@
 #' independent of whether its constituent species are on the island or not
 #' @param genus_in_tree A numeric vector that indicates which species in the
 #' genus are in the tree
+#' @param missing_genus A list of character vectors containing the genera in
+#' each island clade
+#' @param checklist data frame with information on species on the island
+#' @param phylo_name_col A character string specifying the column name where the
+#' names in the phylogeny are in the checklist
+#' @param in_phylo_col A character string specifying the column name where the
+#' status of whether a species is in the phylogeny is in the checklist
+#' @param endemicity_status_col A character string specifying the column name
+#' where the endemicity status of the species are in the checklist
+#' @param rm_species_col A character string specifying the column name where
+#' the information on whether to remove species from the checklist before
+#' counting the number of missing species is in the checklist. This can be NULL
+#' if no species are to be removed from the checklist. This is useful when
+#' species are in the checklist because they are on the island but need to be
+#' removed as they are not in the group of interest, e.g. a migratory bird
+#' amongst terrestrial birds.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -205,6 +221,12 @@ default_params_doc <- function(island_colonist,
                                unique_clade_name,
                                genus_name,
                                constrain_to_island,
-                               genus_in_tree) {
+                               genus_in_tree,
+                               missing_genus,
+                               checklist,
+                               phylo_name_col,
+                               in_phylo_col,
+                               endemicity_status_col,
+                               rm_species_col) {
   # nothing
 }

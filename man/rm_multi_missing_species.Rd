@@ -12,6 +12,9 @@ rm_multi_missing_species(missing_species, missing_genus)
 \arguments{
 \item{missing_species}{Numeric number of missing species from the phylogeny
 that belong to the colonising clade.}
+
+\item{missing_genus}{A list of character vectors containing the genera in
+each island clade}
 }
 \value{
 Data frame
@@ -23,7 +26,14 @@ useful when wanting to know which missing species have not been assigned to
 the island_tbl using `add_multi_missing_species()`.
 }
 \examples{
-\dontrun{
-  #WIP
-}
+missing_species <- data.frame(
+  clade_name = "bird",
+  missing_species = 1,
+  endemicity_status = "endemic"
+)
+missing_genus <- list("bird", character(0))
+rm_missing_species <- rm_multi_missing_species(
+  missing_species = missing_species,
+  missing_genus = missing_genus
+)
 }

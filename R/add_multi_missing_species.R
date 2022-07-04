@@ -11,9 +11,31 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#'   #WIP
-#' }
+#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 6)
+#' island_tbl <- suppressWarnings(extract_island_species(
+#'   phylod = phylod,
+#'   extraction_method = "asr",
+#' ))
+#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 7)
+#' island_tbl <- suppressWarnings(extract_island_species(
+#'   phylod = phylod,
+#'   extraction_method = "asr",
+#'   island_tbl = island_tbl
+#' ))
+#'
+#' missing_species <- data.frame(
+#'   clade_name = "bird",
+#'   missing_species = 1,
+#'   endemicity_status = "endemic"
+#' )
+#'
+#' missing_genus <- list("bird", character(0))
+#'
+#' island_tbl <- add_multi_missing_species(
+#'   missing_species = missing_species,
+#'   missing_genus = missing_genus,
+#'   island_tbl = island_tbl
+#' )
 add_multi_missing_species <- function(missing_species,
                                       missing_genus,
                                       island_tbl) {

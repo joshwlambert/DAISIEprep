@@ -9,9 +9,16 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#'   #WIP
-#' }
+#' missing_species <- data.frame(
+#'   clade_name = "bird",
+#'   missing_species = 1,
+#'   endemicity_status = "endemic"
+#' )
+#' missing_genus <- list("bird", character(0))
+#' rm_missing_species <- rm_multi_missing_species(
+#'   missing_species = missing_species,
+#'   missing_genus = missing_genus
+#' )
 rm_multi_missing_species <- function(missing_species,
                                      missing_genus) {
 

@@ -2,9 +2,9 @@
 % Please edit documentation in R/unique_island_genera.R
 \name{unique_island_genera}
 \alias{unique_island_genera}
-\title{Determines the unique genera that are included in the island clades contained
-within the island_tbl object and stores them as a list with each genus
-only occuring once in the first island clade it appears in}
+\title{Determines the unique endemic genera that are included in the island clades
+contained within the island_tbl object and stores them as a list with each
+genus only occuring once in the first island clade it appears in}
 \usage{
 unique_island_genera(island_tbl)
 }
@@ -15,12 +15,21 @@ unique_island_genera(island_tbl)
 list of character vectors
 }
 \description{
-Determines the unique genera that are included in the island clades contained
-within the island_tbl object and stores them as a list with each genus
-only occuring once in the first island clade it appears in
+Determines the unique endemic genera that are included in the island clades
+contained within the island_tbl object and stores them as a list with each
+genus only occuring once in the first island clade it appears in
 }
 \examples{
-\dontrun{
-  #WIP
-}
+phylod <- create_test_phylod(test_scenario = 6)
+island_tbl <- suppressWarnings(extract_island_species(
+  phylod = phylod,
+  extraction_method = "asr",
+))
+phylod <- create_test_phylod(test_scenario = 7)
+island_tbl <- suppressWarnings(extract_island_species(
+  phylod = phylod,
+  extraction_method = "asr",
+  island_tbl = island_tbl
+))
+unique_genera <- unique_island_genera(island_tbl = island_tbl)
 }

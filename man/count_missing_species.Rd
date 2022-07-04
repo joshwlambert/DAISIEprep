@@ -8,10 +8,31 @@ missing from the phylogeny each genus}
 \usage{
 count_missing_species(
   checklist,
+  phylo_name_col,
   in_phylo_col,
   endemicity_status_col,
   rm_species_col = NULL
 )
+}
+\arguments{
+\item{checklist}{data frame with information on species on the island}
+
+\item{phylo_name_col}{A character string specifying the column name where the
+names in the phylogeny are in the checklist}
+
+\item{in_phylo_col}{A character string specifying the column name where the
+status of whether a species is in the phylogeny is in the checklist}
+
+\item{endemicity_status_col}{A character string specifying the column name
+where the endemicity status of the species are in the checklist}
+
+\item{rm_species_col}{A character string specifying the column name where
+the information on whether to remove species from the checklist before
+counting the number of missing species is in the checklist. This can be NULL
+if no species are to be removed from the checklist. This is useful when
+species are in the checklist because they are on the island but need to be
+removed as they are not in the group of interest, e.g. a migratory bird
+amongst terrestrial birds.}
 }
 \value{
 Data frame
@@ -22,6 +43,20 @@ not in the phylogeny (represented by NA) and counts the number of species
 missing from the phylogeny each genus
 }
 \examples{
-mammal_checklist <- read_checklist(file_name = "mammal_checklist.csv")
-count_missing_species(checklist = mammal_checklist)
+mock_checklist <- data.frame(
+  species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+                    "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
+  sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
+  endemicity_status = c("endemic", "endemic", "endemic", "nonendemic",
+                        "endemic", "nonendemic", "endemic", "endemic",
+                        "endemic", "endemic"),
+  remove_species = (rep(FALSE, 10))
+)
+missing_species <- count_missing_species(
+  checklist = mock_checklist,
+  phylo_name_col = "species_names",
+  in_phylo_col = "sampled",
+  endemicity_status_col = "endemicity_status",
+  rm_species_col = NULL
+)
 }
