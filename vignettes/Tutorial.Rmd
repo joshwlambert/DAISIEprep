@@ -192,6 +192,17 @@ datatable <- as_daisie_datatable(
 )
 ```
 
+Each row in the table represents an independent colonisation event. The table has four columns:
+
+* `Clade_name`: name of the independent colonisation event.
+* `Status`: One of the following categories:
+  + `Endemic`: applicable for both anagenetic species and radiations.
+  + `Non_endemic`: if the taxon is not endemic to the island, and the age of the colonisation is based on a phylogeny where both island and non-island populations of the species have been sampled.
+  + `Non_endemic_MaxAge`: if the taxon is not endemic to the island, and only an upper bound to the time of colonisation of the island is known. This applies if individuals from the island population of the species have not been sampled, but an age of the species is known. 
+  + `Endemic&Non_Endemic` when an endemic clade is present and the mainland ancestor has re-colonised. For remote islands this is expected to be very rare. 
+* `Missing_species`: number of island species that were not sampled for a particular clade (only applicable for radiations).
+* `Branching_times`: this should be the stem age of the population/species in the case of `Non_endemic`, `Non-endemic_MaxAge` and `Endemic` anagenetic species. For cladogenetic species these should be branching times of the radiation including the stem age of the radiation. Note - if there are species within the radiation that are not found on the island (e.g. back-colonisation) the branching times of these species should be excluded, as the mainland species pool is treated as static.
+
 ```{r}
 datatable
 ```
@@ -413,12 +424,13 @@ setophaga_phylod <- readRDS(
 ```
 
 Now that we have all our data in the correct format, we are ready to extract the
-island data from these trees using `extract_island_species()`. 
+island data from these trees using `extract_island_species()` using the "asr"
+algorithm. 
 
 ```{r extract first Galapagos clade}
 island_tbl <- extract_island_species(
   phylod = coccyzus_phylod,
-  extraction_method = "min",
+  extraction_method = "asr",
   island_tbl = NULL
 )
 ```
@@ -435,7 +447,7 @@ galapagos_phylod <- list(
 for (phylod in galapagos_phylod) {
   island_tbl <- extract_island_species(
     phylod = phylod,
-    extraction_method = "min",
+    extraction_method = "asr",
     island_tbl = island_tbl
   )
 }
@@ -479,32 +491,112 @@ data_list <- create_daisie_data(
 
 ## Adding missing species 
 
-It is likely the case that phylogenetic data is not available for each ...
+It is likely the case that phylogenetic data is not available for each island 
+colonist present in the island community. Even in the cases where phylogenetic 
+data has been inferred it may not be open-sourced in order to use for the 
+extraction. In those cases it may be possible to know the stem age or crown
+age if reported in the literature with the published phylogeny. This section 
+is about the tools that `DAISIEprep` provides in order to handle these cases,
+and generally to handle species that are missing and need to be input into the
+data manually. 
 
-- add missing species to darwins finches, new clade with stem age, new clade without stem age and add new clade as imaginary
+For this sections, as with the previous section the core data structure we are
+going to work with is the `island_tbl`. We will use the `island_tbl` for the 
+Galápagos birds produced in the last section. Firstly we are going to add a 
+missing species to the Galápagos finches clade. The finches have the clade name
+"C_fus" in the `island_tbl` (third row). To assign a single missing species
+to this clade we use following code:
 
-- add missing species as a new clade, imaginary clade to galapagos
-
-- To see an example of the DAISIE_datatable object see
-
-- remove table for comparison
-
-- change all min to asr for galapagos example
-
-```{r Galapagos data table}
-data("Galapagos_datatable", package = "DAISIE")
-knitr::kable(Galapagos_datatable)
+```{r}
+island_tbl <- add_missing_species(
+  island_tbl = island_tbl, 
+  num_missing_species = 1, 
+  species_name = "C_fus"
+)
 ```
 
-Each row in the table represents an independent colonisation event. The table has four columns:
+The argument `species_name` uses a representative species from that island clade
+to work out which colonist in the `island_tbl` to assign the specified number
+of missing species (`num_missing_species`) to. In this case we used the species
+in the clade name, however, this could also have been any species from the 
+clade which include: 
 
-* `Clade_name`: name of the independent colonisation event.
-* `Status`: One of the following categories:
-  + `Endemic`: applicable for both anagenetic species and radiations.
-  + `Non_endemic`: if the taxon is not endemic to the island, and the age of the colonisation is based on a phylogeny where both island and non-island populations of the species have been sampled.
-  + `Non_endemic_MaxAge`: if the taxon is not endemic to the island, and only an upper bound to the time of colonisation of the island is known. This applies if individuals from the island population of the species have not been sampled, but an age of the species is known. 
-  + `Endemic&Non_Endemic` when an endemic clade is present and the mainland ancestor has re-colonised. For remote islands this is expected to be very rare. 
-* `Missing_species`: number of island species that were not sampled for a particular clade (only applicable for radiations).
-* `Branching_times`: this should be the stem age of the population/species in the case of `Non_endemic`, `Non-endemic_MaxAge` and `Endemic` anagenetic species. For cladogenetic species these should be branching times of the radiation including the stem age of the radiation. Note - if there are species within the radiation that are not found on the island (e.g. back-colonisation) the branching times of these species should be excluded, as the mainland species pool is treated as static.
+```{r}
+island_tbl@island_tbl$species[[3]]
+```
+
+The next option for adding missing species is when a phylogeny is not available
+to conduct the extraction using `extract_island_species()` but the stem age of 
+the island colonist is known from the literature. For our Galápagos data, this
+is not actually the case as we have a phylogeny for every colonist available,
+so for illustrative purposes we use the Galápagos hawk which is not in our 
+data set of terrestrial birds and fabricate the time of colonisation. 
+
+The input needed are: 
+
+  * `island_tbl` to add to an existing `island_tbl`
+  * `clade_name` a name to represent the clade, can either be a specific species
+  from the clade or a genus name, or another name that represent those species
+  * `status` either "endemic" or "nonendemic"
+  * `missing_species` how many species are missing phylogenetic data from this 
+  colonist. In the case of a singleton lineage (i.e. not an island radiation) 
+  the number of missing species is zero as by adding the colonist it counts as
+  one automatically. However, in the case of an island clade of at least two 
+  species the number of species missing from the clade is given. For example in 
+  the Galápagos finches example above it is one species missing from the clade
+  * `col_time` the time of colonisation in million years before the present
+  * `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is 
+  precise or should be considered a maximum upper bound on the time of 
+  colonisation with some uncertainty
+  * `branching_times` the times an island clade has speciated *in situ* on the 
+  island. If an island clade has no speciated (i.e. is a singleton) this is NA.
+  * `min_age` is the minimum lower bound time of colonisation, to be used when
+  the colonisation time is assumed to be an upper bound.
+  * `species` a vector of species names contained within colonist
+  * `clade_type` a number represent which set of rates the colonist is assumed
+  to be under, default is 1, as number greater than one assume this clade is 
+  exceptionally different in its colonisation and diversification dynamics
+
+```{r}
+island_tbl <- add_island_colonist(
+  island_tbl = island_tbl, 
+  clade_name = "Buteo_galapagoensis", 
+  status = "endemic", 
+  missing_species = 0, 
+  col_time = 2.5, 
+  col_max_age = FALSE, 
+  branching_times = NA_real_, 
+  min_age = NA_real_, 
+  species = "Buteo_galapagoensis", 
+  clade_type = 1
+)
+```
+
+Taking the example above but assuming we did not have any phylogenetic data about
+the island clade we could again insert the species as missing but this time not
+give the colonisation time. When this colonist later gets processed by the DAISIE
+inference model it will be assumed it colonised the island any time between the 
+islands formation (in the case of the Galápagos four million years ago) and the 
+present.
+
+```{r}
+add_island_colonist(
+  island_tbl = island_tbl, 
+  clade_name = "Buteo_galapagoensis", 
+  status = "endemic", 
+  missing_species = 0, 
+  col_time = NA_real_, 
+  col_max_age = FALSE, 
+  branching_times = NA_real_, 
+  min_age = NA_real_, 
+  species = "Buteo_galapagoensis", 
+  clade_type = 1
+)
+```
+
+With the new missing species added to the `island_tbl` we can repeat the
+conversion steps above using `as_daisie_datatable()` and `create_daisie_data()`
+to produce data accepted by the DAISIE model.
+
 
 
