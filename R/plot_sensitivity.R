@@ -2,9 +2,9 @@
 #'
 #' @return ggplot2 object
 #' @keywords internal
-plot_sensitivity <- function() {
+plot_sensitivity <- function(sensitivity_data) {
 
-  sensitivity <- ggplot2::ggplot(plotting_data_dna) +
+  sensitivity <- ggplot2::ggplot(sensitivity_data) +
     ggplot2::geom_density(
       mapping = ggplot2::aes(rates, fill = extraction),
       alpha = 0.5

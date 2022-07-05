@@ -280,5 +280,97 @@ phylod <- phylobase::phylo4d(
 )
 ```
 
+########################################################################3
+
+
+```{r, create island presence tip states}
+tip_states <- c()
+endemicity_status <- phylobase::tipData(phylod)$endemicity_status
+for (i in seq_along(endemicity_status)) {
+  if (grepl(pattern = "^not_present$", x = endemicity_status[i])) {
+    tip_states[i] <- 1
+  } else if (grepl(pattern = "^nonendemic$", x = endemicity_status[i])) {
+    tip_states[i] <- 2
+  } else if (grepl(pattern = "^endemic$", x = endemicity_status[i])) {
+    tip_states[i] <- 3
+  }
+}
+```
+
+The maximum parsimony ancestral state reconstruction is from the R package
+`castor`. The `castor` package only works with S3 `phylo` objects, so we need
+to convert the phylogeny back to this type and then run the analysis.
+
+```{r calculate ancestral states}
+phylo <- as(phylo, "phylo")
+asr <- castor::asr_max_parsimony(
+  tree = phylo,
+  tip_states = tip_states,
+  transition_costs = "sequential"
+)
+``` 
+
+This provides us with a matrix with the probabilities of the states (island 
+presence/absence) at each node in the phylogeny. The first column of the matrix is not present on the island and the second colum of the matrix is present on 
+the island.
+
+```{r view ancestral state reconstruction likelihoods}
+if (ncol(asr$ancestral_likelihoods) == 2) {
+  colnames(asr$ancestral_likelihoods) <- c("not_present", "nonendemic")
+} else if (ncol(asr$ancestral_likelihoods) == 3) {
+  colnames(asr$ancestral_likelihoods) <-
+    c("not_present", "nonendemic", "endemic")
+}
+asr$ancestral_likelihoods
+```
+Once we have the matrix with the likelihood of the states we can chose the most
+probable state at each node using the `max.col()` function. Here we need to
+make a decision that will have downstream consequences for the DAISIE data 
+extracted from the tree, which is when a node has island presence and absence equally probable we need to decide whether that species should be considered on
+the island. To consider it on the island use `ties.method = "last"` in the 
+`max.col()` function, if you consider it not on the island use 
+`ties.method = "first"`. For this example we will assume that species are on the island, but for completeness it may be worth running both and then seeing if 
+there are significant downstream consequences.
+
+```{r collapse node probabilities into a single state}
+node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
+```
+#TODO: give examples of other asr methods from castor.
+
+These values can now be converted back to string to make them more readable.
+
+```{r}
+node_states <- gsub(
+  pattern = "1", replacement = "not_present", x = node_states
+)
+node_states <- gsub(
+  pattern = "2", replacement = "nonendemic", x = node_states
+)
+node_states <- gsub(
+  pattern = "3", replacement = "endemic", x = node_states
+)
+```
+
+Now the ancestral states at the nodes is available we can combine it into our
+`phylod` object.
+
+```{r combine node data into phylod}
+node_data <- data.frame(
+  island_status = node_states,
+  endemic_prob = asr$ancestral_likelihoods[, "endemic"],
+  nonendemic_prob = asr$ancestral_likelihoods[, "nonendemic"],
+  not_present_prob = asr$ancestral_likelihoods[, "not_present"],
+  row.names = phylobase::nodeId(phylod, "internal")
+)
+phylod <- phylobase::phylo4d(
+  phylo,
+  tip.data = as.data.frame(endemicity_status),
+  node.data = node_data
+)
+```
+
+The details above are given to make it clear the process involved in
+reconstructing and assigning node states. However, to make this step easier the
+above steps are in the `add_asr_node_states` function. 
 
 

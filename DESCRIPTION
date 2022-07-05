@@ -38,7 +38,9 @@ Suggests:
     rmarkdown,
     covr,
     microbenchmark,
-    diversitree
+    diversitree,
+    tidyr,
+    dplyr
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
@@ -73,6 +75,7 @@ Collate:
     'extract_stem_age.R'
     'extract_stem_age_asr.R'
     'extract_stem_age_min.R'
+    'format_sensitivity.R'
     'get_endemic_species.R'
     'is_back_colonisation.R'
     'is_duplicate_colonist.R'
@@ -88,7 +91,9 @@ Collate:
     'multi_island_tbl-methods.R'
     'plot_colonisation.R'
     'plot_phylod.R'
+    'plot_sensitivity.R'
     'print-methods.R'
+    'read_sensitivity.R'
     'rm_multi_missing_species.R'
     'translate_status.R'
     'unique_island_genera.R'

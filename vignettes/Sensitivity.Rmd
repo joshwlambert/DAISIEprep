@@ -10,9 +10,20 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.align = "center", 
+  fig.height = 5, 
+  fig.width = 7
 )
 ```
+
+## Introduction
+
+In this vignette we provide a set of best practices for sensitivity analyses 
+that should be taken into consideration when conducting data formatting and 
+model fitting in the DAISIE framework. Firstly we discuss the impact of the 
+
+## Sensitivity to extraction method
 
 ```{r setup}
 library(DAISIEprep)
@@ -276,6 +287,34 @@ for (i in seq_len(nrow(parameter_space))) {
 }
 ```
 
-This code produces a list of results which we can ...
+This code produces a list of results for the DNA-only phylogeny and the complete
+phylogeny. The code above is not run as it takes a considerable amount of time
+to loop through each scenario. Instead we save the output from running the above
+code. 
+
+```{r, echo=FALSE}
+sensitivity_data <- DAISIEprep:::read_sensitivity()
+```
+
+With this raw data of parameter estimates for the different parameter setting we
+can tidy the data into a tibble containing the data we need for both the DNA
+and complete phylogeny. 
+
+```{r}
+sensitivity_data <- DAISIEprep:::format_sensitivity(
+  sensitivity_data = sensitivity_data
+)
+```
+
+Now this data is formatted we can plot the distribution of parameter estimates
+for the DNA and complete data sets.
+
+```{r}
+DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$dna_data)
+``` 
+
+```{r}
+DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$complete_data)
+``` 
 
 

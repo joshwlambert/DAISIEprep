@@ -2,20 +2,24 @@
 #'
 #' @return tibble
 #' @keywords internal
-format_sensitivity <- function() {
+format_sensitivity <- function(sensitivity_data) {
 
+  # extract dna parameter estimates
   dna <- lapply(sensitivity_data, function(x) {
     lapply(x, "[[", 1)
   })
 
+  # extract complete parameter estimates
   complete <- lapply(sensitivity_data, function(x) {
     lapply(x, "[[", 2)
   })
 
+  # extract parameters
   parameters <- lapply(sensitivity_data, function(x) {
     lapply(x, "[[", 3)
   })
 
+  # create a vector of parameter estimates for dna data
   dna <- unlist(dna, recursive = FALSE)
   dna_clado <- sapply(dna, "[[", "lambda_c")
   dna_ext <- sapply(dna, "[[", "mu")
@@ -23,6 +27,7 @@ format_sensitivity <- function() {
   dna_immig <- sapply(dna, "[[", "gamma")
   dna_ana <- sapply(dna, "[[", "lambda_a")
 
+  # create a vector of parameter estimates for complete data
   complete <- unlist(complete, recursive = FALSE)
   complete_clado <- sapply(complete, "[[", "lambda_c")
   complete_ext <- sapply(complete, "[[", "mu")
@@ -30,31 +35,61 @@ format_sensitivity <- function() {
   complete_immig <- sapply(complete, "[[", "gamma")
   complete_ana <- sapply(complete, "[[", "lambda_a")
 
+  # create a vector of parameters
   parameters <- unlist(parameters, recursive = FALSE)
   extraction_method <- sapply(parameters, "[[", "extraction_method")
   asr_method <- sapply(parameters, "[[", "asr_method")
   tie_preference <- sapply(parameters, "[[", "tie_preference")
 
-  plotting_data_dna <- tibble::tibble(
+  # store dna parameter estimates in tibble
+  dna_data <- tibble::tibble(
     extraction_method = extraction_method,
     asr_method = asr_method,
     tie_preference = tie_preference,
-    dna_clado = dna_clado,
-    dna_ext = dna_ext,
-    dna_immig = dna_immig,
-    dna_ana = dna_ana
+    clado = dna_clado,
+    ext = dna_ext,
+    immig = dna_immig,
+    ana = dna_ana
   )
 
-  plotting_data_dna <- tidyr::unite(
-    data = plotting_data_dna,
+  # store complete parameter estimates in tibble
+  complete_data <- tibble::tibble(
+    extraction_method = extraction_method,
+    asr_method = asr_method,
+    tie_preference = tie_preference,
+    clado = complete_clado,
+    ext = complete_ext,
+    immig = complete_immig,
+    ana = complete_ana
+  )
+
+  # merge extraction_method, asr_method and tie_preference for dna data
+  dna_data <- tidyr::unite(
+    data = dna_data,
     col = extraction,
     extraction_method:tie_preference
   )
 
-  plotting_data_dna <- tidyr::pivot_longer(
-    data = plotting_data_dna,
+  # merge extraction_method, asr_method and tie_preference for complete data
+  complete_data <- tidyr::unite(
+    data = complete_data,
+    col = extraction,
+    extraction_method:tie_preference
+  )
+
+  # tidy dna data
+  dna_data <- tidyr::pivot_longer(
+    data = dna_data,
     names_to = "parameter",
-    dna_clado:dna_ana,
+    clado:ana,
+    values_to = "rates"
+  )
+
+  # tidy complete data
+  complete_data <- tidyr::pivot_longer(
+    data = complete_data,
+    names_to = "parameter",
+    clado:ana,
     values_to = "rates"
   )
 
@@ -63,35 +98,74 @@ format_sensitivity <- function() {
   # they can be removed from the data as the density plots will completely overlap
 
   which_asr_mk_island <- which(
-    plotting_data_dna$extraction == "asr_mk_island"
+    dna_data$extraction == "asr_mk_island"
   )
   which_asr_mk_mainland <- which(
-    plotting_data_dna$extraction == "asr_mk_mainland"
+    dna_data$extraction == "asr_mk_mainland"
   )
   identical_mk <- identical(
-    plotting_data_dna[which_asr_mk_island, "rates"],
-    plotting_data_dna[which_asr_mk_mainland, "rates"]
+    dna_data[which_asr_mk_island, "rates"],
+    dna_data[which_asr_mk_mainland, "rates"]
   )
 
   which_asr_parsimony_island <- which(
-    plotting_data_dna$extraction == "asr_parsimony_island"
+    dna_data$extraction == "asr_parsimony_island"
   )
   which_asr_parsimony_mainland <- which(
-    plotting_data_dna$extraction == "asr_parsimony_mainland"
+    dna_data$extraction == "asr_parsimony_mainland"
   )
   identical_parsimony <- identical(
-    plotting_data_dna[which_asr_parsimony_island, "rates"],
-    plotting_data_dna[which_asr_parsimony_mainland, "rates"]
+    dna_data[which_asr_parsimony_island, "rates"],
+    dna_data[which_asr_parsimony_mainland, "rates"]
   )
 
 
   if (identical_mk && identical_parsimony) {
-    plotting_data_dna <- dplyr::slice(
-      plotting_data_dna,
+    dna_data <- dplyr::slice(
+      dna_data,
       -which(
-        plotting_data_dna$extraction %in%
+        dna_data$extraction %in%
           c("asr_mk_mainland", "asr_parsimony_mainland")
       )
     )
   }
+
+  which_asr_mk_island <- which(
+    complete_data$extraction == "asr_mk_island"
+  )
+  which_asr_mk_mainland <- which(
+    complete_data$extraction == "asr_mk_mainland"
+  )
+  identical_mk <- identical(
+    complete_data[which_asr_mk_island, "rates"],
+    complete_data[which_asr_mk_mainland, "rates"]
+  )
+
+  which_asr_parsimony_island <- which(
+    complete_data$extraction == "asr_parsimony_island"
+  )
+  which_asr_parsimony_mainland <- which(
+    complete_data$extraction == "asr_parsimony_mainland"
+  )
+  identical_parsimony <- identical(
+    complete_data[which_asr_parsimony_island, "rates"],
+    complete_data[which_asr_parsimony_mainland, "rates"]
+  )
+
+
+  if (identical_mk && identical_parsimony) {
+    complete_data <- dplyr::slice(
+      complete_data,
+      -which(
+        complete_data$extraction %in%
+          c("asr_mk_mainland", "asr_parsimony_mainland")
+      )
+    )
+  }
+
+  # return a list of tibbles for dna and complete data
+  list(
+    dna_data = dna_data,
+    complete_data = complete_data
+  )
 }
