@@ -18,4 +18,73 @@ knitr::opts_chunk$set(
 library(DAISIEprep)
 ```
 
+The `DAISIEprep` R package provides the tools to extract phylogenetic community
+data from phylogenetic trees with the endemicity status of the species assigned
+to each tip in the phylogeny. However, there is not a single correct method for
+extracting the data and thus `DAISIEprep` implements several algorithms to 
+account for variations in what would be considered an appropriate assumptions
+for the island system of interest. The two major divisions for extracting data
+are in the `extraction_method` argument in `extract_island_species()` (and
+by extension `extract_multi_island_species()`), which can be either "min" for 
+the minimum time of colonisation algorithm, or "asr" for the geographical 
+ancestral state reconstruction algorithm. The "min" algorithm conforms to the 
+assumptions of the DAISIE inference model (implemented in the [`DAISIE` R package](https://cran.r-project.org/web/packages/DAISIE/index.html)). These 
+assumptions are: 
 
+  * Non-endemic species cannot be part of an island clade
+  * There is no back-colonisation from the island away to the mainland or other
+  island 
+  * There cannot be a species not present on the island nested in an endemic 
+  island clade
+  
+The first two points are linked, by not allowing back-colonisation, a non-endemic 
+cannot be endemic to the island (i.e. part of an endemic island radiation) and
+then migrate or expand its range away from the island. These three points mean
+that if the island system of interest has experienced back-colonisation or a
+species in an endemic island radiation has expanded its range off the island and
+its island population has gone extinct (making it not present on the island but
+extant) the "min" algorithm will split clades into multiple colonisations. In 
+the case that the island of interest is very remote and only has species arrive
+and perhaps also diversify this algorithm provides a simple model to extract the
+data.
+
+However, it is clear that the commonly the assumptions of the DAISIE model and 
+thus the "min" algorithm are violated in empirical data. Therefore the second
+algorithm, "asr", is implemented remedy this. The 
+"asr" algorithm uses the reconstructed states at each node in the phylogeny of 
+whether a species is not present on the island, non-endemic to the island, or
+endemic to the island. Using this information the algorithm can go transerve the
+phylogeny back to the node where the island clade colonised the island. This
+algorithm overcomes the limitations of the "min" algorithm by allowing 
+non-endemic species to be part of island clades (extracting them as endemic
+clades for the purposes of applying the DAISIE inference model), and additionally
+allowing species that are not present on the island to be included in data when
+embedded within an endemic island clade (this feature is turned on/off with the
+`include_not_present` argument in `extract_island_species()`). Therefore, the 
+"asr" algorithm has benefits when the focal island system has experienced some
+species movement from the island to other regions. However, it is not without
+limitations, ancestral state reconstruction models should be interpretted with
+caution and uncertainty of a species geographic range deep in the past, near the
+root of the tree is often high leading to variability in interpretation of 
+whether a species was present on the island at the time. The formulation of the 
+ancestral state reconstruction model is also important, with the transition 
+matrix between states crucial to plausible results. By default we use a 
+symmetrical transition structure where species go from not present on the island, 
+to non-endemic and then to endemic. Without jumps from not present to endemic 
+and vice versa. This is in line with the reasoning in the DAISIE model, that 
+species that colonise the island do not migrate their entire mainland 
+population, instead going through a widespread range, before becoming endemic
+via cladogenesis or anagenesis on the island, or extinction of the mainland
+population.
+
+In this vignette we demonstrate the sensitivity of the parameters estimated
+from the DAISIE maximum likelihood inference model to changes in the algorithm 
+used to extract the data. We apply the "min" and "asr" algorithms, and within 
+"asr" we apply two different models of ancestral state reconstruction: parsimony
+and continuous-time Markov model (Mk model). Traditionally, these have been two
+of the most common methods for reconstructing ancestral states, for other 
+methods to reconstruct ancestral ranges see Extending_asr vignette in the 
+DAISIEprep package.
+
+The data we use for this example is the macro-phylogeny of mammals (Upham et 
+al., 2019). This is a large data set containing ...
