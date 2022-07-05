@@ -88,7 +88,7 @@ phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 
 We can now visualise our phylogeny with the island endemicity status plotted at
 the tips. This uses the `ggtree` and `ggplot2` packages.
-## change width of figure
+
 ```{r plot phylogeny with tip data}
 plot_phylod(phylod = phylod)
 ```
@@ -152,7 +152,6 @@ probabilities at the nodes to visualise the ancestral state reconstruction.
 ```{r plot ancestral state likelihoods}
 plot_phylod(phylod = phylod, node_pies = TRUE)
 ```
-# fix size of pie charts
 
 Now we can extract the colonisation and diversification from the phylogeny
 using the ancestral reconstructed island presence/absence. 

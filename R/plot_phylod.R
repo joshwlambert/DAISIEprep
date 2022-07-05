@@ -76,8 +76,8 @@ plot_phylod <- function(phylod,
     p <- p +
       ggtree::geom_inset(
         insets = pies,
-        width = 0.2,
-        height = 0.2,
+        width = 0.1,
+        height = 0.1,
       )
 
   } else if (!is.null(phylobase::nodeData(phylod)$island_status)) {
