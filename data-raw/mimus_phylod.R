@@ -25,4 +25,10 @@ mimus_phylod <- phylobase::phylo4d(
   mimus_tree, mimus_endemicity_status
 )
 
+mimus_phylod <- add_asr_node_states(
+  phylod = mimus_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(mimus_phylod, file = "inst/extdata/mimus_phylod.rds")

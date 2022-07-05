@@ -29,4 +29,10 @@ phylobase::tipLabels(columbiformes_phylod) <- gsub(
   x = phylobase::tipLabels(columbiformes_phylod)
 )
 
+columbiformes_phylod <- add_asr_node_states(
+  phylod = columbiformes_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(columbiformes_phylod, file = "inst/extdata/columbiformes_phylod.rds")

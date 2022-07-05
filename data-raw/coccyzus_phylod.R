@@ -19,5 +19,11 @@ coccyzus_endemicity_status <- create_endemicity_status(
 
 coccyzus_phylod <- phylobase::phylo4d(coccyzus_tree, coccyzus_endemicity_status)
 
+coccyzus_phylod <- add_asr_node_states(
+  phylod = coccyzus_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(coccyzus_phylod, file = "inst/extdata/coccyzus_phylod.rds")
 

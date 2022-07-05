@@ -33,4 +33,10 @@ setophaga_phylod <- phylobase::phylo4d(
   setophaga_tree, setophaga_endemicity_status
 )
 
+setophaga_phylod <- add_asr_node_states(
+  phylod = setophaga_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(setophaga_phylod, file = "inst/extdata/setophaga_phylod.rds")
