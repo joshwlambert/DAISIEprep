@@ -19,4 +19,4 @@ progne_endemicity_status <- create_endemicity_status(
 
 progne_phylod <- phylobase::phylo4d(progne_tree, progne_endemicity_status)
 
-saveRDS(coccyzus_phylod, file = "inst/extdata/progne_phylod.rds")
+saveRDS(progne_phylod, file = "inst/extdata/progne_phylod.rds")
