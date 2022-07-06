@@ -561,12 +561,12 @@ test_that("2 endemics, precise col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
-  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
-  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(daisie_datatable$Clade_name, "bird_a")
+  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
+  expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.25173))
+    list(c(1.43337005682, 0.25173))
   )
 })
 
@@ -587,12 +587,12 @@ test_that("2 endemics, max col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
-  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
-  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(daisie_datatable$Clade_name, "bird_a")
+  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
+  expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.25173))
+    list(c(1.43337005682, 0.25173))
   )
 })
 
@@ -613,12 +613,12 @@ test_that("2 endemics, min col time before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
-  expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic"))
-  expect_equal(daisie_datatable$Missing_species, c(0, 0))
+  expect_equal(daisie_datatable$Clade_name, "bird_a")
+  expect_equal(daisie_datatable$Status, "endemic_MaxAge")
+  expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.25173))
+    list(c(1.43337005682, 0.25173))
   )
 })
 
