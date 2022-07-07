@@ -158,8 +158,7 @@ asr <- castor::asr_max_parsimony(
 ``` 
 
 This provides us with a matrix with the probabilities of the states (island 
-presence/absence) at each node in the phylogeny. The first column of the matrix is not present on the island and the second colum of the matrix is present on 
-the island.
+presence/absence) at each node in the phylogeny. The first column of the matrix is not present on the island and the second colum of the matrix is present on the island.
 
 ```{r view ancestral state reconstruction likelihoods}
 if (ncol(asr$ancestral_likelihoods) == 2) {

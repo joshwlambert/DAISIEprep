@@ -92,6 +92,8 @@ Lastly, `corHMM` is a package that implements a hidden markov model of evolution
 
 ## Introduction
 
+
+### ASR with DAISIE?
 Why ASR with other models?
 Users may want to model the biogeographic process with processes not captured by DAISIE,
 for example the existence of more areas than mainland + island (e.g., an archipelago).
@@ -265,100 +267,135 @@ BioGeoBEARS::check_BioGeoBEARS_run(bgb_run)
 res <- BioGeoBEARS::bears_optim_run(bgb_run)
 ```
 
-We do get a warning from `optimx`, but [apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments) this can be ignored.
+We do get a warning, but [apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments) this can be ignored.
 
-```{r}
+```{r, extract_decj_asr, eval=FALSE}
 asr_likelihoods <- res$ML_marginal_prob_each_state_at_branch_top_AT_node[, -1]
 node_states <- max.col(asr_likelihoods, ties.method = "last")
 ```
 
 (Not sure this is the right item to call for the probabilities, this is not documented so I inferred it from the [plot function's code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432))
 
-Tips are mismatched smh.
-
-relevant available options: stratification, area subsets, area-dependent effects etc.
-DEC makes some assumptions like no widestate sympatry nor raage split but can be lifted in BGB.
-Other processes can be turned off in the same way, by fixing parameters.
-
-roxygen doc not compiled; read doc on source on github
+!!! Tips and states are mismatched smh !!!
 
 ## MuSSE
 
-```{r MuSSE example}
-# Simulate a tree under a MuSSE model
-pars <- c(0.1, 0.2, 0.2, 0.03, 0.03, 0.03, 0.01, 0, 0.02, 0.02, 0, 0.01)
-set.seed(3)
-phy <- diversitree::trees(
-  pars, 
-  type = "musse", 
-  max.taxa=50, 
-  max.t=Inf, 
-  x0=1
-)[[1]]
-
-# MuSSE ancestral state reconstructions under the ML model
-lik <- diversitree::make.musse(tree = phy, states = phy$tip.state, k = 3)
-fit <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
-asr <- diversitree::asr.marginal(lik = lik, pars = coef(fit))
-```
-
-We can convert the phylogeny to a `phylo4d` object with the tip states 
+For this example, we re-use the tree from tutorial
 
 ```{r}
-phylo <- phylobase::phylo4(phy)
-endemicity_status <- gsub(
-  pattern = "1", replacement = "not_present", x = phy$tip.state
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
 )
-endemicity_status <- gsub(
-  pattern = "2", replacement = "nonendemic", x = endemicity_status
+phylo <- ape::rcoal(10)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e", "bird_f",
+                     "bird_g", "bird_h", "bird_i", "bird_j")
+phylo <- phylobase::phylo4(phylo)
+endemicity_status <- sample(
+  x = c("not_present", "endemic", "nonendemic"), 
+  size = length(phylobase::tipLabels(phylo)), 
+  replace = TRUE,
+  prob = c(0.6, 0.2, 0.2)
 )
-endemicity_status <- gsub(
-  pattern = "3", replacement = "endemic", x = endemicity_status
-)
-
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+plot_phylod(phylod = phylod)
 ```
 
-Now we can link the ancestral states with the tree
+SSE-class models explicitly model the inter-dependency between the evolution of a set of traits and evolutionary rates (speciation and extinction). When traits are set to represent geographic areas, such models can be used to model range evolution. For a mainland-island system, we could model the endemicity status as a ternary trait: endemic, non-endemic, or not present on the island.
 
-```{r bind asr to phylo}
+Discrete-trait models with more than two states are modelled with MuSSE, which is implemented in package `diversitree`.
+
+ASR with `diversitree` is done in three steps.
+The model structure is first specified to create a likelihood function; then parameters are optimised for this function; and finally the probabilities of states of the internal nodes are determined with the resulting maximum-likelihood model.
+
+States of the character must be specified as integers, we use the following convention:
+- "endemic" = 1
+- "nonendemic" = 2
+- "not_present" = 3
+
+For convenience, we include functions to switch easily between endemicity and the coded states:
+
+```{r, create_musse_lik}
+states <- endemicity_to_states(phylod@data$endemicity_status)
+names(states) <- phylod@label # requires tip labels as names
+tree <- as(phylod, "phylo")
+
+# Create likelihood function
+lik_musse <- diversitree::make.musse(tree = tree, states = states, k = 3)
+lik_musse
+```
+
+```{r, fit_musse, eval=FALSE}
+# Arbitrary initial parameter values
+pars <- c(
+  # lambda1 lambda2 lambda3
+  0.1, 0.2, 0.2,
+  # mu1 mu2 mu3
+  0.03, 0.03, 0.03,
+  # q12 q13 q21 q23 q31 q32
+  0.01, 0, 0.02, 0.02, 0, 0.01
+  )
+
+fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
+
+# MuSSE ancestral state reconstructions under the ML model
+asr_musse <- diversitree::asr.marginal(lik = lik, pars = coef(fit_musse))
+```
+
+```{r, add_musse_asr_to_phylod, eval=FALSE}
 asr <- t(asr)
 colnames(asr) <- c("not_present", "nonendemic", "endemic")
 node_states <- max.col(asr, ties.method = "last")
-node_states <- gsub(
-  pattern = "1", replacement = "not_present", x = node_states
-)
-node_states <- gsub(
-  pattern = "2", replacement = "nonendemic", x = node_states
-)
-node_states <- gsub(
-  pattern = "3", replacement = "endemic", x = node_states
-)
 
+node_endemicity <- states_to_endemicity(node_states)
 
 node_data <- data.frame(
-  island_status = node_states,
+  island_status = node_endemicity,
   endemic_prob = asr[, "endemic"],
   nonendemic_prob = asr[, "nonendemic"],
   not_present_prob = asr[, "not_present"],
   row.names = phylobase::nodeId(phylod, "internal")
 )
 
-tip_data <- data.frame(
-  endemicity_status = phylobase::tipData(phylod)$endemicity_status,
-  row.names = phylobase::nodeId(phylod, "tip")
-)
-
-# combine node data into phylod
-phylod <- phylobase::phylo4d(
-  phylo,
-  tip.data = tip_data,
-  node.data = node_data
-)
+phylod <- phylobase::addData(phylod, node.data = node_data)
 ```
+
+
+SSE models in `diversitree` can be tuned further with constraints that simplify the model. We can use this to make the model closer to the assumptions of DAISIE. For example, it is not possible for a species to jump directly to the island and disappear from the mainland simultaneously; colonisation of the mainland from the island are assumed unlikely, and speciation on the island results in endemic lineages.
+
+```{r, constrain_musse_lik, eval=FALSE}
+lik_musse_c <- constrain(lik_musse) #...
+pars <- c(
+  # lambda1 lambda2 lambda3
+  0.1, 0.2, 0.2,
+  # mu1 mu2 mu3
+  0.03, 0.03, 0.03,
+  # q12 q13 q21 q23 q31 q32
+  0.01, 0, 0.02, 0.02, 0, 0.01
+  )
+fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
+```
+
+In fact, for modelling dispersal and evolution between mainland and island, it is probably more appropriate to use an SSE model dedicated to geographic traits.
+
+## GeoSSE
+
+```{r, create_geosse_lik, eval=FALSE}
+states <- endemicity_to_states(phylod@data$endemicity_status)
+names(states) <- phylod@label # requires tip labels as names
+tree <- as(phylod, "phylo")
+
+# Create likelihood function
+lik_geosse <- diversitree::make.geosse(tree = tree, states = states)
+lik_geosse
+```
+
 
 ## corHMM
 
+```r
 # set.seed(1985)
 # require(ape)
 # require(expm)
@@ -384,8 +421,15 @@ phylod <- phylobase::phylo4d(
 # # we import phytools plotSimmap for plotting
 # phytools::plotSimmap(simmap[[1]], fsize = 0.5)
 
+##
+```
 
-Appendix
+## Concluding remarks
+
+Appropriate model choice depends on the clade and island system considered?
+GeoHiSSE?
+
+## Appendix
 
 ```{r, create island presence tip states, eval=FALSE}
 tip_states <- c()
