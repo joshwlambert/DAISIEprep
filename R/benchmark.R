@@ -28,7 +28,8 @@
 #' \dontrun{
 #' #WIP
 #' }
-benchmark <- function(tree_size_range,
+benchmark <- function(phylod,
+                      tree_size_range,
                       num_points,
                       prob_on_island,
                       prob_endemic,
@@ -38,22 +39,26 @@ benchmark <- function(tree_size_range,
                       tie_preference,
                       log_scale = TRUE) {
 
-  if (log_scale) {
-    tree_size <- exp(seq(
-      from = log(tree_size_range[1]),
-      to = log(tree_size_range[2]),
-      length.out = num_points
-    ))
-  } else {
-    tree_size <- seq(
-      from = tree_size_range[1],
-      to = tree_size_range[2],
-      length.out = num_points
-    )
-  }
+  if (is.null(phylod)) {
+    if (log_scale) {
+      tree_size <- exp(seq(
+        from = log(tree_size_range[1]),
+        to = log(tree_size_range[2]),
+        length.out = num_points
+      ))
+    } else {
+      tree_size <- seq(
+        from = tree_size_range[1],
+        to = tree_size_range[2],
+        length.out = num_points
+      )
+    }
 
-  # round tree size to integer
-  tree_size <- round(tree_size)
+    # round tree size to integer
+    tree_size <- round(tree_size)
+  } else {
+    tree_size <- phylobase::nTips(phylod)
+  }
 
   parameter_space <- expand.grid(
     tree_size = tree_size,
@@ -63,6 +68,7 @@ benchmark <- function(tree_size_range,
     asr_method = asr_method,
     tie_preference = tie_preference
   )
+
 
   times_list <- list()
   for (i in seq_len(nrow(parameter_space))) {
@@ -74,50 +80,52 @@ benchmark <- function(tree_size_range,
 
       message("Replicate: ", j, " of ", replicates)
 
-      # simulate phylogeny
-      phylo <- ape::rcoal(n = parameter_space$tree_size[i])
+      if (is.null(phylod)) {
+        # simulate phylogeny
+        phylo <- ape::rcoal(n = parameter_space$tree_size[i])
 
-      # generate a set of unique tip labels that conform to standard
-      tip_labels <- expand.grid(letters, letters, letters)
-      tip_labels <- do.call(paste0, tip_labels)
-      tip_labels <- tip_labels[1:parameter_space$tree_size[i]]
-      tip_labels <- paste("bird", tip_labels, sep = "_")
-      phylo$tip.label <- tip_labels
+        # generate a set of unique tip labels that conform to standard
+        tip_labels <- expand.grid(letters, letters, letters)
+        tip_labels <- do.call(paste0, tip_labels)
+        tip_labels <- tip_labels[1:parameter_space$tree_size[i]]
+        tip_labels <- paste("bird", tip_labels, sep = "_")
+        phylo$tip.label <- tip_labels
 
-      prob_not_present <- 1 - parameter_space$prob_on_island[i]
-      prob_endemic <-
-        parameter_space$prob_endemic[i] * parameter_space$prob_on_island[i]
-      prob_nonendemic <-
-        (1 - parameter_space$prob_endemic[i]) * parameter_space$prob_on_island[i]
+        prob_not_present <- 1 - parameter_space$prob_on_island[i]
+        prob_endemic <-
+          parameter_space$prob_endemic[i] * parameter_space$prob_on_island[i]
+        prob_nonendemic <-
+          (1 - parameter_space$prob_endemic[i]) * parameter_space$prob_on_island[i]
 
 
-      empty_island <- TRUE
-      while (empty_island) {
-        # generate tip states under uniform sampling
-        endemicity_status <- sample(
-          x = c("endemic", "nonendemic", "not_present"),
-          size = parameter_space$tree_size[i],
-          replace = TRUE,
-          prob = c(prob_endemic, prob_nonendemic, prob_not_present)
-        )
-        if (any(endemicity_status != "not_present")) {
-          empty_island <- FALSE
+        empty_island <- TRUE
+        while (empty_island) {
+          # generate tip states under uniform sampling
+          endemicity_status <- sample(
+            x = c("endemic", "nonendemic", "not_present"),
+            size = parameter_space$tree_size[i],
+            replace = TRUE,
+            prob = c(prob_endemic, prob_nonendemic, prob_not_present)
+          )
+          if (any(endemicity_status != "not_present")) {
+            empty_island <- FALSE
+          }
         }
-      }
 
-      # add not present outgroup
-      phylo <- DAISIEprep::add_outgroup(phylo)
-      endemicity_status <- c("not_present", endemicity_status)
+        # add not present outgroup
+        phylo <- DAISIEprep::add_outgroup(phylo)
+        endemicity_status <- c("not_present", endemicity_status)
 
-      # format data for DAISIEprep
-      phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+        # format data for DAISIEprep
+        phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 
-      if (extraction_method == "asr") {
-        phylod <- DAISIEprep::add_asr_node_states(
-          phylod = phylod,
-          asr_method = asr_method,
-          tie_preference = tie_preference
-        )
+        if (extraction_method == "asr") {
+          phylod <- DAISIEprep::add_asr_node_states(
+            phylod = phylod,
+            asr_method = asr_method,
+            tie_preference = tie_preference
+          )
+        }
       }
 
       # run extraction
