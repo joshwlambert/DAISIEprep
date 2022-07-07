@@ -17,7 +17,7 @@ and non-island species, learn how to extract and format island data for running 
 data for DAISIE analyses using several different "real" phylogenies including 
 species of birds from the Galápagos islands.
 
-3. **Adding missing species** - How to add missing species, lineages, etc to 
+3. **Adding missing species** - How to add missing species, lineages, etc, to 
 your DAISIE data list.
 
 
@@ -43,7 +43,7 @@ library(castor)
 
 ## 1. Single Phylogeny Example
 
-#### In this section we demonstrate a simple example of extracting and formatting data from a single phylogeny. We use a simulated phylogeny, which makes it clear how the data is structured. 
+#### In this section we demonstrate a simple example of extracting and formatting data from a single phylogeny. We use a simulated phylogeny, which faciliates explaining how the data is structured. 
 
 First we simulate a phylogeny using the package `ape`.
 
