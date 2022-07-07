@@ -125,10 +125,18 @@ sensitivity <- function(phylo,
     asr_method = asr_method,
     tie_preference = tie_preference,
     clado = clado,
-    k = k,
     ext = ext,
+    k = k,
     immig = immig,
     ana = ana
+  )
+
+  # tidy data
+  sensitivity <- tidyr::pivot_longer(
+    data = sensitivity,
+    names_to = "parameter",
+    clado:ana,
+    values_to = "rates"
   )
 
   # return sensitivity data frame
