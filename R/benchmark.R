@@ -72,7 +72,11 @@ benchmark <- function(phylod,
 
       if (is.null(phylod)) {
         # simulate phylogeny
-        phylo <- ape::rcoal(n = parameter_space$tree_size[i])
+        phylo <- ape::rphylo(
+          n = parameter_space$tree_size[i],
+          birth = 0.1,
+          death = 0
+        )
 
         # generate a set of unique tip labels that conform to standard
         tip_labels <- expand.grid(letters, letters, letters)
