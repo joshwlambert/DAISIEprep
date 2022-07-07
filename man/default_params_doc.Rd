@@ -67,7 +67,8 @@ default_params_doc(
   prob_on_island,
   prob_endemic,
   replicates,
-  log_scale
+  log_scale,
+  parameter_index
 )
 }
 \arguments{
@@ -314,6 +315,10 @@ endemic species}
 
 \item{log_scale}{A boolean determining whether the sequence of tree sizes
 are on a linear (FALSE) or log (TRUE) scale}
+
+\item{parameter_index}{Numeric determining which parameter set to use (i.e
+which row in the parameter space data frame), if this is NULL all parameter
+sets will be looped over}
 }
 \value{
 Nothing

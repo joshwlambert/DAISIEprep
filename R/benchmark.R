@@ -20,7 +20,8 @@ benchmark <- function(phylod,
                       extraction_method,
                       asr_method,
                       tie_preference,
-                      log_scale = TRUE) {
+                      log_scale = TRUE,
+                      parameter_index = NULL) {
 
   if (is.null(phylod)) {
     if (log_scale) {
@@ -54,7 +55,13 @@ benchmark <- function(phylod,
 
 
   times_list <- list()
-  for (i in seq_len(nrow(parameter_space))) {
+
+  # if parameter index is not given loop over each parameter set
+  if (is.null(parameter_index)) {
+    parameter_index <- seq_len(nrow(parameter_space))
+  }
+
+  for (i in parameter_index) {
 
     message("Parameter set: ", i, " of ", nrow(parameter_space))
 

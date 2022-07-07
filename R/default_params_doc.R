@@ -181,6 +181,9 @@
 #' endemic species
 #' @param log_scale A boolean determining whether the sequence of tree sizes
 #' are on a linear (FALSE) or log (TRUE) scale
+#' @param parameter_index Numeric determining which parameter set to use (i.e
+#' which row in the parameter space data frame), if this is NULL all parameter
+#' sets will be looped over
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -246,6 +249,7 @@ default_params_doc <- function(island_colonist,
                                prob_on_island,
                                prob_endemic,
                                replicates,
-                               log_scale) {
+                               log_scale,
+                               parameter_index) {
   # nothing
 }

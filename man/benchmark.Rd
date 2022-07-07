@@ -16,7 +16,8 @@ benchmark(
   extraction_method,
   asr_method,
   tie_preference,
-  log_scale = TRUE
+  log_scale = TRUE,
+  parameter_index = NULL
 )
 }
 \arguments{
@@ -59,6 +60,10 @@ you consider it not on the island use `ties.method = "first"`. Default is
 
 \item{log_scale}{A boolean determining whether the sequence of tree sizes
 are on a linear (FALSE) or log (TRUE) scale}
+
+\item{parameter_index}{Numeric determining which parameter set to use (i.e
+which row in the parameter space data frame), if this is NULL all parameter
+sets will be looped over}
 }
 \value{
 Data frame
