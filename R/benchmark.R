@@ -2,15 +2,24 @@
 #' Uses system.time() for timing for reasons explained here:
 #' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/
 #'
-#' @param tree_size_range stub
-#' @param num_points stub
-#' @param prob_on_island stub
-#' @param prob_endemic stub
-#' @param replicates stub
-#' @param extraction_method stub
-#' @param asr_method stub
-#' @param tie_preference stub
-#' @param log_scale stub
+#' @param tree_size_range Numeric vector of two elements, the first is the
+#' smallest tree size (number of tips) and the second is the largest tree size
+#' @param num_points Numeric determining how many points in the sequence of
+#' smallest tree size to largest tree size
+#' @param prob_on_island Numeric vector of each probability on island to use in
+#' the parameter space
+#' @param prob_endemic Numeric vector of each probability of an island species
+#' being endemic to use in the parameter space
+#' @param replicates Numeric determining the number of replicates to use to
+#' account for the stochasticity in sampling the species on the island and
+#' endemic species
+#' @param extraction_method A character string, either "min" or "asr"
+#' @param asr_method A character string or NULL, if extraction_method is set to
+#' "asr" then the asr_method is needed and can be either "parsimony" or "mk",
+#' if extraction_method is set to "min" then this can be NULL
+#' @param tie_preference A character string, either "island" or "mainland"
+#' @param log_scale A boolean determining whether the sequence of tree sizes
+#' are on a linear (FALSE) or log (TRUE) scale
 #'
 #' @return Data frame
 #' @export
@@ -30,17 +39,29 @@ benchmark <- function(tree_size_range,
                       log_scale = TRUE) {
 
   if (log_scale) {
-    tree_size <- exp(seq(from = log(10), to = log(10000), length.out = num_points))
-    tree_size <- round(tree_size)
+    tree_size <- exp(seq(
+      from = log(tree_size_range[1]),
+      to = log(tree_size_range[2]),
+      length.out = num_points
+    ))
   } else {
-    tree_size <- exp(seq(from = 10, to = 10000, length.out = num_points))
-    tree_size <- round(tree_size)
+    tree_size <- seq(
+      from = tree_size_range[1],
+      to = tree_size_range[2],
+      length.out = num_points
+    )
   }
+
+  # round tree size to integer
+  tree_size <- round(tree_size)
 
   parameter_space <- expand.grid(
     tree_size = tree_size,
     prob_on_island = prob_on_island,
-    prob_endemic = prob_endemic
+    prob_endemic = prob_endemic,
+    extraction_method = extraction_method,
+    asr_method = asr_method,
+    tie_preference = tie_preference
   )
 
   times_list <- list()
@@ -90,15 +111,18 @@ benchmark <- function(tree_size_range,
 
       # format data for DAISIEprep
       phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-      phylod <- DAISIEprep::add_asr_node_states(
-        phylod = phylod,
-        asr_method = asr_method,
-        tie_preference = tie_preference
-      )
+
+      if (extraction_method == "asr") {
+        phylod <- DAISIEprep::add_asr_node_states(
+          phylod = phylod,
+          asr_method = asr_method,
+          tie_preference = tie_preference
+        )
+      }
 
       # run extraction
-      min_time <- system.time(for (n in 1:3) {
-        island_tbl_min <- DAISIEprep::extract_island_species(
+      time <- system.time(for (n in 1:3) {
+        island_tbl <- DAISIEprep::extract_island_species(
           phylod = phylod,
           extraction_method = extraction_method,
           island_tbl = NULL,
@@ -106,27 +130,42 @@ benchmark <- function(tree_size_range,
         )
       })
 
-      mean_times[j] <- min_time["elapsed"] / 3
+      mean_times[j] <- time["elapsed"] / 3
     }
-    times_list[[i]] <- list(min = mean_times_min, asr = mean_times_asr)
+    times_list[[i]] <- list(
+      mean_times = mean_times,
+      parameters = parameter_space[i, ]
+    )
   }
 
-  # convert list to data frame
-  results <- data.frame(
-    parameter_space = rep(1:nrow(parameter_space), each = 2),
-    tree_size = rep(parameter_space$tree_size, each = 2),
-    prob_on_island = rep(parameter_space$prob_on_island, each = 2),
-    prob_endemic = rep(parameter_space$prob_endemic, each = 2),
-    extraction_method = rep(c("min", "asr"), nrow(parameter_space))
-  )
+  # extract data
+  mean_times <- lapply(times_list, "[[", "mean_times")
+  params <- lapply(times_list, "[[", "parameters")
 
-  times <- unlist(lapply(times_list, function(x) {lapply(x, FUN =  median)}))
+  # create a vector of median time for each run
+  median_time <- vapply(mean_times, median, FUN.VALUE = numeric(1))
 
   #convert from nanoseconds to seconds
-  times <- times / 1e9
+  median_time <- median_time / 1e9
 
-  results$mean_time <- times
+  tree_size <- sapply(params, "[[", "tree_size")
+  prob_on_island <- sapply(params, "[[", "prob_on_island")
+  prob_endemic <- sapply(params, "[[", "prob_endemic")
+  extraction_method <- sapply(params, "[[", "extraction_method")
+  asr_method <- sapply(params, "[[", "asr_method")
+  tie_preference <- sapply(params, "[[", "tie_preference")
 
-  # return results
-  results
+  # convert list to data frame
+  performance <- data.frame(
+    tree_size = tree_size,
+    prob_on_island = prob_on_island,
+    prob_endemic = prob_endemic,
+    extraction_method = extraction_method,
+    asr_method = asr_method,
+    tie_preference = tie_preference,
+    median_time = median_time
+  )
+
+  # return performance data
+  performance
 }

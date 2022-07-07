@@ -300,7 +300,7 @@ With this raw data of parameter estimates for the different parameter setting we
 can tidy the data into a tibble containing the data we need for both the DNA
 and complete phylogeny. 
 
-```{r}
+```{r, eval=FALSE}
 sensitivity_data <- DAISIEprep:::format_sensitivity(
   sensitivity_data = sensitivity_data
 )
@@ -309,11 +309,11 @@ sensitivity_data <- DAISIEprep:::format_sensitivity(
 Now this data is formatted we can plot the distribution of parameter estimates
 for the DNA and complete data sets.
 
-```{r}
+```{r, eval=FALSE}
 DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$dna_data)
 ``` 
 
-```{r}
+```{r, eval=FALSE}
 DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$complete_data)
 ``` 
 

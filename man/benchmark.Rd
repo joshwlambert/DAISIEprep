@@ -19,23 +19,32 @@ benchmark(
 )
 }
 \arguments{
-\item{tree_size_range}{stub}
+\item{tree_size_range}{Numeric vector of two elements, the first is the
+smallest tree size (number of tips) and the second is the largest tree size}
 
-\item{num_points}{stub}
+\item{num_points}{Numeric determining how many points in the sequence of
+smallest tree size to largest tree size}
 
-\item{prob_on_island}{stub}
+\item{prob_on_island}{Numeric vector of each probability on island to use in
+the parameter space}
 
-\item{prob_endemic}{stub}
+\item{prob_endemic}{Numeric vector of each probability of an island species
+being endemic to use in the parameter space}
 
-\item{replicates}{stub}
+\item{replicates}{Numeric determining the number of replicates to use to
+account for the stochasticity in sampling the species on the island and
+endemic species}
 
-\item{extraction_method}{stub}
+\item{extraction_method}{A character string, either "min" or "asr"}
 
-\item{asr_method}{stub}
+\item{asr_method}{A character string or NULL, if extraction_method is set to
+"asr" then the asr_method is needed and can be either "parsimony" or "mk",
+if extraction_method is set to "min" then this can be NULL}
 
-\item{tie_preference}{stub}
+\item{tie_preference}{A character string, either "island" or "mainland"}
 
-\item{log_scale}{stub}
+\item{log_scale}{A boolean determining whether the sequence of tree sizes
+are on a linear (FALSE) or log (TRUE) scale}
 }
 \value{
 Data frame
