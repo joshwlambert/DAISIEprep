@@ -136,12 +136,12 @@ benchmark <- function(phylod,
     )
   }
 
+  # remove any element elements from list
+  times_list[sapply(times_list, is.null)] <- NULL
+
   # extract data
   mean_times <- lapply(times_list, "[[", "mean_times")
   params <- lapply(times_list, "[[", "parameters")
-
-  # remove any element elements from list
-  mean_times[sapply(mean_times, is.null)] <- NULL
 
   # create a vector of median time for each run
   median_time <- vapply(mean_times, stats::median, FUN.VALUE = numeric(1))
