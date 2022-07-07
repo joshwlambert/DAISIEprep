@@ -167,7 +167,20 @@
 #' if no species are to be removed from the checklist. This is useful when
 #' species are in the checklist because they are on the island but need to be
 #' removed as they are not in the group of interest, e.g. a migratory bird
-#' amongst terrestrial birds.
+#' amongst terrestrial birds
+#' @param tree_size_range Numeric vector of two elements, the first is the
+#' smallest tree size (number of tips) and the second is the largest tree size
+#' @param num_points Numeric determining how many points in the sequence of
+#' smallest tree size to largest tree size
+#' @param prob_on_island Numeric vector of each probability on island to use in
+#' the parameter space
+#' @param prob_endemic Numeric vector of each probability of an island species
+#' being endemic to use in the parameter space
+#' @param replicates Numeric determining the number of replicates to use to
+#' account for the stochasticity in sampling the species on the island and
+#' endemic species
+#' @param log_scale A boolean determining whether the sequence of tree sizes
+#' are on a linear (FALSE) or log (TRUE) scale
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -227,6 +240,12 @@ default_params_doc <- function(island_colonist,
                                phylo_name_col,
                                in_phylo_col,
                                endemicity_status_col,
-                               rm_species_col) {
+                               rm_species_col,
+                               tree_size_range,
+                               num_points,
+                               prob_on_island,
+                               prob_endemic,
+                               replicates,
+                               log_scale) {
   # nothing
 }

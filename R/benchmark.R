@@ -2,24 +2,7 @@
 #' Uses system.time() for timing for reasons explained here:
 #' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/
 #'
-#' @param tree_size_range Numeric vector of two elements, the first is the
-#' smallest tree size (number of tips) and the second is the largest tree size
-#' @param num_points Numeric determining how many points in the sequence of
-#' smallest tree size to largest tree size
-#' @param prob_on_island Numeric vector of each probability on island to use in
-#' the parameter space
-#' @param prob_endemic Numeric vector of each probability of an island species
-#' being endemic to use in the parameter space
-#' @param replicates Numeric determining the number of replicates to use to
-#' account for the stochasticity in sampling the species on the island and
-#' endemic species
-#' @param extraction_method A character string, either "min" or "asr"
-#' @param asr_method A character string or NULL, if extraction_method is set to
-#' "asr" then the asr_method is needed and can be either "parsimony" or "mk",
-#' if extraction_method is set to "min" then this can be NULL
-#' @param tie_preference A character string, either "island" or "mainland"
-#' @param log_scale A boolean determining whether the sequence of tree sizes
-#' are on a linear (FALSE) or log (TRUE) scale
+#' @inheritParams default_params_doc
 #'
 #' @return Data frame
 #' @export
@@ -151,7 +134,7 @@ benchmark <- function(phylod,
   params <- lapply(times_list, "[[", "parameters")
 
   # create a vector of median time for each run
-  median_time <- vapply(mean_times, median, FUN.VALUE = numeric(1))
+  median_time <- vapply(mean_times, stats::median, FUN.VALUE = numeric(1))
 
   #convert from nanoseconds to seconds
   median_time <- median_time / 1e9

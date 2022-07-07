@@ -107,12 +107,12 @@ sensitivity <- function(phylo,
   ml <- lapply(ml_list, "[[", "ml")
   params <- lapply(ml_list, "[[", "parameters")
 
-  # create a vector of parameter estimates for dna data
-  clado <- sapply(dna, "[[", "lambda_c")
-  ext <- sapply(dna, "[[", "mu")
-  k <- sapply(dna, "[[", "K")
-  immig <- sapply(dna, "[[", "gamma")
-  ana <- sapply(dna, "[[", "lambda_a")
+  # create a vector of parameter estimates from data
+  clado <- sapply(ml, "[[", "lambda_c")
+  ext <- sapply(ml, "[[", "mu")
+  k <- sapply(ml, "[[", "K")
+  immig <- sapply(ml, "[[", "gamma")
+  ana <- sapply(ml, "[[", "lambda_a")
 
   extraction_method <- sapply(params, "[[", "extraction_method")
   asr_method <- sapply(params, "[[", "asr_method")

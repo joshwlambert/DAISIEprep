@@ -7,6 +7,7 @@ Uses system.time() for timing for reasons explained here:
 https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/}
 \usage{
 benchmark(
+  phylod,
   tree_size_range,
   num_points,
   prob_on_island,
@@ -19,6 +20,9 @@ benchmark(
 )
 }
 \arguments{
+\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+phylogenetic and endemicity data for each species.}
+
 \item{tree_size_range}{Numeric vector of two elements, the first is the
 smallest tree size (number of tips) and the second is the largest tree size}
 
@@ -35,13 +39,23 @@ being endemic to use in the parameter space}
 account for the stochasticity in sampling the species on the island and
 endemic species}
 
-\item{extraction_method}{A character string, either "min" or "asr"}
+\item{extraction_method}{A character string specifying whether the
+colonisation time extracted is the minimum time (`min`) (before the present),
+or the most probable time under ancestral state reconstruction (`asr`).}
 
-\item{asr_method}{A character string or NULL, if extraction_method is set to
-"asr" then the asr_method is needed and can be either "parsimony" or "mk",
-if extraction_method is set to "min" then this can be NULL}
+\item{asr_method}{A character string, either "parsimony" or "mk" determines
+whether a maximum parsimony or continuous-time markov model reconstructs the
+ancestral states at each node. See documentation in
+`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
+for details on the methods used.}
 
-\item{tie_preference}{A character string, either "island" or "mainland"}
+\item{tie_preference}{Character string, either "island" or "mainland" to
+choose the most probable state at each node using the `max.col()` function.
+When a node has island presence and absence equally probable we need to
+decide whether that species should be considered on the island. To consider
+it on the island use `ties.method = "last"` in the `max.col()` function, if
+you consider it not on the island use `ties.method = "first"`. Default is
+"island".}
 
 \item{log_scale}{A boolean determining whether the sequence of tree sizes
 are on a linear (FALSE) or log (TRUE) scale}

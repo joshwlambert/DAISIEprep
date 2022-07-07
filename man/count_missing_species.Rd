@@ -32,7 +32,7 @@ counting the number of missing species is in the checklist. This can be NULL
 if no species are to be removed from the checklist. This is useful when
 species are in the checklist because they are on the island but need to be
 removed as they are not in the group of interest, e.g. a migratory bird
-amongst terrestrial birds.}
+amongst terrestrial birds}
 }
 \value{
 Data frame
