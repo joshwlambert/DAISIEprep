@@ -39,9 +39,9 @@ extract_island_species <- function(phylod,
   }
 
   # check extraction_method and asr_method input
-  missing_node_data <- "island_status" %in% names(phylobase::nodeData(phylod))
+  has_node_island_status <- "island_status" %in% names(phylobase::nodeData(phylod))
 
-  if (extraction_method == "asr" && isFALSE(missing_node_data)) {
+  if (extraction_method == "asr" && isFALSE(has_node_island_status)) {
     stop("Using colonisation times from ancestral state reconstruction requires
          data of the island presence at the nodes")
   }
