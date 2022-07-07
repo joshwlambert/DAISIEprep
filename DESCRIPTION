@@ -38,7 +38,9 @@ Suggests:
     rmarkdown,
     covr,
     microbenchmark,
-    diversitree
+    diversitree,
+    BioGeoBEARS,
+    corHMM
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
@@ -93,4 +95,5 @@ Collate:
     'translate_status.R'
     'unique_island_genera.R'
     'utils.R'
+    'write_biogeobears_input.R'
 URL: https://joshwlambert.github.io/DAISIEprep
