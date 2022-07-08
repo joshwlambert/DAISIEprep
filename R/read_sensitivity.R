@@ -17,13 +17,24 @@ read_sensitivity <- function() {
     stop("No results are in the results directory")
   } else {
     file_paths <- as.list(paste0(
-      system.file("sensitivity_data", package = "DAISIEprepExtra"),
+      system.file("sensitivity_data", package = "DAISIEprep", mustWork = TRUE),
       "/",
       sensitivity_data_files
     ))
     sensitivity_data <- lapply(file_paths, readRDS)
   }
 
-  # return sensitivity_data
-  sensitivity_data
+  # unpack list of results to merge tibbles
+  sensitivity_dna <- lapply(sensitivity_data, "[[", "sensitivity_dna")
+  sensitivity_complete <- lapply(sensitivity_data, "[[", "sensitivity_complete")
+
+  # merge list of tibbles
+  sensitivity_dna <- Reduce(rbind, sensitivity_dna)
+  sensitivity_complete <- Reduce(rbind, sensitivity_complete)
+
+  # return list of sensitivity data for dna and complete
+  list(
+    sensitivity_dna = sensitivity_dna,
+    sensitivity_complete = sensitivity_complete
+  )
 }
