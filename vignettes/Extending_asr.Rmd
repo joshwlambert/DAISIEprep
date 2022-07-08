@@ -75,18 +75,11 @@ to allow each extension of ASR methods for incorporation with key functions
 
 Here we give examples of three packages that can be used an extensions: `diversitree`, `BioGeoBEARS` and `corHMM`. 
 
-`diversitree` is a packages containing a suite of State Speciation and 
-Extinction (SSE) model which can
-reconstruct ancestral states under a model in which the rates of speciation,
-extinction and transition between states all influence the reconstruction. These
-models prevent the bias of having many species in a state because of high speciation but a model, such as the Mk model, assumes it is due to high 
-transition rates into that state (see Maddison, 2006). The example we give uses
-the MuSSE model with a three states (island endemic, island non-endemic and not 
-present on the island), but other SSE models in `diversitree` can
-be applied in the same manner. 
+`diversitree` is a packages containing a suite of State Speciation and Extinction (SSE) model which can reconstruct ancestral states under a model in which the rates of speciation, extinction and transition between states all influence the reconstruction. 
+These models prevent the bias of having many species in a state because of high speciation but a model, such as the Mk model, assumes it is due to high transition rates into that state (see Maddison, 2006). 
+The example we give uses the MuSSE model with a three states (island endemic, island non-endemic and not present on the island), but other SSE models in `diversitree` can be applied in the same manner. 
 
-`BioGeoBEARS` is a widely used package that includes the DEC and DEC+J models of biogeographic reconstruction. Therefore, it may be that people familiar with 
-these models want to apply them for extracting island colonisations for DAISIE. 
+`BioGeoBEARS` is a widely used package that includes the DEC and DEC+J models of biogeographic reconstruction. Therefore, it may be that people familiar with these models want to apply them for extracting island colonisations for DAISIE. 
 
 Lastly, `corHMM` is a package that implements a hidden markov model of evolution, similar to the Mk model, but can better account for rate heterogeneity by introducing hidden states into the model. Each model can be argued for or against; with the choice influenced by the taxonomic group being studied.
 
@@ -132,6 +125,7 @@ phylod@data$endemicity_status[17] <- "not_present"
 
 plot_phylod(phylod)
 ```
+
 ## DEC+J
 
 As a first example, we consider the popular DEC (Dispersal-Extinction-Cladogenesis) model [@ree_maximum_2008] with founder-event speciation (DEC+J, @matzke_probabilistic_2013), implemented in R in the **biogeobears** package [@biogeobears].
@@ -220,7 +214,8 @@ bgb_run$geogfn <- path_to_biogeo
 While we were at it, we have nested this function in `write_biogeobears_input()`, to prepare both this file and the Newick file above in one command
 
 ```{r, write_biogeobears_input}
-path_to_phylo <- tempfile(pattern = "phylo_", fileext = ".txt")
+path_to_phylo <- paste0(tempfile(pattern = "phylo_", fileext = ".txt"))
+#system.file("extending_asr", "phylo.txt", package = "DAISIEprep", mustWork = TRUE)
 path_to_biogeo <- tempfile(pattern = "biogeo_", fileext = ".txt")
 write_biogeobears_input(phylod, path_to_phylo, path_to_biogeo)
 
@@ -269,14 +264,62 @@ res <- BioGeoBEARS::bears_optim_run(bgb_run)
 
 We do get a warning, but [apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments) this can be ignored.
 
-```{r, extract_decj_asr, eval=FALSE}
-asr_likelihoods <- res$ML_marginal_prob_each_state_at_branch_top_AT_node[, -1]
-node_states <- max.col(asr_likelihoods, ties.method = "last")
+Though I wasn't able to find documentation confirming this, marginal probabilities for the ancestral states appear to be found in element `$ML_marginal_prob_each_state_at_branch_top_AT_node` of the output, from what I infer from the code of the [plotting function code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432)).
+The order of rows in this table correspond to the order of tips *in the tree object read from the input Newick file*, which may differ from the order in the original tree.
+Columns respectively correspond to the first area (here, mainland, i.e. not present), second area (island, endemic), and the third column corresponds to the widespread state (nonendemic).
+
+```{r, extract_decj_asr}
+# Extract probabilities
+asr_likelihoods <- res$ML_marginal_prob_each_state_at_branch_top_AT_node[,-1]
+# Need to find match tip labels to each row
+tree <- ape::read.tree(res$inputs$trfn)
+tip_labels <- tree$tip.label
+node_labels <- tree$node.label
+if (is.null(node_labels)) node_labels <- rep(NA, length(tip_labels) - 1)
+asr_df <- data.frame(
+  labels = c(tip_labels, node_labels),
+  not_present_prob = asr_likelihoods[,1],
+  endemic_prob = asr_likelihoods[,2],
+  nondendemic_prob = asr_likelihoods[,3]
+)
+head(asr_df)
+tail(asr_df)
+```
+As usual, we have wrapped this code in a utility, `extract_biogeobears_ancestral_states_probs()`.
+
+```{r, extract_decj_asr2}
+asr_df <- extract_biogeobears_ancestral_states_probs(res)
 ```
 
-(Not sure this is the right item to call for the probabilities, this is not documented so I inferred it from the [plot function's code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432))
 
-!!! Tips and states are mismatched smh !!!
+```{r, sample_biogeobears_states}
+endemicity_status <- select_endemicity_status(asr_df, method = "max")
+```
+
+`method` can also be set to `"random"` to sample states randomly based on the probabilities.
+
+```{r, order_biogeobears_asr}
+# Add endemicity data
+nb_tips <- ape::Ntip(tree)
+asr_df$label <- NULL # drop label
+asr_df$endemicity_status <- rep(NA, nrow(asr_df))
+asr_df$endemicity_status[1:nb_tips] <- endemicity_status[1:nb_tips] 
+asr_df$island_status <- rep(NA, nrow(asr_df))
+asr_df$island_status[(nb_tips + 1):nrow(asr_df)] <- endemicity_status[(nb_tips + 1):nrow(asr_df)] 
+
+# Rebuild phylod with ASR
+phylod <- phylobase::phylo4d(tree, all.data = asr_df)
+plot_phylod(phylod)
+```
+
+```{r, extract_species_decj}
+island_clades <- DAISIEprep::extract_island_species(
+  phylod = phylod,
+  extraction_method = "asr"
+)
+island_clades@island_tbl$species
+island_clades@island_tbl$branching_times
+```
 
 ## MuSSE
 
@@ -336,12 +379,12 @@ pars <- c(
   0.03, 0.03, 0.03,
   # q12 q13 q21 q23 q31 q32
   0.01, 0, 0.02, 0.02, 0, 0.01
-  )
+)
 
-fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
+fit_musse <- diversitree::find.mle(func = lik_musse, x.init = pars, method = "subplex")
 
 # MuSSE ancestral state reconstructions under the ML model
-asr_musse <- diversitree::asr.marginal(lik = lik, pars = coef(fit_musse))
+asr_musse <- diversitree::asr.marginal(lik = lik_musse, pars = coef(fit_musse))
 ```
 
 ```{r, add_musse_asr_to_phylod, eval=FALSE}
@@ -374,7 +417,7 @@ pars <- c(
   0.03, 0.03, 0.03,
   # q12 q13 q21 q23 q31 q32
   0.01, 0, 0.02, 0.02, 0, 0.01
-  )
+)
 fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
 ```
 
