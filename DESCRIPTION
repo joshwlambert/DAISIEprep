@@ -78,6 +78,7 @@ Collate:
     'extract_species_min.R'
     'extract_stem_age.R'
     'extract_stem_age_asr.R'
+    'extract_stem_age_genus.R'
     'extract_stem_age_min.R'
     'get_endemic_species.R'
     'is_back_colonisation.R'

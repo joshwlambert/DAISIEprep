@@ -1,4 +1,4 @@
-test_that("extract_stem_age_min works for island clade", {
+test_that("extract_stem_age_genus works for island clade", {
   set.seed(1)
   tree <- ape::rcoal(10)
   tree$tip.label <- c(
@@ -16,15 +16,16 @@ test_that("extract_stem_age_min works for island clade", {
   # commented out plot can be uncommented for checking
   # DAISIEprep::plot_phylod(phylod)
 
-  stem_age <- extract_stem_age_min(
+  stem_age <- extract_stem_age_genus(
     genus_in_tree = c(7, 8),
-    phylod = phylod
+    phylod = phylod,
+    constrain_to_island = FALSE
   )
 
   expect_equal(stem_age, 0.764855342311)
 })
 
-test_that("extract_stem_age works for no island species", {
+test_that("extract_stem_age_genus works for no island species", {
   set.seed(1)
   tree <- ape::rcoal(10)
   tree$tip.label <- c(
@@ -42,10 +43,11 @@ test_that("extract_stem_age works for no island species", {
   # commented out plot can be uncommented for checking
   # DAISIEprep::plot_phylod(phylod)
 
-  stem_age <- extract_stem_age_min(
+  stem_age <- extract_stem_age_genus(
     genus_in_tree = c(7, 8),
-    phylod = phylod
+    phylod = phylod,
+    constrain_to_island = FALSE
   )
 
-  expect_equal(stem_age, 0.0496052290447)
+  expect_equal(stem_age, 0.764855342311)
 })

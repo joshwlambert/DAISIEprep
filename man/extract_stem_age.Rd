@@ -4,8 +4,11 @@
 \alias{extract_stem_age}
 \title{Extracts the stem age from the phylogeny when the a species is known to
 belong to a genus but is not itself in the phylogeny and there are members
-of the same genus are in the phylogeny. Extraction method can either be
-'min' or 'asr' as in extract_island_species(). When extraction_method = 'asr'
+of the same genus are in the phylogeny. The stem age can either be for the
+genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
+algorithm to find the stem of when the species colonised the island
+(`stem = "island_presence`), either 'min' or 'asr' as in
+extract_island_species(). When `stem = "island_presence"`
 the constrain_to_island is ignored and the reconstructed node states are used
 to determine the stem age and not the stem age of the genus or stem age of
 island species within a genus (i.e. constrain_to_island = TRUE).}
@@ -13,8 +16,9 @@ island species within a genus (i.e. constrain_to_island = TRUE).}
 extract_stem_age(
   genus_name,
   phylod,
-  extraction_method,
-  constrain_to_island = FALSE
+  stem = "genus",
+  constrain_to_island = FALSE,
+  extraction_method = NULL
 )
 }
 \arguments{
@@ -24,14 +28,14 @@ the tip labels in the phylogeny}
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
 
-\item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
-
 \item{constrain_to_island}{Boolean determining whether the stem age extracted
 is constrain to the species in the genus that are on the island, (i.e. stem
 age of the island species). If FALSE the stem age of the genus is found
 independent of whether its constituent species are on the island or not}
+
+\item{extraction_method}{A character string specifying whether the
+colonisation time extracted is the minimum time (`min`) (before the present),
+or the most probable time under ancestral state reconstruction (`asr`).}
 }
 \value{
 Numeric
@@ -39,8 +43,11 @@ Numeric
 \description{
 Extracts the stem age from the phylogeny when the a species is known to
 belong to a genus but is not itself in the phylogeny and there are members
-of the same genus are in the phylogeny. Extraction method can either be
-'min' or 'asr' as in extract_island_species(). When extraction_method = 'asr'
+of the same genus are in the phylogeny. The stem age can either be for the
+genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
+algorithm to find the stem of when the species colonised the island
+(`stem = "island_presence`), either 'min' or 'asr' as in
+extract_island_species(). When `stem = "island_presence"`
 the constrain_to_island is ignored and the reconstructed node states are used
 to determine the stem age and not the stem age of the genus or stem age of
 island species within a genus (i.e. constrain_to_island = TRUE).

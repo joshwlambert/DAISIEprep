@@ -1,17 +1,25 @@
 #' Extracts the stem age from the phylogeny when the a species is known to
 #' belong to a genus but is not itself in the phylogeny and there are members
-#' of the same genus are in the phylogeny using the 'min' extraction method
+#' of the same genus are in the phylogeny
 #'
 #' @inheritParams default_params_doc
 #'
 #' @return Numeric
-extract_stem_age_min <- function(genus_in_tree,
-                                 phylod) {
+extract_stem_age_genus <- function(genus_in_tree,
+                                   phylod,
+                                   constrain_to_island) {
 
   extracted_col_times <- c()
   # add for loop to loop over genus_in_tree elements
   for (i in genus_in_tree) {
     species_label <- phylobase::tipLabels(phylod)[i]
+
+    if (constrain_to_island) {
+      species_endemicity <- phylobase::tdata(phylod)[i, "endemicity_status"]
+      if (species_endemicity == "not_present") {
+        next
+      }
+    }
 
     # set up variables to be modified in the loop
     all_siblings <- TRUE
@@ -27,11 +35,23 @@ extract_stem_age_min <- function(genus_in_tree,
       descendants <- phylobase::descendants(phy = phylod, node = ancestor)
       # get endemicity of siblings
       which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-
-      # check whether all siblings are present on the island
-      sibling_endemicity <-
-        phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
-      all_siblings <- all(sibling_endemicity %in% c("endemic", "nonendemic"))
+      # check whether all siblings are of the same genus when not constraining
+      # to the island species within the genus
+      sibling_genus <- unname(phylobase::tipLabels(phylod))[which_siblings]
+      split_species_names <- strsplit(x = sibling_genus, split = "_")
+      genus_names <- sapply(split_species_names, "[[", 1)
+      all_siblings <- length(unique(genus_names)) == 1
+      if (constrain_to_island) {
+        # check whether all siblings are on the island when constraining to
+        # island clade within the genus
+        sibling_endemicity <-
+          phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
+        all_island_siblings <- all(
+          sibling_endemicity %in% c("endemic", "nonendemic")
+        )
+        # siblings must be of the same genus and on island
+        all_siblings <- all_siblings && all_island_siblings
+      }
     }
 
     if (length(clade) == 1) {
