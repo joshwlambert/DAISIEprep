@@ -23,14 +23,25 @@
 #'   verbose = FALSE
 #' )
 #' }
-create_daisie_data <- function(daisie_datatable,
+create_daisie_data <- function(data,
                                island_age,
                                num_mainland_species,
                                num_clade_types = 1,
                                list_type2_clades = NA,
                                prop_type2_pool = "proportional",
                                epss = 1e-5,
-                               verbose = FALSE) {
+                               verbose = FALSE,
+                               precise_col_time = TRUE) {
+
+  if (class(data) == "Island_tbl") {
+    daisie_datatable <- as_daisie_datatable(
+      island_tbl = data,
+      island_age = island_age,
+      precise_col_time = precise_col_time
+    )
+  } else {
+    daisie_datatable <- data
+  }
 
   num_col <- nrow(daisie_datatable)
   datalist <- list()
