@@ -149,7 +149,7 @@ BioGeoBEARS expects at least two inputs, the phylogeny and the biogeographic dat
 The tree can be supplied in Newick or Nexus format, as a text file.
 
 ```{r biogeobears_tree_input}
-path_to_phylo <- tempfile(pattern = "phylo_", fileext = ".txt")
+path_to_phylo <- "../inst/extending_asr/biogeobears_ex_phylo.txt"
 phylo <- as(phylod, "phylo")
 ape::write.tree(phylo, file = path_to_phylo)
 
@@ -206,7 +206,7 @@ Tip data must be supplied as a text file specifying presence/absence of every ti
 For convenience, we have included a function that writes this file from a `phylod` object for the simple mainland-island case.
 
 ```{r biogeobears_geo_input}
-path_to_biogeo <- tempfile(pattern = "biogeo_", fileext = ".txt")
+path_to_biogeo <- "../inst/extending_asr/biogeobears_ex_biogeo.txt"
 write_phylip_biogeo_file(phylod, path_to_biogeo)
 BioGeoBEARS::getranges_from_LagrangePHYLIP(path_to_biogeo)
 bgb_run$geogfn <- path_to_biogeo
@@ -214,9 +214,8 @@ bgb_run$geogfn <- path_to_biogeo
 While we were at it, we have nested this function in `write_biogeobears_input()`, to prepare both this file and the Newick file above in one command
 
 ```{r, write_biogeobears_input}
-path_to_phylo <- paste0(tempfile(pattern = "phylo_", fileext = ".txt"))
-#system.file("extending_asr", "phylo.txt", package = "DAISIEprep", mustWork = TRUE)
-path_to_biogeo <- tempfile(pattern = "biogeo_", fileext = ".txt")
+path_to_phylo <- "../inst/extending_asr/biogeobears_ex_phylo.txt"
+path_to_biogeo <- "../inst/extending_asr/biogeobears_ex_biogeo.txt"
 write_biogeobears_input(phylod, path_to_phylo, path_to_biogeo)
 
 bgb_run$trfn <- path_to_phylo
@@ -264,14 +263,14 @@ res <- BioGeoBEARS::bears_optim_run(bgb_run)
 
 We do get a warning, but [apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments) this can be ignored.
 
-Though I wasn't able to find documentation confirming this, marginal probabilities for the ancestral states appear to be found in element `$ML_marginal_prob_each_state_at_branch_top_AT_node` of the output, from what I infer from the code of the [plotting function code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432)).
-The order of rows in this table correspond to the order of tips *in the tree object read from the input Newick file*, which may differ from the order in the original tree.
-Columns respectively correspond to the first area (here, mainland, i.e. not present), second area (island, endemic), and the third column corresponds to the widespread state (nonendemic).
+Marginal probabilities for the ancestral states appear to be found in element `$ML_marginal_prob_each_state_at_branch_top_AT_node` of the output (from what I infer from the code of the [plotting function code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432)).
+Columns respectively correspond to the posterior probability of the node being present in the first area only (here, mainland, i.e. not present), second area only (island, endemic), or both areas (widespread state, nonendemic).
+Rows correspond to nodes (including tips!) and their order is the same as in the tree object *read from the input Newick file*, which may differ from the original tree. To identify the probability associated to each node we need to match the rows with the corresponding tip labels.
 
 ```{r, extract_decj_asr}
 # Extract probabilities
 asr_likelihoods <- res$ML_marginal_prob_each_state_at_branch_top_AT_node[,-1]
-# Need to find match tip labels to each row
+# Need to find which tip label matches each row
 tree <- ape::read.tree(res$inputs$trfn)
 tip_labels <- tree$tip.label
 node_labels <- tree$node.label
@@ -285,18 +284,21 @@ asr_df <- data.frame(
 head(asr_df)
 tail(asr_df)
 ```
-As usual, we have wrapped this code in a utility, `extract_biogeobears_ancestral_states_probs()`.
+The code above has been wrapped in a utility function, `extract_biogeobears_ancestral_states_probs()`.
 
 ```{r, extract_decj_asr2}
 asr_df <- extract_biogeobears_ancestral_states_probs(res)
 ```
 
+The last step before extracting the island community from the tree is to rule which state each node is in from the probabilities. We provide a convenient function to do this from the output of the previous function:
 
 ```{r, sample_biogeobears_states}
 endemicity_status <- select_endemicity_status(asr_df, method = "max")
 ```
 
-`method` can also be set to `"random"` to sample states randomly based on the probabilities.
+By default, (`method = "max"`), we simply select the state with the highest probability (preferring the last in the event of a tie). `method` can also be set to `"random"` to sample states randomly based on the probabilities, which can be of use if one desires to explore the sensibility of downstream DAISIE analyses to the ancestral state reconstruction.
+
+Finally, we recreate the data format expected by `extract_island_species()` (one state column `endemicity_status` for tips, one state column `island_status` for internal nodes) and add it back to the tree data with `phylobase`'s `phylo4d` class.
 
 ```{r, order_biogeobears_asr}
 # Add endemicity data
@@ -307,10 +309,11 @@ asr_df$endemicity_status[1:nb_tips] <- endemicity_status[1:nb_tips]
 asr_df$island_status <- rep(NA, nrow(asr_df))
 asr_df$island_status[(nb_tips + 1):nrow(asr_df)] <- endemicity_status[(nb_tips + 1):nrow(asr_df)] 
 
-# Rebuild phylod with ASR
+# Rebuild phylod with ancestral states
 phylod <- phylobase::phylo4d(tree, all.data = asr_df)
 plot_phylod(phylod)
 ```
+Voilà!
 
 ```{r, extract_species_decj}
 island_clades <- DAISIEprep::extract_island_species(
@@ -320,7 +323,6 @@ island_clades <- DAISIEprep::extract_island_species(
 island_clades@island_tbl$species
 island_clades@island_tbl$branching_times
 ```
-
 ## MuSSE
 
 For this example, we re-use the tree from tutorial

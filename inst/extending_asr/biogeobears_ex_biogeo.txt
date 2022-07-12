@@ -1,0 +1,21 @@
+20	2	(M I)
+bird_a	01
+bird_b	01
+bird_c	01
+bird_d	01
+bird_e	01
+bird_f	01
+bird_g	11
+bird_h	10
+bird_i	01
+bird_j	10
+bird_k	10
+bird_l	10
+bird_m	01
+bird_n	01
+bird_o	01
+bird_p	10
+bird_q	10
+bird_r	10
+bird_s	10
+bird_t	10
