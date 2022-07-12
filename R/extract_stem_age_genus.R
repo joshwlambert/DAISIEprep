@@ -10,14 +10,20 @@ extract_stem_age_genus <- function(genus_in_tree,
                                    constrain_to_island) {
 
   extracted_col_times <- c()
+
+  # get the genus names to be includes in the clade to extract stem age
+  genera <- phylobase::tipLabels(phylod)[genus_in_tree]
+  genera <- strsplit(x = genera, split = "_")
+  genera <- sapply(genera, "[[", 1)
   # add for loop to loop over genus_in_tree elements
   for (i in genus_in_tree) {
     species_label <- phylobase::tipLabels(phylod)[i]
 
     if (constrain_to_island) {
-      species_endemicity <- phylobase::tdata(phylod)[i, "endemicity_status"]
-      if (species_endemicity == "not_present") {
-        next
+      species_endemicity <-
+        phylobase::tdata(phylod)[genus_in_tree, "endemicity_status"]
+      if (all(species_endemicity == "not_present")) {
+        stop("No species in the genus on the island cannot constain to island")
       }
     }
 
@@ -35,12 +41,12 @@ extract_stem_age_genus <- function(genus_in_tree,
       descendants <- phylobase::descendants(phy = phylod, node = ancestor)
       # get endemicity of siblings
       which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-      # check whether all siblings are of the same genus when not constraining
+      # check whether all siblings are in the focal genera when not constraining
       # to the island species within the genus
       sibling_genus <- unname(phylobase::tipLabels(phylod))[which_siblings]
       split_species_names <- strsplit(x = sibling_genus, split = "_")
       genus_names <- sapply(split_species_names, "[[", 1)
-      all_siblings <- length(unique(genus_names)) == 1
+      all_siblings <- all(genus_names %in% genera)
       if (constrain_to_island) {
         # check whether all siblings are on the island when constraining to
         # island clade within the genus
