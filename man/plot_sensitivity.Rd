@@ -4,7 +4,7 @@
 \alias{plot_sensitivity}
 \title{Plots}
 \usage{
-plot_sensitivity(sensitivity_data)
+plot_sensitivity(sensitivity_data, pairwise_diffs = FALSE)
 }
 \value{
 ggplot2 object

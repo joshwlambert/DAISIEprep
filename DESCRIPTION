@@ -100,7 +100,6 @@ Collate:
     'read_sensitivity.R'
     'rm_multi_missing_species.R'
     'sensitivity.R'
-    'temp.R'
     'translate_status.R'
     'unique_island_genera.R'
     'utils.R'
