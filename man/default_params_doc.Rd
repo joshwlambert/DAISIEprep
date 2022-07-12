@@ -35,7 +35,7 @@ default_params_doc(
   species_name,
   node_pies,
   test_scenario,
-  daisie_datatable,
+  data,
   island_age,
   num_mainland_species,
   num_clade_types,
@@ -172,36 +172,8 @@ in the phylod object.}
 
 \item{test_scenario}{Integer specifying which test phylod object to create.}
 
-\item{daisie_datatable}{A data frame where each row on the table represents
-an independent colonisation event. The table has the following four columns:
-* Clade_name: name of independent colonisation event
-* Status: One of the following categories:
-- "Non_endemic": applies to non-endemic species when an approximate
-colonisation time is known.
-- "Non_endemic_MaxAge": applies to non-endemic species for cases where
-colonisation time is unknown.
-- "Endemic": applies to endemic species or endemic clades when an approximate
-colonisation time is known.
-- "Endemic_MaxAge": appies to endemic species or endemic clades where the
-colonisation time is unknown, or when the user wants to specify an upper
-bound for colonisation. This could for example apply to endemic species that
-have recently gone extinct because of anthropogenic causes, and which are
-not included in the phylogeny ("NA" should be given in the branching times
-column). It could also apply to insular radiations with long stem branches,
-for which the time of the first cladogenetic event is known, but the precise
-time of the colonisation is not.
-- "Endemic&Non_Endemic": where endemic clade is present and its mainland
-ancestor has re-colonised.
-* Missing_species: Number of island species that were not sampled for a
-particular clade (only applicable for "Endemic" clades). If NA is given in
-branching times column, this should be equal to the number of species in the
-clade minus 1.
-* Branching_times: Stem age of the population/species in the case of
-"Non_endemic", "Non_endemic_MaxAge", and "Endemic" species with no extant
-clade relatives on the island. Set "NA" if colonisation time is unknown and
-no upper bound is known. For "Endemic" cladogenetic species these should be
-branching times of the radiation, including the stem age of the radiation
-(colonisaton time estimate).}
+\item{data}{Either an object of class `Island_tbl` or a DAISIE data table
+object (output from `as_daisie_datatable()`).}
 
 \item{island_age}{Age of the island in appropriate units.}
 

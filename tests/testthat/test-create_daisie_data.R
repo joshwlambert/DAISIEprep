@@ -10,7 +10,7 @@ test_that("endemic singleton", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 1.0,
     num_mainland_species = 100)
 
@@ -43,7 +43,7 @@ test_that("nonendemic singleton", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 1.0,
     num_mainland_species = 100)
 
@@ -76,7 +76,7 @@ test_that("endemic clade", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 3.0,
     num_mainland_species = 100)
 
@@ -93,7 +93,7 @@ test_that("endemic clade", {
   expect_equal(daisie_data[[2]]$colonist_name, "bird_a")
   expect_equal(
     daisie_data[[2]]$branching_times,
-    c(3.0, 1.433370056817, 0.25173)
+    c(3.0, 1.433370056817, 0.251727277709)
   )
   expect_equal(daisie_data[[2]]$stac, 2)
   expect_equal(daisie_data[[2]]$missing_species, 0)
@@ -112,7 +112,7 @@ test_that("nonendemic singleton max age", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 0.5,
     num_mainland_species = 100)
 
@@ -145,7 +145,7 @@ test_that("endemic singleton max age", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 0.5,
     num_mainland_species = 100)
 
@@ -207,7 +207,7 @@ test_that("endemic singleton with missing species", {
     precise_col_time = TRUE
   )
   daisie_data <- create_daisie_data(
-    daisie_datatable = daisie_datatable,
+    data = daisie_datatable,
     island_age = 1.0,
     num_mainland_species = 100)
 

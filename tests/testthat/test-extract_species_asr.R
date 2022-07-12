@@ -302,7 +302,7 @@ test_that("2 nonendemics, 3 species tree, asr, sisters", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.25173))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -336,7 +336,7 @@ test_that("2 nonendemics, 4 species tree, asr, sister", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.12586)))
+    I(list(c(0.125863638855)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -370,7 +370,7 @@ test_that("2 nonendemics, 4 species tree, asr, non-sisters", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.51974))
+    I(list(0.519744565224))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -404,7 +404,7 @@ test_that("2 endemics, 3 species tree, asr, sisters", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.25173))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -438,7 +438,7 @@ test_that("2 endemics, 4 species tree, asr, sisters", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.12586))
+    I(list(0.125863638855))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -472,7 +472,7 @@ test_that("2 endemics, 4 species tree, asr, non-sisters", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.51974))
+    I(list(0.519744565224))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -506,7 +506,7 @@ test_that("2 endemics, 4 species tree, asr, non-sisters, include_not_present", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.66545, 0.51974, 0.12586)))
+    I(list(c(0.665451291928, 0.519744565224, 0.125863638855)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(

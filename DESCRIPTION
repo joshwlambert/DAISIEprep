@@ -28,6 +28,7 @@ Imports:
     ape,
     phylobase,
     ggplot2,
+    scales,
     ggtree,
     ggimage,
     DAISIE,

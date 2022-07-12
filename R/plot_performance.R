@@ -6,10 +6,11 @@
 #' so variable does not need to be quoted.
 #'
 #' @return ggplot2 object
+#' @importFrom rlang :=
 #' @export
 #'
 #' @examples
-#' performance_data <- read_performance()
+#' performance_data <- DAISIEprep:::read_performance()
 #' plot_performance(
 #'   performance_data = performance_data$performance_data_asr,
 #'   group_by = prob_on_island
@@ -20,6 +21,11 @@
 #' )
 plot_performance <- function(performance_data,
                              group_by) {
+
+  # Fix build warnings
+  tree_size <- NULL; rm(tree_size) # nolint
+  median_time <- NULL; rm(median_time) # nolint
+  sd <- NULL; rm(sd) # nolint
 
   # store parameter estimates and parameters in tibble
   performance_data <- tibble::as_tibble(performance_data)
@@ -37,7 +43,7 @@ plot_performance <- function(performance_data,
   )
   sd_performance_data <- dplyr::summarise(
     grouped_performance_data,
-    sd = sd(median_time),
+    sd = stats::sd(median_time),
     .groups = "drop"
   )
 

@@ -20,6 +20,9 @@ create_daisie_data(
 )
 }
 \arguments{
+\item{data}{Either an object of class `Island_tbl` or a DAISIE data table
+object (output from `as_daisie_datatable()`).}
+
 \item{island_age}{Age of the island in appropriate units.}
 
 \item{num_mainland_species}{The size of the mainland pool, i.e. the number

@@ -5,6 +5,14 @@
 plot_sensitivity <- function(sensitivity_data,
                              pairwise_diffs = FALSE) {
 
+  # Fix build warnings
+  extraction <- NULL; rm(extraction) # nolint
+  extraction_method <- NULL; rm(extraction_method) # nolint
+  tie_preference <- NULL; rm(tie_preference) # nolint
+  parameter <- NULL; rm(parameter) # nolint
+  phylo_index <- NULL; rm(phylo_index) # nolint
+  rates <- NULL; rm(rates) # nolint
+
   # store parameter estimates and parameters in tibble
   sensitivity_data <- tibble::as_tibble(sensitivity_data)
 

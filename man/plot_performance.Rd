@@ -21,7 +21,7 @@ Plots performance results for a grouping variable (prob_on_island or
 prob_endemic).
 }
 \examples{
-performance_data <- read_performance()
+performance_data <- DAISIEprep:::read_performance()
 plot_performance(
   performance_data = performance_data$performance_data_asr,
   group_by = prob_on_island

@@ -12,7 +12,7 @@ test_that("2 endemics, 3 species tree, sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_col_time(island_colonist), 1.433370056817)
   expect_false(get_col_max_age(island_colonist))
-  expect_equal(get_branching_times(island_colonist), 0.25173)
+  expect_equal(get_branching_times(island_colonist), 0.251727277709)
   expect_true(is.na(get_min_age(island_colonist)))
   expect_equal(
     get_species(island_colonist),
@@ -35,7 +35,7 @@ test_that("2 endemics, 4 species tree, sisters", {
   expect_equal(get_missing_species(island_colonist), 0)
   expect_equal(get_col_time(island_colonist), 0.519744565224)
   expect_false(get_col_max_age(island_colonist))
-  expect_equal(get_branching_times(island_colonist), 0.12586)
+  expect_equal(get_branching_times(island_colonist), 0.125863638855)
   expect_true(is.na(get_min_age(island_colonist)))
   expect_equal(
     get_species(island_colonist),
