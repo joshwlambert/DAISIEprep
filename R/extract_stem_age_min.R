@@ -53,7 +53,7 @@ extract_stem_age_min <- function(genus_in_tree,
 
     if (length(clade) == 1) {
       # extract stem age
-      col_time <- as.numeric(phylobase::edgeLength(phylod, clade))
+      col_time <- as.numeric(phylobase::edgeLength(phylod, names(clade)))
 
       # add stem age
       extracted_col_times <- c(extracted_col_times, col_time)

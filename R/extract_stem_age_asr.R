@@ -53,7 +53,7 @@ extract_stem_age_asr <- function(genus_in_tree,
     # count the number of species in the focal clade
     if (length(clade) == 1) {
       # when only one species is in the clade use the edge length
-      col_time <- as.numeric(phylobase::edgeLength(phylod, clade))
+      col_time <- as.numeric(phylobase::edgeLength(phylod, names(clade)))
     } else {
 
       # when more than one species is in the clade extract the stem age
