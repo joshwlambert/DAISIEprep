@@ -118,6 +118,10 @@
 #' colonisations
 #' @param genus_name Character string of genus name to be matched with a genus name from
 #' the tip labels in the phylogeny
+#' @param stem Character string, either "genus" or "island_presence". The former
+#' will extract the stem age of the genussbased on the genus name provided, the
+#' latter will extract the stem age based on the ancestral presence on the island
+#' either based on the "min" or "asr" extraction algorithms.
 #' @param constrain_to_island Boolean determining whether the stem age extracted
 #' is constrain to the species in the genus that are on the island, (i.e. stem
 #' age of the island species). If FALSE the stem age of the genus is found
@@ -208,6 +212,7 @@ default_params_doc <- function(island_colonist,
                                island_tbl_2,
                                unique_clade_name,
                                genus_name,
+                               stem,
                                constrain_to_island,
                                genus_in_tree,
                                missing_genus,

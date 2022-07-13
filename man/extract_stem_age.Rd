@@ -16,7 +16,7 @@ island species within a genus (i.e. constrain_to_island = TRUE).}
 extract_stem_age(
   genus_name,
   phylod,
-  stem = "genus",
+  stem,
   constrain_to_island = FALSE,
   extraction_method = NULL
 )
@@ -27,6 +27,11 @@ the tip labels in the phylogeny}
 
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
 phylogenetic and endemicity data for each species.}
+
+\item{stem}{Character string, either "genus" or "island_presence". The former
+will extract the stem age of the genussbased on the genus name provided, the
+latter will extract the stem age based on the ancestral presence on the island
+either based on the "min" or "asr" extraction algorithms.}
 
 \item{constrain_to_island}{Boolean determining whether the stem age extracted
 is constrain to the species in the genus that are on the island, (i.e. stem
@@ -70,23 +75,11 @@ DAISIEprep::plot_phylod(phylod)
 # to the know the stem age for
 phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
 DAISIEprep::plot_phylod(phylod)
-# here we set constrain_to_island = TRUE so it only looks at species in that
-# genus that are on the island and constrains the stem age to the stem of the
-# island subclade
 extract_stem_age(
   genus_name = "parrot",
   phylod = phylod,
-  extraction_method = "min",
-  constrain_to_island = TRUE
-)
-# here we set constrain_to_island = FALSE so it extracts the stem age of the
-# genus independent of whether any species in that genus are on the island
-# or not
-extract_stem_age(
-  genus_name = "parrot",
-  phylod = phylod,
-  extraction_method = "min",
-  constrain_to_island = FALSE
+  stem = "island_presence",
+  extraction_method = "min"
 )
 # here we use the extraction_method = "asr" which requires ancestral node
 # states in the tree. When "asr" is used the constrain_to_island argument
@@ -101,7 +94,25 @@ DAISIEprep::plot_phylod(phylod)
 extract_stem_age(
   genus_name = "parrot",
   phylod = phylod,
-  extraction_method = "asr",
-  constrain_to_island = FALSE
+  stem = "island_presence",
+  extraction_method = "asr"
+)
+# lastly we extract the stem age based on the genus name
+extract_stem_age(
+  genus_name = "parrot",
+  phylod = phylod,
+  stem = "genus",
+  constrain_to_island = FALSE,
+  extraction_method = NULL
+)
+# we can optionally set constrain_to_island = TRUE which will extract the stem
+# age of the species in that genus that are on the island, in this case the
+# stem age is the same
+extract_stem_age(
+  genus_name = "parrot",
+  phylod = phylod,
+  stem = "genus",
+  constrain_to_island = TRUE,
+  extraction_method = NULL
 )
 }
