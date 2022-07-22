@@ -2,7 +2,7 @@
 #'
 #' @export
 all_endemicity_status <- function() {
-  return(c("not_present", "nonendemic", "endemic"))
+  return(c("not_present", "endemic", "nonendemic"))
 }
 
 #' Extract tip states from a phylod object
@@ -28,17 +28,12 @@ get_tip_states <- function(phylod) {
 #' @export
 #'
 endemicity_to_states <- function(endemicity_status) {
+  if (any(!endemicity_status %in% all_endemicity_status())) {
+    stop("status should only be \"not_present\", \"endemic\" or \"nonendemic\"")
+  }
   tip_states <- c()
   for (i in seq_along(endemicity_status)) {
-    if (grepl(pattern = "^not_present$", x = endemicity_status[i])) {
-      tip_states[i] <- 1
-    } else if (grepl(pattern = "^nonendemic$", x = endemicity_status[i])) {
-      tip_states[i] <- 2
-    } else if (grepl(pattern = "^endemic$", x = endemicity_status[i])) {
-      tip_states[i] <- 3
-    } else {
-      stop("endemicity_status should always be one of \"not_present\", \"nonendemic\" or \"endemic\".")
-    }
+    tip_states[i] <- which(all_endemicity_status() == endemicity_status[i])
   }
   return(tip_states)
 }
@@ -52,7 +47,7 @@ endemicity_to_states <- function(endemicity_status) {
 #' @export
 states_to_endemicity <- function(states) {
   if (any(!as.numeric(states) %in% 1:3)) {
-    stop("states should always be 1, 2, or 3")
+    stop("states should only be 1, 2, or 3")
   }
   for (i in 1:3) {
     states <- gsub(
