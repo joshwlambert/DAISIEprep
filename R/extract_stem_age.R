@@ -1,7 +1,10 @@
 #' Extracts the stem age from the phylogeny when the a species is known to
 #' belong to a genus but is not itself in the phylogeny and there are members
-#' of the same genus are in the phylogeny. Extraction method can either be
-#' 'min' or 'asr' as in extract_island_species(). When extraction_method = 'asr'
+#' of the same genus are in the phylogeny. The stem age can either be for the
+#' genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
+#' algorithm to find the stem of when the species colonised the island
+#' (`stem = "island_presence`), either 'min' or 'asr' as in
+#' extract_island_species(). When `stem = "island_presence"`
 #' the constrain_to_island is ignored and the reconstructed node states are used
 #' to determine the stem age and not the stem age of the genus or stem age of
 #' island species within a genus (i.e. constrain_to_island = TRUE).
@@ -29,23 +32,11 @@
 #' # to the know the stem age for
 #' phylod <- phylobase::subset(x = phylod, tips.exclude = "parrot_a")
 #' DAISIEprep::plot_phylod(phylod)
-#' # here we set constrain_to_island = TRUE so it only looks at species in that
-#' # genus that are on the island and constrains the stem age to the stem of the
-#' # island subclade
 #' extract_stem_age(
 #'   genus_name = "parrot",
 #'   phylod = phylod,
-#'   extraction_method = "min",
-#'   constrain_to_island = TRUE
-#' )
-#' # here we set constrain_to_island = FALSE so it extracts the stem age of the
-#' # genus independent of whether any species in that genus are on the island
-#' # or not
-#' extract_stem_age(
-#'   genus_name = "parrot",
-#'   phylod = phylod,
-#'   extraction_method = "min",
-#'   constrain_to_island = FALSE
+#'   stem = "island_presence",
+#'   extraction_method = "min"
 #' )
 #' # here we use the extraction_method = "asr" which requires ancestral node
 #' # states in the tree. When "asr" is used the constrain_to_island argument
@@ -60,13 +51,32 @@
 #' extract_stem_age(
 #'   genus_name = "parrot",
 #'   phylod = phylod,
-#'   extraction_method = "asr",
-#'   constrain_to_island = FALSE
+#'   stem = "island_presence",
+#'   extraction_method = "asr"
+#' )
+#' # lastly we extract the stem age based on the genus name
+#' extract_stem_age(
+#'   genus_name = "parrot",
+#'   phylod = phylod,
+#'   stem = "genus",
+#'   constrain_to_island = FALSE,
+#'   extraction_method = NULL
+#' )
+#' # we can optionally set constrain_to_island = TRUE which will extract the stem
+#' # age of the species in that genus that are on the island, in this case the
+#' # stem age is the same
+#' extract_stem_age(
+#'   genus_name = "parrot",
+#'   phylod = phylod,
+#'   stem = "genus",
+#'   constrain_to_island = TRUE,
+#'   extraction_method = NULL
 #' )
 extract_stem_age <- function(genus_name,
                              phylod,
-                             extraction_method,
-                             constrain_to_island = FALSE) {
+                             stem,
+                             constrain_to_island = FALSE,
+                             extraction_method = NULL) {
 
   # get genus name from tip labels in tree
   species_names <- unname(phylobase::tipLabels(phylod))
@@ -74,32 +84,36 @@ extract_stem_age <- function(genus_name,
   genus_names <- sapply(split_species_names, "[[", 1)
 
   # match the genus with species in the tree
-  genus_in_tree <- which(genus_name == genus_names)
+  genus_in_tree <- which(genus_names %in% genus_name)
 
   if (length(genus_in_tree) == 0) {
     message("Genus input is not found in the tree")
     return(NaN)
   }
 
-  endemicity_status <-
-    phylobase::tdata(phylod)[genus_in_tree, "endemicity_status"]
-  if (all(endemicity_status == "not_present") && constrain_to_island) {
-    stop("constrain_to_island = TRUE but no island species in genus found")
-  }
-
-  if (extraction_method == "min") {
-    col_time <- extract_stem_age_min(
+  if (stem == "genus") {
+    col_time <- extract_stem_age_genus(
       genus_in_tree = genus_in_tree,
       phylod = phylod,
       constrain_to_island = constrain_to_island
     )
-  } else if (extraction_method == "asr") {
-    col_time <- extract_stem_age_asr(
-      genus_in_tree = genus_in_tree,
-      phylod = phylod
-    )
+  } else if (stem == "island_presence") {
+
+    if (extraction_method == "min") {
+      col_time <- extract_stem_age_min(
+        genus_in_tree = genus_in_tree,
+        phylod = phylod
+      )
+    } else if (extraction_method == "asr") {
+      col_time <- extract_stem_age_asr(
+        genus_in_tree = genus_in_tree,
+        phylod = phylod
+      )
+    } else {
+      stop("Incorrect extraction_method given, must be 'min' or 'asr'")
+    }
   } else {
-    stop("Incorrect extraction_method given, must be 'min' or 'asr'")
+    stop("Incorrect stem given, must be 'genus' or 'island_presence'")
   }
 
   # return stem age

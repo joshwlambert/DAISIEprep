@@ -88,7 +88,7 @@ test_that("2 endemics, empty tbl", {
   expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(0.25173))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
   expect_equal(
@@ -131,7 +131,7 @@ test_that("2 tips nonendemic, empty tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
+  expect_equal(get_island_tbl(island_tbl)$min_age, 0.251727277709)
   expect_equal(
     get_island_tbl(island_tbl)$species,
     I(list(c("bird_a_1", "bird_a_2")))
@@ -172,7 +172,7 @@ test_that("2 tips endemic, empty_tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, 0.25173)
+  expect_equal(get_island_tbl(island_tbl)$min_age, 0.251727277709)
   expect_equal(
     get_island_tbl(island_tbl)$species,
     I(list(c("bird_a_1", "bird_a_2")))
@@ -311,7 +311,7 @@ test_that("2 endemics, empty tbl", {
   expect_equal(get_island_tbl(island_tbl)$col_max_age, c(FALSE, FALSE))
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(NA_real_, 0.25173))
+    I(list(NA_real_, 0.251727277709))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
   expect_equal(
@@ -367,7 +367,7 @@ test_that("2 tips nonendemic, empty tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_, NA_real_))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
+  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.251727277709))
   expect_equal(
     get_island_tbl(island_tbl)$species,
     I(list("bird_z", c("bird_a_1", "bird_a_2")))
@@ -421,7 +421,7 @@ test_that("2 tips endemic, empty_tbl", {
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_, NA_real_))
   )
-  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.25173))
+  expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, 0.251727277709))
   expect_equal(
     get_island_tbl(island_tbl)$species,
     I(list("bird_z", c("bird_a_1", "bird_a_2")))

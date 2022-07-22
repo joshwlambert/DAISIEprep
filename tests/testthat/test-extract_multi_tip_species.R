@@ -18,7 +18,7 @@ test_that("2 tips nonendemic, 3 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 1.43337005682)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.25173)
+  expect_equal(get_min_age(island_colonist), 0.251727277709)
   expect_equal(get_species(island_colonist), c("bird_a_1", "bird_a_2"))
   expect_equal(get_clade_type(island_colonist), 1)
 })
@@ -44,7 +44,7 @@ test_that("2 tips nonendemic, 4 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 0.519744565224)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.12586)
+  expect_equal(get_min_age(island_colonist), 0.125863638855)
   expect_equal(get_species(island_colonist), c("bird_c_1", "bird_c_2"))
   expect_equal(get_clade_type(island_colonist), 1)
 })
@@ -69,7 +69,7 @@ test_that("2 tips endemic, 3 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 1.43337005682)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.25173)
+  expect_equal(get_min_age(island_colonist), 0.251727277709)
   expect_equal(get_species(island_colonist), c("bird_a_1", "bird_a_2"))
   expect_equal(get_clade_type(island_colonist), 1)
 })
@@ -94,7 +94,7 @@ test_that("2 tips endemic, 4 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 0.519744565224)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.12586)
+  expect_equal(get_min_age(island_colonist), 0.125863638855)
   expect_equal(get_species(island_colonist), c("bird_c_1", "bird_c_2"))
   expect_equal(get_clade_type(island_colonist), 1)
 })
@@ -120,7 +120,7 @@ test_that("3 tips nonendemic, 4 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 0.665451291928)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.51974)
+  expect_equal(get_min_age(island_colonist), 0.519744565224)
   expect_equal(
     get_species(island_colonist),
     c("bird_b_1", "bird_b_2", "bird_b_3")
@@ -148,7 +148,7 @@ test_that("3 tips endemic, 4 species tree, sisters", {
   expect_equal(get_col_time(island_colonist), 0.665451291928)
   expect_false(get_col_max_age(island_colonist))
   expect_true(is.na(get_branching_times(island_colonist)))
-  expect_equal(get_min_age(island_colonist), 0.51974)
+  expect_equal(get_min_age(island_colonist), 0.519744565224)
   expect_equal(
     get_species(island_colonist),
     c("bird_b_1", "bird_b_2", "bird_b_3")

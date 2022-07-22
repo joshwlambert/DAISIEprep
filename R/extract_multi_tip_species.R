@@ -96,21 +96,10 @@ extract_multi_tip_species <- function(phylod,
   phylo <- suppressWarnings(methods::as(multi_tip_species_phylod, "phylo"))
 
   # extract branching times (time before present)
-  node_heights <- ape::node.depth.edgelength(phy = phylo)
-
-  # convert units from million years to years and round to nearest 10 years to
-  # prevent duplicate branching times that differ due to numerical imprecision
-  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
-  node_heights <- node_heights / 1e5
-
-  # convert from distance from root to distance from tip
-  node_heights <- abs(node_heights - max(node_heights))
+  branching_times <- unname(ape::branching.times(phy = phylo))
 
   # remove any duplicates if two species come from the same branching event
-  branching_times <- sort(unique(node_heights), decreasing = TRUE)
-
-  # remove any zero valued branching times
-  branching_times <- branching_times[-which(branching_times == 0)]
+  branching_times <- sort(branching_times, decreasing = TRUE)
 
   # extract minimum time as crown age of species pops (time before present)
   min_age <- max(branching_times)

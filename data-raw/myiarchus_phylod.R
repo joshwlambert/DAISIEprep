@@ -37,5 +37,11 @@ myiarchus_phylod <- phylobase::phylo4d(
   myiarchus_tree, myiarchus_endemicity_status
 )
 
+myiarchus_phylod <- add_asr_node_states(
+  phylod = myiarchus_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(myiarchus_phylod, file = "inst/extdata/myiarchus_phylod.rds")
 

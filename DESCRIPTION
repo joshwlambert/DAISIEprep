@@ -28,10 +28,13 @@ Imports:
     ape,
     phylobase,
     ggplot2,
+    scales,
     ggtree,
     ggimage,
     DAISIE,
-    castor
+    castor,
+    tibble,
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
@@ -40,7 +43,9 @@ Suggests:
     microbenchmark,
     diversitree,
     BioGeoBEARS,
-    corHMM
+    corHMM,
+    tidyr,
+    dplyr
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr
@@ -56,6 +61,7 @@ Collate:
     'any_outgroup.R'
     'any_polyphyly.R'
     'as_daisie_datatable.R'
+    'benchmark.R'
     'bind_colonist_to_tbl.R'
     'check_phylo_data.R'
     'count_missing_species.R'
@@ -75,6 +81,7 @@ Collate:
     'extract_species_min.R'
     'extract_stem_age.R'
     'extract_stem_age_asr.R'
+    'extract_stem_age_genus.R'
     'extract_stem_age_min.R'
     'get_endemic_species.R'
     'is_back_colonisation.R'
@@ -90,9 +97,14 @@ Collate:
     'multi_island_tbl-class.R'
     'multi_island_tbl-methods.R'
     'plot_colonisation.R'
+    'plot_performance.R'
     'plot_phylod.R'
+    'plot_sensitivity.R'
     'print-methods.R'
+    'read_performance.R'
+    'read_sensitivity.R'
     'rm_multi_missing_species.R'
+    'sensitivity.R'
     'translate_status.R'
     'unique_island_genera.R'
     'utils.R'

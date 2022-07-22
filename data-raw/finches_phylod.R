@@ -29,4 +29,10 @@ finches_endemicity_status <- create_endemicity_status(
 
 finches_phylod <- phylobase::phylo4d(finches_tree, finches_endemicity_status)
 
+finches_phylod <- add_asr_node_states(
+  phylod = finches_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(finches_phylod, file = "inst/extdata/finches_phylod.rds")

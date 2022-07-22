@@ -222,7 +222,7 @@ test_that("2 endemics, same colonist", {
     missing_species = 0,
     col_time = 1.43337005682,
     col_max_age = FALSE,
-    branching_times = I(list(0.25173)),
+    branching_times = I(list(0.251727277709)),
     min_age = NA_real_,
     species = I(list(c("bird_a", "bird_b"))),
     clade_type = 1

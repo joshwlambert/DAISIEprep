@@ -6,20 +6,12 @@
 #'
 #' @return Numeric
 extract_stem_age_min <- function(genus_in_tree,
-                                 phylod,
-                                 constrain_to_island) {
+                                 phylod) {
 
   extracted_col_times <- c()
   # add for loop to loop over genus_in_tree elements
   for (i in genus_in_tree) {
     species_label <- phylobase::tipLabels(phylod)[i]
-
-    if (constrain_to_island) {
-      species_endemicity <- phylobase::tdata(phylod)[i, "endemicity_status"]
-      if (species_endemicity == "not_present") {
-        next
-      }
-    }
 
     # set up variables to be modified in the loop
     all_siblings <- TRUE
@@ -35,25 +27,16 @@ extract_stem_age_min <- function(genus_in_tree,
       descendants <- phylobase::descendants(phy = phylod, node = ancestor)
       # get endemicity of siblings
       which_siblings <- which(phylobase::labels(phylod) %in% names(descendants))
-      if (constrain_to_island) {
-        # check whether all siblings are endemic when constraining to island
-        # clade within the genus
-        sibling_endemicity <-
-          phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
-        all_siblings <- all(sibling_endemicity == "endemic")
-      } else {
-        # check whether all siblings are of the same genus when not constraining
-        # to the island species within the genus
-        sibling_genus <- unname(phylobase::tipLabels(phylod))[which_siblings]
-        split_species_names <- strsplit(x = sibling_genus, split = "_")
-        genus_names <- sapply(split_species_names, "[[", 1)
-        all_siblings <- length(unique(genus_names)) == 1
-      }
+
+      # check whether all siblings are present on the island
+      sibling_endemicity <-
+        phylobase::tdata(phylod)[which_siblings, "endemicity_status"]
+      all_siblings <- all(sibling_endemicity %in% c("endemic", "nonendemic"))
     }
 
     if (length(clade) == 1) {
       # extract stem age
-      col_time <- as.numeric(phylobase::edgeLength(phylod, clade))
+      col_time <- as.numeric(phylobase::edgeLength(phylod, names(clade)))
 
       # add stem age
       extracted_col_times <- c(extracted_col_times, col_time)

@@ -35,7 +35,7 @@ default_params_doc(
   species_name,
   node_pies,
   test_scenario,
-  daisie_datatable,
+  data,
   island_age,
   num_mainland_species,
   num_clade_types,
@@ -54,6 +54,7 @@ default_params_doc(
   island_tbl_2,
   unique_clade_name,
   genus_name,
+  stem,
   constrain_to_island,
   genus_in_tree,
   missing_genus,
@@ -61,7 +62,14 @@ default_params_doc(
   phylo_name_col,
   in_phylo_col,
   endemicity_status_col,
-  rm_species_col
+  rm_species_col,
+  tree_size_range,
+  num_points,
+  prob_on_island,
+  prob_endemic,
+  replicates,
+  log_scale,
+  parameter_index
 )
 }
 \arguments{
@@ -165,36 +173,8 @@ in the phylod object.}
 
 \item{test_scenario}{Integer specifying which test phylod object to create.}
 
-\item{daisie_datatable}{A data frame where each row on the table represents
-an independent colonisation event. The table has the following four columns:
-* Clade_name: name of independent colonisation event
-* Status: One of the following categories:
-- "Non_endemic": applies to non-endemic species when an approximate
-colonisation time is known.
-- "Non_endemic_MaxAge": applies to non-endemic species for cases where
-colonisation time is unknown.
-- "Endemic": applies to endemic species or endemic clades when an approximate
-colonisation time is known.
-- "Endemic_MaxAge": appies to endemic species or endemic clades where the
-colonisation time is unknown, or when the user wants to specify an upper
-bound for colonisation. This could for example apply to endemic species that
-have recently gone extinct because of anthropogenic causes, and which are
-not included in the phylogeny ("NA" should be given in the branching times
-column). It could also apply to insular radiations with long stem branches,
-for which the time of the first cladogenetic event is known, but the precise
-time of the colonisation is not.
-- "Endemic&Non_Endemic": where endemic clade is present and its mainland
-ancestor has re-colonised.
-* Missing_species: Number of island species that were not sampled for a
-particular clade (only applicable for "Endemic" clades). If NA is given in
-branching times column, this should be equal to the number of species in the
-clade minus 1.
-* Branching_times: Stem age of the population/species in the case of
-"Non_endemic", "Non_endemic_MaxAge", and "Endemic" species with no extant
-clade relatives on the island. Set "NA" if colonisation time is unknown and
-no upper bound is known. For "Endemic" cladogenetic species these should be
-branching times of the radiation, including the stem age of the radiation
-(colonisaton time estimate).}
+\item{data}{Either an object of class `Island_tbl` or a DAISIE data table
+object (output from `as_daisie_datatable()`).}
 
 \item{island_age}{Age of the island in appropriate units.}
 
@@ -260,6 +240,11 @@ colonisations}
 \item{genus_name}{Character string of genus name to be matched with a genus name from
 the tip labels in the phylogeny}
 
+\item{stem}{Character string, either "genus" or "island_presence". The former
+will extract the stem age of the genussbased on the genus name provided, the
+latter will extract the stem age based on the ancestral presence on the island
+either based on the "min" or "asr" extraction algorithms.}
+
 \item{constrain_to_island}{Boolean determining whether the stem age extracted
 is constrain to the species in the genus that are on the island, (i.e. stem
 age of the island species). If FALSE the stem age of the genus is found
@@ -288,7 +273,30 @@ counting the number of missing species is in the checklist. This can be NULL
 if no species are to be removed from the checklist. This is useful when
 species are in the checklist because they are on the island but need to be
 removed as they are not in the group of interest, e.g. a migratory bird
-amongst terrestrial birds.}
+amongst terrestrial birds}
+
+\item{tree_size_range}{Numeric vector of two elements, the first is the
+smallest tree size (number of tips) and the second is the largest tree size}
+
+\item{num_points}{Numeric determining how many points in the sequence of
+smallest tree size to largest tree size}
+
+\item{prob_on_island}{Numeric vector of each probability on island to use in
+the parameter space}
+
+\item{prob_endemic}{Numeric vector of each probability of an island species
+being endemic to use in the parameter space}
+
+\item{replicates}{Numeric determining the number of replicates to use to
+account for the stochasticity in sampling the species on the island and
+endemic species}
+
+\item{log_scale}{A boolean determining whether the sequence of tree sizes
+are on a linear (FALSE) or log (TRUE) scale}
+
+\item{parameter_index}{Numeric determining which parameter set to use (i.e
+which row in the parameter space data frame), if this is NULL all parameter
+sets will be looped over}
 }
 \value{
 Nothing
