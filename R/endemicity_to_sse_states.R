@@ -12,10 +12,10 @@ all_endemicity_status <- function() {
 #'
 #' @export
 #'
-get_tip_states <- function(phylod) {
+get_sse_tip_states <- function(phylod, sse_model = "musse") {
   check_phylo_data(phylod)
   endemicity_status <- phylobase::tipData(phylod)$endemicity_status
-  tip_states <- endemicity_to_states(endemicity_status)
+  tip_states <- endemicity_to_sse_states(endemicity_status, sse_model)
   return(tip_states)
 }
 
@@ -23,11 +23,16 @@ get_tip_states <- function(phylod) {
 #'
 #' @param endemicity_status character vector with values "endemic", "nonendemic"
 #' and/or "not_present"
-#' @return an integer vector of tip states, as expected by SSE models
+#' @inheritParams default_params_doc
+#' @return an integer vector of tip states, following the encoding expected by
+#' the MuSSE/GeoSSE
 #'
 #' @export
 #'
-endemicity_to_states <- function(endemicity_status) {
+endemicity_to_sse_states <- function(endemicity_status, sse_model = "musse") {
+  if (!sse_model %in% c("musse", "geosse")) {
+    stop("sse_model should be either \"musse\" or \"geosse\".")
+  }
   if (any(!endemicity_status %in% all_endemicity_status())) {
     stop("status should only be \"not_present\", \"endemic\" or \"nonendemic\"")
   }
@@ -35,19 +40,29 @@ endemicity_to_states <- function(endemicity_status) {
   for (i in seq_along(endemicity_status)) {
     tip_states[i] <- which(all_endemicity_status() == endemicity_status[i])
   }
+  if (sse_model == "geosse") {
+    tip_states[tip_states == 3] <- 0
+  }
   return(tip_states)
 }
 
 #' Convert SSE states back to endemicity status
 #'
 #' @param states integer vector of tip states, as expected by SSE models
+#' @inheritParams default_params_doc
 #' @return character vector with values "endemic", "nonendemic" and/or
 #' "not_present"
 #'
 #' @export
-states_to_endemicity <- function(states) {
+sse_states_to_endemicity <- function(states, sse_model = "musse") {
   if (any(!as.numeric(states) %in% 1:3)) {
     stop("states should only be 1, 2, or 3")
+  }
+  if (!sse_model %in% c("musse", "geosse")) {
+    stop("sse_model should be either \"musse\" or \"geosse\".")
+  }
+  if (sse_model == "geosse") {
+    states[states == 3] <- 0
   }
   for (i in 1:3) {
     states <- gsub(
@@ -58,7 +73,6 @@ states_to_endemicity <- function(states) {
   }
   return(states)
 }
-
 
 #' Select endemicity status from ancestral states probabilities
 #'

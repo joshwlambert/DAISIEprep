@@ -34,7 +34,7 @@ write_phylip_biogeo_file <- function(phylod, path_to_biogeo) {
 #' @export
 #'
 write_newick_file <- function(phylod, path_to_phylo) {
-  phylo <- phylobase::as(phylod, "phylo")
+  phylo <- methods::as(phylod, "phylo")
   ape::write.tree(phylo, file = path_to_phylo)
 }
 

@@ -69,7 +69,7 @@ Collate:
     'create_endemicity_status.R'
     'create_test_phylod.R'
     'default_params_doc.R'
-    'endemicity_to_states.R'
+    'endemicity_to_sse_states.R'
     'extract_asr_clade.R'
     'extract_clade_name.R'
     'extract_endemic_clade.R'

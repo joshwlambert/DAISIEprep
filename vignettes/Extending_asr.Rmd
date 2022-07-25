@@ -204,6 +204,7 @@ every tip in each area, in the format used by the
 suite. We report the full specifications from the
 [BioGeoBEARS](http://phylo.wikidot.com/biogeobears#script) tutorial
 
+```
 #######################################################
 # Geography file
 # Notes:
@@ -246,6 +247,7 @@ suite. We report the full specifications from the
 #    In summary, you should collapse multiple specimens into species/lineages if 
 #    data indicates they are the same genetic population.
 ######################################################
+```
 
 For convenience, we have included a function that writes this file from
 a `phylod` object for the simple mainland-island case.
@@ -466,7 +468,7 @@ states and the three endemicity status used by `DAISIEprep`, we have
 included functions to switch easily between the two:
 
 ```{r, musse_states_to_endemic}
-endemicity_status <- states_to_endemicity(phylo$tip.state)
+endemicity_status <- sse_states_to_endemicity(phylo$tip.state)
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 plot_phylod(phylod)
 ```
@@ -478,7 +480,7 @@ the internal nodes are determined with the resulting maximum-likelihood
 model.
 
 ```{r, create_musse_lik}
-states <- endemicity_to_states(phylod@data$endemicity_status)
+states <- endemicity_to_sse_states(phylod@data$endemicity_status)
 names(states) <- phylod@label[1:phylobase::nTips(phylod)] # requires tip labels as names
 tree <- as(phylod, "phylo")
 
@@ -569,7 +571,7 @@ lik_musse
 ```
 
 ```{r, create_geosse_lik, eval=FALSE}
-states <- endemicity_to_states(phylod@data$endemicity_status)
+states <- endemicity_to_sse_states(phylod@data$endemicity_status)
 names(states) <- phylod@label # requires tip labels as names
 tree <- as(phylod, "phylo")
 
