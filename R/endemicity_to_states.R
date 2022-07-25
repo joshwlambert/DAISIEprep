@@ -76,19 +76,24 @@ states_to_endemicity <- function(states) {
 #' @return a character vector, with the selected endemicity status for each node.
 #' @export
 select_endemicity_status <- function(asr_df, method = "max") {
-  col_names <- paste0(all_endemicity_status(), "_prob")
-  asr_df <- asr_df[, col_names]
+  exptd_col_names <- paste0(all_endemicity_status(), "_prob")
+  if (any(!exptd_col_names %in% colnames(asr_df))) {
+    stop("asr_df should contain columns \"not_present_prob\", \"endemic_prob\", \"nonendemic_prob\". ")
+  }
+  asr_df <- asr_df[, exptd_col_names]
+  endemicity_status <- c()
   if (method == "max") {
-    asr_states <- max.col(asr_df, ties.method = "last")
+    selected_states <- max.col(asr_df, ties.method = "last")
+    for (i in seq_along(selected_states)) {
+      endemicity_status[i] <- all_endemicity_status()[selected_states[i]]
+    }
   } else if (method == "random") {
-    asr_states <- c()
     for (i in 1:nrow(asr_df)) {
-      state <- sample(x = 1:3, size = 1, prob = asr_df[i, ])
-      asr_states[i] <- state
+      selected_state <- sample(x = 1:3, size = 1, prob = asr_df[i, ])
+      endemicity_status[i] <- all_endemicity_status()[selected_state]
     }
   } else {
     stop("Argument method should only be \"max\" or \"random\"")
   }
-  endemicity_status <- states_to_endemicity(asr_states)
   return(endemicity_status)
 }
