@@ -3,8 +3,11 @@ title: "Extending DAISIEprep ASR models"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Extending DAISIEprep ASR}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
@@ -18,16 +21,20 @@ knitr::opts_chunk$set(
 library(DAISIEprep)
 ```
 
-The methods that `DAISIEprep` provides to run ancestral state reconstruction 
-(ASR) are parsimony and the Markov model (Mk) using functionality from the R package `castor`. These are provided as standard in the `DAISIEprep::add_asr_node_states()` function to easily allow a user to run a
-reconstruction to be later used by the `asr` algorithm in the `extract_island_species()` function (this being the central function of the
-`DAISIEprep` package). The parsimony and the Mk model provide simple models 
-that have been widely used in evolutionary biology since their development. For
-details on the parsimony method see documentation for `castor::asr_max_parsimony()` and for details on the Mk model see documentation
-for `castor::asr_mk_model()`.
+The methods that `DAISIEprep` provides to run ancestral state
+reconstruction (ASR) are parsimony and the Markov model (Mk) using
+functionality from the R package `castor`. These are provided as
+standard in the `DAISIEprep::add_asr_node_states()` function to easily
+allow a user to run a reconstruction to be later used by the `asr`
+algorithm in the `extract_island_species()` function (this being the
+central function of the `DAISIEprep` package). The parsimony and the Mk
+model provide simple models that have been widely used in evolutionary
+biology since their development. For details on the parsimony method see
+documentation for `castor::asr_max_parsimony()` and for details on the
+Mk model see documentation for `castor::asr_mk_model()`.
 
-Here we show the same example as in the Tutorial vignette to show how both 
-methods are implemented: 
+Here we show the same example as in the Tutorial vignette to show how
+both methods are implemented:
 
 ```{r, add_asr_node_state example}
 set.seed(
@@ -64,35 +71,56 @@ phylod_parsimony <- add_asr_node_states(
 )
 ```
 
-For details on the internal workings of the `add_asr_node_states()` function see appendix at the bottom of this article.
+For details on the internal workings of the `add_asr_node_states()`
+function see appendix at the bottom of this article.
 
-However, there are many models developed for the reconstruction of states
-(traits) on a phylogenetic tree and thus it may be more appropriate to use
-a different type of model for the empirical group being studied. Just as R is 
-developed to allow for packages to [extend the language](https://cran.r-project.org/doc/manuals/r-release/R-exts.html), `DAISIEprep` is designed
-to allow each extension of ASR methods for incorporation with key functions 
-(e.g. `extract_island_species()`). 
+However, there are many models developed for the reconstruction of
+states (traits) on a phylogenetic tree and thus it may be more
+appropriate to use a different type of model for the empirical group
+being studied. Just as R is developed to allow for packages to [extend
+the
+language](https://cran.r-project.org/doc/manuals/r-release/R-exts.html),
+`DAISIEprep` is designed to allow each extension of ASR methods for
+incorporation with key functions (e.g. `extract_island_species()`).
 
-Here we give examples of three packages that can be used an extensions: `diversitree`, `BioGeoBEARS` and `corHMM`. 
+Here we give examples of three packages that can be used an extensions:
+`diversitree`, `BioGeoBEARS` and `corHMM`.
 
-`diversitree` is a packages containing a suite of State Speciation and Extinction (SSE) model which can reconstruct ancestral states under a model in which the rates of speciation, extinction and transition between states all influence the reconstruction. 
-These models prevent the bias of having many species in a state because of high speciation but a model, such as the Mk model, assumes it is due to high transition rates into that state (see Maddison, 2006). 
-The example we give uses the MuSSE model with a three states (island endemic, island non-endemic and not present on the island), but other SSE models in `diversitree` can be applied in the same manner. 
+`diversitree` is a packages containing a suite of State Speciation and
+Extinction (SSE) model which can reconstruct ancestral states under a
+model in which the rates of speciation, extinction and transition
+between states all influence the reconstruction. These models prevent
+the bias of having many species in a state because of high speciation
+but a model, such as the Mk model, assumes it is due to high transition
+rates into that state (see Maddison, 2006). The example we give uses the
+MuSSE model with a three states (island endemic, island non-endemic and
+not present on the island), but other SSE models in `diversitree` can be
+applied in the same manner.
 
-`BioGeoBEARS` is a widely used package that includes the DEC and DEC+J models of biogeographic reconstruction. Therefore, it may be that people familiar with these models want to apply them for extracting island colonisations for DAISIE. 
+`BioGeoBEARS` is a widely used package that includes the DEC and DEC+J
+models of biogeographic reconstruction. Therefore, it may be that people
+familiar with these models want to apply them for extracting island
+colonisations for DAISIE.
 
-Lastly, `corHMM` is a package that implements a hidden markov model of evolution, similar to the Mk model, but can better account for rate heterogeneity by introducing hidden states into the model. Each model can be argued for or against; with the choice influenced by the taxonomic group being studied.
+Lastly, `corHMM` is a package that implements a hidden markov model of
+evolution, similar to the Mk model, but can better account for rate
+heterogeneity by introducing hidden states into the model. Each model
+can be argued for or against; with the choice influenced by the
+taxonomic group being studied.
 
 ## Introduction
 
-
 ### ASR with DAISIE?
-Why ASR with other models?
-Users may want to model the biogeographic process with processes not captured by DAISIE,
-for example the existence of more areas than mainland + island (e.g., an archipelago).
-Or some processes left out by DAISIE, like back-colonisation from the island to mainland.
 
-Ultimately, DAISIE will only consider island biota for analysis of the diversification process on the island, but interactions between mainland and island may be deemed relevant for constituting the island biota.
+Why ASR with other models? Users may want to model the biogeographic
+process with processes not captured by DAISIE, for example the existence
+of more areas than mainland + island (e.g., an archipelago). Or some
+processes left out by DAISIE, like back-colonisation from the island to
+mainland.
+
+Ultimately, DAISIE will only consider island biota for analysis of the
+diversification process on the island, but interactions between mainland
+and island may be deemed relevant for constituting the island biota.
 
 ## Example data
 
@@ -128,23 +156,37 @@ plot_phylod(phylod)
 
 ## DEC+J
 
-As a first example, we consider the popular DEC (Dispersal-Extinction-Cladogenesis) model [@ree_maximum_2008] with founder-event speciation (DEC+J, @matzke_probabilistic_2013), implemented in R in the **biogeobears** package [@biogeobears].
+As a first example, we consider the popular DEC
+(Dispersal-Extinction-Cladogenesis) model [@ree_maximum_2008] with
+founder-event speciation (DEC+J, @matzke_probabilistic_2013),
+implemented in R in the **biogeobears** package [@biogeobears].
 
 ```{r, load_biogeobears}
 require(BioGeoBEARS)
 ```
 
-BioGeoBEARS revolves around an object, `BioGeoBEARS_run`, which stores input data, the structure of the model to optimise, and control parameters for optimisation.
+BioGeoBEARS revolves around an object, `BioGeoBEARS_run`, which stores
+input data, the structure of the model to optimise, and control
+parameters for optimisation.
 
 ```{r}
 # Default structure of the BioGeoBEARS object
 bgb_run <- define_BioGeoBEARS_run()
 bgb_run
 ```
-Many elements of this list are only relevant for advanced options of the model and can be ignored if these features are not used. For example, BioGeoBEARS allow explicit modelling of the connectivity between areas and time-dependent availability of the areas.
-In this example, we focus on a simple dispersal scenario between two areas (mainland and island),  so these elements can be ignored. We direct the interested user to the [relevant tutorial](http://phylo.wikidot.com/biogeobears#toc17) on the BioGeoBEARS website.
 
-BioGeoBEARS expects at least two inputs, the phylogeny and the biogeographic data, a matrix of tip states. Both must be supplied as paths to files which will be read when the model is run.
+Many elements of this list are only relevant for advanced options of the
+model and can be ignored if these features are not used. For example,
+BioGeoBEARS allow explicit modelling of the connectivity between areas
+and time-dependent availability of the areas. In this example, we focus
+on a simple dispersal scenario between two areas (mainland and island),
+so these elements can be ignored. We direct the interested user to the
+[relevant tutorial](http://phylo.wikidot.com/biogeobears#toc17) on the
+BioGeoBEARS website.
+
+BioGeoBEARS expects at least two inputs, the phylogeny and the
+biogeographic data, a matrix of tip states. Both must be supplied as
+paths to files which will be read when the model is run.
 
 The tree can be supplied in Newick or Nexus format, as a text file.
 
@@ -156,9 +198,12 @@ ape::write.tree(phylo, file = path_to_phylo)
 bgb_run$trfn <- path_to_phylo
 ```
 
-Tip data must be supplied as a text file specifying presence/absence of every tip in each area, in the format used by the [PHYLIP](https://evolution.genetics.washington.edu/phylip.html) sofware suite. We report the full specifications from the [BioGeoBEARS](http://phylo.wikidot.com/biogeobears#script) tutorial 
+Tip data must be supplied as a text file specifying presence/absence of
+every tip in each area, in the format used by the
+[PHYLIP](https://evolution.genetics.washington.edu/phylip.html) sofware
+suite. We report the full specifications from the
+[BioGeoBEARS](http://phylo.wikidot.com/biogeobears#script) tutorial
 
-```
 #######################################################
 # Geography file
 # Notes:
@@ -201,9 +246,9 @@ Tip data must be supplied as a text file specifying presence/absence of every ti
 #    In summary, you should collapse multiple specimens into species/lineages if 
 #    data indicates they are the same genetic population.
 ######################################################
-```
 
-For convenience, we have included a function that writes this file from a `phylod` object for the simple mainland-island case.
+For convenience, we have included a function that writes this file from
+a `phylod` object for the simple mainland-island case.
 
 ```{r biogeobears_geo_input}
 path_to_biogeo <- "../inst/extending_asr/biogeobears_ex_biogeo.txt"
@@ -211,7 +256,10 @@ write_phylip_biogeo_file(phylod, path_to_biogeo)
 BioGeoBEARS::getranges_from_LagrangePHYLIP(path_to_biogeo)
 bgb_run$geogfn <- path_to_biogeo
 ```
-While we were at it, we have nested this function in `write_biogeobears_input()`, to prepare both this file and the Newick file above in one command
+
+While we were at it, we have nested this function in
+`write_biogeobears_input()`, to prepare both this file and the Newick
+file above in one command
 
 ```{r, write_biogeobears_input}
 path_to_phylo <- "../inst/extending_asr/biogeobears_ex_phylo.txt"
@@ -222,24 +270,33 @@ bgb_run$trfn <- path_to_phylo
 bgb_run$geogfn <- path_to_biogeo
 ```
 
-The structure of the model is contained in `BioGeoBEARS_model_object`. This is simply a table that contains the status (fixed or free), values (initial, min/max boundaries and estimated value if free) and documentation of each parameter of the supermodel. 
+The structure of the model is contained in `BioGeoBEARS_model_object`.
+This is simply a table that contains the status (fixed or free), values
+(initial, min/max boundaries and estimated value if free) and
+documentation of each parameter of the supermodel.
 
 ```{r}
 bgb_run$BioGeoBEARS_model_object
 ```
 
-BioGeoBEARS is indeed built as a supermodel which parameters can be turned on or off to reproduce biogeographic models like DEC, DIVA, BayArea and/or expand them.
+BioGeoBEARS is indeed built as a supermodel which parameters can be
+turned on or off to reproduce biogeographic models like DEC, DIVA,
+BayArea and/or expand them.
 
-See Fig. 1 in @matzke_probabilistic_2013 for an overview of the supermodel and parameters:
+See Fig. 1 in @matzke_probabilistic_2013 for an overview of the
+supermodel and parameters:
 
 ```{r}
 knitr::include_graphics("http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_supermodel.png")
 # do we need to ask for authorisation to reproduce this figure?
 ```
 
-Note that by default, all parameters but *d* and *e* are turned off (i.e., fixed and set to a value such that they cause no effect). That is, by default, `BioGeoBEARS_model_object` specifies the DEC model.
+Note that by default, all parameters but *d* and *e* are turned off
+(i.e., fixed and set to a value such that they cause no effect). That
+is, by default, `BioGeoBEARS_model_object` specifies the DEC model.
 
-For this example, we simply modify the model to make *j* a free parameter, and thus turn the model into DEC+J.
+For this example, we simply modify the model to make *j* a free
+parameter, and thus turn the model into DEC+J.
 
 ```{r, make_dec_j}
 # DEC -> DEC+J
@@ -254,18 +311,31 @@ bgb_run$num_cores_to_use <- 1 # no default value on this one
 bgb_run$print_optim <- FALSE # for the sake onf the vignette
 ```
 
-Once everything is set up, it's a good idea to check that the input complies to the format expected by BioGeoBEARS with the provided function. Then, we're ready to run the optimisation:
+Once everything is set up, it's a good idea to check that the input
+complies to the format expected by BioGeoBEARS with the provided
+function. Then, we're ready to run the optimisation:
 
 ```{r, run_biogeobears}
 BioGeoBEARS::check_BioGeoBEARS_run(bgb_run)
 res <- BioGeoBEARS::bears_optim_run(bgb_run)
 ```
 
-We do get a warning, but [apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments) this can be ignored.
+We do get a warning, but
+[apparently](http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments)
+this can be ignored.
 
-Marginal probabilities for the ancestral states appear to be found in element `$ML_marginal_prob_each_state_at_branch_top_AT_node` of the output (from what I infer from the code of the [plotting function code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432)).
-Columns respectively correspond to the posterior probability of the node being present in the first area only (here, mainland, i.e. not present), second area only (island, endemic), or both areas (widespread state, nonendemic).
-Rows correspond to nodes (including tips!) and their order is the same as in the tree object *read from the input Newick file*, which may differ from the original tree. To identify the probability associated to each node we need to match the rows with the corresponding tip labels.
+Marginal probabilities for the ancestral states appear to be found in
+element `$ML_marginal_prob_each_state_at_branch_top_AT_node` of the
+output (from what I infer from the code of the [plotting function
+code](https://github.com/nmatzke/BioGeoBEARS/blob/7b16e5263e91389d8e16b7bead4437d39b8be5bc/R/BioGeoBEARS_plots_v1.R#L432)).
+Columns respectively correspond to the posterior probability of the node
+being present in the first area only (here, mainland, i.e. not present),
+second area only (island, endemic), or both areas (widespread state,
+nonendemic). Rows correspond to nodes (including tips!) and their order
+is the same as in the tree object *read from the input Newick file*,
+which may differ from the original tree. To identify the probability
+associated to each node we need to match the rows with the corresponding
+tip labels.
 
 ```{r, extract_decj_asr}
 # Extract probabilities
@@ -284,21 +354,33 @@ asr_df <- data.frame(
 head(asr_df)
 tail(asr_df)
 ```
-The code above has been wrapped in a utility function, `extract_biogeobears_ancestral_states_probs()`.
+
+The code above has been wrapped in a utility function,
+`extract_biogeobears_ancestral_states_probs()`.
 
 ```{r, extract_decj_asr2}
 asr_df <- extract_biogeobears_ancestral_states_probs(res)
 ```
 
-The last step before extracting the island community from the tree is to rule which state each node is in from the probabilities. We provide a convenient function to do this from the output of the previous function:
+The last step before extracting the island community from the tree is to
+rule which state each node is in from the probabilities. We provide a
+convenient function to do this from the output of the previous function:
 
 ```{r, sample_biogeobears_states}
 endemicity_status <- select_endemicity_status(asr_df, method = "max")
 ```
 
-By default, (`method = "max"`), we simply select the state with the highest probability (preferring the last in the event of a tie). `method` can also be set to `"random"` to sample states randomly based on the probabilities, which can be of use if one desires to explore the sensibility of downstream DAISIE analyses to the ancestral state reconstruction.
+By default, (`method = "max"`), we simply select the state with the
+highest probability (preferring the last in the event of a tie).
+`method` can also be set to `"random"` to sample states randomly based
+on the probabilities, which can be of use if one desires to explore the
+sensibility of downstream DAISIE analyses to the ancestral state
+reconstruction.
 
-Finally, we recreate the data format expected by `extract_island_species()` (one state column `endemicity_status` for tips, one state column `island_status` for internal nodes) and add it back to the tree data with `phylobase`'s `phylo4d` class.
+Finally, we recreate the data format expected by
+`extract_island_species()` (one state column `endemicity_status` for
+tips, one state column `island_status` for internal nodes) and add it
+back to the tree data with `phylobase`'s `phylo4d` class.
 
 ```{r, order_biogeobears_asr}
 # Add endemicity data
@@ -313,6 +395,7 @@ asr_df$island_status[(nb_tips + 1):nrow(asr_df)] <- endemicity_status[(nb_tips +
 phylod <- phylobase::phylo4d(tree, all.data = asr_df)
 plot_phylod(phylod)
 ```
+
 Voilà!
 
 ```{r, extract_species_decj}
@@ -323,92 +406,134 @@ island_clades <- DAISIEprep::extract_island_species(
 island_clades@island_tbl$species
 island_clades@island_tbl$branching_times
 ```
+
 ## MuSSE
 
-For this example, we re-use the tree from tutorial
+SSE-class models explicitly model the inter-dependency between the
+evolution of a set of traits and evolutionary rates (speciation and
+extinction). When traits are set to represent geographic areas, such
+models can be used to model range evolution. For a mainland-island
+system, we could model the endemicity status as a ternary trait:
+endemic, non-endemic, or not present on the island.
 
-```{r}
-set.seed(
-  1,
-  kind = "Mersenne-Twister",
-  normal.kind = "Inversion",
-  sample.kind = "Rejection"
+Discrete-trait models with more than two states are modelled with MuSSE,
+which is implemented in package `diversitree`.
+
+To make the example straightforward and avoid non-convergence issues, we use a tree simulated directly with MuSSE as an example, with
+three states (mainland/island/both, or not present/endemic/nonendemic)
+and arbitrary parameter values:
+
+```{r, simulate_musse_input}
+# Simulate a tree under a MuSSE model,
+# with arbitrary initial parameter values
+pars <- c(
+  # lambda1 lambda2 lambda3
+  0.2, 0.2, 0.2,
+  # mu1 mu2 mu3
+  0.02, 0.02, 0.02,
+  # q12 q13 q21 q23 q31 q32
+  0,  0.1,  0, 0,  0.1, 0.1
 )
-phylo <- ape::rcoal(10)
-phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e", "bird_f",
-                     "bird_g", "bird_h", "bird_i", "bird_j")
-phylo <- phylobase::phylo4(phylo)
-endemicity_status <- sample(
-  x = c("not_present", "endemic", "nonendemic"), 
-  size = length(phylobase::tipLabels(phylo)), 
-  replace = TRUE,
-  prob = c(0.6, 0.2, 0.2)
-)
-phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-plot_phylod(phylod = phylod)
+set.seed(4)
+phylo <- diversitree::trees(
+  pars,
+  type = "musse",
+  max.taxa = 20,
+  max.t = Inf,
+  x0 = 1
+)[[1]]
+
+# DAISIEprep requires binomial names
+ntips <- ape::Ntip(phylo)
+bird_names <- paste0("bird_", letters[1:ntips])
+phylo$tip.label <- bird_names
+names(phylo$tip.state) <- bird_names
+
+# DAISIEprep requires a mainland outgroup
+outgroup_clade <- c("bird_h", "bird_i", "bird_l", "bird_k", "bird_r", "bird_q")
+phylo$tip.state[phylo$tip.label %in% outgroup_clade] <- 1 # not_present
 ```
 
-SSE-class models explicitly model the inter-dependency between the evolution of a set of traits and evolutionary rates (speciation and extinction). When traits are set to represent geographic areas, such models can be used to model range evolution. For a mainland-island system, we could model the endemicity status as a ternary trait: endemic, non-endemic, or not present on the island.
+The output phylogenetic trees come with simulated states attached at the
+tips:
 
-Discrete-trait models with more than two states are modelled with MuSSE, which is implemented in package `diversitree`.
+```{r, show_musse_sim_states}
+phylo$tip.state
+```
 
-ASR with `diversitree` is done in three steps.
-The model structure is first specified to create a likelihood function; then parameters are optimised for this function; and finally the probabilities of states of the internal nodes are determined with the resulting maximum-likelihood model.
+Because we're going to switch back and forth between those single-digit
+states and the three endemicity status used by `DAISIEprep`, we have
+included functions to switch easily between the two:
 
-States of the character must be specified as integers, we use the following convention:
-- "endemic" = 1
-- "nonendemic" = 2
-- "not_present" = 3
+```{r, musse_states_to_endemic}
+endemicity_status <- states_to_endemicity(phylo$tip.state)
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+plot_phylod(phylod)
+```
 
-For convenience, we include functions to switch easily between endemicity and the coded states:
+ASR with `diversitree` is done in three steps. The model structure is
+first specified to create a likelihood function; then parameters are
+optimised for this function; and finally the probabilities of states of
+the internal nodes are determined with the resulting maximum-likelihood
+model.
 
 ```{r, create_musse_lik}
 states <- endemicity_to_states(phylod@data$endemicity_status)
-names(states) <- phylod@label # requires tip labels as names
+names(states) <- phylod@label[1:phylobase::nTips(phylod)] # requires tip labels as names
 tree <- as(phylod, "phylo")
 
 # Create likelihood function
-lik_musse <- diversitree::make.musse(tree = tree, states = states, k = 3)
+lik_musse <- diversitree::make.musse(
+  tree = tree, 
+  states = states, 
+  k = 3
+)
 lik_musse
 ```
 
 ```{r, fit_musse, eval=FALSE}
-# Arbitrary initial parameter values
-pars <- c(
-  # lambda1 lambda2 lambda3
-  0.1, 0.2, 0.2,
-  # mu1 mu2 mu3
-  0.03, 0.03, 0.03,
-  # q12 q13 q21 q23 q31 q32
-  0.01, 0, 0.02, 0.02, 0, 0.01
-)
-
 fit_musse <- diversitree::find.mle(func = lik_musse, x.init = pars, method = "subplex")
 
 # MuSSE ancestral state reconstructions under the ML model
 asr_musse <- diversitree::asr.marginal(lik = lik_musse, pars = coef(fit_musse))
+asr_musse
 ```
+
+We obtain a (pivoted) table of probabilites linked to each state, from which we can select states as for the BioGeoBEARS example:
 
 ```{r, add_musse_asr_to_phylod, eval=FALSE}
-asr <- t(asr)
-colnames(asr) <- c("not_present", "nonendemic", "endemic")
-node_states <- max.col(asr, ties.method = "last")
+asr_musse <- as.data.frame(t(asr_musse))
+colnames(asr_musse) <- paste0(all_endemicity_status(), "_prob")
 
-node_endemicity <- states_to_endemicity(node_states)
+island_status <- select_endemicity_status(asr_musse, method = "max")
+island_status
+asr_musse$island_status <- island_status
+rownames(asr_musse) <- phylobase::nodeId(phylod, "internal")
 
-node_data <- data.frame(
-  island_status = node_endemicity,
-  endemic_prob = asr[, "endemic"],
-  nonendemic_prob = asr[, "nonendemic"],
-  not_present_prob = asr[, "not_present"],
-  row.names = phylobase::nodeId(phylod, "internal")
+phylod <- phylobase::addData(
+  phylod,
+  node.data = asr_musse
 )
-
-phylod <- phylobase::addData(phylod, node.data = node_data)
+plot_phylod(phylod)
 ```
 
+From this completed tree we can extract the island clade:
 
-SSE models in `diversitree` can be tuned further with constraints that simplify the model. We can use this to make the model closer to the assumptions of DAISIE. For example, it is not possible for a species to jump directly to the island and disappear from the mainland simultaneously; colonisation of the mainland from the island are assumed unlikely, and speciation on the island results in endemic lineages.
+```{r, extract_species_musse, warning=FALSE}
+island_clades <- DAISIEprep::extract_island_species(
+  phylod = phylod,
+  extraction_method = "asr"
+)
+island_clades@island_tbl$species
+island_clades@island_tbl$branching_times
+```
+
+SSE models in `diversitree` can be tuned further with constraints that
+simplify the model. We can use this to make the model closer to the
+assumptions of DAISIE. For example, it is not possible for a species to
+jump directly to the island and disappear from the mainland
+simultaneously; colonisation of the mainland from the island are assumed
+unlikely, and speciation on the island results in endemic lineages.
 
 ```{r, constrain_musse_lik, eval=FALSE}
 lik_musse_c <- constrain(lik_musse) #...
@@ -423,9 +548,25 @@ pars <- c(
 fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
 ```
 
-In fact, for modelling dispersal and evolution between mainland and island, it is probably more appropriate to use an SSE model dedicated to geographic traits.
+In fact, for modelling dispersal and evolution between mainland and
+island, it is probably more appropriate to use an SSE model dedicated to
+geographic traits.
 
 ## GeoSSE
+
+We use the previous example
+
+```{r, create_musse_lik}
+# Rm all data but tip states
+phylod@data <- phylod@data[1]
+
+# Create likelihood function
+lik_geosse <- diversitree::make.geosse(
+  tree = tree, 
+  states = states
+)
+lik_musse
+```
 
 ```{r, create_geosse_lik, eval=FALSE}
 states <- endemicity_to_states(phylod@data$endemicity_status)
@@ -433,14 +574,16 @@ names(states) <- phylod@label # requires tip labels as names
 tree <- as(phylod, "phylo")
 
 # Create likelihood function
-lik_geosse <- diversitree::make.geosse(tree = tree, states = states)
+lik_geosse <- diversitree::make.geosse(
+  tree = tree, 
+  states = states
+)
 lik_geosse
 ```
 
-
 ## corHMM
 
-```r
+``` r
 # set.seed(1985)
 # require(ape)
 # require(expm)
@@ -471,8 +614,8 @@ lik_geosse
 
 ## Concluding remarks
 
-Appropriate model choice depends on the clade and island system considered?
-GeoHiSSE?
+Appropriate model choice depends on the clade and island system
+considered? GeoHiSSE?
 
 ## Appendix
 
@@ -490,9 +633,10 @@ for (i in seq_along(endemicity_status)) {
 }
 ```
 
-The maximum parsimony ancestral state reconstruction is from the R package
-`castor`. The `castor` package only works with S3 `phylo` objects, so we need
-to convert the phylogeny back to this type and then run the analysis.
+The maximum parsimony ancestral state reconstruction is from the R
+package `castor`. The `castor` package only works with S3 `phylo`
+objects, so we need to convert the phylogeny back to this type and then
+run the analysis.
 
 ```{r calculate ancestral states, eval=FALSE}
 phylo <- as(phylo, "phylo")
@@ -501,11 +645,12 @@ asr <- castor::asr_max_parsimony(
   tip_states = tip_states,
   transition_costs = "sequential"
 )
-``` 
+```
 
-This provides us with a matrix with the probabilities of the states (island 
-presence/absence) at each node in the phylogeny. The first column of the matrix is not present on the island and the second colum of the matrix is present on 
-the island.
+This provides us with a matrix with the probabilities of the states
+(island presence/absence) at each node in the phylogeny. The first
+column of the matrix is not present on the island and the second colum
+of the matrix is present on the island.
 
 ```{r view ancestral state reconstruction likelihoods, eval=FALSE}
 if (ncol(asr$ancestral_likelihoods) == 2) {
@@ -516,20 +661,25 @@ if (ncol(asr$ancestral_likelihoods) == 2) {
 }
 asr$ancestral_likelihoods
 ```
-Once we have the matrix with the likelihood of the states we can chose the most
-probable state at each node using the `max.col()` function. Here we need to
-make a decision that will have downstream consequences for the DAISIE data 
-extracted from the tree, which is when a node has island presence and absence equally probable we need to decide whether that species should be considered on
-the island. To consider it on the island use `ties.method = "last"` in the 
-`max.col()` function, if you consider it not on the island use 
-`ties.method = "first"`. For this example we will assume that species are on the island, but for completeness it may be worth running both and then seeing if 
-there are significant downstream consequences.
+
+Once we have the matrix with the likelihood of the states we can chose
+the most probable state at each node using the `max.col()` function.
+Here we need to make a decision that will have downstream consequences
+for the DAISIE data extracted from the tree, which is when a node has
+island presence and absence equally probable we need to decide whether
+that species should be considered on the island. To consider it on the
+island use `ties.method = "last"` in the `max.col()` function, if you
+consider it not on the island use `ties.method = "first"`. For this
+example we will assume that species are on the island, but for
+completeness it may be worth running both and then seeing if there are
+significant downstream consequences.
 
 ```{r collapse node probabilities into a single state, eval=FALSE}
 node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
 ```
 
-These values can now be converted back to string to make them more readable.
+These values can now be converted back to string to make them more
+readable.
 
 ```{r, eval=FALSE}
 node_states <- gsub(
@@ -543,8 +693,8 @@ node_states <- gsub(
 )
 ```
 
-Now the ancestral states at the nodes is available we can combine it into our
-`phylod` object.
+Now the ancestral states at the nodes is available we can combine it
+into our `phylod` object.
 
 ```{r combine node data into phylod, eval=FALSE}
 node_data <- data.frame(
@@ -560,5 +710,3 @@ phylod <- phylobase::phylo4d(
   node.data = node_data
 )
 ```
-
-
