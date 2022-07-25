@@ -16,6 +16,7 @@ get_sse_tip_states <- function(phylod, sse_model = "musse") {
   check_phylo_data(phylod)
   endemicity_status <- phylobase::tipData(phylod)$endemicity_status
   tip_states <- endemicity_to_sse_states(endemicity_status, sse_model)
+  names(tip_states) <- phylobase::tipLabels(phylod)
   return(tip_states)
 }
 

@@ -468,7 +468,7 @@ states and the three endemicity status used by `DAISIEprep`, we have
 included functions to switch easily between the two:
 
 ```{r, musse_states_to_endemic}
-endemicity_status <- sse_states_to_endemicity(phylo$tip.state)
+endemicity_status <- sse_states_to_endemicity(phylo$tip.state, sse_model = "musse")
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 plot_phylod(phylod)
 ```
@@ -480,8 +480,8 @@ the internal nodes are determined with the resulting maximum-likelihood
 model.
 
 ```{r, create_musse_lik}
-states <- endemicity_to_sse_states(phylod@data$endemicity_status)
-names(states) <- phylod@label[1:phylobase::nTips(phylod)] # requires tip labels as names
+states <- get_sse_tip_states(phylod, sse_model = "musse")
+states # note that states must be named after tips
 tree <- as(phylod, "phylo")
 
 # Create likelihood function
@@ -493,7 +493,7 @@ lik_musse <- diversitree::make.musse(
 lik_musse
 ```
 
-```{r, fit_musse, eval=FALSE}
+```{r, fit_musse}
 fit_musse <- diversitree::find.mle(func = lik_musse, x.init = pars, method = "subplex")
 
 # MuSSE ancestral state reconstructions under the ML model
@@ -503,7 +503,7 @@ asr_musse
 
 We obtain a (pivoted) table of probabilites linked to each state, from which we can select states as for the BioGeoBEARS example:
 
-```{r, add_musse_asr_to_phylod, eval=FALSE}
+```{r, add_musse_asr_to_phylod}
 asr_musse <- as.data.frame(t(asr_musse))
 colnames(asr_musse) <- paste0(all_endemicity_status(), "_prob")
 
@@ -534,45 +534,57 @@ SSE models in `diversitree` can be tuned further with constraints that
 simplify the model. We can use this to make the model closer to the
 assumptions of DAISIE. For example, it is not possible for a species to
 jump directly to the island and disappear from the mainland
-simultaneously; colonisation of the mainland from the island are assumed
-unlikely, and speciation on the island results in endemic lineages.
+simultaneously; so that direct transitions from state 1 to 2 and back should be forbidden One could also assume mainland speciation to be unlikely, resulting in zero speciation on the mainland and the same speciation rate for endemic and nonendemic species: 
 
 ```{r, constrain_musse_lik, eval=FALSE}
-lik_musse_c <- constrain(lik_musse) #...
-pars <- c(
-  # lambda1 lambda2 lambda3
-  0.1, 0.2, 0.2,
+lik_musse_c <- diversitree::constrain(
+  lik_musse, 
+  q12 ~ 0, q21 ~ 0, # no island-mainland jumps
+  lambda1 ~ 0, lambda3 ~ lambda2 # no mainland speciation
+)
+
+# Parameters must be removed accordingly
+pars_c <- c(
+  # lambda2
+  0.2,
   # mu1 mu2 mu3
   0.03, 0.03, 0.03,
-  # q12 q13 q21 q23 q31 q32
-  0.01, 0, 0.02, 0.02, 0, 0.01
+  # q13 q23 q31 q32
+  0, 0.02, 0, 0.01
 )
-fit_musse <- diversitree::find.mle(func = lik, x.init = pars, method = "subplex")
+
+fit_musse_c <- diversitree::find.mle(func = lik_musse_c, x.init = pars_c, method = "subplex")
+# Won't work because of poor parameter choice vs tip states
 ```
 
-In fact, for modelling dispersal and evolution between mainland and
-island, it is probably more appropriate to use an SSE model dedicated to
-geographic traits.
+The example above won't succeed because of a mismatch between the initial parameters value and the distribution of states at the tip, but we include it for illustrating how one would implement constrains on a `diversitree` model.
+
+Instead of further constraining a multi-state model to emulate dispersal and evolution between mainland and island, one may find more appropriate to use an SSE model specifically dedicated to geographic traits, i.e., GeoSSE
 
 ## GeoSSE
 
-We use the previous example
+GeoSSE is a special case of SSE models dedicated to the case where traits correspond to presence or absence from two geographic areas, which just happens to be the case of our mainland/island clade.
+Its most important feature is that instead of considering the widespread state (mainland + island, that is nonendemic) as a third separate category from the two single-area states (as in the MuSSE example above), GeoSSE explicitly models it as corresponding to presence in both areas, just as in BioGeoBEARS.
+Accordingly, dispersal is unidirectional, from a single area towards the widespread state. Extinction from an area the widespread state returns the species to the remaining single area, while the same extinction while already in a single area results in the true extinction of the species.
 
-```{r, create_musse_lik}
+In fact, GeoSSE is the SSE implementation of the DEC model, the only difference being that GeoSSE assumes an effect of areas themselves on the rates of speciation and extinction; and thus on the branching patterns observed in the tree [goldberg_phylogenetic_2011], while DEC only maps geography along the branches of the tree.
+
+We use the same tree as the previous example:
+
+```{r, make_geosse_tree}
 # Rm all data but tip states
 phylod@data <- phylod@data[1]
-
-# Create likelihood function
-lik_geosse <- diversitree::make.geosse(
-  tree = tree, 
-  states = states
-)
-lik_musse
+plot_phylod(phylod)
 ```
 
-```{r, create_geosse_lik, eval=FALSE}
-states <- endemicity_to_sse_states(phylod@data$endemicity_status)
-names(states) <- phylod@label # requires tip labels as names
+GeoSSE in `diversitree` has a different state encoding than MuSSE: states are expected to be 0, 1, 2, with 0 corresponding to the widespread state (that is, present on both mainland and island, nonendemic) and the two other states corresponding to single geographic areas. Hereafter, we follow 1 = mainland/not_present and 2 = island/endemic.
+
+The syntax is otherwise the same as for MuSSE (and other SSE models implemented in `diversitree`).
+
+```{r, create_geosse_lik, warning=FALSE}
+states <- get_sse_tip_states(phylod, sse_model = "geosse")
+states # note the encoding differs from the MuSSE example
+
 tree <- as(phylod, "phylo")
 
 # Create likelihood function
@@ -581,6 +593,52 @@ lik_geosse <- diversitree::make.geosse(
   states = states
 )
 lik_geosse
+```
+
+```{r, fit_geosse_and_asr}
+# Initial GeoSSE parameter values
+pars <- c(
+  # Speciation: sA sB sAB
+  0.2, 0.2, 0.2,
+  # Extinction: xA xB
+  0.02, 0.02,
+  # Dispersal: dA dB
+  0.1, 0
+)
+
+# Optimisation of the model's likelihood
+fit_geosse <- diversitree::find.mle(func = lik_geosse, x.init = pars, method = "subplex")
+
+# Ancestral state reconstructions under the ML model
+asr_geosse <- diversitree::asr.marginal(lik = lik_geosse, pars = coef(fit_geosse))
+
+# Select node states from marginal probabilities
+asr_geosse <- as.data.frame(t(asr_geosse))
+colnames(asr_geosse) <- c("nonendemic_prob", "not_present_prob", "endemic_prob") # make sure to get the order right!
+island_status <- select_endemicity_status(asr_geosse, method = "max")
+
+# Add node data to the tree
+asr_geosse$island_status <- island_status
+rownames(asr_geosse) <- phylobase::nodeId(phylod, "internal")
+phylod <- phylobase::addData(
+  phylod,
+  node.data = asr_geosse
+)
+plot_phylod(phylod)
+```
+
+```{r, add_geosse_asr_to_phylod}
+
+```
+We are now ready to extract the island clade. In this case, the crown node is inferred as present on the island, such that the time of the colonisation event cannot be estimated from the tree:
+
+```{r, extract_species_geosse, warning=FALSE}
+island_clades <- DAISIEprep::extract_island_species(
+  phylod = phylod,
+  extraction_method = "asr"
+)
+island_clades@island_tbl$species
+island_clades@island_tbl$branching_times
 ```
 
 ## corHMM
