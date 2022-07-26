@@ -30,7 +30,6 @@ Imports:
     ggplot2,
     scales,
     ggtree,
-    ggimage,
     DAISIE,
     castor,
     tibble,
@@ -45,7 +44,8 @@ Suggests:
     BioGeoBEARS,
     corHMM,
     tidyr,
-    dplyr
+    dplyr,
+    ggimage
 Remotes:
     YuLab-SMU/ggtree
 VignetteBuilder: knitr

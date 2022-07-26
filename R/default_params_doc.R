@@ -122,10 +122,6 @@
 #' will extract the stem age of the genussbased on the genus name provided, the
 #' latter will extract the stem age based on the ancestral presence on the island
 #' either based on the "min" or "asr" extraction algorithms.
-#' @param constrain_to_island Boolean determining whether the stem age extracted
-#' is constrain to the species in the genus that are on the island, (i.e. stem
-#' age of the island species). If FALSE the stem age of the genus is found
-#' independent of whether its constituent species are on the island or not
 #' @param genus_in_tree A numeric vector that indicates which species in the
 #' genus are in the tree
 #' @param missing_genus A list of character vectors containing the genera in
@@ -218,7 +214,6 @@ default_params_doc <- function(island_colonist,
                                unique_clade_name,
                                genus_name,
                                stem,
-                               constrain_to_island,
                                genus_in_tree,
                                missing_genus,
                                checklist,

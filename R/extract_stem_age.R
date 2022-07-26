@@ -5,9 +5,8 @@
 #' algorithm to find the stem of when the species colonised the island
 #' (`stem = "island_presence`), either 'min' or 'asr' as in
 #' extract_island_species(). When `stem = "island_presence"`
-#' the constrain_to_island is ignored and the reconstructed node states are used
-#' to determine the stem age and not the stem age of the genus or stem age of
-#' island species within a genus (i.e. constrain_to_island = TRUE).
+#' the reconstructed node states are used
+#' to determine the stem age.
 #'
 #' @inheritParams default_params_doc
 #'
@@ -39,9 +38,7 @@
 #'   extraction_method = "min"
 #' )
 #' # here we use the extraction_method = "asr" which requires ancestral node
-#' # states in the tree. When "asr" is used the constrain_to_island argument
-#' # becomes redundant and is ignored, setting constrain_to_island to TRUE or
-#' # FALSE will not change the stem age extracted
+#' # states in the tree.
 #' phylod <- add_asr_node_states(
 #'   phylod = phylod,
 #'   asr_method = "parsimony",
@@ -59,23 +56,11 @@
 #'   genus_name = "parrot",
 #'   phylod = phylod,
 #'   stem = "genus",
-#'   constrain_to_island = FALSE,
-#'   extraction_method = NULL
-#' )
-#' # we can optionally set constrain_to_island = TRUE which will extract the stem
-#' # age of the species in that genus that are on the island, in this case the
-#' # stem age is the same
-#' extract_stem_age(
-#'   genus_name = "parrot",
-#'   phylod = phylod,
-#'   stem = "genus",
-#'   constrain_to_island = TRUE,
 #'   extraction_method = NULL
 #' )
 extract_stem_age <- function(genus_name,
                              phylod,
                              stem,
-                             constrain_to_island = FALSE,
                              extraction_method = NULL) {
 
   # get genus name from tip labels in tree
@@ -94,8 +79,7 @@ extract_stem_age <- function(genus_name,
   if (stem == "genus") {
     col_time <- extract_stem_age_genus(
       genus_in_tree = genus_in_tree,
-      phylod = phylod,
-      constrain_to_island = constrain_to_island
+      phylod = phylod
     )
   } else if (stem == "island_presence") {
 
