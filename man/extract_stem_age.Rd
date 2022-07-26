@@ -9,17 +9,10 @@ genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
 algorithm to find the stem of when the species colonised the island
 (`stem = "island_presence`), either 'min' or 'asr' as in
 extract_island_species(). When `stem = "island_presence"`
-the constrain_to_island is ignored and the reconstructed node states are used
-to determine the stem age and not the stem age of the genus or stem age of
-island species within a genus (i.e. constrain_to_island = TRUE).}
+the reconstructed node states are used
+to determine the stem age.}
 \usage{
-extract_stem_age(
-  genus_name,
-  phylod,
-  stem,
-  constrain_to_island = FALSE,
-  extraction_method = NULL
-)
+extract_stem_age(genus_name, phylod, stem, extraction_method = NULL)
 }
 \arguments{
 \item{genus_name}{Character string of genus name to be matched with a genus name from
@@ -32,11 +25,6 @@ phylogenetic and endemicity data for each species.}
 will extract the stem age of the genussbased on the genus name provided, the
 latter will extract the stem age based on the ancestral presence on the island
 either based on the "min" or "asr" extraction algorithms.}
-
-\item{constrain_to_island}{Boolean determining whether the stem age extracted
-is constrain to the species in the genus that are on the island, (i.e. stem
-age of the island species). If FALSE the stem age of the genus is found
-independent of whether its constituent species are on the island or not}
 
 \item{extraction_method}{A character string specifying whether the
 colonisation time extracted is the minimum time (`min`) (before the present),
@@ -53,9 +41,8 @@ genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
 algorithm to find the stem of when the species colonised the island
 (`stem = "island_presence`), either 'min' or 'asr' as in
 extract_island_species(). When `stem = "island_presence"`
-the constrain_to_island is ignored and the reconstructed node states are used
-to determine the stem age and not the stem age of the genus or stem age of
-island species within a genus (i.e. constrain_to_island = TRUE).
+the reconstructed node states are used
+to determine the stem age.
 }
 \examples{
 # In this example the parrot clade is the genus of interest only the parrots
@@ -82,9 +69,7 @@ extract_stem_age(
   extraction_method = "min"
 )
 # here we use the extraction_method = "asr" which requires ancestral node
-# states in the tree. When "asr" is used the constrain_to_island argument
-# becomes redundant and is ignored, setting constrain_to_island to TRUE or
-# FALSE will not change the stem age extracted
+# states in the tree.
 phylod <- add_asr_node_states(
   phylod = phylod,
   asr_method = "parsimony",
@@ -102,17 +87,6 @@ extract_stem_age(
   genus_name = "parrot",
   phylod = phylod,
   stem = "genus",
-  constrain_to_island = FALSE,
-  extraction_method = NULL
-)
-# we can optionally set constrain_to_island = TRUE which will extract the stem
-# age of the species in that genus that are on the island, in this case the
-# stem age is the same
-extract_stem_age(
-  genus_name = "parrot",
-  phylod = phylod,
-  stem = "genus",
-  constrain_to_island = TRUE,
   extraction_method = NULL
 )
 }
