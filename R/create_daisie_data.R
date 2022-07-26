@@ -33,7 +33,7 @@ create_daisie_data <- function(data,
                                verbose = FALSE,
                                precise_col_time = TRUE) {
 
-  if (class(data) == "Island_tbl") {
+  if (inherits(data, "Island_tbl")) {
     daisie_datatable <- as_daisie_datatable(
       island_tbl = data,
       island_age = island_age,

@@ -11,12 +11,12 @@
 add_outgroup <- function(phylo) {
 
   # check the phylo input
-  correct_class <- class(phylo) %in% c("phylo", "phylo4")
+  correct_class <- inherits(phylo, c("phylo", "phylo4"))
   if (isFALSE(correct_class)) {
     stop("The phylo object should be a 'phylo' or 'phylo4' object")
   }
 
-  if (class(phylo) == "phylo4") {
+  if (inherits(phylo, "phylo4")) {
     # require S3 phylo objects
     # suppress warnings about tree conversion as they are fine
     phylo <- suppressWarnings(methods::as(phylo, "phylo"))
