@@ -132,10 +132,10 @@ phylod_parsimony <- add_asr_node_states(
   asr_method = "parsimony")
 
 # reconstruction using Mk model
-phylod_parsimony <- add_asr_node_states(
-  phylod = phylod, 
-  asr_method = "parsimony"
-)
+# phylod_parsimony <- add_asr_node_states(
+#   phylod = phylod, 
+#   asr_method = "Mk"
+# )
 ```
 
 For details on the internal workings of the `add_asr_node_states()`
@@ -177,7 +177,8 @@ but can better account for rate heterogeneity by introducing hidden
 states into the model. Each model can be argued for or against; with the
 choice influenced by the taxonomic group being studied.
 
-## Example data
+## DEC+J
+
 
 We consider the following randomly generated phylogeny and tip data:
 
@@ -209,8 +210,6 @@ phylod@data$endemicity_status[17] <- "not_present"
 plot_phylod(phylod)
 ```
 
-## DEC+J
-
 As a first example, we consider the popular DEC
 (Dispersal-Extinction-Cladogenesis) model [@ree_maximum_2008] with
 founder-event speciation (DEC+J, @matzke_probabilistic_2013),
@@ -226,7 +225,7 @@ parameters for optimisation.
 
 ```{r}
 # Default structure of the BioGeoBEARS object
-bgb_run <- define_BioGeoBEARS_run()
+bgb_run <- BioGeoBEARS::define_BioGeoBEARS_run()
 bgb_run
 ```
 
@@ -343,7 +342,6 @@ supermodel and parameters:
 
 ```{r}
 knitr::include_graphics("http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_supermodel.png")
-# do we need to ask for authorisation to reproduce this figure?
 ```
 
 Note that by default, all parameters but *d* and *e* are turned off
@@ -363,7 +361,7 @@ Some further controls:
 
 ```{r, other_biogeobears_controls}
 bgb_run$num_cores_to_use <- 1 # no default value on this one
-bgb_run$print_optim <- FALSE # for the sake onf the vignette
+bgb_run$print_optim <- FALSE # for the sake of the vignette
 ```
 
 Once everything is set up, it's a good idea to check that the input
@@ -711,11 +709,9 @@ phylod <- phylobase::addData(
 plot_phylod(phylod)
 ```
 
-We are now ready to extract the island clade. In this case, the crown
-node is inferred as present on the island, such that the time of the
-colonisation event cannot be estimated from the tree:
+We are now ready to extract the island clade. 
 
-```{r, extract_species_geosse, warning=FALSE}
+```{r, extract_species_geosse}
 island_clades <- DAISIEprep::extract_island_species(
   phylod = phylod,
   extraction_method = "asr"
@@ -723,44 +719,25 @@ island_clades <- DAISIEprep::extract_island_species(
 island_clades@island_tbl$species
 island_clades@island_tbl$branching_times
 ```
+In the case of this example, the crown node is inferred as present on the island (nonendemic), such that the time of the initial colonisation event cannot be estimated from the tree. Branching times are collected, but when passing this data to DAISIE, colonisation time will by default be set to `-Inf`, that is the age of the island.
 
 ## corHMM
 
-``` r
-# set.seed(1985)
-# require(ape)
-# require(expm)
-# require(corHMM)
-# data(primates)
-# phy <- primates[[1]]
-# phy <- multi2di(phy)
-# data <- primates[[2]]
-# plot(phy, show.tip.label = FALSE)
-# data.sort <- data.frame(data[, 2], data[, 3], row.names = data[, 1])
-# data.sort <- data.sort[phy$tip.label, ]
-# tiplabels(pch = 16, col = data.sort[, 1] + 1, cex = 0.5)
-# tiplabels(pch = 16, col = data.sort[, 2] + 3, cex = 0.5, offset = 0.5)
-# MK_3state <- corHMM(phy = phy, data = data, rate.cat = 1)
-# phy = MK_3state$phy
-# data = MK_3state$data
-# model = MK_3state$solution
-# model[is.na(model)] <- 0
-# diag(model) <- -rowSums(model)
-# # run get simmap (can be plotted using phytools)
-# simmap <- makeSimmap(tree = phy, data = data, model = model, rate.cat = 1, nSim = 1,
-#                      nCores = 1)
-# # we import phytools plotSimmap for plotting
-# phytools::plotSimmap(simmap[[1]], fsize = 0.5)
-
-##
-```
+This example is currently a work-in-progress, and will added to the vignette soon.
 
 ## Concluding remarks
 
-Appropriate model choice depends on the clade and island system
-considered? GeoHiSSE?
+Extracting an island dataset from a larger phylogeny may in case require estimation of the history of colonisation of the island within the internal nodes of the phylogeny. 
+We have shown how to do so above using examples from three R packages commonly used for ancestral state reconstruction. 
+The choice of the most appropriate model to use for ancestral state reconstruction is a difficult question, and an integral part of the scientific exercise. 
+This is likely to depend entirely on both the taxa and island system at hand, and thus we believe the user is best placed to make an informed decision. 
+It is entirely possible to use multiple models to assess the sensibility of island data extraction to some processes, for example the possibility of jump dispersal (DEC+J) or feedbacks between speciation and island status (GeoSSE). 
+Similarly, one may find the `method = "random"` option of `select_endemicity_status()` of use to study the uncertainty of reconstructions within the output of a single model.
+Through these examples, we hope to have introduced an accessible framework, that can be modified with ease to fit the specific needs of the analysis at hand.
 
 ## Appendix
+
+Below, we show the data manipulation underlying ASR with maximum parsimony, as done inside `add_asr_node_states()`.
 
 ```{r, create island presence tip states, eval=FALSE}
 tip_states <- c()
