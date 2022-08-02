@@ -9,6 +9,17 @@
 #' @export
 #'
 #' @examples
+#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 6)
+#' island_tbl <- suppressWarnings(extract_island_species(
+#'  phylod = phylod,
+#'  extraction_method = "asr",
+#' ))
+#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 7)
+#' island_tbl <- suppressWarnings(extract_island_species(
+#'  phylod = phylod,
+#'  extraction_method = "asr",
+#'  island_tbl = island_tbl
+#' ))
 #' missing_species <- data.frame(
 #'   clade_name = "bird",
 #'   missing_species = 1,
@@ -20,7 +31,8 @@
 #'   missing_genus = missing_genus
 #' )
 rm_multi_missing_species <- function(missing_species,
-                                     missing_genus) {
+                                     missing_genus,
+                                     island_tbl) {
 
   for (i in seq_along(missing_genus)) {
     which_species <- which(
@@ -31,8 +43,20 @@ rm_multi_missing_species <- function(missing_species,
     # species to island_tbl
     if (length(which_species) > 0) {
 
-      # delete rows from missing_species
-      missing_species <- missing_species[-which_species, ]
+      # check if the species being added and the species being added to are
+      # endemic, if not do not add missing species
+      if (island_tbl@island_tbl$status[i] == "endemic" &&
+          any(missing_species$endemicity_status[which_species] == "endemic")) {
+
+        # sum up number of missing species if there are multiple genera in
+        # a clade
+        which_endemic <- which(
+          missing_species$endemicity_status[which_species] == "endemic"
+        )
+
+        # delete rows from missing_species
+        missing_species <- missing_species[-which_endemic, ]
+      }
     }
   }
 

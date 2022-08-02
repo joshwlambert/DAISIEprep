@@ -50,14 +50,25 @@ add_multi_missing_species <- function(missing_species,
     if (length(which_species) > 0) {
       phylo_missing_species <- missing_species[which_species, ]
 
-      # check if the species is endemic, if not do not add missing species
-      if (island_tbl@island_tbl$status[i] == "endemic") {
+      # check if the species being added and the species being added to are
+      # endemic, if not do not add missing species
+      if (island_tbl@island_tbl$status[i] == "endemic" &&
+          any(missing_species$endemicity_status[which_species] == "endemic")) {
+
+        # sum up number of missing species if there are multiple genera in
+        # a clade
+        which_endemic <- which(
+          missing_species$endemicity_status[which_species] == "endemic"
+        )
+        num_missing_species <- sum(
+          phylo_missing_species$missing_species[which_endemic]
+        )
+
         # add the number of missing species to the island tbl for those that
-        # have been extracted already, sum up number of missing species if
-        # there are multiple genera in a clade
+        # have been extracted already
         island_tbl <- add_missing_species(
           island_tbl = island_tbl,
-          num_missing_species = sum(phylo_missing_species$missing_species),
+          num_missing_species = num_missing_species,
           species_name = island_tbl@island_tbl$clade_name[i]
         )
       }
