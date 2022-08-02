@@ -28,7 +28,8 @@
 #' missing_genus <- list("bird", character(0))
 #' rm_missing_species <- rm_multi_missing_species(
 #'   missing_species = missing_species,
-#'   missing_genus = missing_genus
+#'   missing_genus = missing_genus,
+#'   island_tbl = island_tbl
 #' )
 rm_multi_missing_species <- function(missing_species,
                                      missing_genus,
