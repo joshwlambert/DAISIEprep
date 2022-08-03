@@ -132,10 +132,10 @@ phylod_parsimony <- add_asr_node_states(
   asr_method = "parsimony")
 
 # reconstruction using Mk model
-# phylod_parsimony <- add_asr_node_states(
-#   phylod = phylod, 
-#   asr_method = "Mk"
-# )
+phylod_parsimony <- add_asr_node_states(
+  phylod = phylod, 
+  asr_method = "Mk"
+)
 ```
 
 For details on the internal workings of the `add_asr_node_states()`
