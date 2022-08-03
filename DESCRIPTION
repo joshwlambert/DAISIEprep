@@ -1,19 +1,25 @@
 Package: DAISIEprep
 Type: Package
 Title: Extracts phylogenetic island community data from phylogenetic trees
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
            email = "j.w.l.lambert@rug.nl",
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5218-3046")),
+    person(given = "Theo",
+           family = "Pannetier",
+           email = "t.s.c.pannetier@rug.nl",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0002-8424-3573")),
     person(given = "Pedro",
            family = "Neves",
            role = c("ctb"),
            email = "p.m.santos.neves@rug.nl",
-           comment = c(ORCID = "0000-0003-2561-4677")))
-Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl>
+           comment = c(ORCID = "0000-0003-2561-4677"))
+           )
+Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl> 
 Description: DAISIEprep extract colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
@@ -41,6 +47,8 @@ Suggests:
     covr,
     microbenchmark,
     diversitree,
+    BioGeoBEARS,
+    corHMM,
     tidyr,
     dplyr,
     ggimage
@@ -67,6 +75,7 @@ Collate:
     'create_endemicity_status.R'
     'create_test_phylod.R'
     'default_params_doc.R'
+    'endemicity_to_sse_states.R'
     'extract_asr_clade.R'
     'extract_clade_name.R'
     'extract_endemic_clade.R'
@@ -105,4 +114,5 @@ Collate:
     'translate_status.R'
     'unique_island_genera.R'
     'utils.R'
+    'write_biogeobears_input.R'
 URL: https://joshwlambert.github.io/DAISIEprep

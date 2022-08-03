@@ -45,6 +45,7 @@ plot_phylod <- function(phylod,
     ggtree::geom_tiplab(as_ylab = TRUE))
 
   # suppress Scale for 'x' is already present.
+  attr(p$data, "revts.done") <- FALSE # attribute required by ggtree::revts
   p <- suppressMessages(ggtree::revts(treeview = p) +
     ggplot2::scale_x_continuous(labels = abs) +
     ggplot2::xlab("Time (Million years ago)"))

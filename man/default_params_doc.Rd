@@ -68,7 +68,8 @@ default_params_doc(
   prob_endemic,
   replicates,
   log_scale,
-  parameter_index
+  parameter_index,
+  sse_model
 )
 }
 \arguments{
@@ -291,6 +292,12 @@ are on a linear (FALSE) or log (TRUE) scale}
 \item{parameter_index}{Numeric determining which parameter set to use (i.e
 which row in the parameter space data frame), if this is NULL all parameter
 sets will be looped over}
+
+\item{sse_model}{either "musse" (default) or "geosse". MuSSE expects state
+values 1, 2, 3, which here we encode as "not_present", "endemic",
+"nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
+widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
+"endemic", respectively.}
 }
 \value{
 Nothing
