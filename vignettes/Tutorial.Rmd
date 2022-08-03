@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## In this tutorial, the main features of `DAISIEprep` are explained. The objective is to identify island colonisation events from a time-calibrated phylogenetic tree, assign an island endemicity status (endemic, non-endemic, not present) to each of them, and then extract times of colonisation of the island and diversification within the island.
+## In this tutorial, the main features of `DAISIEprep` are explained. The objective is to identify island colonisation events from time-calibrated phylogenetic trees, assign an island endemicity status (endemic, non-endemic, not present) to each of them, and then extract times of colonisation of the island and diversification within the island.
 
 ### The tutorial is divided into 3 sections:
 1. **Single phylogeny example** - Using a simulated phylogeny including island 
@@ -31,6 +31,7 @@ knitr::opts_chunk$set(
   fig.width = 7
 )
 ```
+
 
 ```{r setup}
 library(DAISIEprep)
@@ -139,8 +140,8 @@ island_tbl
 The function `extract_island_species()` is the main function in `DAISIEprep` to 
 extract data from the phylogeny. In the example above, we used the "min" extraction
 algorithm. The "min" algorithm extracts island community data with the assumptions
-of the DAISIE model (i.e. no back-colonisation from the island to the mainland), although
-the "asr" algorithm is recommended when back-colonisation events are present in the data. 
+of the DAISIE model (i.e. no back-colonisation from the island to the mainland), but we recommend using
+the "asr" algorithm when back-colonisation events are present in the data (for example, one species within a large endemic island radiation colonised another island or mainland). 
 Each row in the `island_tbl` corresponds to a separate colonisation of the island. **In this case, two colonist lineages were identified using the 'min' extraction algorithm, one endemic and another non-endemic.**
 
 
@@ -196,24 +197,27 @@ as can be seen by the fact that the `island_tbl` only has one row.
 
 \
 
-Now that we have the `island_tbl` we can convert this to the DAISIE data table,
-and more importantly, to the DAISIE data list to be used by the DAISIE inference
+Now that we have the `island_tbl` we can convert this to the DAISIE data list to be used by the DAISIE inference
 model. 
 
 To convert to the DAISIE data list ( i.e. the input data of the DAISIE inference 
-model) we use `create_daisie_data()`, providing the `island_tbl` as well as the 
-age of the island, here we use an island age
-of one million years (`island_age = 1`), and whether the colonisation times 
+model) we use `create_daisie_data()`, providing the `island_tbl` as input. We also need to specify:
+
+
+- The age of the island or archipelago. Here we use an island age
+of one million years (`island_age = 1`).
+- Whether the colonisation times 
 extracted from the phylogenetic data should be considered precise 
 (`precise_col_time = TRUE`). We will not discuss the details of this here, but
 briefly by setting this to `TRUE` the data will tell the DAISIE model that the 
-colonisation time is known without error. Setting `precise_col_time = FALSE`
-will change the data to tell the DAISIE model that the colonisation time is 
+colonisation times are known without error. Setting `precise_col_time = FALSE`
+will change tell the DAISIE model that the colonisation time is 
 uncertain and should interpret this as the upper limit to the time of 
 colonisation and integrate over the uncertainty between this point and either 
 the present time or to the first branching point (either speciation or 
-divergence into subspecies). This function also requires the number of 
-species in the mainland pool, here we set the number of mainland species to 100
+divergence into subspecies). 
+- The number of 
+species in the mainland source pool. Here we set it to 100
 (`num_mainland_species = 100`). This will be used to calculate the number of 
 species that could have potentially colonised the island but have not. When we
 refer to the mainland pool, this does not necessarily have to be a continent,
@@ -255,7 +259,7 @@ the branching times vector contains no branching times: when there are only two
 numbers in the vector these are the island age followed by the colonisation time. Then 
 there is the stac, which stands for status of colonist. This is a number which
 tells the DAISIE model how to identify the endemicity and colonisation uncertainty
-of the island colonist ([these are explained here if you are interested.](https://cran.r-project.org/web/packages/DAISIE/vignettes/stac_key.html)).
+of the island colonist ([these are explained here if you are interested](https://cran.r-project.org/web/packages/DAISIE/vignettes/stac_key.html)).
 Lastly, the type1or2 defines which macroevolutionary
 regime an island colonist is in. By macroevolutionary regime we mean the set of
 rates of colonisation, speciation and extinction for that colonist. Most 
@@ -359,8 +363,7 @@ island_species <- data.frame(
 ```
 
 In order to not have to specify the endemicity status for all species in the 
-phylogeny and instead focus only the island species, which are usually the focus of
-the research, we can easily assign the endemicity status for the rest of the
+phylogeny and instead focus only the island species, we can easily assign the endemicity status for the rest of the
 species in the tree. Using the `island_species` data frame produced above,
 which specifies the island endemicity status of only the species that are found on the island,
 we can generate the rest of the endemicity statuses for those species that are in the phylogeny
@@ -388,6 +391,8 @@ We can visualize the endemicity status of these species on the tree.
 plot_phylod(phylod = phylod)
 ```
 
+\
+
 We are now ready to extract the relevant data from the phylogeny, to produce the
 `island_tbl` for the *Coccyzus* tree. For this step we use the "asr" method to
 extract the data which requires inferring the ancestral geography of each species.
@@ -398,11 +403,23 @@ phylod <- add_asr_node_states(
   asr_method = "parsimony", 
   tie_preference = "mainland"
 )
+```
+
+Plot the phylogeny with the node states:
+```{r plot phylogeny with tip and node data Coccyzus}
+plot_phylod(phylod = phylod)
+```
+
+\
+
+Extract the data from the phylogeny:
+```{r extract Coccyzus}
 island_tbl <- extract_island_species(
   phylod = phylod, 
   extraction_method = "asr"
 )
 ```
+
 
 ```{r}
 island_tbl
@@ -454,8 +471,7 @@ algorithm.
 ```{r extract first Galapagos clade}
 island_tbl <- extract_island_species(
   phylod = coccyzus_phylod,
-  extraction_method = "asr",
-  island_tbl = NULL
+  extraction_method = "asr"
 )
 ```
 
@@ -477,6 +493,20 @@ for (phylod in galapagos_phylod) {
 }
 ```
 
+This will return a warning message for the Darwins finches as the root state of
+the finches phylogeny is non-endemic to the island, as there is only a single
+mainland outgroup in the phylogeny. This means that the colonisation time will
+be extracted as infinite and then when the island_tbl is converted into a DAISIE
+data list this will become a colonist that could have colonised anywhere from 
+the island origin to the present. For this example this colonisation time is 
+not a problem, however, for empirical analyses it is recommended to have many
+more mainland outgroup species in the tree to ensure the ancestral state 
+reconstructions can accurately detect the stem age of the island clade. 
+
+```{r plot Darwins finches}
+plot_phylod(finches_phylod)
+```
+
 ```{r inspect final island table}
 island_tbl
 ```
@@ -491,7 +521,7 @@ to process different data it may be worth toggling the `precise_col_time` to
 `FALSE` to check whether assuming uncertainty in colonisation times influences
 conclusions. 
 
-```{r} 
+```{r create Galapagos data list} 
 data_list <- create_daisie_data(
   data = island_tbl, 
   island_age = 4, 
@@ -522,6 +552,7 @@ Galápagos birds produced in the last section. I
 
 ### 3.1 Adding missing species to an island clade that has been sampled in the phylogeny
 
+This option is for cases in which a clade has been sampled in the phylogeny, and at least 1 colonisation or 1 branching time is available, but 1 or more species were not sampled.
 For this example, we imagine that 2 species of Galápagos finch have not been 
 sampled, and that we want to add them as missing species to the Galápagos 
 finch clade that is sampled in the phylogeny.
@@ -555,7 +586,7 @@ to produce data accepted by the DAISIE model.
 
 The next option for adding missing species is when a phylogeny is not available
 to conduct the extraction using `extract_island_species()` but the stem age of 
-the island colonist is known from the literature. For illustrative purposes
+the island colonist is known from the literature. In this case, we need to input all the information on the lineage manually ourselves. For illustrative purposes
 we use an imaginary Galápagos bird lineage with 1 species, which is not in our 
 data set, and fabricate the time of colonisation. 
 
@@ -565,12 +596,10 @@ The input needed are:
   * `clade_name` a name to represent the clade, can either be a specific species
   from the clade or a genus name, or another name that represent those species
   * `status` either "endemic" or "nonendemic"
-  * `missing_species` how many species are missing phylogenetic data from this 
-  colonist. **In the case of a lineage with just 1 species (i.e. not an island radiation) 
-  the number of missing species is zero as by adding the colonist it counts as
-  one automatically. However, in the case of an island clade of at least one 
-  species sampled in the phylogeny the correct number of species missing from 
-  the clade should be given.** 
+  * `missing_species` **In the case of a lineage with just 1 species (i.e. not an island radiation) 
+  the number of missing species is zero, as by adding the colonist it already counts as
+  one automatically. In the case of an island clade of more than one 
+  species, the number of missing species in this case should be `n-1`.** 
   * `col_time` the time of colonisation in million years before the present
   * `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is 
   precise or should be considered a maximum upper bound on the time of 
@@ -580,7 +609,7 @@ The input needed are:
   * `min_age` is the minimum lower bound time of colonisation, if to be used when
   the colonisation time is assumed to be an upper bound.
   * `species` a vector of species names contained within colonist
-  * `clade_type` a number represent which set of rates the colonist is assumed
+  * `clade_type` a number representing which set of rates the colonist is assumed
   to be under, default is 1, as number greater than one assume this clade is 
   exceptionally different in its colonisation and diversification dynamics
 
@@ -612,6 +641,11 @@ inference model it will be assumed it colonised the island any time between the
 island's formation (in the case of the Galápagos four million years ago) and the 
 present.
 
+ * `missing_species` **In the case of a lineage with just 1 species (i.e. not an island radiation) 
+  the number of missing species is zero, as by adding the colonist it already counts as
+  one automatically. In the case of an island clade of more than one 
+  species, the number of missing species in this case should be `n-1`.** 
+
 ```{r}
 island_tbl<-add_island_colonist(
   island_tbl = island_tbl, 
@@ -628,7 +662,7 @@ island_tbl<-add_island_colonist(
 ```
 
 With the new missing species added to the `island_tbl` we can repeat the
-conversion steps above using `as_daisie_datatable()` and `create_daisie_data()`
+conversion steps above using `create_daisie_data()`
 to produce data accepted by the DAISIE model.
 
 ### 3.4 Adding a lineage when a phylogeny is not available for the entire island lineage, but a crown age or minimum colonisation time estimate exists
@@ -661,4 +695,11 @@ With the new missing species added to the `island_tbl` we can repeat the
 conversion steps above using `create_daisie_data()`
 to produce data accepted by the DAISIE model.
 
-
+```{r} 
+data_list <- create_daisie_data(
+  data = island_tbl, 
+  island_age = 4, 
+  num_mainland_species = 100,
+  precise_col_time = TRUE
+)
+```
