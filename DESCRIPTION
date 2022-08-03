@@ -27,7 +27,7 @@ Description: DAISIEprep extract colonisation and branching times of island
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Depends: R (>= 4.0)
 Imports:
     methods,
@@ -109,6 +109,7 @@ Collate:
     'print-methods.R'
     'read_performance.R'
     'read_sensitivity.R'
+    'rm_island_colonist.R'
     'rm_multi_missing_species.R'
     'sensitivity.R'
     'translate_status.R'
