@@ -413,7 +413,7 @@ plot_phylod(phylod = phylod)
 \
 
 Extract the data from the phylogeny:
-```{r plot asr Coccyzus}
+```{r extract Coccyzus}
 island_tbl <- extract_island_species(
   phylod = phylod, 
   extraction_method = "asr"
@@ -468,20 +468,16 @@ for all tips. We are now ready to extract the
 island data from these trees using `extract_island_species()`, using the "asr"
 algorithm. 
 
-# Why is island_tbl = NULL here?
 ```{r extract first Galapagos clade}
 island_tbl <- extract_island_species(
   phylod = coccyzus_phylod,
-  extraction_method = "asr",
-  island_tbl = NULL
+  extraction_method = "asr"
 )
 ```
 
 We can now loop through the rest of the Galapagos phylogenies and add them to the 
 island data.
 
-
-# This is giving a warning message for the Darwins finches: 
 ```{r extract the other Galapagos clades}
 galapagos_phylod <- list(
   coccyzus_phylod, columbiformes_phylod, finches_phylod, mimus_phylod,
@@ -495,6 +491,20 @@ for (phylod in galapagos_phylod) {
     island_tbl = island_tbl
   )
 }
+```
+
+This will return a warning message for the Darwins finches as the root state of
+the finches phylogeny is non-endemic to the island, as there is only a single
+mainland outgroup in the phylogeny. This means that the colonisation time will
+be extracted as infinite and then when the island_tbl is converted into a DAISIE
+data list this will become a colonist that could have colonised anywhere from 
+the island origin to the present. For this example this colonisation time is 
+not a problem, however, for empirical analyses it is recommended to have many
+more mainland outgroup species in the tree to ensure the ancestral state 
+reconstructions can accurately detect the stem age of the island clade. 
+
+```{r plot Darwins finches}
+plot_phylod(finches_phylod)
 ```
 
 ```{r inspect final island table}
@@ -511,8 +521,7 @@ to process different data it may be worth toggling the `precise_col_time` to
 `FALSE` to check whether assuming uncertainty in colonisation times influences
 conclusions. 
 
-# There is something wrong with this datalist
-```{r} 
+```{r create Galapagos data list} 
 data_list <- create_daisie_data(
   data = island_tbl, 
   island_age = 4, 
@@ -666,7 +675,6 @@ it colonised the island any time between the
 island's formation (in the case of the Galápagos four million years ago) and the 
 crown or minimum age. In the example below we assume a crown age of 2 million years.
 
-# This works well, creating a stac 9, but I'm not sure if this is allowed in the ML, because there is no colonisation time
 ```{r}
 island_tbl <- add_island_colonist(
   island_tbl = island_tbl, 
@@ -695,5 +703,3 @@ data_list <- create_daisie_data(
   precise_col_time = TRUE
 )
 ```
-
-
