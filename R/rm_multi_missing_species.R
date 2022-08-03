@@ -49,14 +49,16 @@ rm_multi_missing_species <- function(missing_species,
       if (island_tbl@island_tbl$status[i] == "endemic" &&
           any(missing_species$endemicity_status[which_species] == "endemic")) {
 
-        # sum up number of missing species if there are multiple genera in
-        # a clade
+        # check which species in the missing species are endemic
         which_endemic <- which(
           missing_species$endemicity_status[which_species] == "endemic"
         )
 
+        # subset the missing species to only those that are endemic
+        which_species <- which_species[which_endemic]
+
         # delete rows from missing_species
-        missing_species <- missing_species[-which_endemic, ]
+        missing_species <- missing_species[-which_species, ]
       }
     }
   }
