@@ -63,9 +63,8 @@
 #' island clade. Default is FALSE.
 #' @param num_missing_species Numeric for the number of missing species in the
 #' clade.
-#' @param species_name Character string with the name of the species to identify
-#' which clade to assign missing species to.
-#' extracted from the phylogeny and
+#' @param species_to_add_to Character string with the name of the species to
+#' identify which clade to assign missing species to.
 #' @param node_pies Boolean determining if pie charts of the probabilities of
 #' a species being present on the island. If TRUE the correct data is required
 #' in the phylod object.
@@ -191,7 +190,7 @@ default_params_doc <- function(island_colonist,
                                earliest_col,
                                include_not_present,
                                num_missing_species,
-                               species_name,
+                               species_to_add_to,
                                node_pies,
                                test_scenario,
                                data,

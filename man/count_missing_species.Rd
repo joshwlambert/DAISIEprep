@@ -9,6 +9,7 @@ missing from the phylogeny each genus}
 count_missing_species(
   checklist,
   phylo_name_col,
+  genus_name_col,
   in_phylo_col,
   endemicity_status_col,
   rm_species_col = NULL

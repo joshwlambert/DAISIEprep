@@ -26,6 +26,7 @@
 #' )
 count_missing_species <- function(checklist,
                                   phylo_name_col,
+                                  genus_name_col,
                                   in_phylo_col,
                                   endemicity_status_col,
                                   rm_species_col = NULL) {
@@ -56,7 +57,23 @@ count_missing_species <- function(checklist,
   # get the genus name from the tree complete tree if sampled
   phylo_genus <- checklist[not_in_tree, phylo_name_col]
   phylo_genus <- strsplit(x = phylo_genus, split = "_")
-  missing_genus <- sapply(phylo_genus, "[[", 1)
+  phylo_genus <- sapply(phylo_genus, "[[", 1)
+
+  # get the genus name from the checklist
+  missing_genus <- checklist[not_in_tree, genus_name_col]
+
+  # if genus name in checklist and the tree differ use the name from tree
+  genus_name <- data.frame(phylo = phylo_genus, genus = missing_genus)
+  match_index <- c()
+  for (i in seq_len(nrow(genus_name))) {
+    if (!is.na(genus_name$phylo[i])) {
+      if (!genus_name$phylo[i] == genus_name$genus[i]) {
+        match_index[i] <- i
+      }
+    }
+  }
+  match_index <- na.omit(match_index)
+  missing_genus[match_index] <- phylo_genus[match_index]
 
   # get the endemicity status for each species
   endemicity_status <- checklist[not_in_tree, endemicity_status_col]

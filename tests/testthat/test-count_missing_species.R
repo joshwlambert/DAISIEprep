@@ -1,5 +1,8 @@
 test_that("count_missing_species works", {
   mock_checklist <- data.frame(
+    genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+              "bird", "bird", "bird"),
+    species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
     species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                       "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
     sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -12,6 +15,7 @@ test_that("count_missing_species works", {
   missing_species <- count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = NULL
@@ -30,6 +34,9 @@ test_that("count_missing_species works", {
 
 test_that("count_missing_species works with removing endemic species", {
   mock_checklist <- data.frame(
+    genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+              "bird", "bird", "bird"),
+    species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
     species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                       "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
     sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -42,6 +49,7 @@ test_that("count_missing_species works with removing endemic species", {
   missing_species <- count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = "remove_species"
@@ -60,6 +68,9 @@ test_that("count_missing_species works with removing endemic species", {
 
 test_that("count_missing_species works with removing nonendemic species", {
   mock_checklist <- data.frame(
+    genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+              "bird", "bird", "bird"),
+    species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
     species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                       "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
     sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -72,6 +83,7 @@ test_that("count_missing_species works with removing nonendemic species", {
   missing_species <- count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = "remove_species"
@@ -90,6 +102,9 @@ test_that("count_missing_species works with removing nonendemic species", {
 
 test_that("count_missing_species fails correctly", {
   mock_checklist <- data.frame(
+    genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+              "bird", "bird", "bird"),
+    species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
     species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                       "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
     sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -102,6 +117,7 @@ test_that("count_missing_species fails correctly", {
   expect_error(count_missing_species(
     checklist = list(),
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = "remove_species"
@@ -110,6 +126,16 @@ test_that("count_missing_species fails correctly", {
   expect_error(count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = c(),
+    genus_name_col = "genus",
+    in_phylo_col = "sampled",
+    endemicity_status_col = "endemicity_status",
+    rm_species_col = "remove_species"
+  ))
+
+  expect_error(count_missing_species(
+    checklist = mock_checklist,
+    phylo_name_col = "species_name",
+    genus_name_col = c(),
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = "remove_species"
@@ -118,6 +144,7 @@ test_that("count_missing_species fails correctly", {
   expect_error(count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = c(),
     endemicity_status_col = "endemicity_status",
     rm_species_col = "remove_species"
@@ -126,6 +153,7 @@ test_that("count_missing_species fails correctly", {
   expect_error(count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = c(),
     rm_species_col = "remove_species"
@@ -134,6 +162,7 @@ test_that("count_missing_species fails correctly", {
   expect_error(count_missing_species(
     checklist = mock_checklist,
     phylo_name_col = "species_names",
+    genus_name_col = "genus",
     in_phylo_col = "sampled",
     endemicity_status_col = "endemicity_status",
     rm_species_col = list()

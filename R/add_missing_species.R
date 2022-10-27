@@ -1,5 +1,5 @@
 #' Adds a specified number of missing species to an existing island_tbl at the
-#' colonist specified by the species_name argument given. The species given is
+#' colonist specified by the species_to_add_to argument given. The species given is
 #' located within the island_tbl data and missing species are assigned. This is
 #' to be used after `extract_island_species()` to input missing species.
 #'
@@ -26,11 +26,11 @@
 #' island_tbl <- add_missing_species(
 #'   island_tbl = island_tbl,
 #'   num_missing_species = 1,
-#'   species_name = "bird_c"
+#'   species_to_add_to = "bird_c"
 #' )
 add_missing_species <- function(island_tbl,
                                 num_missing_species,
-                                species_name) {
+                                species_to_add_to) {
 
   # check the island_tbl input
   if (isFALSE(class(island_tbl) == "Island_tbl")) {
@@ -41,7 +41,7 @@ add_missing_species <- function(island_tbl,
   find_species <- lapply(
     island_tbl@island_tbl$species,
     function(x) {
-      which_colonist <- grepl(pattern = species_name, x = x)
+      which_colonist <- grepl(pattern = species_to_add_to, x = x)
     }
   )
   colonist_index <- which(unlist(lapply(find_species, any)))

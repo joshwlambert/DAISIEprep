@@ -564,7 +564,7 @@ to this clade we use following code:
 island_tbl <- add_missing_species(
   island_tbl = island_tbl, 
   num_missing_species = 2, 
-  species_name = "C_fus"
+  species_to_add_to = "C_fus"
 )
 ```
 

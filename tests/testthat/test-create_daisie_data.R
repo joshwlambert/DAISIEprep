@@ -199,7 +199,7 @@ test_that("endemic singleton with missing species", {
   island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species = 1,
-    species_name = "bird_b"
+    species_to_add_to = "bird_b"
   )
   daisie_datatable <- as_daisie_datatable(
     island_tbl = island_tbl,
