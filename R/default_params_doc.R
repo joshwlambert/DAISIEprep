@@ -128,6 +128,8 @@
 #' @param checklist data frame with information on species on the island
 #' @param phylo_name_col A character string specifying the column name where the
 #' names in the phylogeny are in the checklist
+#' @param genus_name_col A character string specifying the column name where the
+#' genus names are in the checklist
 #' @param in_phylo_col A character string specifying the column name where the
 #' status of whether a species is in the phylogeny is in the checklist
 #' @param endemicity_status_col A character string specifying the column name
@@ -217,6 +219,7 @@ default_params_doc <- function(island_colonist,
                                missing_genus,
                                checklist,
                                phylo_name_col,
+                               genus_name_col,
                                in_phylo_col,
                                endemicity_status_col,
                                rm_species_col,

@@ -59,6 +59,7 @@ default_params_doc(
   missing_genus,
   checklist,
   phylo_name_col,
+  genus_name_col,
   in_phylo_col,
   endemicity_status_col,
   rm_species_col,
@@ -254,6 +255,9 @@ each island clade}
 
 \item{phylo_name_col}{A character string specifying the column name where the
 names in the phylogeny are in the checklist}
+
+\item{genus_name_col}{A character string specifying the column name where the
+genus names are in the checklist}
 
 \item{in_phylo_col}{A character string specifying the column name where the
 status of whether a species is in the phylogeny is in the checklist}
