@@ -493,10 +493,10 @@ for (phylod in galapagos_phylod) {
 }
 ```
 
-This will return a warning message for the Darwins finches as the root state of
-the finches phylogeny is non-endemic to the island, as there is only a single
-mainland outgroup in the phylogeny. This means that the colonisation time will
-be extracted as infinite and then when the island_tbl is converted into a DAISIE
+This will return a warning message for the Darwin's finches as the root state of
+the finches phylogeny is inferred to be present on the island, as there is only a single
+mainland outgroup in the example phylogeny. This means that the colonisation time will
+be extracted in `asr` as infinite and then when the island_tbl is converted into a DAISIE
 data list this will become a colonist that could have colonised anywhere from 
 the island origin to the present. For this example this colonisation time is 
 not a problem, however, for empirical analyses it is recommended to have many
@@ -562,16 +562,19 @@ to this clade we use following code:
 
 ```{r}
 island_tbl <- add_missing_species(
-  island_tbl = island_tbl, 
-  num_missing_species = 2, 
+  island_tbl = island_tbl,
+  # num_missing_species equals total species missing
+  num_missing_species = 2,
+  # name of a sampled species you want to "add" the missing to
+  # it can be any in the clade 
   species_name = "C_fus"
 )
 ```
 
-The argument `species_name` uses a representative species from that island clade
+The argument `species_name` uses a representative sampled species from that island clade
 to work out which colonist in the `island_tbl` to assign the specified number
 of missing species (`num_missing_species`) to. In this case we used the species
-in the clade name, however, this could also have been any species from the 
+in the clade name, however, this could also have been any sampled species from the 
 clade, which include: 
 
 ```{r}
@@ -582,11 +585,12 @@ With the new missing species added to the `island_tbl` we can repeat the
 conversion steps above using `create_daisie_data()`
 to produce data accepted by the DAISIE model.
 
-### 3.2 Adding a lineage when a phylogeny is not available for the lineage, but a colonisation time estimate exists
+### 3.2 Adding a lineage with just one species on the island (singleton) when a phylogeny is not available for the lineage, but a colonisation time estimate exists
 
-The next option for adding missing species is when a phylogeny is not available
-to conduct the extraction using `extract_island_species()` but the stem age of 
-the island colonist is known from the literature. In this case, we need to input all the information on the lineage manually ourselves. For illustrative purposes
+The next option for adding **a singleton lineage (just one species on the island)** when a phylogeny is not available
+to conduct the extraction using `extract_island_species()` but an estimate of the stem age of 
+the island colonist is known from the literature. In this case, we need to input all 
+the information on the lineage manually ourselves. For illustrative purposes
 we use an imaginary Galápagos bird lineage with 1 species, which is not in our 
 data set, and fabricate the time of colonisation. 
 
@@ -598,8 +602,7 @@ The input needed are:
   * `status` either "endemic" or "nonendemic"
   * `missing_species` **In the case of a lineage with just 1 species (i.e. not an island radiation) 
   the number of missing species is zero, as by adding the colonist it already counts as
-  one automatically. In the case of an island clade of more than one 
-  species, the number of missing species in this case should be `n-1`.** 
+  one automatically.** 
   * `col_time` the time of colonisation in million years before the present
   * `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is 
   precise or should be considered a maximum upper bound on the time of 
@@ -616,14 +619,16 @@ The input needed are:
 ```{r}
 island_tbl <- add_island_colonist(
   island_tbl = island_tbl, 
-  clade_name = "Bird_1", 
+  clade_name = "Bird_a", 
   status = "endemic", 
+  # clade with just 1 species, missing_species = 0 
+  # because adding the lineage already counts as 1
   missing_species = 0, 
   col_time = 2.5, 
   col_max_age = FALSE, 
   branching_times = NA_real_, 
   min_age = NA_real_, 
-  species = "Bird_1", 
+  species = "Bird_a", 
   clade_type = 1
 )
 ```
@@ -632,9 +637,60 @@ With the new missing species added to the `island_tbl` we can repeat the
 conversion steps above using `create_daisie_data()`
 to produce data accepted by the DAISIE model.
 
-### 3.3 Adding a lineage when a phylogeny is not available for the lineage, and no colonisation estimate is available.
 
-Taking the example above in `3.2`, but assuming we did not have any phylogenetic data about
+### 3.3 Adding a lineage with 2 or more species on the island when a phylogeny is not available for the lineage, but a colonisation time estimate exists
+
+Taking the example above in `3.2`, but when the **lineage has more 2 or more species**. In this case, we
+we use an imaginary Galápagos bird lineage with 3 species, which is not in our 
+data set, and fabricate the time of colonisation. 
+
+The input needed are: 
+
+  * `island_tbl` to add to an existing `island_tbl`
+  * `clade_name` a name to represent the clade, can either be a specific species
+  from the clade or a genus name, or another name that represent those species
+  * `status` either "endemic" or "nonendemic"
+  * `missing_species` **The number of missing species in this case should be `n-1`, 
+  because adding the lineage manually already counts as 1.** 
+  * `col_time` the time of colonisation in million years before the present
+  * `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is 
+  precise or should be considered a maximum upper bound on the time of 
+  colonisation with some uncertainty
+  * `branching_times` the times an island clade has speciated *in situ* on the 
+  island. If an island clade has not speciated (i.e. is a singleton) this is NA.
+  * `min_age` is the minimum lower bound time of colonisation, if to be used when
+  the colonisation time is assumed to be an upper bound.
+  * `species` a vector of species names contained within colonist
+  * `clade_type` a number representing which set of rates the colonist is assumed
+  to be under, default is 1, as number greater than one assume this clade is 
+  exceptionally different in its colonisation and diversification dynamics
+
+```{r}
+island_tbl <- add_island_colonist(
+  island_tbl = island_tbl, 
+  clade_name = "Bird_b", 
+  status = "endemic", 
+  # the total species is 3 and all are missing
+  # but we add missing_species = 2 because
+  # adding the lineage already counts as 1
+  missing_species = 2, 
+  col_time = 2.5, 
+  col_max_age = FALSE, 
+  branching_times = NA_real_, 
+  min_age = NA_real_, 
+  clade_type = 1,
+  species = c("Bird_b", "Bird_c", "Bird_d")
+)
+```
+
+With the new missing species added to the `island_tbl` we can repeat the
+conversion steps above using `create_daisie_data()`
+to produce data accepted by the DAISIE model.
+
+### 3.4 Adding a lineage when a phylogeny is not available for the lineage, and no colonisation estimate is available.
+
+Taking the examples above in `3.2` and `3.3` but assuming we did not have any phylogenetic data
+or colonisation time estimate for
 the island clade, we could again insert the species as missing but this time not
 give the colonisation time. When this colonist later gets processed by the DAISIE
 inference model it will be assumed it colonised the island any time between the 
@@ -646,18 +702,41 @@ present.
   one automatically. In the case of an island clade of more than one 
   species, the number of missing species in this case should be `n-1`.** 
 
+Example for adding lineage with 1 species:
 ```{r}
 island_tbl<-add_island_colonist(
   island_tbl = island_tbl, 
-  clade_name = "Bird_2", 
+  clade_name = "Bird_e", 
   status = "endemic", 
+  # clade with just 1 species, missing_species = 0 
+  # because adding the lineage already counts as 1
   missing_species = 0, 
   col_time = NA_real_, 
   col_max_age = FALSE, 
   branching_times = NA_real_, 
   min_age = NA_real_, 
-  species = "Bird_2", 
-  clade_type = 1
+  clade_type = 1,
+  species = "Bird_e"
+)
+```
+
+Example for adding lineage with 5 species:
+```{r}
+island_tbl<-add_island_colonist(
+  island_tbl = island_tbl, 
+  clade_name = "Bird_f", 
+  status = "endemic", 
+  # the total species is 5 and all are missing
+  # but we add missing_species = 4 because
+  # adding the lineage already counts as 1
+  missing_species = 4, 
+  col_time = NA_real_, 
+  col_max_age = FALSE, 
+  branching_times = NA_real_, 
+  min_age = NA_real_, 
+  clade_type = 1,
+  species = c("Bird_f", "Bird_g", "Bird_h",
+              "Bird_i","Bird_j")
 )
 ```
 
@@ -665,7 +744,7 @@ With the new missing species added to the `island_tbl` we can repeat the
 conversion steps above using `create_daisie_data()`
 to produce data accepted by the DAISIE model.
 
-### 3.4 Adding a lineage when a phylogeny is not available for the entire island lineage, but a crown age or minimum colonisation time estimate exists
+### 3.5 Adding a lineage when a phylogeny is not available for the entire island lineage, but a crown age or minimum colonisation time estimate exists
 
 Taking the example above in `3.2`, but assuming we did not have a colonisation time 
 estimate, but we did have a crown age estimate or an estimate for the 
@@ -678,17 +757,16 @@ crown or minimum age. In the example below we assume a crown age of 2 million ye
 ```{r}
 island_tbl <- add_island_colonist(
   island_tbl = island_tbl, 
-  clade_name = "Bird_3", 
+  clade_name = "Bird_k", 
   status = "endemic", 
   missing_species = 0, 
   col_time = NA_real_, 
   col_max_age = FALSE, 
   branching_times = NA_real_, 
   min_age = 2, 
-  species = "Bird_3", 
+  species = "Bird_k", 
   clade_type = 1
 )
-island_tbl
 ```
 
 With the new missing species added to the `island_tbl` we can repeat the
