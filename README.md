@@ -1,7 +1,7 @@
 # DAISIEprep <img src="man/figures/logo.png" align="right" height="200" />
 
 <!-- badges: start -->
-  [![R-CMD-check](https://github.com/joshwlambert/DAISIEprep/workflows/R-CMD-check/badge.svg)](https://github.com/joshwlambert/DAISIEprep/actions)
+[![R-CMD-check](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/joshwlambert/DAISIEprep/branch/master/graph/badge.svg)](https://app.codecov.io/gh/joshwlambert/DAISIEprep?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
