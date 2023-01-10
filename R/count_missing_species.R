@@ -72,7 +72,7 @@ count_missing_species <- function(checklist,
       }
     }
   }
-  match_index <- na.omit(match_index)
+  match_index <- stats::na.omit(match_index)
   missing_genus[match_index] <- phylo_genus[match_index]
 
   # get the endemicity status for each species
