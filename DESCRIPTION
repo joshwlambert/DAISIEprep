@@ -62,7 +62,8 @@ Suggests:
     dplyr,
     ggimage
 Remotes:
-    YuLab-SMU/ggtree
+    YuLab-SMU/ggtree,
+    nmatzke/BioGeoBEARS
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
