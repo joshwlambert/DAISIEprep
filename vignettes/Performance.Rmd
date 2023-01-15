@@ -20,11 +20,11 @@ library(DAISIEprep)
 
 ### Performance analysis of DAISIEprep::extract_island_species()
 
-In this article we test and analyse the performance, in terms of time 
+In this article we test and analyse the performance, in terms of time
 consumption/complexity of the main function in the `DAISIEprep` R package:
 `extract_island_species()`. This function takes in a phylogenetic tree and species
 endemicity data in the form of a `phylo4d` object (an S4 class from the R
-package `phylobase`). 
+package `phylobase`).
 
 This is not a thorough examination of all possible uses of the `extract_island_species()`
 function, but rather gives an indication of the usability of the function for
@@ -32,92 +32,68 @@ data sets of different sizes, as well as detecting any features of the data that
 may slow the process of extracting and formatting the island community data.
 
 All of the work for the performance analysis is carried out by the `benchmark()`
-function from the `DAISIEprep` package. But before calling this function we 
+function from the `DAISIEprep` package. But before calling this function we
 explain how the benchmarking is set up.
 
-The first argument of `benchmark()` is `phylod`. If this is `NULL` then the 
-function will simulate the phylogenies and the endemicity data given the: 
+The first argument of `benchmark()` is `phylod`. If this is `NULL` then the
+function will simulate the phylogenies and the endemicity data given the:
 `tree_size_range`, `num_points`, `prob_on_island`, and `prob_endemic` arguments.
 These specify the lower and upper range of the tree size to simulate (the sequence
-breaks can be in linear or log space depending on the argument `log_scale`), 
-the number of breaks in the sequence between lower and upper tree sizes, 
+breaks can be in linear or log space depending on the argument `log_scale`),
+the number of breaks in the sequence between lower and upper tree sizes,
 the probability that a species will be on the island, and if a species is on the
 island whether it is endemic (1 - `prob_endemic` is the probability a species
-on the island is non-endemic). If a `phylo4d` object is supplied to the `phylod` 
+on the island is non-endemic). If a `phylo4d` object is supplied to the `phylod`
 argument in `benchmark()` then this tree will be used to perform the benchmarking.
 
-In the case of simulating data the parameter space of the performance analysis 
+In the case of simulating data the parameter space of the performance analysis
 is then the combination of these variables (using the `expand.grid()` function).
-The phylogeny is simulated to a fixed size using the `rphylo()` function from 
+The phylogeny is simulated to a fixed size using the `rphylo()` function from
 the `ape` package.
-As we are stochastically simulating the endemicity statuses of the species in 
+
+As we are stochastically simulating the endemicity statuses of the species in
 the tree it may be that there is not an outgroup species not on the island in
-order to correctly extract the colonisation times from the stem age of the 
+order to correctly extract the colonisation times from the stem age of the
 species or clade on the island. Therefore, we add an outgroup which we ensure
 is not present on the island.
-
-```{r add-outgroup, eval = FALSE}
-# add not present outgroup
-phylo <- DAISIEprep::add_outgroup(phylo)
-endemicity_status <- c("not_present", endemicity_status)
-# format data for DAISIEprep
-phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
-```
 
 When we want to test the performance of the `extract_island_species()` function
 using the `asr` algorithm we need to first run an ancestral state reconstruction.
 This can easily be achieved if the `phylod` data with the phylogeny and endemicity
-statuses at each tip of the tree are ready.
-
-```{r format data for DAISIEprep, eval = FALSE}
-phylod <- DAISIEprep::add_asr_node_states(
-  phylod = phylod,
-  asr_method = "Mk",
-  tie_preference = "mainland"
-)
-```
+statuses at each tip of the tree are ready (see tutorial vignette for more
+information on the `asr` algorithm).
 
 To quantify the time elapsed while the function runs there are several methods in
-both base R and in various R packages (e.g. `microbenchmark` or `rbenchmark`). 
+both base R and in various R packages (e.g. `microbenchmark` or `rbenchmark`).
 However here we use `system.time()` from base R (see https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/)
 for reasoning).
 
-```{r run-extraction, eval = FALSE}
-# run extraction
-time <- system.time(
-  island_tbl <- DAISIEprep::extract_island_species(
-    phylod = phylod,
-    extraction_method = "asr"
-  )
-)
-```
-
 Side note: by default `DAISIEprep::benchmark()` conditions on each simulated
-data set having a non-empty island, and thus the function is not tested for 
+data set having a non-empty island, and thus the function is not tested for
 the trivial case that no species need to be extracted.
 
-Due to the computational time not being deterministic and to ensure the results 
-are not spurious we replicate timing three times and the mean "real time 
-elapsed" is calculated, as well as 
-replicating the the simulation (given by argument `replicates`) to account for 
+Due to the computational time not being deterministic and to ensure the results
+are not spurious we replicate timing three times and the mean "real time
+elapsed" is calculated, as well as
+replicating the the simulation (given by argument `replicates`) to account for
 stochasticity in the simulation of the data.
 
-The range of data set sizes we use encompasses tree sizes spanning 
-commonly used empirical phylogenies. We then generate a random sample of tip 
-states for each species, with the possible states being: endemic to the island, 
-non-endemic and not present on the island. We tested low probability of each of 
-each species in the tree being on the island ($P(0.2)$) and high probability of 
-species on the island ($P(0.5)$). For each of these scenarios we tested a low 
-($P_E(0.2)$, $P_{NE}(0.8)$) and high probability ($P_E(0.8)$, $P_{NE}(0.2)$) of 
-island species being endemic to test whether this affects performance. For each 
-scenario we ran 100 replicates. For isolated islands where cladogenesis is high, 
-island species will likely not be spread across uniformly across the phylogeny 
+The range of data set sizes we use encompasses tree sizes spanning
+commonly used empirical phylogenies. We then generate a random sample of tip
+states for each species, with the possible states being: endemic to the island,
+non-endemic and not present on the island. We tested low probability of each of
+each species in the tree being on the island ($P(0.2)$) and high probability of
+species on the island ($P(0.5)$). For each of these scenarios we tested a low
+($P_E(0.2)$, $P_{NE}(0.8)$) and high probability ($P_E(0.8)$, $P_{NE}(0.2)$) of
+island species being endemic to test whether this affects performance. For each
+scenario we ran 100 replicates. For isolated islands where cladogenesis is high,
+island species will likely not be spread across uniformly across the phylogeny
 as we assumed in our simulations, but instead will be clustered.
 
-We check the computational time of the core function of the package, 
+We check the computational time of the core function of the package,
 `extract_island_species()` for datasets of varying sizes.
-Here we run the benchmark analysis for the `min` algorithm on trees between 10 
-and 1,000 species, with three additions intervals (in log space) for a high and 
+Here we run the benchmark analysis for the `min` algorithm on trees between 10
+and 1,000 species, with three additions intervals (in log space) for a high and
 low probability of island presence and endemicity. Running five replicates.
 
 ```{r benchmark-min}
@@ -131,7 +107,8 @@ performance_min <- DAISIEprep::benchmark(
   extraction_method = "min",
   asr_method = NA,
   tie_preference = NA,
-  log_scale = TRUE
+  log_scale = TRUE,
+  verbose = TRUE
 )
 ```
 
@@ -152,25 +129,30 @@ performance_asr <- DAISIEprep::benchmark(
 )
 ```
 
-Now the results can be plotted with `plot_performance` implemented in 
+Now the results can be plotted with `plot_performance` implemented in
 `DAISIEprep`. This function follows the tidyverse convention of giving variable
 names as variables (as opposed to strings) and uses tidy evaluation to group by
-the variable given, either `prob_on_island` or `prob_endemic`. 
+the variable given, either `prob_on_island` or `prob_endemic`.
 
 ```{r plot-min}
 plot_performance(
-  performance_data = performance_min, 
+  performance_data = performance_min,
   group_by = prob_on_island
 )
 ```
 
 We find that the growth in time follows a power function with respect to tree size (figure 1) but that even for large trees (10,000 tips) the scale of extraction is just minutes, whereas running the DAISIE inference model is on the scale of minutes to days, and thus pre-processing does not present a bottleneck to the pipeline. The empirical trees we ran (the Madagascar mammal example) were quicker to process than trees simulated with uniformly random island presence (figure 1).
 
-Future additions include: adding a data set from an empirical system as an 
+Future additions include: adding a data set from an empirical system as an
 example of trees with clustered species.
 
 Note: this vignette is re-generated regularly with the code run each time, we do
-not set a seed and thus the results should slightly differ and thus the document 
-will slightly change, noticable in the plots. However, the conclusions should 
+not set a seed and thus the results should slightly differ and thus the document
+will slightly change, noticable in the plots. However, the conclusions should
 remain correct. If the conclusions are contractitory to the results presented
 please open an issue and report it on the [`DAISIEprep` github repo](https://github.com/joshwlambert/DAISIEprep).
+
+This vignette was precompiled using:
+```{r}
+sessionInfo()
+```
