@@ -17,7 +17,8 @@ sensitivity <- function(phylo,
                         asr_method,
                         tie_preference,
                         island_age,
-                        num_mainland_species) {
+                        num_mainland_species,
+                        verbose = FALSE) {
 
   # convert trees to phylo4 objects
   phylo <- phylobase::phylo4(phylo)
@@ -58,14 +59,13 @@ sensitivity <- function(phylo,
   ml_list <- list()
   for (i in seq_len(nrow(parameter_space))) {
 
-    message("Parameter set: ", i, " of ", nrow(parameter_space))
+    if (verbose) message("Parameter set: ", i, " of ", nrow(parameter_space))
 
     if (parameter_space$extraction_method[i] == "asr") {
       phylod <- DAISIEprep::add_asr_node_states(
         phylod = phylod,
         asr_method = parameter_space$asr_method[i]
       )
-
     }
 
     # extract island community
@@ -74,15 +74,9 @@ sensitivity <- function(phylo,
       extraction_method = parameter_space$extraction_method[i]
     )
 
-    # convert to daisie data table
-    daisie_datatable <- DAISIEprep::as_daisie_datatable(
-      island_tbl = island_tbl,
-      island_age = parameter_space$island_age[i]
-    )
-
     # convert to daisie data list
     daisie_data_list <- DAISIEprep::create_daisie_data(
-      daisie_datatable = daisie_datatable,
+      data = island_tbl,
       island_age = parameter_space$island_age[i],
       num_mainland_species = parameter_space$num_mainland_species[i]
     )

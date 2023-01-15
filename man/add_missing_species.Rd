@@ -3,11 +3,11 @@
 \name{add_missing_species}
 \alias{add_missing_species}
 \title{Adds a specified number of missing species to an existing island_tbl at the
-colonist specified by the species_name argument given. The species given is
+colonist specified by the species_to_add_to argument given. The species given is
 located within the island_tbl data and missing species are assigned. This is
 to be used after `extract_island_species()` to input missing species.}
 \usage{
-add_missing_species(island_tbl, num_missing_species, species_name)
+add_missing_species(island_tbl, num_missing_species, species_to_add_to)
 }
 \arguments{
 \item{island_tbl}{An instance of the `Island_tbl` class.}
@@ -15,16 +15,15 @@ add_missing_species(island_tbl, num_missing_species, species_name)
 \item{num_missing_species}{Numeric for the number of missing species in the
 clade.}
 
-\item{species_name}{Character string with the name of the species to identify
-which clade to assign missing species to.
-extracted from the phylogeny and}
+\item{species_to_add_to}{Character string with the name of the species to
+identify which clade to assign missing species to.}
 }
 \value{
 Object of Island_tbl class
 }
 \description{
 Adds a specified number of missing species to an existing island_tbl at the
-colonist specified by the species_name argument given. The species given is
+colonist specified by the species_to_add_to argument given. The species given is
 located within the island_tbl data and missing species are assigned. This is
 to be used after `extract_island_species()` to input missing species.
 }
@@ -46,6 +45,6 @@ island_tbl <- extract_island_species(phylod, extraction_method = "min")
 island_tbl <- add_missing_species(
   island_tbl = island_tbl,
   num_missing_species = 1,
-  species_name = "bird_c"
+  species_to_add_to = "bird_c"
 )
 }

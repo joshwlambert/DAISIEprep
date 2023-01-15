@@ -12,7 +12,8 @@ sensitivity(
   asr_method,
   tie_preference,
   island_age,
-  num_mainland_species
+  num_mainland_species,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -46,6 +47,9 @@ you consider it not on the island use `ties.method = "first"`. Default is
 
 \item{num_mainland_species}{The size of the mainland pool, i.e. the number
 of species that can potentially colonise the island.}
+
+\item{verbose}{Boolean. States if intermediate results should be printed to
+console. Defaults to FALSE}
 }
 \value{
 Data frame of parameter estimates and the parameter setting used

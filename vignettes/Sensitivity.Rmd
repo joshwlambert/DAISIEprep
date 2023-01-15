@@ -21,7 +21,26 @@ knitr::opts_chunk$set(
 
 In this vignette we provide a set of best practices for sensitivity analyses 
 that should be taken into consideration when conducting data formatting and 
-model fitting in the DAISIE framework. Firstly we discuss the impact of the 
+model fitting in the DAISIE and DAISIEprep framework. Sensitivty analyses is the
+testing of a model output to variations in the model input. A model is considered
+sensitive if the model output vastly changes due to relatively small 
+perturbations in the data input into the model. These small perturbations may be
+due to uncertainty in the data (i.e. a posterior distribution of possible 
+branching times in a phylogeny), measurement error, or other factors. In the 
+case we are interested in, these perturbations are variation in island 
+colonisation and branching times, endemicity status on the island and number
+of colonisations events. Each of these can change if using multiple phylogenies 
+from the posterior distribution of inferred phylogenies, or using different 
+extraction algorithms in DAISIEprep. 
+
+Firstly we discuss thetype of variations in the data and how each of these can 
+impact parameter estimation. Another aspect of sensitivity analysis, which we 
+will not explore in this vignette, is the sensitivity of model selection to 
+input data variation. By this we mean the best-fit model and the ranking of the 
+model (by likelihood, AIC, BIC, or other metric) may change given differences in
+the data. This can be equally as important as sensitivity of parameter estimates 
+and we recommend users check model selection as well as parameter estimates in 
+their work.
 
 ## Sensitivity to extraction method
 
@@ -36,9 +55,9 @@ extracting the data and thus `DAISIEprep` implements several algorithms to
 account for variations in what would be considered an appropriate assumptions
 for the island system of interest. The two major divisions for extracting data
 are in the `extraction_method` argument in `extract_island_species()` (and
-by extension `extract_multi_island_species()`), which can be either "min" for 
-the minimum time of colonisation algorithm, or "asr" for the geographical 
-ancestral state reconstruction algorithm. The "min" algorithm conforms to the 
+by extension `extract_multi_island_species()`), which can be either `"min"` for 
+the minimum time of colonisation algorithm, or `"asr"` for the geographical 
+ancestral state reconstruction algorithm. The `"min"` algorithm conforms to the 
 assumptions of the DAISIE inference model (implemented in the [`DAISIE` R package](https://cran.r-project.org/web/packages/DAISIE/index.html)). These 
 assumptions are: 
 
@@ -48,33 +67,33 @@ assumptions are:
   * There cannot be a species not present on the island nested in an endemic 
   island clade
   
-The first two points are linked, by not allowing back-colonisation, a non-endemic 
+The all points are linked, by not allowing back-colonisation, a species on the islands 
 cannot be endemic to the island (i.e. part of an endemic island radiation) and
 then migrate or expand its range away from the island. These three points mean
 that if the island system of interest has experienced back-colonisation or a
 species in an endemic island radiation has expanded its range off the island and
 its island population has gone extinct (making it not present on the island but
-extant) the "min" algorithm will split clades into multiple colonisations. In 
-the case that the island of interest is very remote and only has species arrive
-and perhaps also diversify this algorithm provides a simple model to extract the
-data.
+extant) the `"min"` algorithm will split clades into multiple colonisations. In 
+the case that the island of interest is very remote and species colonisation and 
+diversify and do not disperse off the island, this algorithm provides a simple 
+model to extract the data.
 
-However, it is clear that the commonly the assumptions of the DAISIE model and 
-thus the "min" algorithm are violated in empirical data. Therefore the second
-algorithm, "asr", is implemented remedy this. The 
-"asr" algorithm uses the reconstructed states at each node in the phylogeny of 
+However, it is clear that this common assumptions of the DAISIE model and 
+thus the `"min"` algorithm are violated in empirical data. Therefore the second
+algorithm, `"asr"`, is implemented to remedy this. The 
+`"asr"` algorithm uses the reconstructed states at each node in the phylogeny inferring 
 whether a species is not present on the island, non-endemic to the island, or
-endemic to the island. Using this information the algorithm can go transerve the
+endemic to the island. Using this information the algorithm can traverse the
 phylogeny back to the node where the island clade colonised the island. This
-algorithm overcomes the limitations of the "min" algorithm by allowing 
+algorithm overcomes the limitations of the `"min"` algorithm by allowing 
 non-endemic species to be part of island clades (extracting them as endemic
 clades for the purposes of applying the DAISIE inference model), and additionally
 allowing species that are not present on the island to be included in data when
 embedded within an endemic island clade (this feature is turned on/off with the
 `include_not_present` argument in `extract_island_species()`). Therefore, the 
-"asr" algorithm has benefits when the focal island system has experienced some
+`"asr"` algorithm has benefits when the focal island system has experienced some
 species movement from the island to other regions. However, it is not without
-limitations, ancestral state reconstruction models should be interpretted with
+limitations, ancestral state reconstruction models should be interpreted with
 caution and uncertainty of a species geographic range deep in the past, near the
 root of the tree is often high leading to variability in interpretation of 
 whether a species was present on the island at the time. The formulation of the 
@@ -82,7 +101,7 @@ ancestral state reconstruction model is also important, with the transition
 matrix between states crucial to plausible results. By default we use a 
 symmetrical transition structure where species go from not present on the island, 
 to non-endemic and then to endemic. Without jumps from not present to endemic 
-and vice versa. This is in line with the reasoning in the DAISIE model, that 
+and vice versa. This is in line with the reasoning in the DAISIE model that 
 species that colonise the island do not migrate their entire mainland 
 population, instead going through a widespread range, before becoming endemic
 via cladogenesis or anagenesis on the island, or extinction of the mainland
@@ -90,223 +109,45 @@ population.
 
 In this vignette we demonstrate the sensitivity of the parameters estimated
 from the DAISIE maximum likelihood inference model to changes in the algorithm 
-used to extract the data. We apply the "min" and "asr" algorithms, and within 
-"asr" we apply two different models of ancestral state reconstruction: parsimony
+used to extract the data. We apply the `"min"` and `"asr"` algorithms, and within 
+`"asr"` we apply two different models of ancestral state reconstruction: parsimony
 and continuous-time Markov model (Mk model). Traditionally, these have been two
 of the most common methods for reconstructing ancestral states, for other 
 methods to reconstruct ancestral ranges see Extending_asr vignette in the 
-DAISIEprep package.
+`DAISIEprep` package.
 
 The data we use for this example is the macro-phylogeny of mammals (Upham et 
-al., 2019). This is a large data set containing ...
+al., 2019) and the island endemicity data of Madagascar (Michielsen et al., 2021). 
+This is a large data set containing ...
 
-The code presented in this vignette is not run and the data used to produce the
-results can be found in the companion package [DAISIEprepExtra](https://github.com/joshwlambert/DAISIEprepExtra).
+The results presented in this vignette are not computing each time the vignette
+is rendered due to the large computation time required. Instead, the analyses are
+run on a cluster computer and saved in the package. The analysis script run to 
+produce the results can be found in the [DAISIEprepExtra](https://github.com/joshwlambert/DAISIEprepExtra)
+package [here](https://github.com/joshwlambert/DAISIEprepExtra/tree/main/inst/scripts).
+The sensitivity analysis uses the `sensitivity()` function in the `DAISIEprep` 
+package. 
 
-We create a data frame with all possible combinations of data extraction 
-settings, this forms our parameter space for the sensitivity analysis. 
+The `sensitivity()` function creates a table of all possible combination of
+data extraction settings, given the input arguments, and this forms our parameter 
+space for the sensitivity analysis. The phylogenetic trees and island endemicity
+data is provided to carry out the extraction and formatting. `DAISIEprep` uses
+the `phylo4d` class from the `phylobase` R package. However, for the `sensitivity()`
+function a `phylo` object can be provided and all the house-keeping is taken care
+of inside the function. The `sensitivity()` function loops through each parameter
+setting and extracts and formats the data and fit the DAISIE
+maximum likelihood inference model (`DAISIE::DAISIE_ML_CS()`) to the data.
 
-```{r, eval=FALSE}
-parameter_space <- data.frame(
-  extraction_method = "min",
-  asr_method = NA_character_,
-  tie_preference = NA_character_
-)
-
-parameter_space <- rbind(
-  parameter_space,
-  expand.grid(
-    extraction_method = c("asr"),
-    asr_method = c("parsimony", "mk"),
-    tie_preference = c("island", "mainland")
-  )
-)
-```
-
-Next we load the phylogenetic and island endemicity data to create the data
-required to run the extraction and formatting.
-
-```{r, eval=FALSE}
-# load madagascar mammals species data table
-data("madagascar_mammals", package = "DAISIEprepExtra")
-
-# load the DNA only and complete posterior distribution of trees
-phylos_dna <- ape::read.nexus(file = system.file(
-  "extdata/Upham_dna_posterior_100.nex",
-  package = "DAISIEprepExtra"
-))
-phylos_complete <- ape::read.nexus(file = system.file(
-  "extdata/Upham_complete_posterior_100.nex",
-  package = "DAISIEprepExtra"
-))
-```
-
-In `DAISIEprep` the `phylo4d` class from the `phylobase` R package is used to
-house all the data in a single object. For this the phylogenies are converted
-first to `phylo4` objects, then the endemicity status for Madagascar is applied
-to each species in the phylogeny.
-
-```{r, eval=FALSE}
-# convert trees to phylo4 objects
-phylos_dna <- lapply(phylos_dna, phylobase::phylo4)
-phylos_complete <- lapply(phylos_complete, phylobase::phylo4)
-
-# create endemicity status data frame
-endemicity_status_dna <- lapply(
-  phylos_dna,
-  DAISIEprep::create_endemicity_status,
-  island_species = madagascar_mammals
-)
-
-endemicity_status_complete <- lapply(
-  phylos_complete,
-  DAISIEprep::create_endemicity_status,
-  island_species = madagascar_mammals
-)
-
-# combine tree and endemicity status
-multi_phylods_dna <- list()
-multi_phylods_complete <- list()
-for (i in seq_along(phylos_dna)) {
-  message("Converting phylo ", i, " of ", length(phylos_dna))
-  multi_phylods_dna[[i]] <- phylobase::phylo4d(
-    phylos_dna[[i]],
-    endemicity_status_dna[[i]]
-  )
-  multi_phylods_complete[[i]] <- phylobase::phylo4d(
-    phylos_complete[[i]],
-    endemicity_status_complete[[i]]
-  )
-}
-```
-
-Now the data is ready for the extraction and formatting we can loop through
-each of the possible parameter setting and extract the data 
-(`multi_extract_island_species()`), format the data to be used by the DAISIE 
-inference model (`as_daisie_datatable()` and `create_daisie_data()`) and the 
-DAISIE model is then fit to the data (`DAISIE::DAISIE_ML_CS()`).
-
-```{r, eval=FALSE}
-ml_list <- list()
-for (i in seq_len(nrow(parameter_space))) {
-
-  message("Parameter set: ", i, " of ", nrow(parameter_space))
-
-  if (parameter_space$extraction_method[i] == "asr") {
-    multi_phylods_dna <- lapply(
-      multi_phylods_dna,
-      DAISIEprep::add_asr_node_states,
-      asr_method = parameter_space$asr_method[i]
-    )
-
-    multi_phylods_complete <- lapply(
-      multi_phylods_complete,
-      DAISIEprep::add_asr_node_states,
-      asr_method = parameter_space$asr_method[i]
-    )
-  }
-
-  # extract island community
-  multi_island_tbl_dna <- DAISIEprep::multi_extract_island_species(
-    multi_phylod = multi_phylods_dna,
-    extraction_method = parameter_space$extraction_method[i],
-    verbose = TRUE
-  )
-
-  multi_island_tbl_complete <- DAISIEprep::multi_extract_island_species(
-    multi_phylod = multi_phylods_complete,
-    extraction_method = parameter_space$extraction_method[i],
-    verbose = TRUE
-  )
-  
-  # convert to daisie data table
-  daisie_datatable_dna <- lapply(
-    multi_island_tbl_dna,
-    DAISIEprep::as_daisie_datatable,
-    island_age = 88
-  )
-
-  daisie_datatable_complete <- lapply(
-    multi_island_tbl_complete,
-    DAISIEprep::as_daisie_datatable,
-    island_age = 88
-  )
-
-  # convert to daisie data list
-  daisie_data_list_dna <- lapply(
-    daisie_datatable_dna,
-    DAISIEprep::create_daisie_data,
-    island_age = 88,
-    num_mainland_species = 1000
-  )
-
-  daisie_data_list_complete <- lapply(
-    daisie_datatable_complete,
-    DAISIEprep::create_daisie_data,
-    island_age = 88,
-    num_mainland_species = 1000
-  )
-
-  # fit DAISIE model to data
-  ml_dna <- list()
-  ml_complete <- list()
-  for (j in seq_along(phylos_dna)) {
-    message(
-      "Fitting DAISIE model to data set ",
-      j,
-      " of ",
-      length(daisie_data_list_dna)
-    )
-
-    ml_dna[[j]] <- DAISIE::DAISIE_ML_CS(
-      datalist = daisie_data_list_dna[[j]],
-      initparsopt = c(1, 1, 200, 0.1, 1),
-      idparsopt = 1:5,
-      parsfix = NULL,
-      idparsfix = NULL,
-      ddmodel = 11,
-      jitter = 1e-5
-    )
-
-    ml_complete[[j]] <- DAISIE::DAISIE_ML_CS(
-      datalist = daisie_data_list_complete[[j]],
-      initparsopt = c(1, 1, 200, 0.1, 1),
-      idparsopt = 1:5,
-      parsfix = NULL,
-      idparsfix = NULL,
-      ddmodel = 11,
-      jitter = 1e-5
-    )
-  }
-
-  ml_list[[i]] <- list(
-    dna = ml_dna, 
-    complete = ml_complete, 
-    parameters = parameter_space[i, ]
-  )
-}
-```
-
-This code produces a list of results for the DNA-only phylogeny and the complete
-phylogeny. The code above is not run as it takes a considerable amount of time
-to loop through each scenario. Instead we save the output from running the above
-code. 
+The output produces results for the DNA-only phylogeny and the complete
+phylogeny. The raw data of parameter estimates for the different parameter 
+settings is tidied into a tibble containing the data we need for both the DNA
+and complete phylogeny. 
 
 ```{r, echo=FALSE}
 sensitivity_data <- DAISIEprep:::read_sensitivity()
 ```
 
-With this raw data of parameter estimates for the different parameter setting we
-can tidy the data into a tibble containing the data we need for both the DNA
-and complete phylogeny. 
-
-```{r, eval=FALSE}
-sensitivity_data <- DAISIEprep:::format_sensitivity(
-  sensitivity_data = sensitivity_data
-)
-```
-
-Now this data is formatted we can plot the distribution of parameter estimates
+We can plot the distribution of parameter estimates
 for the DNA and complete data sets.
 
 ```{r, eval=FALSE}
@@ -316,5 +157,3 @@ DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$dna_data)
 ```{r, eval=FALSE}
 DAISIEprep:::plot_sensitivity(sensitivity_data = sensitivity_data$complete_data)
 ``` 
-
-

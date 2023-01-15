@@ -9,6 +9,7 @@ missing from the phylogeny each genus}
 count_missing_species(
   checklist,
   phylo_name_col,
+  genus_name_col,
   in_phylo_col,
   endemicity_status_col,
   rm_species_col = NULL
@@ -19,6 +20,9 @@ count_missing_species(
 
 \item{phylo_name_col}{A character string specifying the column name where the
 names in the phylogeny are in the checklist}
+
+\item{genus_name_col}{A character string specifying the column name where the
+genus names are in the checklist}
 
 \item{in_phylo_col}{A character string specifying the column name where the
 status of whether a species is in the phylogeny is in the checklist}
@@ -44,6 +48,9 @@ missing from the phylogeny each genus
 }
 \examples{
 mock_checklist <- data.frame(
+  genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+            "bird", "bird", "bird"),
+  species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
   species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
                     "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
   sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -52,9 +59,11 @@ mock_checklist <- data.frame(
                         "endemic", "endemic"),
   remove_species = (rep(FALSE, 10))
 )
+
 missing_species <- count_missing_species(
   checklist = mock_checklist,
   phylo_name_col = "species_names",
+  genus_name_col = "genus",
   in_phylo_col = "sampled",
   endemicity_status_col = "endemicity_status",
   rm_species_col = NULL

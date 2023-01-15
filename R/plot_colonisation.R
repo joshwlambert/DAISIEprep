@@ -31,7 +31,7 @@ plot_colonisation <- function(island_tbl,
                                include_crown_age = TRUE) {
 
   # write check for island_tbl is correct class, island_age is numeric and include_crown_age is boolean
-  if (!class(island_tbl) == "Island_tbl") {
+  if (!inherits(island_tbl, "Island_tbl")) {
     stop("island_tbl must be an object of class Island_tbl")
   }
   if (!is.numeric(island_age)) {

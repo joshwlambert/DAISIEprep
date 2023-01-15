@@ -17,7 +17,8 @@ benchmark(
   asr_method,
   tie_preference,
   log_scale = TRUE,
-  parameter_index = NULL
+  parameter_index = NULL,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -64,6 +65,9 @@ are on a linear (FALSE) or log (TRUE) scale}
 \item{parameter_index}{Numeric determining which parameter set to use (i.e
 which row in the parameter space data frame), if this is NULL all parameter
 sets will be looped over}
+
+\item{verbose}{Boolean. States if intermediate results should be printed to
+console. Defaults to FALSE}
 }
 \value{
 Data frame

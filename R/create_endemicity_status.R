@@ -60,7 +60,7 @@ create_endemicity_status <- function(phylo,
   # replace the species endemicity status with those given in island_species
   for (i in seq_along(island_species$tip_labels)) {
     on_island <- grepl(
-      pattern = island_species$tip_labels[i],
+      pattern = paste0("^", island_species$tip_labels[i], "$"),
       x = rownames(endemicity_status)
     )
     if (any(on_island)) {

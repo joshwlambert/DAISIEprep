@@ -69,7 +69,7 @@ add_multi_missing_species <- function(missing_species,
         island_tbl <- add_missing_species(
           island_tbl = island_tbl,
           num_missing_species = num_missing_species,
-          species_name = island_tbl@island_tbl$clade_name[i]
+          species_to_add_to = island_tbl@island_tbl$clade_name[i]
         )
       }
     }

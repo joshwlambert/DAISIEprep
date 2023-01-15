@@ -16,7 +16,7 @@ test_that("add_missing_species works for species on island", {
   island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species =  1,
-    species_name = "bird_c"
+    species_to_add_to = "bird_c"
   )
   expect_equal(island_tbl@island_tbl$missing_species, 1)
 })
@@ -39,7 +39,7 @@ test_that("add_missing_species works for species not on island", {
   island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species = 1,
-    species_name = "bird_a"
+    species_to_add_to = "bird_a"
   )
   expect_equal(island_tbl@island_tbl$missing_species, 0)
 })
@@ -62,7 +62,7 @@ test_that("add_missing_species works when only genus name is given", {
   island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species = 1,
-    species_name = "bird"
+    species_to_add_to = "bird"
   )
   expect_equal(island_tbl@island_tbl$missing_species, 1)
 })
@@ -85,7 +85,7 @@ test_that("add_missing_species given warning when genus matches multiple", {
   expect_warning(island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species = 1,
-    species_name = "bird"
+    species_to_add_to = "bird"
   ))
   expect_equal(island_tbl@island_tbl$missing_species, c(1, 1))
 })
@@ -108,7 +108,7 @@ test_that("add_missing_species works for multiple colonists", {
   island_tbl <- add_missing_species(
     island_tbl = island_tbl,
     num_missing_species = 1,
-    species_name = "bird_c"
+    species_to_add_to = "bird_c"
   )
   expect_equal(island_tbl@island_tbl$missing_species, c(1, 0))
 })

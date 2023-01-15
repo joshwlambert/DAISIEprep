@@ -63,9 +63,8 @@
 #' island clade. Default is FALSE.
 #' @param num_missing_species Numeric for the number of missing species in the
 #' clade.
-#' @param species_name Character string with the name of the species to identify
-#' which clade to assign missing species to.
-#' extracted from the phylogeny and
+#' @param species_to_add_to Character string with the name of the species to
+#' identify which clade to assign missing species to.
 #' @param node_pies Boolean determining if pie charts of the probabilities of
 #' a species being present on the island. If TRUE the correct data is required
 #' in the phylod object.
@@ -98,7 +97,7 @@
 #' The new maximum age is then used as an upper bound to integrate over all
 #' possible colonisation times.
 #' @param verbose Boolean. States if intermediate results should be printed to
-#' console. Defaults to TRUE.
+#' console. Defaults to FALSE
 #' @param precise_col_time Boolean, TRUE uses the precise times of colonisation,
 #' FALSE makes every colonist a max age colonistion and uses minimum age of
 #' colonisation if available.
@@ -129,6 +128,8 @@
 #' @param checklist data frame with information on species on the island
 #' @param phylo_name_col A character string specifying the column name where the
 #' names in the phylogeny are in the checklist
+#' @param genus_name_col A character string specifying the column name where the
+#' genus names are in the checklist
 #' @param in_phylo_col A character string specifying the column name where the
 #' status of whether a species is in the phylogeny is in the checklist
 #' @param endemicity_status_col A character string specifying the column name
@@ -191,7 +192,7 @@ default_params_doc <- function(island_colonist,
                                earliest_col,
                                include_not_present,
                                num_missing_species,
-                               species_name,
+                               species_to_add_to,
                                node_pies,
                                test_scenario,
                                data,
@@ -218,6 +219,7 @@ default_params_doc <- function(island_colonist,
                                missing_genus,
                                checklist,
                                phylo_name_col,
+                               genus_name_col,
                                in_phylo_col,
                                endemicity_status_col,
                                rm_species_col,
