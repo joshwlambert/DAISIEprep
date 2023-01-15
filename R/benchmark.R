@@ -21,7 +21,8 @@ benchmark <- function(phylod,
                       asr_method,
                       tie_preference,
                       log_scale = TRUE,
-                      parameter_index = NULL) {
+                      parameter_index = NULL,
+                      verbose = FALSE) {
 
   if (is.null(phylod)) {
     if (log_scale) {
@@ -63,12 +64,12 @@ benchmark <- function(phylod,
 
   for (i in parameter_index) {
 
-    message("Parameter set: ", i, " of ", nrow(parameter_space))
+    if (verbose) message("Parameter set: ", i, " of ", nrow(parameter_space))
 
     mean_times <- c()
     for (j in seq_len(replicates)) {
 
-      message("Replicate: ", j, " of ", replicates)
+      if (verbose) message("Replicate: ", j, " of ", replicates)
 
       if (is.null(phylod)) {
         # simulate phylogeny

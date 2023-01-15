@@ -30,7 +30,7 @@ on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
 
 \item{verbose}{Boolean. States if intermediate results should be printed to
-console. Defaults to TRUE.}
+console. Defaults to FALSE}
 
 \item{unique_clade_name}{Boolean determining whether a unique species
 identifier is used as the clade name in the Island_tbl object or a genus

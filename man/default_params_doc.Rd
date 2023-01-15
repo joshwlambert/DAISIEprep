@@ -208,7 +208,7 @@ The new maximum age is then used as an upper bound to integrate over all
 possible colonisation times.}
 
 \item{verbose}{Boolean. States if intermediate results should be printed to
-console. Defaults to TRUE.}
+console. Defaults to FALSE}
 
 \item{precise_col_time}{Boolean, TRUE uses the precise times of colonisation,
 FALSE makes every colonist a max age colonistion and uses minimum age of
