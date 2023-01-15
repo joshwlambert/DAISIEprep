@@ -9,6 +9,9 @@
 #'
 #' @examples
 #' mock_checklist <- data.frame(
+#'   genus = c("bird", "bird", "bird", "bird", "bird", "bird", "bird",
+#'             "bird", "bird", "bird"),
+#'   species = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
 #'   species_names = c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                     "bird_f","bird_g", "bird_h", "bird_i", "bird_j"),
 #'   sampled = c(TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE),
@@ -17,9 +20,11 @@
 #'                         "endemic", "endemic"),
 #'   remove_species = (rep(FALSE, 10))
 #' )
+#'
 #' missing_species <- count_missing_species(
 #'   checklist = mock_checklist,
 #'   phylo_name_col = "species_names",
+#'   genus_name_col = "genus",
 #'   in_phylo_col = "sampled",
 #'   endemicity_status_col = "endemicity_status",
 #'   rm_species_col = NULL
@@ -33,6 +38,7 @@ count_missing_species <- function(checklist,
 
   if (!is.data.frame(checklist)) stop("checklist must be a data frame")
   if (!is.character(phylo_name_col)) stop("phylo_name_col must be a character")
+  if (!is.character(genus_name_col)) stop("genus_name_col must be a character")
   if (!is.character(in_phylo_col)) stop("in_phylo_col must be a character")
   if (!is.character(endemicity_status_col)) {
     stop("endemicity_status_col must be a character")
