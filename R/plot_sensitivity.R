@@ -80,7 +80,7 @@ plot_sensitivity <- function(sensitivity_data,
     ggplot2::scale_fill_discrete(
       name = "Extraction Method",
       type = c("#FF0000", "#00A08A", "#F2AD00", "#F98400", "#5BBCD6"),
-      labels = c("min", "ASR (Mk)", "ASR (parsimony)")) +
+      labels = c("ASR (Mk)", "ASR (parsimony)", "min")) +
     ggplot2::theme_classic() +
     ggplot2::facet_wrap(
       facets = "parameter",
