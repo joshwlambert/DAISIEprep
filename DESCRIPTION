@@ -34,6 +34,8 @@ Description: DAISIEprep extract colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.
+URL: https://github.com/joshwlambert/DAISIEprep, https://joshwlambert.github.io/DAISIEprep/
+BugReports: https://github.com/joshwlambert/DAISIEprep/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
@@ -126,4 +128,3 @@ Collate:
     'unique_island_genera.R'
     'utils.R'
     'write_biogeobears_input.R'
-URL: https://joshwlambert.github.io/DAISIEprep
