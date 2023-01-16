@@ -1,0 +1,39 @@
+{
+    "creators": [
+      {
+        "orcid": "0000-0001-5218-3046",
+        "affiliation": "University of Groningen",
+        "name": "Lambert, Joshua W."
+      },
+      {
+        "orcid": "0000-0003-4247-8785",
+        "affiliation": "Naturalis Biodiversity Center",
+        "name": "Valente, Luis"
+      },
+      {
+        "orcid": "0000-0003-3664-4222",
+        "affiliation": "Naturalis Biodiversity Center",
+        "name": "Roeble, Lizzie"
+      },
+      {
+        "orcid": "0000-0002-8424-3573",
+        "affiliation": "University of Groningen",
+        "name": "Pannetier, Theo"
+      },
+      {
+        "orcid": "0000-0003-2561-4677",
+        "affiliation": "University of Groningen",
+        "name": "Santos Neves, Pedro"
+      }
+    ],
+
+    "license": {
+      "id": "GPL-3.0-only"
+    },
+
+    "description": "<p>DAISIEprep extract colonisation and branching times of island species to be used for analysis in the R package DAISIE. It uses phylogenetic and endemicity data to extract the separate island colonists and store them..</p>",
+    "language": "eng",
+    "title": "DAISIEprep: Extracts phylogenetic island community data from phylogenetic trees",
+
+    "access_right": "open"
+}
