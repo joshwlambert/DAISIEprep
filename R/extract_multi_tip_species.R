@@ -1,12 +1,33 @@
 #' Extracts the information for a species (endemic or non-endemic) which has
 #' multiple tips in the phylogeny (i.e. more than one sample per species) from
 #' a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-#' and stores it in an `island_colonist` class
+#' and stores it in an `Island_colonist` class
 #'
 #' @inheritParams default_params_doc
 #'
 #' @return An object of `Island_colonist` class
 #' @export
+#'
+#' @examples
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
+#' phylo <- ape::rcoal(10)
+#' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
+#'                      "bird_f", "bird_g", "bird_h_1", "bird_h_2", "bird_i")
+#' phylo <- phylobase::phylo4(phylo)
+#' endemicity_status <- c("not_present", "not_present", "not_present",
+#'                        "not_present", "not_present", "not_present",
+#'                        "not_present",  "endemic", "endemic", "not_present")
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' extract_multi_tip_species(
+#'   phylod = phylod,
+#'   species_label = "bird_h_1",
+#'   species_endemicity = "endemic"
+#' )
 extract_multi_tip_species <- function(phylod,
                                       species_label,
                                       species_endemicity) {
@@ -75,21 +96,10 @@ extract_multi_tip_species <- function(phylod,
   phylo <- suppressWarnings(methods::as(multi_tip_species_phylod, "phylo"))
 
   # extract branching times (time before present)
-  node_heights <- ape::node.depth.edgelength(phy = phylo)
-
-  # convert units from million years to years and round to nearest 10 years to
-  # prevent duplicate branching times that differ due to numerical imprecision
-  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
-  node_heights <- node_heights / 1e5
-
-  # convert from distance from root to distance from tip
-  node_heights <- abs(node_heights - max(node_heights))
+  branching_times <- unname(ape::branching.times(phy = phylo))
 
   # remove any duplicates if two species come from the same branching event
-  branching_times <- sort(unique(node_heights), decreasing = TRUE)
-
-  # remove any zero valued branching times
-  branching_times <- branching_times[-which(branching_times == 0)]
+  branching_times <- sort(branching_times, decreasing = TRUE)
 
   # extract minimum time as crown age of species pops (time before present)
   min_age <- max(branching_times)
@@ -101,8 +111,12 @@ extract_multi_tip_species <- function(phylod,
   set_clade_name(island_colonist) <- species_name
   set_status(island_colonist) <- species_endemicity
   set_missing_species(island_colonist) <- 0
-  set_branching_times(island_colonist) <- col_time
+  set_col_time(island_colonist) <- col_time
+  set_col_max_age(island_colonist) <- FALSE
+  set_branching_times(island_colonist) <- NA_real_
   set_min_age(island_colonist) <- min_age
+  set_species(island_colonist) <- names(species_tips)
+  set_clade_type(island_colonist) <- 1
 
   # return instance of island_colonist class
   island_colonist

@@ -11,20 +11,22 @@
 check_island_tbl <- function(object) {
   errors <- character()
   num_col <- ncol(object@island_tbl)
-  if (num_col != 5) {
-    msg <- paste("island_tbl has ", num_col, ". Should have 5", sep = "")
+  if (num_col != 9) {
+    msg <- paste("island_tbl has ", num_col, ". Should have 9", sep = "")
     errors <- c(errors, msg)
   }
 
   col_names <- names(object@island_tbl)
   match_col_names <- identical(
     col_names,
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   if (isFALSE(match_col_names)) {
     msg <- paste(
       "Names of island_tbl are ", col_names, ". Should be 'clade_name',
-      'status', 'missing_species', 'branching_times', 'min_age'",
+      'status', 'missing_species', 'col_time', 'col_max_age', 'branching_times',
+      'min_age', 'species', 'clade_type'",
       sep = ""
     )
     errors <- c(errors, msg)
@@ -77,8 +79,12 @@ setClass(
       clade_name = character(),
       status = character(),
       missing_species = numeric(),
+      col_time = numeric(),
+      col_max_age = logical(),
       branching_times = numeric(),
-      min_age = numeric()
+      min_age = numeric(),
+      species = character(),
+      clade_type = numeric()
     ),
     metadata = list(
       extracted_species = NA_integer_,

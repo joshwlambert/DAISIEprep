@@ -1,19 +1,35 @@
 Package: DAISIEprep
 Type: Package
 Title: Extracts phylogenetic island community data from phylogenetic trees
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
            email = "j.w.l.lambert@rug.nl",
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5218-3046")),
+    person(given = "Luis",
+           family = "Valente",
+           email = "luis.valente@naturalis.nl",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0003-4247-8785")),
+    person(given = "Lizzie",
+           family = "Roeble",
+           email = "lizzie.roeble@naturalis.nl",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0003-3664-4222")),
+    person(given = "Theo",
+           family = "Pannetier",
+           email = "t.s.c.pannetier@rug.nl",
+           role = c("aut"),
+           comment = c(ORCID = "0000-0002-8424-3573")),
     person(given = "Pedro",
            family = "Neves",
            role = c("ctb"),
            email = "p.m.santos.neves@rug.nl",
-           comment = c(ORCID = "0000-0003-2561-4677")))
-Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl>
+           comment = c(ORCID = "0000-0003-2561-4677"))
+           )
+Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl> 
 Description: DAISIEprep extract colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
@@ -21,42 +37,55 @@ Description: DAISIEprep extract colonisation and branching times of island
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Depends: R (>= 4.0)
 Imports:
     methods,
     ape,
     phylobase,
     ggplot2,
+    scales,
     ggtree,
-    ggimage,
     DAISIE,
-    castor
+    castor,
+    tibble,
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
     covr,
-    microbenchmark
+    diversitree,
+    BioGeoBEARS,
+    corHMM,
+    tidyr,
+    dplyr,
+    ggimage
 Remotes:
-    YuLab-SMU/ggtree
+    YuLab-SMU/ggtree,
+    nmatzke/BioGeoBEARS
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
     'add_asr_node_states.R'
+    'add_island_colonist.R'
     'add_missing_species.R'
+    'add_multi_missing_species.R'
     'add_outgroup.R'
     'all_descendants_conspecific.R'
     'any_back_colonisation.R'
     'any_outgroup.R'
     'any_polyphyly.R'
     'as_daisie_datatable.R'
+    'benchmark.R'
     'bind_colonist_to_tbl.R'
     'check_phylo_data.R'
+    'count_missing_species.R'
     'create_daisie_data.R'
     'create_endemicity_status.R'
     'create_test_phylod.R'
     'default_params_doc.R'
+    'endemicity_to_sse_states.R'
     'extract_asr_clade.R'
     'extract_clade_name.R'
     'extract_endemic_clade.R'
@@ -66,6 +95,10 @@ Collate:
     'extract_nonendemic.R'
     'extract_species_asr.R'
     'extract_species_min.R'
+    'extract_stem_age.R'
+    'extract_stem_age_asr.R'
+    'extract_stem_age_genus.R'
+    'extract_stem_age_min.R'
     'get_endemic_species.R'
     'is_back_colonisation.R'
     'is_duplicate_colonist.R'
@@ -80,8 +113,17 @@ Collate:
     'multi_island_tbl-class.R'
     'multi_island_tbl-methods.R'
     'plot_colonisation.R'
+    'plot_performance.R'
     'plot_phylod.R'
+    'plot_sensitivity.R'
     'print-methods.R'
+    'read_performance.R'
+    'read_sensitivity.R'
+    'rm_island_colonist.R'
+    'rm_multi_missing_species.R'
+    'sensitivity.R'
     'translate_status.R'
+    'unique_island_genera.R'
     'utils.R'
+    'write_biogeobears_input.R'
 URL: https://joshwlambert.github.io/DAISIEprep

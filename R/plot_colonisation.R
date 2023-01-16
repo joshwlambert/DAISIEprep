@@ -31,7 +31,7 @@ plot_colonisation <- function(island_tbl,
                                include_crown_age = TRUE) {
 
   # write check for island_tbl is correct class, island_age is numeric and include_crown_age is boolean
-  if (!class(island_tbl) == "Island_tbl") {
+  if (!inherits(island_tbl, "Island_tbl")) {
     stop("island_tbl must be an object of class Island_tbl")
   }
   if (!is.numeric(island_age)) {
@@ -56,17 +56,43 @@ plot_colonisation <- function(island_tbl,
     island_clade <- length(daisie_datatable$Branching_times[[i]]) > 1
     if (island_clade && include_crown_age) {
       clade_names <- c(clade_names, rep(daisie_datatable$Clade_name[i], 2))
-      colonisation_times <- c(
-        colonisation_times,
-        daisie_datatable$Branching_times[[i]][1:2]
-      )
-      stem_or_crown_age <- c(stem_or_crown_age, c("stem", "crown"))
+      temp_colonisation_time <- daisie_datatable$Branching_times[[i]][1]
+      temp_crown_age <- daisie_datatable$Branching_times[[i]][2]
+      if (temp_colonisation_time > island_age) {
+        if (temp_crown_age > island_age) {
+          colonisation_times <- c(
+            colonisation_times,
+            island_age
+          )
+          stem_or_crown_age <- c(stem_or_crown_age, "stem")
+        } else {
+          colonisation_times <- c(
+            colonisation_times,
+            c(island_age, temp_crown_age)
+          )
+          stem_or_crown_age <- c(stem_or_crown_age, c("stem", "crown"))
+        }
+      } else {
+        colonisation_times <- c(
+          colonisation_times,
+          daisie_datatable$Branching_times[[i]][1:2]
+        )
+        stem_or_crown_age <- c(stem_or_crown_age, c("stem", "crown"))
+      }
     } else {
       clade_names <- c(clade_names, daisie_datatable$Clade_name[i])
-      colonisation_times <- c(
-        colonisation_times,
-        daisie_datatable$Branching_times[[i]][1]
-      )
+      temp_colonisation_time <- daisie_datatable$Branching_times[[i]][1]
+      if (temp_colonisation_time > island_age) {
+        colonisation_times <- c(
+          colonisation_times,
+          island_age
+        )
+      } else {
+        colonisation_times <- c(
+          colonisation_times,
+          daisie_datatable$Branching_times[[i]][1]
+        )
+      }
       stem_or_crown_age <- c(stem_or_crown_age, "stem")
     }
   }
@@ -81,41 +107,65 @@ plot_colonisation <- function(island_tbl,
   # make maximum
   max_xlim <- max(colonisations$branching_times, island_age)
 
-
-  p <- ggplot2::ggplot(data = colonisations) +
-    ggplot2::geom_point(mapping = ggplot2::aes(
-      x = colonisation_times,
-      y = stats::reorder(clade_names, colonisation_times),
-      colour = stem_or_crown_age),
-      size = 3,
-      alpha = 0.75
-    )
-
   if (!all(colonisations$stem_or_crown_age == "stem")) {
-    p <- p + ggplot2::geom_line(mapping = ggplot2::aes(
-      x = colonisation_times,
-      y = stats::reorder(clade_names, colonisation_times),
-      group = clade_names))
+    p <- ggplot2::ggplot(data = colonisations) +
+      ggplot2::geom_line(mapping = ggplot2::aes(
+        x = colonisation_times,
+        y = stats::reorder(clade_names, colonisation_times),
+        group = clade_names)) +
+      ggplot2::geom_point(mapping = ggplot2::aes(
+        x = colonisation_times,
+        y = stats::reorder(clade_names, colonisation_times),
+        colour = stem_or_crown_age),
+        size = 3
+      ) +
+      ggplot2::geom_vline(
+        xintercept = island_age,
+        linetype = "dashed",
+        colour = "grey"
+      ) +
+      ggplot2::theme_classic() +
+      ggplot2::ylab("Island colonist") +
+      ggplot2::xlab("Colonisation time (Million years ago)") +
+      ggplot2::labs(colour = "Colonisation type") +
+      ggplot2::scale_x_continuous(
+        limits = c(max_xlim, 0),
+        trans = "reverse"
+      ) +
+      ggplot2::scale_y_discrete(limits = rev) +
+      ggplot2::theme(legend.position = c(0.3, 0.8)) +
+      ggplot2::scale_color_brewer(
+        palette = "Set1",
+        labels = c("Crown Age", "Stem age")
+      )
+  } else {
+    p <- ggplot2::ggplot(data = colonisations) +
+      ggplot2::geom_point(mapping = ggplot2::aes(
+        x = colonisation_times,
+        y = stats::reorder(clade_names, colonisation_times),
+        colour = stem_or_crown_age),
+        size = 3
+      ) +
+      ggplot2::geom_vline(
+        xintercept = island_age,
+        linetype = "dashed",
+        colour = "grey"
+      ) +
+      ggplot2::theme_classic() +
+      ggplot2::ylab("Island colonist") +
+      ggplot2::xlab("Colonisation time (Million years ago)") +
+      ggplot2::labs(colour = "Colonisation type") +
+      ggplot2::scale_x_continuous(
+        limits = c(max_xlim, 0),
+        trans = "reverse"
+      ) +
+      ggplot2::scale_y_discrete(limits = rev) +
+      ggplot2::theme(legend.position = c(0.3, 0.8)) +
+      ggplot2::scale_color_brewer(
+        palette = "Set1",
+        labels = c("Stem age")
+      )
   }
-  p <- p + ggplot2::geom_vline(
-    xintercept = island_age,
-    linetype = "dashed",
-    colour = "grey"
-  ) +
-    ggplot2::theme_classic() +
-    ggplot2::ylab("Island colonist") +
-    ggplot2::xlab("Colonisation time (Million years ago)") +
-    ggplot2::labs(colour = "Colonisation type") +
-    ggplot2::scale_x_continuous(
-      limits = c(max_xlim, 0),
-      trans = "reverse"
-    ) +
-    ggplot2::scale_y_discrete(limits = rev) +
-    ggplot2::scale_color_brewer(
-      palette = "Set1",
-      labels = c("Stem Age", "Crown age")
-    ) +
-    ggplot2::theme(legend.position = c(0.3, 0.8))
 
   # return plot
   p

@@ -34,13 +34,13 @@ add_asr_node_states <- function(phylod,
   # suppress warnings about tree conversion as they are fine
   phylo <- suppressWarnings(methods::as(phylod, "phylo"))
 
-  if (asr_method == "parsimony") {
+  if (grepl("parsimony", asr_method, ignore.case = TRUE)) {
     asr <- castor::asr_max_parsimony(
       tree = phylo,
       tip_states = tip_states,
       transition_costs = "sequential"
     )
-  } else if (asr_method == "mk") {
+  } else if (grepl("mk", asr_method, ignore.case = TRUE)) {
     asr <- castor::asr_mk_model(tree = phylo, tip_states = tip_states)
   }
 

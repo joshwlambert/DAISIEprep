@@ -24,7 +24,11 @@ island_colonist <- DAISIEprep::island_colonist(
   clade_name = "bird",
   status = "endemic",
   missing_species = 0,
-  branching_times = c(1, 0.5)
+  col_time = 1,
+  col_max_age = FALSE,
+  branching_times = 0.5,
+  species = "bird_a",
+  clade_type = 1
 )
 island_tbl <- island_tbl()
 bind_colonist_to_tbl(

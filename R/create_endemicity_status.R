@@ -30,12 +30,12 @@ create_endemicity_status <- function(phylo,
                                      island_species) {
 
   # check the phylo input
-  correct_class <- class(phylo) %in% c("phylo", "phylo4")
+  correct_class <- inherits(phylo, c("phylo", "phylo4"))
   if (isFALSE(correct_class)) {
     stop("The phylo object should be a 'phylo' or 'phylo4' object")
   }
 
-  if (class(phylo) == "phylo") {
+  if (inherits(phylo, "phylo")) {
     phylo <- phylobase::phylo4(phylo)
   }
 
@@ -60,7 +60,7 @@ create_endemicity_status <- function(phylo,
   # replace the species endemicity status with those given in island_species
   for (i in seq_along(island_species$tip_labels)) {
     on_island <- grepl(
-      pattern = island_species$tip_labels[i],
+      pattern = paste0("^", island_species$tip_labels[i], "$"),
       x = rownames(endemicity_status)
     )
     if (any(on_island)) {

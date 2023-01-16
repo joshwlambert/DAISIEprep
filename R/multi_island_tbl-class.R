@@ -23,7 +23,7 @@ check_multi_island_tbl <- function(object) {
 
 #' Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.
 #'
-#' @slot multi_island_tbl a list of `Island_tbl`.
+#' @slot .Data a list of `Island_tbl`.
 #'
 #' @export
 setClass(

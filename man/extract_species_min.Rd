@@ -7,7 +7,13 @@ phylogenetic and endemicity data and stores it in an `Island_tbl` object
 using the "min" algorithm that extract island species as the shortest time
 to the present.}
 \usage{
-extract_species_min(phylod, species_label, species_endemicity, island_tbl)
+extract_species_min(
+  phylod,
+  species_label,
+  species_endemicity,
+  island_tbl,
+  unique_clade_name
+)
 }
 \arguments{
 \item{phylod}{A `phylo4d` object from the package `phylobase` containing
@@ -20,6 +26,11 @@ phylogenetic and endemicity data for each species.}
 the island.}
 
 \item{island_tbl}{An instance of the `Island_tbl` class.}
+
+\item{unique_clade_name}{Boolean determining whether a unique species
+identifier is used as the clade name in the Island_tbl object or a genus
+name which may not be unique if that genus has several independent island
+colonisations}
 }
 \value{
 An object of `island_tbl` class
@@ -53,6 +64,7 @@ extract_species_min(
   phylod = phylod,
   species_label = "bird_g",
   species_endemicity = "nonendemic",
-  island_tbl = island_tbl
+  island_tbl = island_tbl,
+  unique_clade_name = TRUE
 )
 }

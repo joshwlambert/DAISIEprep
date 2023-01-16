@@ -18,12 +18,19 @@
 #' @param status Character endemicity status of the colonising clade.
 #' @param missing_species Numeric number of missing species from the phylogeny
 #' that belong to the colonising clade.
-#' @param branching_times Numeric vector of one or more elements where the first
-#' element is the colonisation time and subsequent elements are the branching
-#' times on the island.
+#' @param col_time Numeric with the colonisation time of the island colonist
+#' @param col_max_age Boolean determining whether colonisation time should be
+#' considered a precise time of colonisation or a maximum time of colonisation
+#' @param branching_times Numeric vector of one or more elements which are the
+#' branching times on the island.
 #' @param min_age Numeric minimum age (time before the present) that the species
 #' must have colonised the island by. This is known when there is a branching
 #' on the island, either in species or subspecies.
+#' @param species Character vector of one or more elements containing the name
+#' of the species included in the colonising clade.
+#' @param clade_type Numeric determining which type of clade the island colonist
+#' is, this determines which macroevolutionary regime (parameter set) the island
+#' colonist is in.
 #' @param endemic_clade Named vector with all the species from a clade.
 #' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or
 #' `phylo4` (from the `phylobase` package) object.
@@ -54,44 +61,16 @@
 #' @param include_not_present A boolean determining whether species not present
 #' on the island should be included in island colonist when embedded within an
 #' island clade. Default is FALSE.
-#' @param missing_species_df A data frame containing the names of the clades
-#' extracted from the phylogeny and the number of missing species in each clade.
-#' Not every clade extracted from the phylogeny needs to be included if the
-#' number of missing species in them clades is zero.
+#' @param num_missing_species Numeric for the number of missing species in the
+#' clade.
+#' @param species_to_add_to Character string with the name of the species to
+#' identify which clade to assign missing species to.
 #' @param node_pies Boolean determining if pie charts of the probabilities of
 #' a species being present on the island. If TRUE the correct data is required
 #' in the phylod object.
 #' @param test_scenario Integer specifying which test phylod object to create.
-#' @param daisie_datatable A data frame where each row on the table represents
-#' an independent colonisation event. The table has the following four columns:
-#' * Clade_name: name of independent colonisation event
-#' * Status: One of the following categories:
-#' - "Non_endemic": applies to non-endemic species when an approximate
-#' colonisation time is known.
-#' - "Non_endemic_MaxAge": applies to non-endemic species for cases where
-#' colonisation time is unknown.
-#' - "Endemic": applies to endemic species or endemic clades when an approximate
-#' colonisation time is known.
-#' - "Endemic_MaxAge": appies to endemic species or endemic clades where the
-#' colonisation time is unknown, or when the user wants to specify an upper
-#' bound for colonisation. This could for example apply to endemic species that
-#' have recently gone extinct because of anthropogenic causes, and which are
-#' not included in the phylogeny ("NA" should be given in the branching times
-#' column). It could also apply to insular radiations with long stem branches,
-#' for which the time of the first cladogenetic event is known, but the precise
-#' time of the colonisation is not.
-#' - "Endemic&Non_Endemic": where endemic clade is present and its mainland
-#' ancestor has re-colonised.
-#' * Missing_species: Number of island species that were not sampled for a
-#' particular clade (only applicable for "Endemic" clades). If NA is given in
-#' branching times column, this should be equal to the number of species in the
-#' clade minus 1.
-#' * Branching_times: Stem age of the population/species in the case of
-#' "Non_endemic", "Non_endemic_MaxAge", and "Endemic" species with no extant
-#' clade relatives on the island. Set "NA" if colonisation time is unknown and
-#' no upper bound is known. For "Endemic" cladogenetic species these should be
-#' branching times of the radiation, including the stem age of the radiation
-#' (colonisaton time estimate).
+#' @param data Either an object of class `Island_tbl` or a DAISIE data table
+#' object (output from `as_daisie_datatable()`).
 #' @param island_age Age of the island in appropriate units.
 #' @param num_mainland_species The size of the mainland pool, i.e. the number
 #' of species that can potentially colonise the island.
@@ -118,11 +97,10 @@
 #' The new maximum age is then used as an upper bound to integrate over all
 #' possible colonisation times.
 #' @param verbose Boolean. States if intermediate results should be printed to
-#' console. Defaults to TRUE.
-#' @param col_uncertainty A character, either "max", "min", or NULL. "max" makes
-#' everything a max age colonisation, "min" applies min ages when available,
-#' and NULL uses the precise times of colonisation, or the min ages when they
-#' are informative.
+#' console. Defaults to FALSE
+#' @param precise_col_time Boolean, TRUE uses the precise times of colonisation,
+#' FALSE makes every colonist a max age colonistion and uses minimum age of
+#' colonisation if available.
 #' @param n A numeric to be rounded.
 #' @param digits A numeric specifying which decimal places to round to
 #' @param include_crown_age A boolean determining whether the crown age gets
@@ -132,7 +110,58 @@
 #' @param node_label A numeric label for a node within a phylogeny.
 #' @param multi_phylod A list of phylod objects.
 #' @param island_tbl_1 An object of `Island_tbl` class to be comparedl
-#' @param island_tbl_2 An object of `Island_tbl` class to be compared.
+#' @param island_tbl_2 An object of `Island_tbl` class to be compared
+#' @param unique_clade_name Boolean determining whether a unique species
+#' identifier is used as the clade name in the Island_tbl object or a genus
+#' name which may not be unique if that genus has several independent island
+#' colonisations
+#' @param genus_name Character string of genus name to be matched with a genus name from
+#' the tip labels in the phylogeny
+#' @param stem Character string, either "genus" or "island_presence". The former
+#' will extract the stem age of the genussbased on the genus name provided, the
+#' latter will extract the stem age based on the ancestral presence on the island
+#' either based on the "min" or "asr" extraction algorithms.
+#' @param genus_in_tree A numeric vector that indicates which species in the
+#' genus are in the tree
+#' @param missing_genus A list of character vectors containing the genera in
+#' each island clade
+#' @param checklist data frame with information on species on the island
+#' @param phylo_name_col A character string specifying the column name where the
+#' names in the phylogeny are in the checklist
+#' @param genus_name_col A character string specifying the column name where the
+#' genus names are in the checklist
+#' @param in_phylo_col A character string specifying the column name where the
+#' status of whether a species is in the phylogeny is in the checklist
+#' @param endemicity_status_col A character string specifying the column name
+#' where the endemicity status of the species are in the checklist
+#' @param rm_species_col A character string specifying the column name where
+#' the information on whether to remove species from the checklist before
+#' counting the number of missing species is in the checklist. This can be NULL
+#' if no species are to be removed from the checklist. This is useful when
+#' species are in the checklist because they are on the island but need to be
+#' removed as they are not in the group of interest, e.g. a migratory bird
+#' amongst terrestrial birds
+#' @param tree_size_range Numeric vector of two elements, the first is the
+#' smallest tree size (number of tips) and the second is the largest tree size
+#' @param num_points Numeric determining how many points in the sequence of
+#' smallest tree size to largest tree size
+#' @param prob_on_island Numeric vector of each probability on island to use in
+#' the parameter space
+#' @param prob_endemic Numeric vector of each probability of an island species
+#' being endemic to use in the parameter space
+#' @param replicates Numeric determining the number of replicates to use to
+#' account for the stochasticity in sampling the species on the island and
+#' endemic species
+#' @param log_scale A boolean determining whether the sequence of tree sizes
+#' are on a linear (FALSE) or log (TRUE) scale
+#' @param parameter_index Numeric determining which parameter set to use (i.e
+#' which row in the parameter space data frame), if this is NULL all parameter
+#' sets will be looped over
+#' @param sse_model either "musse" (default) or "geosse". MuSSE expects state
+#' values 1, 2, 3, which here we encode as "not_present", "endemic",
+#' "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
+#' widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
+#' "endemic", respectively.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -147,8 +176,12 @@ default_params_doc <- function(island_colonist,
                                clade_name,
                                status,
                                missing_species,
+                               col_time,
+                               col_max_age,
                                branching_times,
                                min_age,
+                               species,
+                               clade_type,
                                endemic_clade,
                                phylo,
                                island_species,
@@ -158,10 +191,11 @@ default_params_doc <- function(island_colonist,
                                tie_preference,
                                earliest_col,
                                include_not_present,
-                               missing_species_df,
+                               num_missing_species,
+                               species_to_add_to,
                                node_pies,
                                test_scenario,
-                               daisie_datatable,
+                               data,
                                island_age,
                                num_mainland_species,
                                num_clade_types,
@@ -169,7 +203,7 @@ default_params_doc <- function(island_colonist,
                                prop_type2_pool,
                                epss,
                                verbose,
-                               col_uncertainty,
+                               precise_col_time,
                                n,
                                digits,
                                include_crown_age,
@@ -177,6 +211,26 @@ default_params_doc <- function(island_colonist,
                                node_label,
                                multi_phylod,
                                island_tbl_1,
-                               island_tbl_2) {
+                               island_tbl_2,
+                               unique_clade_name,
+                               genus_name,
+                               stem,
+                               genus_in_tree,
+                               missing_genus,
+                               checklist,
+                               phylo_name_col,
+                               genus_name_col,
+                               in_phylo_col,
+                               endemicity_status_col,
+                               rm_species_col,
+                               tree_size_range,
+                               num_points,
+                               prob_on_island,
+                               prob_endemic,
+                               replicates,
+                               log_scale,
+                               parameter_index,
+                               sse_model
+                               ) {
   # nothing
 }

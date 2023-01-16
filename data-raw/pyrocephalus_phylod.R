@@ -47,5 +47,11 @@ phylobase::tipLabels(pyrocephalus_phylod) <- gsub(
   x = phylobase::tipLabels(pyrocephalus_phylod)
 )
 
+pyrocephalus_phylod <- add_asr_node_states(
+  phylod = pyrocephalus_phylod,
+  asr_method = "parsimony",
+  tie_preference = "mainland"
+)
+
 saveRDS(pyrocephalus_phylod, file = "inst/extdata/pyrocephalus_phylod.rds")
 

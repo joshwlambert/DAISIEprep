@@ -9,8 +9,12 @@ test_that("1 nonendemic, 2 species tree", {
   expect_equal(get_clade_name(island_colonist), "bird_b")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.755181833128)
+  expect_equal(get_col_time(island_colonist), 0.755181833128)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_b")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("1 nonendemic, 3 species tree, outgroup", {
@@ -24,8 +28,12 @@ test_that("1 nonendemic, 3 species tree, outgroup", {
   expect_equal(get_clade_name(island_colonist), "bird_c")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 1.43337005682)
+  expect_equal(get_col_time(island_colonist), 1.43337005682)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_c")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("1 nonendemic, 3 species tree, non-outgroup", {
@@ -39,8 +47,12 @@ test_that("1 nonendemic, 3 species tree, non-outgroup", {
   expect_equal(get_clade_name(island_colonist), "bird_b")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.251727277709)
+  expect_equal(get_col_time(island_colonist), 0.251727277709)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_b")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("1 nonendemic, 4 species tree, outgroup", {
@@ -54,8 +66,12 @@ test_that("1 nonendemic, 4 species tree, outgroup", {
   expect_equal(get_clade_name(island_colonist), "bird_a")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.665451291928)
+  expect_equal(get_col_time(island_colonist), 0.665451291928)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_a")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("1 nonendemic, 4 species tree, non-outgroup", {
@@ -69,8 +85,12 @@ test_that("1 nonendemic, 4 species tree, non-outgroup", {
   expect_equal(get_clade_name(island_colonist), "bird_b")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.519744565224)
+  expect_equal(get_col_time(island_colonist), 0.519744565224)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_b")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("2 nonendemics, 3 species tree, sisters", {
@@ -84,8 +104,12 @@ test_that("2 nonendemics, 3 species tree, sisters", {
   expect_equal(get_clade_name(island_colonist), "bird_a")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.251727277709)
+  expect_equal(get_col_time(island_colonist), 0.251727277709)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_a")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("2 nonendemics, 4 species tree, sister", {
@@ -99,8 +123,12 @@ test_that("2 nonendemics, 4 species tree, sister", {
   expect_equal(get_clade_name(island_colonist), "bird_c")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.125863638855)
+  expect_equal(get_col_time(island_colonist), 0.125863638855)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_c")
+  expect_equal(get_clade_type(island_colonist), 1)
 })
 
 test_that("2 nonendemics, 4 species tree, non-sisters", {
@@ -114,6 +142,10 @@ test_that("2 nonendemics, 4 species tree, non-sisters", {
   expect_equal(get_clade_name(island_colonist), "bird_b")
   expect_equal(get_status(island_colonist), "nonendemic")
   expect_equal(get_missing_species(island_colonist), 0)
-  expect_equal(get_branching_times(island_colonist), 0.519744565224)
+  expect_equal(get_col_time(island_colonist), 0.519744565224)
+  expect_false(get_col_max_age(island_colonist))
+  expect_true(is.na(get_branching_times(island_colonist)))
   expect_true(is.na(get_min_age(island_colonist)))
+  expect_equal(get_species(island_colonist), "bird_b")
+  expect_equal(get_clade_type(island_colonist), 1)
 })

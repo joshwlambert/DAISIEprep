@@ -1,7 +1,7 @@
 #' Extracts the information for an endemic clade (i.e. more than one species on
 #' the island more closely related to each other than other mainland species)
 #' from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-#' and stores it in an `island_colonist` class
+#' and stores it in an `Island_colonist` class
 #'
 #' @inheritParams default_params_doc
 #'
@@ -28,10 +28,12 @@
 #' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 #' island_colonist <- extract_endemic_clade(
 #'   phylod = phylod,
-#'   species_label = "bird_i"
+#'   species_label = "bird_i",
+#'   unique_clade_name = TRUE
 #' )
 extract_endemic_clade <- function(phylod,
-                                  species_label) {
+                                  species_label,
+                                  unique_clade_name) {
 
   # check input data
   phylod <- check_phylo_data(phylod)
@@ -93,36 +95,32 @@ extract_endemic_clade <- function(phylod,
   phylo <- suppressWarnings(methods::as(endemic_clade_phylod, "phylo"))
 
   # extract branching times (time before present)
-  node_heights <- ape::node.depth.edgelength(phy = phylo)
-
-  # convert units from million years to years and round to nearest 10 years to
-  # prevent duplicate branching times that differ due to numerical imprecision
-  node_heights <- round_up(n = node_heights * 1e5, digits = 0)
-  node_heights <- node_heights / 1e5
-
-  # convert from distance from root to distance from tip
-  node_heights <- abs(node_heights - max(node_heights))
+  branching_times <- unname(ape::branching.times(phy = phylo))
 
   # remove any duplicates if two species come from the same branching event
-  branching_times <- sort(unique(node_heights), decreasing = TRUE)
-
-  # remove any zero valued branching times
-  branching_times <- branching_times[-which(branching_times == 0)]
-
-  # add the colonisation time to the branching times
-  branching_times <- c(col_time, branching_times)
+  branching_times <- sort(branching_times, decreasing = TRUE)
 
   # remove duplicate values if colonisation and first branching time are equal
-  branching_times <- unique(branching_times)
+  if (col_time == branching_times[1]) {
+    branching_times <- branching_times[-1]
+  }
 
   # extract clade name from species labels
   clade_name <- extract_clade_name(clade = endemic_clade)
 
   # assign data to instance of island_colonist class
-  set_clade_name(island_colonist) <- species_label #clade_name
+  if (unique_clade_name) {
+    set_clade_name(island_colonist) <- species_label
+  } else {
+    set_clade_name(island_colonist) <- clade_name
+  }
   set_status(island_colonist) <- "endemic"
   set_missing_species(island_colonist) <- 0
+  set_col_time(island_colonist) <- col_time
+  set_col_max_age(island_colonist) <- FALSE
   set_branching_times(island_colonist) <- branching_times
+  set_species(island_colonist) <- names(endemic_clade)
+  set_clade_type(island_colonist) <- 1
 
   # return island_colonist class
   island_colonist

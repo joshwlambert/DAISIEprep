@@ -125,7 +125,7 @@ extract_species_asr <- function(phylod,
     )
 
     if (isTRUE(multi_tip_species)) {
-      # extact multi-tip species
+      # extract multi-tip species
       island_colonist <- extract_multi_tip_species(
         phylod = phylod,
         species_label = species_label,

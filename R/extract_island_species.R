@@ -28,7 +28,8 @@
 extract_island_species <- function(phylod,
                                    extraction_method,
                                    island_tbl = NULL,
-                                   include_not_present = FALSE) {
+                                   include_not_present = FALSE,
+                                   unique_clade_name = TRUE) {
 
   # check the input data
   phylod <- check_phylo_data(phylod)
@@ -38,9 +39,9 @@ extract_island_species <- function(phylod,
   }
 
   # check extraction_method and asr_method input
-  missing_node_data <- "island_status" %in% names(phylobase::nodeData(phylod))
+  has_node_island_status <- "island_status" %in% names(phylobase::nodeData(phylod))
 
-  if (extraction_method == "asr" && isFALSE(missing_node_data)) {
+  if (extraction_method == "asr" && isFALSE(has_node_island_status)) {
     stop("Using colonisation times from ancestral state reconstruction requires
          data of the island presence at the nodes")
   }
@@ -74,7 +75,8 @@ extract_island_species <- function(phylod,
         phylod = phylod,
         species_label = as.character(phylod@label[i]),
         species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = island_tbl
+        island_tbl = island_tbl,
+        unique_clade_name = unique_clade_name
       )
     }
 

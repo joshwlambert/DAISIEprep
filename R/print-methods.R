@@ -6,8 +6,12 @@ setMethod("print", signature(x = "Island_colonist"),
             cat("  Clade name: ", x@clade_name, "\n")
             cat("  Status: ", x@status, "\n")
             cat("  Missing species: ", x@missing_species, "\n")
+            cat("  Colonisation time: ", x@col_time, "\n")
+            cat("  Colonisation max age: ", x@col_max_age, "\n")
             cat("  Branching times: ", x@branching_times, "\n")
             cat("  Min age: ", x@min_age, "\n")
+            cat("  Species: ", x@species, "\n")
+            cat("  Clade type: ", x@clade_type, "\n")
           }
 )
 

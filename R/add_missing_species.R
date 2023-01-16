@@ -1,44 +1,59 @@
-#' Adds the missing species to the clades that have missing species from the
-#' tree in the Island_tbl object. This is to be used after
-#' extract_island_species to input missing species.
+#' Adds a specified number of missing species to an existing island_tbl at the
+#' colonist specified by the species_to_add_to argument given. The species given is
+#' located within the island_tbl data and missing species are assigned. This is
+#' to be used after `extract_island_species()` to input missing species.
 #'
 #' @inheritParams default_params_doc
 #'
-#' @return Data frame with single column of character strings and row names
+#' @return Object of Island_tbl class
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' missing_species_df <- data.frame(clade_name = "bird_a", missing_species = 1)
-#' island_tbl <- NULL
-#' add_missing_species(island_tbl, missing_species)
-#' }
+#' set.seed(
+#'   1,
+#'   kind = "Mersenne-Twister",
+#'   normal.kind = "Inversion",
+#'   sample.kind = "Rejection"
+#' )
+#' phylo <- ape::rcoal(5)
+#' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e")
+#' phylo <- phylobase::phylo4(phylo)
+#' endemicity_status <- c(
+#'   "not_present", "not_present", "endemic", "not_present", "not_present"
+#' )
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' island_tbl <- extract_island_species(phylod, extraction_method = "min")
+#' island_tbl <- add_missing_species(
+#'   island_tbl = island_tbl,
+#'   num_missing_species = 1,
+#'   species_to_add_to = "bird_c"
+#' )
 add_missing_species <- function(island_tbl,
-                                missing_species_df) {
+                                num_missing_species,
+                                species_to_add_to) {
 
   # check the island_tbl input
   if (isFALSE(class(island_tbl) == "Island_tbl")) {
     stop("island_tbl must be an object of Island_tbl")
   }
 
-  # check the data frame input
-  correct_colnames <- identical(
-    colnames(missing_species_df),
-    c("clade_name", "missing_species")
+  # find the specified species in the island tbl and locate index of colonist
+  find_species <- lapply(
+    island_tbl@island_tbl$species,
+    function(x) {
+      which_colonist <- grepl(pattern = species_to_add_to, x = x)
+    }
   )
+  colonist_index <- which(unlist(lapply(find_species, any)))
 
-  if (isFALSE(is.data.frame(missing_species_df)) || isFALSE(correct_colnames)) {
-    stop("missing_species needs to be a data frame with the clade and the
-         number of missing species")
+  if (length(colonist_index) > 1) {
+    warning("Number of missing species being assigned to two island colonists")
   }
 
-  # get which clades have missing species
-  missing_species_clades <-
-    which(island_tbl@island_tbl$clade_name %in% missing_species_df$clade_name)
-
-  # input the missing species from data frame into island_tbl
-  island_tbl@island_tbl$missing_species[missing_species_clades] <-
-    missing_species_df$missing_species[missing_species_clades]
+  # add number of missing species to the specified colonist
+  island_tbl@island_tbl$missing_species[colonist_index] <-
+    island_tbl@island_tbl$missing_species[colonist_index] +
+    num_missing_species
 
   # return island_tbl
   island_tbl

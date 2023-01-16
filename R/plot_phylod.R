@@ -45,6 +45,7 @@ plot_phylod <- function(phylod,
     ggtree::geom_tiplab(as_ylab = TRUE))
 
   # suppress Scale for 'x' is already present.
+  attr(p$data, "revts.done") <- FALSE # attribute required by ggtree::revts
   p <- suppressMessages(ggtree::revts(treeview = p) +
     ggplot2::scale_x_continuous(labels = abs) +
     ggplot2::xlab("Time (Million years ago)"))
@@ -76,8 +77,8 @@ plot_phylod <- function(phylod,
     p <- p +
       ggtree::geom_inset(
         insets = pies,
-        width = 0.2,
-        height = 0.2,
+        width = 0.1,
+        height = 0.1,
       )
 
   } else if (!is.null(phylobase::nodeData(phylod)$island_status)) {

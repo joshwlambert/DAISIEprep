@@ -11,7 +11,9 @@ multi_extract_island_species(
   multi_phylod,
   extraction_method,
   island_tbl = NULL,
-  include_not_present = FALSE
+  include_not_present = FALSE,
+  verbose = FALSE,
+  unique_clade_name = TRUE
 )
 }
 \arguments{
@@ -26,6 +28,14 @@ or the most probable time under ancestral state reconstruction (`asr`).}
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
+
+\item{verbose}{Boolean. States if intermediate results should be printed to
+console. Defaults to FALSE}
+
+\item{unique_clade_name}{Boolean determining whether a unique species
+identifier is used as the clade name in the Island_tbl object or a genus
+name which may not be unique if that genus has several independent island
+colonisations}
 }
 \value{
 An object of `Multi_island_tbl` class

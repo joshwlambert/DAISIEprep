@@ -10,6 +10,6 @@ Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.
 \section{Slots}{
 
 \describe{
-\item{\code{multi_island_tbl}}{a list of `Island_tbl`.}
+\item{\code{.Data}}{a list of `Island_tbl`.}
 }}
 

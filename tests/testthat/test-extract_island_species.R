@@ -20,16 +20,18 @@ test_that("1 nonendemic, 2 species tree, min", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.755181833128)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 2 species tree, asr", {
@@ -43,16 +45,18 @@ test_that("1 nonendemic, 2 species tree, asr", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.755181833128)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 3 species tree, min, outgroup", {
@@ -66,16 +70,18 @@ test_that("1 nonendemic, 3 species tree, min, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.43337005682)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_c")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 3 species tree, asr, outgroup", {
@@ -89,16 +95,18 @@ test_that("1 nonendemic, 3 species tree, asr, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.43337005682)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_c")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 3 species tree, min, non-outgroup", {
@@ -112,16 +120,18 @@ test_that("1 nonendemic, 3 species tree, min, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.251727277709)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 3 species tree, asr, non-outgroup", {
@@ -135,16 +145,18 @@ test_that("1 nonendemic, 3 species tree, asr, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.251727277709)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 4 species tree, min, outgroup", {
@@ -158,16 +170,18 @@ test_that("1 nonendemic, 4 species tree, min, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.665451291928)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.665451291928)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_a")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 4 species tree, asr, outgroup", {
@@ -181,16 +195,18 @@ test_that("1 nonendemic, 4 species tree, asr, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.665451291928)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.665451291928)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_a")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 4 species tree, min, non-outgroup", {
@@ -204,16 +220,18 @@ test_that("1 nonendemic, 4 species tree, min, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 nonendemic, 4 species tree, asr, non-outgroup", {
@@ -227,16 +245,18 @@ test_that("1 nonendemic, 4 species tree, asr, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 2 species tree, min", {
@@ -250,16 +270,18 @@ test_that("1 endemic, 2 species tree, min", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.755181833128)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 2 species tree, asr", {
@@ -273,16 +295,18 @@ test_that("1 endemic, 2 species tree, asr", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.755181833128)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.755181833128)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 3 species tree, min, outgroup", {
@@ -296,16 +320,18 @@ test_that("1 endemic, 3 species tree, min, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.43337005682)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_c")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 3 species tree, asr, outgroup", {
@@ -319,16 +345,18 @@ test_that("1 endemic, 3 species tree, asr, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.43337005682)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_c")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 3 species tree, min, non-outgroup", {
@@ -342,16 +370,18 @@ test_that("1 endemic, 3 species tree, min, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.251727277709)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 3 species tree, asr, non-outgroup", {
@@ -365,16 +395,18 @@ test_that("1 endemic, 3 species tree, asr, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.251727277709)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 4 species tree, min, outgroup", {
@@ -388,16 +420,18 @@ test_that("1 endemic, 4 species tree, min, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.665451291928)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.665451291928)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_a")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 4 species tree, asr, outgroup", {
@@ -411,16 +445,18 @@ test_that("1 endemic, 4 species tree, asr, outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.665451291928)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.665451291928)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_a")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 4 species tree, min, non-outgroup", {
@@ -434,16 +470,18 @@ test_that("1 endemic, 4 species tree, min, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("1 endemic, 4 species tree, asr, non-outgroup", {
@@ -457,16 +495,18 @@ test_that("1 endemic, 4 species tree, asr, non-outgroup", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
-  expect_equal(
-    get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224)))
-  )
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(is.na(get_island_tbl(island_tbl)$branching_times))
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 nonendemics, 3 species tree, min, sisters", {
@@ -480,16 +520,24 @@ test_that("2 nonendemics, 3 species tree, min, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_a", "bird_b"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "nonendemic"))
   expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
   expect_equal(
+    get_island_tbl(island_tbl)$col_time,
+    c(0.251727277709, 0.251727277709)
+  )
+  expect_equal(get_island_tbl(island_tbl)$col_max_age, c(FALSE, FALSE))
+  expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.251727277709), c(0.251727277709)))
+    I(list(NA_real_, NA_real_))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_a", "bird_b")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, c(1, 1))
 })
 
 test_that("2 nonendemics, 3 species tree, asr, sisters", {
@@ -503,16 +551,24 @@ test_that("2 nonendemics, 3 species tree, asr, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.25173)))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a", "bird_b")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 nonendemics, 4 species tree, min, sister", {
@@ -526,16 +582,24 @@ test_that("2 nonendemics, 4 species tree, min, sister", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_c", "bird_d"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "nonendemic"))
   expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
   expect_equal(
+    get_island_tbl(island_tbl)$col_time,
+    c(0.125863638855, 0.125863638855)
+  )
+  expect_equal(get_island_tbl(island_tbl)$col_max_age, c(FALSE, FALSE))
+  expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.125863638855), c(0.125863638855)))
+    I(list(NA_real_, NA_real_))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_c", "bird_d")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, c(1, 1))
 })
 
 test_that("2 nonendemics, 4 species tree, asr, sister", {
@@ -549,16 +613,24 @@ test_that("2 nonendemics, 4 species tree, asr, sister", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224, 0.12586)))
+    I(list(0.125863638855))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_c", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 nonendemics, 4 species tree, min, non-sisters", {
@@ -572,16 +644,24 @@ test_that("2 nonendemics, 4 species tree, min, non-sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_b", "bird_d"))
   expect_equal(get_island_tbl(island_tbl)$status, c("nonendemic", "nonendemic"))
   expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
   expect_equal(
+    get_island_tbl(island_tbl)$col_time,
+    c(0.519744565224, 0.125863638855)
+  )
+  expect_equal(get_island_tbl(island_tbl)$col_max_age, c(FALSE, FALSE))
+  expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224), c(0.125863638855)))
+    I(list(NA_real_, NA_real_))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b", "bird_d")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, c(1, 1))
 })
 
 test_that("2 nonendemics, 4 species tree, asr, non-sisters", {
@@ -595,16 +675,24 @@ test_that("2 nonendemics, 4 species tree, asr, non-sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.51974)))
+    I(list(0.519744565224))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_b", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 3 species tree, min, sisters", {
@@ -618,16 +706,24 @@ test_that("2 endemics, 3 species tree, min, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, 1.433370056817)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(1.433370056817, 0.25173)))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a", "bird_b")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 3 species tree, asr, sisters", {
@@ -641,16 +737,24 @@ test_that("2 endemics, 3 species tree, asr, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_a")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.25173)))
+    I(list(0.251727277709))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a", "bird_b")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 4 species tree, min, sisters", {
@@ -664,16 +768,24 @@ test_that("2 endemics, 4 species tree, min, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, 0.519744565224)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224, 0.12586)))
+    I(list(0.125863638855))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_c", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 4 species tree, asr, sisters", {
@@ -687,16 +799,24 @@ test_that("2 endemics, 4 species tree, asr, sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_c")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.12586)))
+    I(list(0.125863638855))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_c", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 4 species tree, min, non-sisters", {
@@ -710,16 +830,24 @@ test_that("2 endemics, 4 species tree, min, non-sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, c("bird_b", "bird_d"))
   expect_equal(get_island_tbl(island_tbl)$status, c("endemic", "endemic"))
   expect_equal(get_island_tbl(island_tbl)$missing_species, c(0, 0))
   expect_equal(
+    get_island_tbl(island_tbl)$col_time,
+    c(0.519744565224, 0.125863638855)
+  )
+  expect_equal(get_island_tbl(island_tbl)$col_max_age, c(FALSE, FALSE))
+  expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(0.519744565224), c(0.125863638855)))
+    I(list(NA_real_, NA_real_))
   )
   expect_equal(get_island_tbl(island_tbl)$min_age, c(NA_real_, NA_real_))
+  expect_equal(get_island_tbl(island_tbl)$species, I(list("bird_b", "bird_d")))
+  expect_equal(get_island_tbl(island_tbl)$clade_type, c(1, 1))
 })
 
 test_that("2 endemics, 4 species tree, asr, non-sisters", {
@@ -733,16 +861,24 @@ test_that("2 endemics, 4 species tree, asr, non-sisters", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.51974)))
+    I(list(0.519744565224))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_b", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
 
 test_that("2 endemics, 4 species tree, asr, non-sisters, include_not_present", {
@@ -757,14 +893,22 @@ test_that("2 endemics, 4 species tree, asr, non-sisters, include_not_present", {
   expect_true(is.data.frame(get_island_tbl(island_tbl)))
   expect_equal(
     colnames(get_island_tbl(island_tbl)),
-    c("clade_name", "status", "missing_species", "branching_times", "min_age")
+    c("clade_name", "status", "missing_species", "col_time", "col_max_age",
+      "branching_times", "min_age", "species", "clade_type")
   )
   expect_equal(get_island_tbl(island_tbl)$clade_name, "bird_b")
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
+  expect_equal(get_island_tbl(island_tbl)$col_time, Inf)
+  expect_false(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
-    I(list(c(Inf, 0.66545, 0.51974, 0.12586)))
+    I(list(c(0.665451291928, 0.519744565224, 0.125863638855)))
   )
   expect_true(is.na(get_island_tbl(island_tbl)$min_age))
+  expect_equal(
+    get_island_tbl(island_tbl)$species,
+    I(list(c("bird_a", "bird_b", "bird_c", "bird_d")))
+  )
+  expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })

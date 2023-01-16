@@ -11,7 +11,11 @@
 #'   clade_name = "bird",
 #'   status = "endemic",
 #'   missing_species = 0,
-#'   branching_times = c(1, 0.5)
+#'   col_time = 1,
+#'   col_max_age = FALSE,
+#'   branching_times = 0.5,
+#'   species = "bird_a",
+#'   clade_type = 1
 #' )
 #' island_tbl <- island_tbl()
 #' bind_colonist_to_tbl(
@@ -27,8 +31,12 @@ bind_colonist_to_tbl <- function(island_colonist,
     clade_name = get_clade_name(island_colonist),
     status = get_status(island_colonist),
     missing_species = get_missing_species(island_colonist),
+    col_time = get_col_time(island_colonist),
+    col_max_age = get_col_max_age(island_colonist),
     branching_times = I(list(get_branching_times(island_colonist))),
-    min_age = get_min_age(island_colonist)
+    min_age = get_min_age(island_colonist),
+    species = I(list(get_species(island_colonist))),
+    clade_type = get_clade_type(island_colonist)
   )
 
   # combine island colonist data frame with island tbl data frame

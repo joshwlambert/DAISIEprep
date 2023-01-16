@@ -20,8 +20,16 @@ from the phylogenetic and island data to be used for constructing a
 
 \item{\code{missing_species}}{character.}
 
+\item{\code{col_time}}{numeric.}
+
+\item{\code{col_max_age}}{logical.}
+
 \item{\code{branching_times}}{numeric.}
 
 \item{\code{min_age}}{numeric.}
+
+\item{\code{species}}{character.}
+
+\item{\code{clade_type}}{numeric.}
 }}
 

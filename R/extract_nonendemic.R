@@ -39,8 +39,12 @@ extract_nonendemic <- function(phylod,
   set_clade_name(island_colonist) <- species_label
   set_status(island_colonist) <- "nonendemic"
   set_missing_species(island_colonist) <- 0
-  set_branching_times(island_colonist) <-
+  set_col_time(island_colonist) <-
     as.numeric(phylobase::edgeLength(phylod, species_label))
+  set_col_max_age(island_colonist) <- FALSE
+  set_branching_times(island_colonist) <- NA_real_
+  set_species(island_colonist) <- species_label
+  set_clade_type(island_colonist) <- 1
 
   #return instance of island_colonist class
   island_colonist
