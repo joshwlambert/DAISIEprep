@@ -5,7 +5,7 @@
 [![Codecov test coverage](https://codecov.io/gh/joshwlambert/DAISIEprep/branch/master/graph/badge.svg)](https://app.codecov.io/gh/joshwlambert/DAISIEprep?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![DOI](https://zenodo.org/badge/447535269.svg)](https://zenodo.org/badge/latestdoi/447535269)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7540314.svg)](https://doi.org/10.5281/zenodo.7540314)
 <!-- badges: end -->
 
 ## Package description
