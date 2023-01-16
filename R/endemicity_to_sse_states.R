@@ -103,7 +103,7 @@ select_endemicity_status <- function(asr_df, method = "max") {
       endemicity_status[i] <- all_endemicity_status()[selected_states[i]]
     }
   } else if (method == "random") {
-    for (i in 1:nrow(asr_df)) {
+    for (i in seq_len(nrow(asr_df))) {
       selected_state <- sample(x = 1:3, size = 1, prob = asr_df[i, ])
       endemicity_status[i] <- all_endemicity_status()[selected_state]
     }
