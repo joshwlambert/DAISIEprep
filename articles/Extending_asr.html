@@ -61,7 +61,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -76,14 +83,14 @@
       <img src="../logo.png" class="logo" alt=""><h1>Extending DAISIEprep ASR models</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/HEAD/vignettes/Extending_asr.Rmd" class="external-link"><code>vignettes/Extending_asr.Rmd</code></a></small>
       <div class="d-none name"><code>Extending_asr.Rmd</code></div>
     </div>
 
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshwlambert.github.io/DAISIEprep">DAISIEprep</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshwlambert/DAISIEprep" class="external-link">DAISIEprep</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
@@ -625,7 +632,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.772</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 0.786</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in

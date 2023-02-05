@@ -61,7 +61,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -76,7 +83,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Sensitivity</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/HEAD/vignettes/Sensitivity.Rmd" class="external-link"><code>vignettes/Sensitivity.Rmd</code></a></small>
       <div class="d-none name"><code>Sensitivity.Rmd</code></div>
     </div>
 
@@ -112,7 +119,7 @@ check model selection as well as parameter estimates in their work.</p>
 <h2 id="sensitivity-to-extraction-method">Sensitivity to extraction method<a class="anchor" aria-label="anchor" href="#sensitivity-to-extraction-method"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshwlambert.github.io/DAISIEprep">DAISIEprep</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshwlambert/DAISIEprep" class="external-link">DAISIEprep</a></span><span class="op">)</span></span></code></pre></div>
 <p>The <code>DAISIEprep</code> R package provides the tools to extract
 phylogenetic community data from phylogenetic trees with the endemicity
 status of the species assigned to each tip in the phylogeny. However,
@@ -254,7 +261,7 @@ estimated rate from the DAISIE inference model across each posterior
 phylogeny.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">DAISIEprep</span><span class="fu">:::</span><span class="fu"><a href="../reference/plot_sensitivity.html">plot_sensitivity</a></span><span class="op">(</span></span>
-<span>  sensitivity_data <span class="op">=</span> <span class="va">sensitivity_data</span><span class="op">$</span><span class="va">sensitivity_dna</span>, </span>
+<span>  sensitivity_data <span class="op">=</span> <span class="va">sensitivity_data</span><span class="op">$</span><span class="va">sensitivity_dna</span>,</span>
 <span>  pairwise_diffs <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Sensitivity_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>

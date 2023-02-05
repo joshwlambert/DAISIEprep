@@ -61,7 +61,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -76,7 +83,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>DAISIEprep Tutorial</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/HEAD/vignettes/Tutorial.Rmd" class="external-link"><code>vignettes/Tutorial.Rmd</code></a></small>
       <div class="d-none name"><code>Tutorial.Rmd</code></div>
     </div>
 
@@ -106,7 +113,7 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 </ol>
 <p>Load the required packages:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://joshwlambert.github.io/DAISIEprep">DAISIEprep</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshwlambert/DAISIEprep" class="external-link">DAISIEprep</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/fmichonneau/phylobase" class="external-link">phylobase</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -126,14 +133,11 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co"><span style="color: #949494;">#&gt; trees with their covariates and other associated data. Methods in</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; visualization of richly annotated phylogenetic data. Molecular Biology</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu. Using ggtree to visualize data on tree-like structures.</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu.  Data Integration, Manipulation and Visualization of</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; doi:10.1201/9781003279242 </span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; G Yu. Data Integration, Manipulation and Visualization of Phylogenetic</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Trees (1st ed.). Chapman and Hall/CRC. 2022. ISBN: 9781032233574 </span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ggtree'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:phylobase':</span></span>
@@ -178,8 +182,8 @@ sampling or subspecies tags.</p>
 <p>Here we add tip labels to the simulated phylogeny. In this case, all
 taxa sampled are different plant species from the same genus.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plant_a"</span>, <span class="st">"Plant_b"</span>, <span class="st">"Plant_c"</span>, <span class="st">"Plant_d"</span>, <span class="st">"Plant_e"</span>, <span class="st">"Plant_f"</span>,</span>
-<span>                     <span class="st">"Plant_g"</span>, <span class="st">"Plant_h"</span>, <span class="st">"Plant_i"</span>, <span class="st">"Plant_j"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plant_a"</span>, <span class="st">"Plant_b"</span>, <span class="st">"Plant_c"</span>, <span class="st">"Plant_d"</span>, <span class="st">"Plant_e"</span>,</span>
+<span>                     <span class="st">"Plant_f"</span>, <span class="st">"Plant_g"</span>, <span class="st">"Plant_h"</span>, <span class="st">"Plant_i"</span>, <span class="st">"Plant_j"</span><span class="op">)</span></span></code></pre></div>
 <p>Then we convert the phylogeny to a <code>phylo4</code> class defined
 in the package <code>phylobase</code>. This allows users to easily work
 with data for each tip in the phylogeny, for example whether they are
@@ -198,8 +202,8 @@ should be based on the actual endemicity status of each
 species!</strong>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span>
-<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"not_present"</span>, <span class="st">"endemic"</span>, <span class="st">"nonendemic"</span><span class="op">)</span>, </span>
-<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/labels-methods.html" class="external-link">tipLabels</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"not_present"</span>, <span class="st">"endemic"</span>, <span class="st">"nonendemic"</span><span class="op">)</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/labels-methods.html" class="external-link">tipLabels</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -240,7 +244,7 @@ order to fill this data frame with information on the island
 colonisation and diversification events we can run:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
-<span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
+<span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"min"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">island_tbl</span></span>
@@ -295,7 +299,7 @@ the phylogeny using the reconstructed ancestral states of island
 presence/absence.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
-<span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
+<span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -343,9 +347,9 @@ island.</li>
 </ul>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  island_age <span class="op">=</span> <span class="fl">1</span>, </span>
-<span>  num_mainland_species <span class="op">=</span> <span class="fl">100</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  island_age <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  num_mainland_species <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  precise_col_time <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Below we show two elements of the DAISIE data list produced. The
@@ -516,8 +520,8 @@ this step we use the “asr” method to extract the data which requires
 inferring the ancestral geography of each species.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span></span>
-<span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
-<span>  asr_method <span class="op">=</span> <span class="st">"parsimony"</span>, </span>
+<span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
+<span>  asr_method <span class="op">=</span> <span class="st">"parsimony"</span>,</span>
 <span>  tie_preference <span class="op">=</span> <span class="st">"mainland"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Plot the phylogeny with the node states:</p>
@@ -528,7 +532,7 @@ inferring the ancestral geography of each species.</p>
 <p>Extract the data from the phylogeny:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
-<span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
+<span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
@@ -647,8 +651,8 @@ be worth toggling the <code>precise_col_time</code> to
 times influences conclusions.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  island_age <span class="op">=</span> <span class="fl">4</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  island_age <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  num_mainland_species <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  precise_col_time <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -692,7 +696,7 @@ this clade we use following code:</p>
 <span>  <span class="co"># num_missing_species equals total species missing</span></span>
 <span>  num_missing_species <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  <span class="co"># name of a sampled species you want to "add" the missing to</span></span>
-<span>  <span class="co"># it can be any in the clade </span></span>
+<span>  <span class="co"># it can be any in the clade</span></span>
 <span>  species_to_add_to <span class="op">=</span> <span class="st">"C_fus"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The argument <code>species_name</code> uses a representative sampled
@@ -767,17 +771,17 @@ diversification dynamics</li>
 </ul>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
-<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  clade_name <span class="op">=</span> <span class="st">"Bird_a"</span>, </span>
-<span>  status <span class="op">=</span> <span class="st">"endemic"</span>, </span>
-<span>  <span class="co"># clade with just 1 species, missing_species = 0 </span></span>
+<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  clade_name <span class="op">=</span> <span class="st">"Bird_a"</span>,</span>
+<span>  status <span class="op">=</span> <span class="st">"endemic"</span>,</span>
+<span>  <span class="co"># clade with just 1 species, missing_species = 0</span></span>
 <span>  <span class="co"># because adding the lineage already counts as 1</span></span>
-<span>  missing_species <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>  col_time <span class="op">=</span> <span class="fl">2.5</span>, </span>
-<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  species <span class="op">=</span> <span class="st">"Bird_a"</span>, </span>
+<span>  missing_species <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  col_time <span class="op">=</span> <span class="fl">2.5</span>,</span>
+<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"Bird_a"</span>,</span>
 <span>  clade_type <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>With the new missing species added to the <code>island_tbl</code> we
@@ -837,17 +841,17 @@ diversification dynamics</li>
 </ul>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
-<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  clade_name <span class="op">=</span> <span class="st">"Bird_b"</span>, </span>
-<span>  status <span class="op">=</span> <span class="st">"endemic"</span>, </span>
+<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  clade_name <span class="op">=</span> <span class="st">"Bird_b"</span>,</span>
+<span>  status <span class="op">=</span> <span class="st">"endemic"</span>,</span>
 <span>  <span class="co"># the total species is 3 and all are missing</span></span>
 <span>  <span class="co"># but we add missing_species = 2 because</span></span>
 <span>  <span class="co"># adding the lineage already counts as 1</span></span>
-<span>  missing_species <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>  col_time <span class="op">=</span> <span class="fl">2.5</span>, </span>
-<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
+<span>  missing_species <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  col_time <span class="op">=</span> <span class="fl">2.5</span>,</span>
+<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  clade_type <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bird_b"</span>, <span class="st">"Bird_c"</span>, <span class="st">"Bird_d"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -879,37 +883,37 @@ the number of missing species in this case should be
 </ul>
 <p>Example for adding lineage with 1 species:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_tbl</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
-<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  clade_name <span class="op">=</span> <span class="st">"Bird_e"</span>, </span>
-<span>  status <span class="op">=</span> <span class="st">"endemic"</span>, </span>
-<span>  <span class="co"># clade with just 1 species, missing_species = 0 </span></span>
+<code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
+<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  clade_name <span class="op">=</span> <span class="st">"Bird_e"</span>,</span>
+<span>  status <span class="op">=</span> <span class="st">"endemic"</span>,</span>
+<span>  <span class="co"># clade with just 1 species, missing_species = 0</span></span>
 <span>  <span class="co"># because adding the lineage already counts as 1</span></span>
-<span>  missing_species <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
+<span>  missing_species <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  clade_type <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  species <span class="op">=</span> <span class="st">"Bird_e"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Example for adding lineage with 5 species:</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_tbl</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
-<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  clade_name <span class="op">=</span> <span class="st">"Bird_f"</span>, </span>
-<span>  status <span class="op">=</span> <span class="st">"endemic"</span>, </span>
+<code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
+<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  clade_name <span class="op">=</span> <span class="st">"Bird_f"</span>,</span>
+<span>  status <span class="op">=</span> <span class="st">"endemic"</span>,</span>
 <span>  <span class="co"># the total species is 5 and all are missing</span></span>
 <span>  <span class="co"># but we add missing_species = 4 because</span></span>
 <span>  <span class="co"># adding the lineage already counts as 1</span></span>
-<span>  missing_species <span class="op">=</span> <span class="fl">4</span>, </span>
-<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
+<span>  missing_species <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  min_age <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  clade_type <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Bird_f"</span>, <span class="st">"Bird_g"</span>, <span class="st">"Bird_h"</span>,</span>
-<span>              <span class="st">"Bird_i"</span>,<span class="st">"Bird_j"</span><span class="op">)</span></span>
+<span>              <span class="st">"Bird_i"</span>, <span class="st">"Bird_j"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>With the new missing species added to the <code>island_tbl</code> we
 can repeat the conversion steps above using
@@ -931,15 +935,15 @@ million years ago) and the crown or minimum age. In the example below we
 assume a crown age of 2 million years.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
-<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  clade_name <span class="op">=</span> <span class="st">"Bird_k"</span>, </span>
-<span>  status <span class="op">=</span> <span class="st">"endemic"</span>, </span>
-<span>  missing_species <span class="op">=</span> <span class="fl">0</span>, </span>
-<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>, </span>
-<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>, </span>
-<span>  min_age <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>  species <span class="op">=</span> <span class="st">"Bird_k"</span>, </span>
+<span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  clade_name <span class="op">=</span> <span class="st">"Bird_k"</span>,</span>
+<span>  status <span class="op">=</span> <span class="st">"endemic"</span>,</span>
+<span>  missing_species <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  col_time <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  col_max_age <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  branching_times <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  min_age <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"Bird_k"</span>,</span>
 <span>  clade_type <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>With the new missing species added to the <code>island_tbl</code> we
@@ -948,8 +952,8 @@ can repeat the conversion steps above using
 model.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">island_tbl</span>, </span>
-<span>  island_age <span class="op">=</span> <span class="fl">4</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
+<span>  island_age <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  num_mainland_species <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  precise_col_time <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>

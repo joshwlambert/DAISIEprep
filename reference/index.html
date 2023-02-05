@@ -35,7 +35,13 @@
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -103,9 +109,10 @@ clade) to the island community (island_tbl).</dd>
           <code><a href="add_missing_species.html">add_missing_species()</a></code> 
         </dt>
         <dd>Adds a specified number of missing species to an existing island_tbl at the
-colonist specified by the species_to_add_to argument given. The species given is
-located within the island_tbl data and missing species are assigned. This is
-to be used after `extract_island_species()` to input missing species.</dd>
+colonist specified by the species_to_add_to argument given. The species
+given is located within the island_tbl data and missing species are
+assigned. This is to be used after `extract_island_species()` to input
+missing species.</dd>
       </dl><dl><dt>
           
           <code><a href="add_multi_missing_species.html">add_multi_missing_species()</a></code> 
@@ -172,7 +179,7 @@ the DAISIE ML models.</dd>
         </dt>
         <dd>Performance analysis of the extract_island_species() function
 Uses system.time() for timing for reasons explained here:
-https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/</dd>
+https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/ # nolint</dd>
       </dl><dl><dt>
           
           <code><a href="bind_colonist_to_tbl.html">bind_colonist_to_tbl()</a></code> 
