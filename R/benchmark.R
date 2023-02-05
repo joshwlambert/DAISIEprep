@@ -1,6 +1,6 @@
 #' Performance analysis of the extract_island_species() function
 #' Uses system.time() for timing for reasons explained here:
-#' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/
+#' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/ # nolint
 #'
 #' @inheritParams default_params_doc
 #'
@@ -51,9 +51,21 @@ benchmark <- function(phylod,
     prob_endemic = prob_endemic,
     extraction_method = extraction_method,
     asr_method = asr_method,
-    tie_preference = tie_preference
+    tie_preference = tie_preference,
+    stringsAsFactors = FALSE
   )
 
+  if ("min" %in% extraction_method) {
+
+    # get the rows with extraction method = "min"
+    min_rows <- which(parameter_space$extraction_method == "min")
+
+    # set asr_method and tie_preference in min rows to NA
+    parameter_space[min_rows, c("asr_method", "tie_preference")] <- NA_character_
+
+    # remove duplicated rows
+    parameter_space <- unique(parameter_space)
+  }
 
   times_list <- list()
 
@@ -90,7 +102,8 @@ benchmark <- function(phylod,
         prob_endemic <-
           parameter_space$prob_endemic[i] * parameter_space$prob_on_island[i]
         prob_nonendemic <-
-          (1 - parameter_space$prob_endemic[i]) * parameter_space$prob_on_island[i]
+          (1 - parameter_space$prob_endemic[i]) *
+          parameter_space$prob_on_island[i]
 
 
         empty_island <- TRUE
@@ -112,13 +125,16 @@ benchmark <- function(phylod,
         endemicity_status <- c("not_present", endemicity_status)
 
         # format data for DAISIEprep
-        phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+        sim_phylod <- phylobase::phylo4d(
+          phylo,
+          as.data.frame(endemicity_status)
+        )
 
-        if (extraction_method == "asr") {
-          phylod <- DAISIEprep::add_asr_node_states(
-            phylod = phylod,
-            asr_method = asr_method,
-            tie_preference = tie_preference
+        if (parameter_space$extraction_method[i] == "asr") {
+          sim_phylod <- DAISIEprep::add_asr_node_states(
+            phylod = sim_phylod,
+            asr_method = parameter_space$asr_method[i],
+            tie_preference = parameter_space$tie_preference[i]
           )
         }
       }
@@ -126,8 +142,8 @@ benchmark <- function(phylod,
       # run extraction
       time <- system.time(for (n in 1:3) {
         island_tbl <- DAISIEprep::extract_island_species(
-          phylod = phylod,
-          extraction_method = extraction_method,
+          phylod = sim_phylod,
+          extraction_method = parameter_space$extraction_method[i],
           island_tbl = NULL,
           include_not_present = FALSE
         )

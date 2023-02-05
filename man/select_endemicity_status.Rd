@@ -17,7 +17,8 @@ probability (selecting last state in event of a tie), while "random" will
 sample the states randomly with the probabilities as weight for each state.}
 }
 \value{
-a character vector, with the selected endemicity status for each node.
+a character vector, with the selected endemicity status for each
+node.
 }
 \description{
 Selects a state for each node (both internal nodes, i.e. ancestral states,

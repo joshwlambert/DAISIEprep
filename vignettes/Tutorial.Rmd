@@ -25,9 +25,9 @@ Load the required packages:
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.align = "center", 
-  fig.height = 5, 
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 5,
   fig.width = 7
 )
 ```
@@ -65,8 +65,8 @@ also optionally have tags appended after the species name (separated by undersco
 
 Here we add tip labels to the simulated phylogeny. In this case, all taxa sampled are different plant species from the same genus.
 ```{r}
-phylo$tip.label <- c("Plant_a", "Plant_b", "Plant_c", "Plant_d", "Plant_e", "Plant_f",
-                     "Plant_g", "Plant_h", "Plant_i", "Plant_j")
+phylo$tip.label <- c("Plant_a", "Plant_b", "Plant_c", "Plant_d", "Plant_e",
+                     "Plant_f", "Plant_g", "Plant_h", "Plant_i", "Plant_j")
 ```
 
 Then we convert the phylogeny to a `phylo4` class defined in the package
@@ -86,8 +86,8 @@ this should be based on the actual endemicity status of each species!**).
 
 ```{r create island endemcity data}
 endemicity_status <- sample(
-  x = c("not_present", "endemic", "nonendemic"), 
-  size = length(phylobase::tipLabels(phylo)), 
+  x = c("not_present", "endemic", "nonendemic"),
+  size = length(phylobase::tipLabels(phylo)),
   replace = TRUE,
   prob = c(0.6, 0.2, 0.2)
 )
@@ -132,7 +132,7 @@ events we can run:
 
 ```{r extract island data}
 island_tbl <- extract_island_species(
-  phylod = phylod, 
+  phylod = phylod,
   extraction_method = "min"
 )
 island_tbl
@@ -183,7 +183,7 @@ using the reconstructed ancestral states of island presence/absence.
 
 ```{r}
 island_tbl <- extract_island_species(
-  phylod = phylod, 
+  phylod = phylod,
   extraction_method = "asr"
 )
 ```
@@ -229,9 +229,9 @@ the island.
 
 ```{r} 
 data_list <- create_daisie_data(
-  data = island_tbl, 
-  island_age = 1, 
-  num_mainland_species = 100, 
+  data = island_tbl,
+  island_age = 1,
+  num_mainland_species = 100,
   precise_col_time = TRUE
 )
 ```
@@ -399,8 +399,8 @@ extract the data which requires inferring the ancestral geography of each specie
 
 ```{r}
 phylod <- add_asr_node_states(
-  phylod = phylod, 
-  asr_method = "parsimony", 
+  phylod = phylod,
+  asr_method = "parsimony",
   tie_preference = "mainland"
 )
 ```
@@ -415,7 +415,7 @@ plot_phylod(phylod = phylod)
 Extract the data from the phylogeny:
 ```{r extract Coccyzus}
 island_tbl <- extract_island_species(
-  phylod = phylod, 
+  phylod = phylod,
   extraction_method = "asr"
 )
 ```
@@ -523,8 +523,8 @@ conclusions.
 
 ```{r create Galapagos data list} 
 data_list <- create_daisie_data(
-  data = island_tbl, 
-  island_age = 4, 
+  data = island_tbl,
+  island_age = 4,
   num_mainland_species = 100,
   precise_col_time = TRUE
 )
@@ -566,7 +566,7 @@ island_tbl <- add_missing_species(
   # num_missing_species equals total species missing
   num_missing_species = 2,
   # name of a sampled species you want to "add" the missing to
-  # it can be any in the clade 
+  # it can be any in the clade
   species_to_add_to = "C_fus"
 )
 ```
@@ -618,17 +618,17 @@ The input needed are:
 
 ```{r}
 island_tbl <- add_island_colonist(
-  island_tbl = island_tbl, 
-  clade_name = "Bird_a", 
-  status = "endemic", 
-  # clade with just 1 species, missing_species = 0 
+  island_tbl = island_tbl,
+  clade_name = "Bird_a",
+  status = "endemic",
+  # clade with just 1 species, missing_species = 0
   # because adding the lineage already counts as 1
-  missing_species = 0, 
-  col_time = 2.5, 
-  col_max_age = FALSE, 
-  branching_times = NA_real_, 
-  min_age = NA_real_, 
-  species = "Bird_a", 
+  missing_species = 0,
+  col_time = 2.5,
+  col_max_age = FALSE,
+  branching_times = NA_real_,
+  min_age = NA_real_,
+  species = "Bird_a",
   clade_type = 1
 )
 ```
@@ -667,17 +667,17 @@ The input needed are:
 
 ```{r}
 island_tbl <- add_island_colonist(
-  island_tbl = island_tbl, 
-  clade_name = "Bird_b", 
-  status = "endemic", 
+  island_tbl = island_tbl,
+  clade_name = "Bird_b",
+  status = "endemic",
   # the total species is 3 and all are missing
   # but we add missing_species = 2 because
   # adding the lineage already counts as 1
-  missing_species = 2, 
-  col_time = 2.5, 
-  col_max_age = FALSE, 
-  branching_times = NA_real_, 
-  min_age = NA_real_, 
+  missing_species = 2,
+  col_time = 2.5,
+  col_max_age = FALSE,
+  branching_times = NA_real_,
+  min_age = NA_real_,
   clade_type = 1,
   species = c("Bird_b", "Bird_c", "Bird_d")
 )
@@ -704,17 +704,17 @@ present.
 
 Example for adding lineage with 1 species:
 ```{r}
-island_tbl<-add_island_colonist(
-  island_tbl = island_tbl, 
-  clade_name = "Bird_e", 
-  status = "endemic", 
-  # clade with just 1 species, missing_species = 0 
+island_tbl <- add_island_colonist(
+  island_tbl = island_tbl,
+  clade_name = "Bird_e",
+  status = "endemic",
+  # clade with just 1 species, missing_species = 0
   # because adding the lineage already counts as 1
-  missing_species = 0, 
-  col_time = NA_real_, 
-  col_max_age = FALSE, 
-  branching_times = NA_real_, 
-  min_age = NA_real_, 
+  missing_species = 0,
+  col_time = NA_real_,
+  col_max_age = FALSE,
+  branching_times = NA_real_,
+  min_age = NA_real_,
   clade_type = 1,
   species = "Bird_e"
 )
@@ -722,21 +722,21 @@ island_tbl<-add_island_colonist(
 
 Example for adding lineage with 5 species:
 ```{r}
-island_tbl<-add_island_colonist(
-  island_tbl = island_tbl, 
-  clade_name = "Bird_f", 
-  status = "endemic", 
+island_tbl <- add_island_colonist(
+  island_tbl = island_tbl,
+  clade_name = "Bird_f",
+  status = "endemic",
   # the total species is 5 and all are missing
   # but we add missing_species = 4 because
   # adding the lineage already counts as 1
-  missing_species = 4, 
-  col_time = NA_real_, 
-  col_max_age = FALSE, 
-  branching_times = NA_real_, 
-  min_age = NA_real_, 
+  missing_species = 4,
+  col_time = NA_real_,
+  col_max_age = FALSE,
+  branching_times = NA_real_,
+  min_age = NA_real_,
   clade_type = 1,
   species = c("Bird_f", "Bird_g", "Bird_h",
-              "Bird_i","Bird_j")
+              "Bird_i", "Bird_j")
 )
 ```
 
@@ -756,15 +756,15 @@ crown or minimum age. In the example below we assume a crown age of 2 million ye
 
 ```{r}
 island_tbl <- add_island_colonist(
-  island_tbl = island_tbl, 
-  clade_name = "Bird_k", 
-  status = "endemic", 
-  missing_species = 0, 
-  col_time = NA_real_, 
-  col_max_age = FALSE, 
-  branching_times = NA_real_, 
-  min_age = 2, 
-  species = "Bird_k", 
+  island_tbl = island_tbl,
+  clade_name = "Bird_k",
+  status = "endemic",
+  missing_species = 0,
+  col_time = NA_real_,
+  col_max_age = FALSE,
+  branching_times = NA_real_,
+  min_age = 2,
+  species = "Bird_k",
   clade_type = 1
 )
 ```
@@ -775,8 +775,8 @@ to produce data accepted by the DAISIE model.
 
 ```{r} 
 data_list <- create_daisie_data(
-  data = island_tbl, 
-  island_age = 4, 
+  data = island_tbl,
+  island_age = 4,
   num_mainland_species = 100,
   precise_col_time = TRUE
 )

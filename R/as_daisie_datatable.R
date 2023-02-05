@@ -79,7 +79,8 @@ as_daisie_datatable <- function(island_tbl,
       island_age_max_age <- TRUE
     }
 
-    # max age if older than island or specified in precise_col_time or island_tbl
+    # max age if older than island or specified in precise_col_time or
+    # island_tbl
     max_age <- isFALSE(precise_col_time) ||
       island_tbl[1, "col_max_age"] ||
       island_age_max_age
@@ -142,7 +143,8 @@ as_daisie_datatable <- function(island_tbl,
             }
           }
 
-          # if there are branching times left after recursion put them in a clade
+          # if there are branching times left after recursion put them in a
+          # clade
           if (length(event_times) >= 1) {
             daisie_datatable[i, "Clade_name"] <- island_tbl[1, "clade_name"]
             daisie_datatable[i, "Branching_times"][[1]] <- list(event_times)

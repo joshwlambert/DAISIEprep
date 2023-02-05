@@ -28,4 +28,3 @@ test_that("plot_phylod fails correctly without node data", {
     regexp = "To plot probabilities in at the nodes they must be in phylod"
   )
 })
-

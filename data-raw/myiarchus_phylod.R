@@ -44,4 +44,3 @@ myiarchus_phylod <- add_asr_node_states(
 )
 
 saveRDS(myiarchus_phylod, file = "inst/extdata/myiarchus_phylod.rds")
-

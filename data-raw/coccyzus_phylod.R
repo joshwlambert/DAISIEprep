@@ -26,4 +26,3 @@ coccyzus_phylod <- add_asr_node_states(
 )
 
 saveRDS(coccyzus_phylod, file = "inst/extdata/coccyzus_phylod.rds")
-

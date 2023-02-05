@@ -38,6 +38,13 @@ plot_phylod <- function(phylod,
   endemicity_status <- NULL; rm(endemicity_status) # nolint, fixes warning: no visible binding for global variable
   island_status <- NULL; rm(island_status) # nolint, fixes warning: no visible binding for global variable
 
+  # remove underscores in species names for plotting
+  phylobase::tipLabels(phylod) <-  gsub(
+    pattern = "_",
+    replacement = " ",
+    x = phylobase::tipLabels(phylod)
+  )
+
   # generate plot
   # suppress Scale for 'y' is already present.
   p <- suppressMessages(ggtree::ggtree(phylod) +

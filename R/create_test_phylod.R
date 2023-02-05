@@ -58,7 +58,7 @@ create_test_phylod <- function(test_scenario) {
     phylo <- ape::rcoal(4)
     phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d")
     phylo <- phylobase::phylo4(phylo)
-    endemicity_status <- c("nonendemic", "not_present","not_present",
+    endemicity_status <- c("nonendemic", "not_present", "not_present",
                            "not_present")
     phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
     phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
@@ -110,7 +110,7 @@ create_test_phylod <- function(test_scenario) {
     phylo <- ape::rcoal(4)
     phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d")
     phylo <- phylobase::phylo4(phylo)
-    endemicity_status <- c("endemic", "not_present","not_present",
+    endemicity_status <- c("endemic", "not_present", "not_present",
                            "not_present")
     phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
     phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
@@ -194,5 +194,3 @@ create_test_phylod <- function(test_scenario) {
   # return phylod
   phylod
 }
-
-

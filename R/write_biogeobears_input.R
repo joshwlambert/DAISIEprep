@@ -1,10 +1,11 @@
 #' Write biogeography input file for BioGeoBEARS
 #'
-#' Write a text file containing occurrence data for all tips in the PHYLIP format
-#' expected by BioGeoBEARS
+#' Write a text file containing occurrence data for all tips in the PHYLIP
+#' format expected by BioGeoBEARS
 #'
 #' @inheritParams default_params_doc
-#' @param path_to_biogeo string specifying the path and name to write the file to.
+#' @param path_to_biogeo string specifying the path and name to write the file
+#' to.
 #'
 #' @export
 #'

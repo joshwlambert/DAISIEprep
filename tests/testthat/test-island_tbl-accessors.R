@@ -114,4 +114,3 @@ test_that("set_num_phylo_used works", {
 
   expect_equal(island_tbl@metadata$num_phylo_used, 1)
 })
-
