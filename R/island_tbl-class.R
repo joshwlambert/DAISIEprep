@@ -102,4 +102,3 @@ setClass(
 island_tbl <- function() {
   methods::new("Island_tbl")
 }
-

@@ -237,13 +237,13 @@ identifier is used as the clade name in the Island_tbl object or a genus
 name which may not be unique if that genus has several independent island
 colonisations}
 
-\item{genus_name}{Character string of genus name to be matched with a genus name from
-the tip labels in the phylogeny}
+\item{genus_name}{Character string of genus name to be matched with a genus
+name from the tip labels in the phylogeny}
 
 \item{stem}{Character string, either "genus" or "island_presence". The former
 will extract the stem age of the genussbased on the genus name provided, the
-latter will extract the stem age based on the ancestral presence on the island
-either based on the "min" or "asr" extraction algorithms.}
+latter will extract the stem age based on the ancestral presence on the
+island either based on the "min" or "asr" extraction algorithms.}
 
 \item{genus_in_tree}{A numeric vector that indicates which species in the
 genus are in the tree}

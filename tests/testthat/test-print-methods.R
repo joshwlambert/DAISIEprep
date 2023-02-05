@@ -27,4 +27,3 @@ test_that("Multi_island_tbl show method works correctly", {
   multi_island_tbl <- multi_island_tbl()
   expect_output(show(multi_island_tbl))
 })
-

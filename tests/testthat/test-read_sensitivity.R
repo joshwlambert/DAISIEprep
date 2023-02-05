@@ -10,4 +10,3 @@ test_that("read_sensitivity works as expected", {
 test_that("read_sensitivity fails as expected", {
   expect_error(read_sensitivity("fake_argument"))
 })
-

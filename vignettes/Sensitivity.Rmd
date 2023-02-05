@@ -11,8 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.align = "center", 
-  fig.height = 5, 
+  fig.align = "center",
+  fig.height = 5,
   fig.width = 7
 )
 ```
@@ -185,7 +185,7 @@ from the DAISIE inference model across each posterior phylogeny.
 
 ```{r}
 DAISIEprep:::plot_sensitivity(
-  sensitivity_data = sensitivity_data$sensitivity_dna, 
+  sensitivity_data = sensitivity_data$sensitivity_dna,
   pairwise_diffs = TRUE
 )
 ``` 

@@ -34,7 +34,8 @@ pyrocephalus_phylod <- phylobase::phylo4d(
   pyrocephalus_tree, pyrocephalus_endemicity_status
 )
 
-# remove rubinus from pyrocephalus tip labels to treat subspecies as full species
+# remove rubinus from pyrocephalus tip labels to treat subspecies as
+# full species
 phylobase::tipLabels(pyrocephalus_phylod) <- gsub(
   pattern = "rubinus_nanus",
   replacement = "nanus",
@@ -54,4 +55,3 @@ pyrocephalus_phylod <- add_asr_node_states(
 )
 
 saveRDS(pyrocephalus_phylod, file = "inst/extdata/pyrocephalus_phylod.rds")
-

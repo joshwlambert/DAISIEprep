@@ -57,4 +57,3 @@ add_island_colonist <- function(island_tbl,
   # return the class
   island_tbl
 }
-

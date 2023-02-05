@@ -12,7 +12,7 @@ columbiformes_island_species <- data.frame(
   tip_endemicity_status = c("endemic", "endemic")
 )
 
-columbiformes_endemicity_status <- create_endemicity_status(
+columbiformes_endemicity_status <- create_endemicity_status( # nolint
   phylo = columbiformes_tree,
   island_species = columbiformes_island_species
 )

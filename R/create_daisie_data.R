@@ -124,7 +124,7 @@ create_daisie_data <- function(data,
       if (brts[2] >= brts[1]) {
         stop(paste(
           "Cladogenetic event or minimum colonisation time in ",
-          daisie_datatable[i,"Clade_name"],
+          daisie_datatable[i, "Clade_name"],
           " is older than the island, or of the same age as the island",
           sep = ""
         ))
@@ -146,7 +146,7 @@ create_daisie_data <- function(data,
       if (daisie_datatable[i, "Missing_species"] > 0) {
         stop(paste(
           "Missing species for ",
-          daisie_datatable[i,"Clade_name"],
+          daisie_datatable[i, "Clade_name"],
           " should be 0 because it is a non-endemic species.",
           sep = ""
         ))
@@ -167,18 +167,18 @@ create_daisie_data <- function(data,
       datalist[[colonist]]$stac <- 3
     }
 
-    if(status == "endemic_max_age") {
+    if (status == "endemic_max_age") {
       if (length(brts) == 1) {
         datalist[[colonist]]$stac <- 5
       }
       if (length(brts) > 1) {
         datalist[[colonist]]$stac <- 6
       }
-      if (max(brts)>island_age) {
+      if (max(brts) > island_age) {
         if (length(brts) > 1) {
           stop(paste(
             "Radiation of ",
-            daisie_datatable[i,"Clade_name"],
+            daisie_datatable[i, "Clade_name"],
             " is older than the island",
             sep = ""
           ))
@@ -186,7 +186,7 @@ create_daisie_data <- function(data,
       }
     }
 
-    if(status == "nonendemic_max_age_min_age") {
+    if (status == "nonendemic_max_age_min_age") {
       datalist[[colonist]]$stac <- 8
     }
 

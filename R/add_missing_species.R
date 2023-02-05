@@ -1,7 +1,8 @@
 #' Adds a specified number of missing species to an existing island_tbl at the
-#' colonist specified by the species_to_add_to argument given. The species given is
-#' located within the island_tbl data and missing species are assigned. This is
-#' to be used after `extract_island_species()` to input missing species.
+#' colonist specified by the species_to_add_to argument given. The species
+#' given is located within the island_tbl data and missing species are
+#' assigned. This is to be used after `extract_island_species()` to input
+#' missing species.
 #'
 #' @inheritParams default_params_doc
 #'

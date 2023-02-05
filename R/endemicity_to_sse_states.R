@@ -88,7 +88,8 @@ sse_states_to_endemicity <- function(states, sse_model = "musse") {
 #' probability (selecting last state in event of a tie), while "random" will
 #' sample the states randomly with the probabilities as weight for each state.
 #'
-#' @return a character vector, with the selected endemicity status for each node.
+#' @return a character vector, with the selected endemicity status for each
+#' node.
 #' @export
 select_endemicity_status <- function(asr_df, method = "max") {
   exptd_col_names <- paste0(all_endemicity_status(), "_prob")

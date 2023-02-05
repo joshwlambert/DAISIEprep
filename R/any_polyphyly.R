@@ -48,11 +48,3 @@ any_polyphyly <- function(phylod) {
   # return boolean
   polyphyly
 }
-
-
-
-
-
-
-
-

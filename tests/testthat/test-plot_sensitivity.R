@@ -13,5 +13,3 @@ test_that("plot_sensitivity runs silent for pairwise diff scatter", {
     plot_sensitivity(sensitivity_data = sens, pairwise_diffs = TRUE)
   )
 })
-
-

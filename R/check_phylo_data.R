@@ -40,15 +40,16 @@ check_phylo_data <- function(phylod) {
     tip_labels <- unname(phylobase::tipLabels(phylod))
     split_tip_labels <- strsplit(tip_labels, split = "_")
 
-    # check the tip labels are in genus_species_marker format (marker is optional)
+    # check the tip labels are in genus_species_marker format
+    # (marker is optional)
     correct_structure <- all(sapply(split_tip_labels, function(x) {
       length(x) >= 2
     }))
 
     if (isFALSE(correct_structure)) {
-      stop("Tip labels on the phylogeny need to be in the format genus underscore
-         species and then optionally underscore and molecular marker or
-         collection tag")
+      stop("Tip labels on the phylogeny need to be in the format genus
+         underscore species and then optionally underscore and molecular
+         marker or collection tag")
     }
 
     # extract genus names

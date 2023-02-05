@@ -1,6 +1,6 @@
 #' Performance analysis of the extract_island_species() function
 #' Uses system.time() for timing for reasons explained here:
-#' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/
+#' https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/ # nolint
 #'
 #' @inheritParams default_params_doc
 #'
@@ -102,7 +102,8 @@ benchmark <- function(phylod,
         prob_endemic <-
           parameter_space$prob_endemic[i] * parameter_space$prob_on_island[i]
         prob_nonendemic <-
-          (1 - parameter_space$prob_endemic[i]) * parameter_space$prob_on_island[i]
+          (1 - parameter_space$prob_endemic[i]) *
+          parameter_space$prob_on_island[i]
 
 
         empty_island <- TRUE
@@ -124,7 +125,10 @@ benchmark <- function(phylod,
         endemicity_status <- c("not_present", endemicity_status)
 
         # format data for DAISIEprep
-        sim_phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+        sim_phylod <- phylobase::phylo4d(
+          phylo,
+          as.data.frame(endemicity_status)
+        )
 
         if (parameter_space$extraction_method[i] == "asr") {
           sim_phylod <- DAISIEprep::add_asr_node_states(

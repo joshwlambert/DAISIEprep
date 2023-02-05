@@ -10,5 +10,3 @@ test_that("read_performance works as expected", {
 test_that("read_performance fails as expected", {
   expect_error(read_performance("fake_argument"))
 })
-
-

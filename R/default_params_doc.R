@@ -115,12 +115,12 @@
 #' identifier is used as the clade name in the Island_tbl object or a genus
 #' name which may not be unique if that genus has several independent island
 #' colonisations
-#' @param genus_name Character string of genus name to be matched with a genus name from
-#' the tip labels in the phylogeny
+#' @param genus_name Character string of genus name to be matched with a genus
+#' name from the tip labels in the phylogeny
 #' @param stem Character string, either "genus" or "island_presence". The former
 #' will extract the stem age of the genussbased on the genus name provided, the
-#' latter will extract the stem age based on the ancestral presence on the island
-#' either based on the "min" or "asr" extraction algorithms.
+#' latter will extract the stem age based on the ancestral presence on the
+#' island either based on the "min" or "asr" extraction algorithms.
 #' @param genus_in_tree A numeric vector that indicates which species in the
 #' genus are in the tree
 #' @param missing_genus A list of character vectors containing the genera in

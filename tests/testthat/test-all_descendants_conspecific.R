@@ -11,5 +11,3 @@ test_that("Species are conspecific", {
     all_descendants_conspecific(descendants = descendants)
   )
 })
-
-

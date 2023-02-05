@@ -65,4 +65,3 @@ test_that("plot_colonisation fails correctly with incorrect include_crown_age", 
       include_crown_age = "TRUE"
     ), regexp = "include_crown_age must be either TRUE or FALSE")
 })
-
