@@ -1,6 +1,19 @@
-# DAISIEprep (development version)
-
 # News
+
+# DAISIEprep 0.2.1
+
+### NEW FEATURES 
+* None
+
+### MINOR IMPROVEMENTS
+* Higher test coverage
+* `plot_phylod()` tip labels are now white space separated
+
+### BUG FIXES
+* Bug fixes for `benchmark()` function
+
+### DEPRECATED AND DEFUNCT
+* None
 
 ## DAISIEprep 0.2.0
 
