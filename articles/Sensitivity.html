@@ -49,6 +49,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
+    <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
     <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
     <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
   </div>
@@ -195,16 +196,17 @@ Traditionally, these have been two of the most common methods for
 reconstructing ancestral states, for other methods to reconstruct
 ancestral ranges see Extending_asr vignette in the
 <code>DAISIEprep</code> package.</p>
-<p>The data we use for this example is the macro-phylogeny of mammals
-(Upham et al., 2019) and the island endemicity data of Madagascar
-(Michielsen et al., 2023). The mammal phylogeny is a global phylogeny
-containing most mammal species and the Madagascar checklist is the most
-up-to-date catelog of Madagascars mammal fauna. The phylogeny is
-constructed from genetic sequences to create the DNA-only phylogeny.
-Species that are known but for which genetic data is unavailable are
-inserted into the tree using a polytomy resolving technique which
-produces the complete phylogeny. We test the sensitivity of estimates
-for both the DNA-only and complete phylogenies.</p>
+<p>The data we use for this example is the macro-phylogeny of
+mammals<span class="citation">(Upham et al. 2019)</span> and the island
+endemicity data of Madagascar <span class="citation">(Michielsen et al.
+2023)</span>. The mammal phylogeny is a global phylogeny containing most
+mammal species and the Madagascar checklist is the most up-to-date
+catelog of Madagascars mammal fauna. The phylogeny is constructed from
+genetic sequences to create the DNA-only phylogeny. Species that are
+known but for which genetic data is unavailable are inserted into the
+tree using a polytomy resolving technique which produces the complete
+phylogeny. We test the sensitivity of estimates for both the DNA-only
+and complete phylogenies.</p>
 <p>The results presented in this vignette are not computing each time
 the vignette is rendered due to the large computation time required.
 Instead, the analyses are run on a cluster computer and saved in the
@@ -279,6 +281,25 @@ rate estimates based on which extraction method is chosen.</p>
 <p>Here we have demonstrated the variability, or lack of, in parameter
 estimates from phylogenetic data on an island community when changing
 the data as well as the choice of extraction algorithm.</p>
+</div>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-michielsen_macroevolutionary_2023" class="csl-entry">
+Michielsen, N. M., S. M. Goodman, V. Soarimalala, A. A. E. van der Geer,
+L. M. Dávalos, G. I. Saville, N. Upham, and L. Valente. 2023. <a href="https://doi.org/10.1038/s41467-022-35215-3" class="external-link">The macroevolutionary
+impact of recent and imminent mammal extinctions on madagascar</a>.
+Nature Communications 14. Springer Science; Business Media
+<span>LLC</span>.
+</div>
+<div id="ref-upham_inferring_2019" class="csl-entry">
+Upham, N. S., J. A. Esselstyn, and W. Jetz. 2019. <a href="https://doi.org/10.1371/journal.pbio.3000494" class="external-link">Inferring the mammal
+tree: Species-level sets of phylogenies for questions in ecology,
+evolution, and conservation</a>. <span>PLOS</span> Biology 17:e3000494.
+Public Library of Science (<span>PLoS</span>).
+</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

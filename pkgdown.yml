@@ -3,9 +3,10 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Extending_asr: Extending_asr.html
+  Performance: Performance.html
   Sensitivity: Sensitivity.html
   Tutorial: Tutorial.html
-last_built: 2023-02-06T21:53Z
+last_built: 2023-02-18T18:13Z
 urls:
   reference: https://joshwlambert.github.io/DAISIEprep/reference
   article: https://joshwlambert.github.io/DAISIEprep/articles

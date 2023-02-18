@@ -49,6 +49,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
+    <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
     <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
     <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
   </div>
@@ -94,25 +95,35 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<p>In this tutorial we demonstrate how users can perform ancestral state
+reconstruction using the functions implemented in
+<code>DAISIEprep</code>, or, alternatively, by importing ancestral range
+reconstructions obtained using methods from other packages.</p>
+</div>
+<div class="section level2">
+<h2 id="using-daisiepreps-min-and-asr-algorithms">Using <code>DAISIEprep</code>’s <code>min</code> and
+<code>asr</code> algorithms<a class="anchor" aria-label="anchor" href="#using-daisiepreps-min-and-asr-algorithms"></a>
+</h2>
 <p>The core feature of <code>DAISIEprep</code> is the function
 <code><a href="../reference/extract_island_species.html">extract_island_species()</a></code>, which allows one to extract the
 island data expected as input by <code>DAISIE</code>’s functions from a
 phylogeny with data regarding presence / absence of each present-day
-species from the island.</p>
-<p>The main appeal of the function is that it will automatically
-delineate and extract the (paraphyletic) clades formed by island species
-within the complete mainland + island phylogeny, and attempt to estimate
-the age of colonisation for each of these clades, in a manner consistent
-with DAISIE’s assumptions.</p>
-<p>However, there may be cases where it is not desirable to use this
-algorithm, particularly if some of DAISIE’s assumptions are at odds with
-the clade at hand. For example, consider the following tree:</p>
+species from the island. The function automatically delineates and
+extracts clades formed by island species within a complete mainland +
+island phylogeny, and attempt to estimate the age of colonisation for
+each of these clades.</p>
+<p>The default option of the function is the <code>min</code> algorithm,
+which performs the data extraction in a manner consistent with DAISIE’s
+assumptions. However, there may be cases where it is not desirable to
+use this algorithm, particularly if some of DAISIE’s assumptions are at
+odds with the clade at hand. For example, consider the following
+tree:</p>
 <p>We have an island clade, comprising species a-f, except for species e
 which is absent from the island. A parsimonious explanation for this
 distribution would be a unique colonisation event before the split
 between the f and a-e lineages, with the island population of species f
 not diverging from its mainland ancestor, and species e jumping back to
-the continent. This would result in a unique island clade with a unique
+the continent. This would result in a single island clade with a unique
 colonisation time. Yet if we run <code>extract_island_species</code>
 through this phylogeny:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -129,14 +140,16 @@ through this phylogeny:</p>
 <span><span class="co">#&gt; 3      NA       bird_d          1</span></span>
 <span><span class="co">#&gt; 4      NA       bird_f          1</span></span></code></pre></div>
 <p>The algorithm estimates four independent colonisation events. This is
-because DAISIE assumes no back-colonisation (from island to mainland),
-such that the presence of mainland-only species e inside the island-only
-clade can only be accomodated by the lineage staying on the mainland
-until the present, with at least three colonisation events leading to
-species a-d. DAISIE would also not consider a colonisation time before
-the (a-e)-f split, as any cladogenetic event taking place on the island
-is assumed to lead to strictly endemic lineages <span class="citation">(Valente et al. 2015)</span>, while lineage f maintains
-a population on the mainland.</p>
+because the <code>min</code> algorithm assumes no back-colonisation
+(from island to mainland), such that the presence of mainland-only
+species e inside the island-only clade can only be accommodated by the
+lineage staying on the mainland until the present, with at least three
+colonisation events leading to species a-d. DAISIE would also not
+consider a colonisation time before the (a-e)-f split, as any
+cladogenetic event taking place on the island is assumed to lead to
+strictly endemic lineages <span class="citation">(Valente et al.
+2015)</span>, while lineage f maintains a population on the
+mainland.</p>
 <p>For such cases where the phylogeny is at odds with the process
 considered by DAISIE, one may wish to resort to other trait evolution /
 biogeography model to estimate when and how many times the island was
@@ -193,10 +206,17 @@ both methods are implemented:</p>
 <p>For details on the internal workings of the
 <code><a href="../reference/add_asr_node_states.html">add_asr_node_states()</a></code> function see appendix at the bottom
 of this article.</p>
-<p>However, there are many models developed for the reconstruction of
-states (traits) on a phylogenetic tree and thus it may be more
-appropriate to use a different type of model for the empirical group
-being studied. Just as R is developed to allow for packages to <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html" class="external-link">extend
+</div>
+<div class="section level2">
+<h2 id="using-ancestral-state-reconstruction-methods-from-other-packages">Using ancestral state reconstruction methods from other
+packages<a class="anchor" aria-label="anchor" href="#using-ancestral-state-reconstruction-methods-from-other-packages"></a>
+</h2>
+<p>The <code>min</code> and <code>asr</code> algorithms are implemented
+in <code>DAISIEprep</code>. However, there are many models developed for
+the reconstruction of states (traits) on a phylogenetic tree available
+in other R packages, and it may be more appropriate to use a different
+type of model for the empirical group being studied. Just as R is
+developed to allow for packages to <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html" class="external-link">extend
 the language</a>, <code>DAISIEprep</code> is designed to allow each
 extension of ASR methods for incorporation with key functions
 (e.g. <code><a href="../reference/extract_island_species.html">extract_island_species()</a></code>).</p>
@@ -392,7 +412,7 @@ control parameters for optimisation.</p>
 <span><span class="co">#&gt; [1] 1e-06</span></span></code></pre></div>
 <p>Many elements of this list are only relevant for advanced options of
 the model and can be ignored if these features are not used. For
-example, BioGeoBEARS allow explicit modelling of the connectivity
+example, BioGeoBEARS allows explicit modelling of the connectivity
 between areas and time-dependent availability of the areas. In this
 example, we focus on a simple dispersal scenario between two areas
 (mainland and island), so these elements can be ignored. We direct the
@@ -632,7 +652,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.718</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 1.227</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in
@@ -924,17 +944,16 @@ traits, i.e., GeoSSE.</p>
 </h2>
 <p>GeoSSE <span class="citation">(Goldberg et al. 2011)</span> is a
 special case of SSE models dedicated to the case where traits correspond
-to presence or absence from two geographic areas, which just happens to
-be the case of our mainland/island clade. Its most important feature is
-that instead of considering the widespread state (mainland + island,
-that is nonendemic) as a third separate category from the two
-single-area states (as in the MuSSE example above), GeoSSE explicitly
-models it as corresponding to presence in both areas, just as in
-BioGeoBEARS. Accordingly, dispersal is unidirectional, from a single
-area towards the widespread state. Extinction from an area the
-widespread state returns the species to the remaining single area, while
-the same extinction while already in a single area results in the true
-extinction of the species.</p>
+to presence or absence from two geographic areas, which is the case for
+our mainland/island clade. Its most important feature is that instead of
+considering the widespread state (mainland + island, that is nonendemic)
+as a third separate category from the two single-area states (as in the
+MuSSE example above), GeoSSE explicitly models it as corresponding to
+presence in both areas, just as in BioGeoBEARS. Accordingly, dispersal
+is unidirectional, from a single area towards the widespread state.
+Extinction from an area the widespread state returns the species to the
+remaining single area, while the same extinction while already in a
+single area results in the true extinction of the species.</p>
 <p>In fact, GeoSSE is the SSE implementation of the DEC model, the only
 difference being that GeoSSE assumes an effect of areas themselves on
 the rates of speciation and extinction; and thus on the branching
@@ -1098,7 +1117,7 @@ back to this type and then run the analysis.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This provides us with a matrix with the probabilities of the states
 (island presence/absence) at each node in the phylogeny. The first
-column of the matrix is not present on the island and the second colum
+column of the matrix is not present on the island and the second column
 of the matrix is present on the island.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
