@@ -1,5 +1,19 @@
 # News
 
+# DAISIEprep 0.3.0
+
+### NEW FEATURES 
+* New vignette on performance of `extract_island_species()` 
+
+### MINOR IMPROVEMENTS
+* Updates to Extending ASR vignette and Sensitivity vignette
+
+### BUG FIXES
+* Bug fix for `benchmark()` function
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.2.1
 
 ### NEW FEATURES 
