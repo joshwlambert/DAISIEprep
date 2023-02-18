@@ -80,11 +80,11 @@ the trivial case that no species need to be extracted.
 Due to the computational time not being deterministic and to ensure the results
 are not spurious we replicate timing three times and the mean "real time
 elapsed" is calculated, as well as
-replicating the the simulation (given by argument `replicates`) to account for
+replicating the simulation (given by argument `replicates`) to account for
 stochasticity in the simulation of the data.
 
-The range of data set sizes we use encompasses tree sizes spanning
-commonly used empirical phylogenies. We then generate a random sample of tip
+The range of tree sizes we use encompasses those of common empirical phylogenies
+(10 tips to 10,000 tips). We then generate a random sample of tip
 states for each species, with the possible states being: endemic to the island,
 non-endemic and not present on the island. We tested a low probability of each
 species in the tree being on the island ($P(0.2)$) and a high probability of
@@ -99,7 +99,7 @@ radiations on the island) we used the mammals of Madagascar data set. For this
 we used the [@upham_inferring_2019] complete and DNA-only phylogenies, and the 
 island endemicity data of Madagascar [@michielsen_macroevolutionary_2023].
 
-The results presented in this vignette are not computing each time the vignette
+The results presented in this vignette are not computed each time the vignette
 is rendered due to the large computation time required. Instead, the analyses are
 run on a cluster computer and saved in the package. The analysis script run to 
 produce the results can be found in the [DAISIEprepExtra](https://github.com/joshwlambert/DAISIEprepExtra)
@@ -159,7 +159,7 @@ plot_performance(
 
 We find that even for large trees (10,000 tips) the scale of extraction less than seconds, whereas running the DAISIE inference model is on the scale of minutes to days, and thus pre-processing does not present a bottleneck to the pipeline. The empirical trees we ran (the Madagascar mammal example) were quicker to process than trees simulated with uniformly random island presence (figure 1). This suggests that when the ratio of species to colonisation events on the island is higher it should be faster to extract. However, even for large trees with many colonisations extraction should pose a computational problem. The speed of extraction facilitates extraction of island data across many phylogenies, for example extracting island community data across the posterior distribution of inferred phylogenetic trees to account for uncertainty in branching times and tree topology.
 
-Given the approximately linear relationship between the size of the phylogeny and time required for extraction in the above plots we fit a power law to the mean run time (mean across the replicates) we find:
+Given the approximately linear relationship between the size of the phylogeny and time required for extraction in the above log-log plots we fit a power law to the mean run time (mean across the replicates).
 
 ```{r}
 grouped_performance_data <- dplyr::group_by(
