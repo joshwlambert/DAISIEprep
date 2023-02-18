@@ -1,6 +1,8 @@
 ---
 title: "Sensitivity"
 output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: evolution.csl
 vignette: >
   %\VignetteIndexEntry{Sensitivity}
   %\VignetteEngine{knitr::rmarkdown}
@@ -116,8 +118,8 @@ of the most common methods for reconstructing ancestral states, for other
 methods to reconstruct ancestral ranges see Extending_asr vignette in the 
 `DAISIEprep` package.
 
-The data we use for this example is the macro-phylogeny of mammals (Upham et 
-al., 2019) and the island endemicity data of Madagascar (Michielsen et al., 2023). 
+The data we use for this example is the macro-phylogeny of mammals[@upham_inferring_2019]
+and the island endemicity data of Madagascar [@michielsen_macroevolutionary_2023]. 
 The mammal phylogeny is a global phylogeny containing most mammal species and 
 the Madagascar checklist is the most up-to-date catelog of Madagascars mammal
 fauna. The phylogeny is constructed from genetic sequences to create the 
@@ -206,3 +208,5 @@ method is chosen.
 Here we have demonstrated the variability, or lack of, in parameter estimates 
 from phylogenetic data on an island community when changing the data as well as
 the choice of extraction algorithm.
+
+## References

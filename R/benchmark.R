@@ -137,6 +137,9 @@ benchmark <- function(phylod,
             tie_preference = parameter_space$tie_preference[i]
           )
         }
+      } else {
+        # assign phylod for benchmarking
+        sim_phylod <- phylod
       }
 
       # run extraction
