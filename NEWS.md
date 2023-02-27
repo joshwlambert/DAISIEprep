@@ -1,6 +1,18 @@
-# DAISIEprep (development version)
-
 # News
+
+# DAISIEprep 0.3.1
+
+### NEW FEATURES 
+* None
+
+### MINOR IMPROVEMENTS
+* Updates to Sensitivity vignette
+
+### BUG FIXES
+* None
+
+### DEPRECATED AND DEFUNCT
+* None
 
 # DAISIEprep 0.3.0
 
