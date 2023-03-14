@@ -9,3 +9,4 @@
 ^docs$
 ^pkgdown$
 ^\.zenodo\.json$
+^cran-comments\.md$
