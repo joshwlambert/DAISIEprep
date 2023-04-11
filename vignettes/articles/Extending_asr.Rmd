@@ -1,8 +1,8 @@
 ---
 title: "Extending DAISIEprep ASR models"
 output: rmarkdown::html_vignette
-bibliography: references.bib
-csl: evolution.csl
+bibliography: ../references.bib
+csl: ../evolution.csl
 vignette: >
   %\VignetteIndexEntry{Extending DAISIEprep ASR models}
   %\VignetteEncoding{UTF-8}
@@ -258,7 +258,7 @@ paths to files which will be read when the model is run.
 The tree can be supplied in Newick or Nexus format, as a text file.
 
 ```{r biogeobears_tree_input}
-path_to_phylo <- "../inst/extending_asr/biogeobears_ex_phylo.txt"
+path_to_phylo <- system.file("extending_asr", "biogeobears_ex_phylo.txt", package = "DAISIEprep")
 phylo <- as(phylod, "phylo")
 ape::write.tree(phylo, file = path_to_phylo)
 
@@ -318,7 +318,7 @@ For convenience, we have included a function that writes this file from
 a `phylod` object for the simple mainland-island case.
 
 ```{r biogeobears_geo_input}
-path_to_biogeo <- "../inst/extending_asr/biogeobears_ex_biogeo.txt"
+path_to_biogeo <- system.file("extending_asr", "biogeobears_ex_phylo.txt", package = "DAISIEprep")
 write_phylip_biogeo_file(phylod, path_to_biogeo)
 BioGeoBEARS::getranges_from_LagrangePHYLIP(path_to_biogeo)
 bgb_run$geogfn <- path_to_biogeo
@@ -329,8 +329,8 @@ While we were at it, we have nested this function in
 file above in one command
 
 ```{r, write_biogeobears_input}
-path_to_phylo <- "../inst/extending_asr/biogeobears_ex_phylo.txt"
-path_to_biogeo <- "../inst/extending_asr/biogeobears_ex_biogeo.txt"
+path_to_phylo <- system.file("extending_asr", "biogeobears_ex_phylo.txt", package = "DAISIEprep")
+path_to_biogeo <- system.file("extending_asr", "biogeobears_ex_biogeo.txt", package = "DAISIEprep")
 write_biogeobears_input(phylod, path_to_phylo, path_to_biogeo)
 
 bgb_run$trfn <- path_to_phylo
