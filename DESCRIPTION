@@ -1,6 +1,6 @@
 Package: DAISIEprep
 Type: Package
-Title: Extracts phylogenetic island community data from phylogenetic trees
+Title: Extracts Phylogenetic Island Community Data from Phylogenetic Trees
 Version: 0.3.1
 Authors@R: c(
     person(given = "Joshua W.",
@@ -13,6 +13,11 @@ Authors@R: c(
            email = "luis.valente@naturalis.nl",
            role = c("aut"),
            comment = c(ORCID = "0000-0003-4247-8785")),
+    person(given = "Pedro",
+           family = "Santos Neves",
+           role = c("aut"),
+           email = "p.m.santos.neves@rug.nl",
+           comment = c(ORCID = "0000-0003-2561-4677")),
     person(given = "Lizzie",
            family = "Roeble",
            email = "lizzie.roeble@naturalis.nl",
@@ -22,15 +27,10 @@ Authors@R: c(
            family = "Pannetier",
            email = "t.s.c.pannetier@rug.nl",
            role = c("aut"),
-           comment = c(ORCID = "0000-0002-8424-3573")),
-    person(given = "Pedro",
-           family = "Santos Neves",
-           role = c("ctb"),
-           email = "p.m.santos.neves@rug.nl",
-           comment = c(ORCID = "0000-0003-2561-4677"))
+           comment = c(ORCID = "0000-0002-8424-3573"))
            )
 Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl> 
-Description: DAISIEprep extract colonisation and branching times of island
+Description: Extracts colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.
@@ -41,6 +41,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Depends: R (>= 4.0)
+biocViews:
 Imports:
     methods,
     ape,
@@ -58,14 +59,10 @@ Suggests:
     rmarkdown,
     covr,
     diversitree,
-    BioGeoBEARS,
     corHMM,
     tidyr,
     dplyr,
     ggimage
-Remotes:
-    YuLab-SMU/ggtree,
-    nmatzke/BioGeoBEARS
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 

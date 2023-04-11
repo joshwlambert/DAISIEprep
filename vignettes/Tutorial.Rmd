@@ -2,7 +2,7 @@
 title: "DAISIEprep Tutorial"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial}
+  %\VignetteIndexEntry{DAISIEprep Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -259,7 +259,7 @@ the branching times vector contains no branching times: when there are only two
 numbers in the vector these are the island age followed by the colonisation time. Then 
 there is the stac, which stands for status of colonist. This is a number which
 tells the DAISIE model how to identify the endemicity and colonisation uncertainty
-of the island colonist ([these are explained here if you are interested](https://cran.r-project.org/web/packages/DAISIE/vignettes/stac_key.html)).
+of the island colonist ([these are explained here if you are interested](https://cran.r-project.org/package=DAISIE/vignettes/stac_key.html)).
 Lastly, the type1or2 defines which macroevolutionary
 regime an island colonist is in. By macroevolutionary regime we mean the set of
 rates of colonisation, speciation and extinction for that colonist. Most 
@@ -275,7 +275,7 @@ data_list[[2]]
 
 This data list is now ready to be used in the DAISIE maximum likelihood inference model
 from the R package `DAISIE`. For more information on the DAISIE data structures
-and their application in the DAISIE models see this [vignette on optimising parameters using DAISIE](https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html)
+and their application in the DAISIE models see this [vignette on optimising parameters using DAISIE](https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html)
 
 \
 \
@@ -530,7 +530,7 @@ data_list <- create_daisie_data(
 )
 ```
 The `data_list` produced above is now ready for your DAISIE analyses! 
-[See vignette on optimising parameters using DAISIE](https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html)
+[See vignette on optimising parameters using DAISIE](https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html)
 
 ## 3. Adding missing species 
 

@@ -60,7 +60,7 @@ are in the `extraction_method` argument in `extract_island_species()` (and
 by extension `extract_multi_island_species()`), which can be either `"min"` for 
 the minimum time of colonisation algorithm, or `"asr"` for the geographical 
 ancestral state reconstruction algorithm. The `"min"` algorithm conforms to the 
-assumptions of the DAISIE inference model (implemented in the [`DAISIE` R package](https://cran.r-project.org/web/packages/DAISIE/index.html)). These 
+assumptions of the DAISIE inference model (implemented in the [`DAISIE` R package](https://cran.r-project.org/package=DAISIE/index.html)). These 
 assumptions are: 
 
   * Non-endemic species cannot be part of an island clade
