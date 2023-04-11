@@ -530,7 +530,7 @@ data_list <- create_daisie_data(
 )
 ```
 The `data_list` produced above is now ready for your DAISIE analyses! 
-[See vignette on optimising parameters using DAISIE](https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html)
+[See vignette on optimising parameters using DAISIE](https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html)
 
 ## 3. Adding missing species 
 
