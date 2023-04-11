@@ -48,10 +48,10 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
     <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
     <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
     <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
+    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
   </div>
 </li>
 <li class="nav-item">
@@ -123,8 +123,7 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     edges</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/" class="external-link">ggtree</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">ggtree v3.7.1.002 For help:</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; https://yulab-smu.top/treedata-book/</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">ggtree v3.6.2 For help: https://yulab-smu.top/treedata-book/</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; If you use the ggtree package suite in published research, please cite</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; the appropriate paper(s):</span></span></span>
@@ -134,13 +133,14 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co"><span style="color: #949494;">#&gt; trees with their covariates and other associated data. Methods in</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; G Yu. Data Integration, Manipulation and Visualization of Phylogenetic</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Trees (1st ed.). Chapman and Hall/CRC. 2022. ISBN: 9781032233574</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; for phylogenetic tree input and output with richly annotated and</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; doi: 10.1093/molbev/msz240</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; for mapping and visualizing associated data on phylogeny using ggtree.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Molecular Biology and Evolution. 2018, 35(12):3041-3043.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; doi:10.1093/molbev/msy194 </span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; G Yu. Data Integration, Manipulation and Visualization of Phylogenetic</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Trees (1st ed.). Chapman and Hall/CRC. 2022. ISBN: 9781032233574 </span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ggtree'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:phylobase':</span></span>
@@ -380,7 +380,7 @@ branching times: when there are only two numbers in the vector these are
 the island age followed by the colonisation time. Then there is the
 stac, which stands for status of colonist. This is a number which tells
 the DAISIE model how to identify the endemicity and colonisation
-uncertainty of the island colonist (<a href="https://cran.r-project.org/web/packages/DAISIE/vignettes/stac_key.html" class="external-link">these
+uncertainty of the island colonist (<a href="https://cran.r-project.org/package=DAISIE/vignettes/stac_key.html" class="external-link">these
 are explained here if you are interested</a>). Lastly, the type1or2
 defines which macroevolutionary regime an island colonist is in. By
 macroevolutionary regime we mean the set of rates of colonisation,
@@ -409,7 +409,7 @@ this clade can be set to type 2.</p>
 <p>This data list is now ready to be used in the DAISIE maximum
 likelihood inference model from the R package <code>DAISIE</code>. For
 more information on the DAISIE data structures and their application in
-the DAISIE models see this <a href="https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html" class="external-link">vignette
+the DAISIE models see this <a href="https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html" class="external-link">vignette
 on optimising parameters using DAISIE</a></p>
 <p><br><br></p>
 </div>
@@ -660,7 +660,7 @@ times influences conclusions.</p>
 <span>  precise_col_time <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The <code>data_list</code> produced above is now ready for your
-DAISIE analyses! <a href="https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html" class="external-link">See
+DAISIE analyses! <a href="https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html" class="external-link">See
 vignette on optimising parameters using DAISIE</a></p>
 </div>
 </div>
@@ -970,7 +970,7 @@ model.</p>
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Joshua W. Lambert, Luis Valente, Lizzie Roeble, Theo Pannetier.</p>
+<p>Developed by Joshua W. Lambert, Luis Valente, Pedro Santos Neves, Lizzie Roeble, Theo Pannetier.</p>
 </div>
 
 <div class="pkgdown-footer-right">

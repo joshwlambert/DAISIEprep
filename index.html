@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="DAISIEprep extract colonisation and branching times of island
+<meta name="description" content="Extracts colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.">
-<title>Extracts phylogenetic island community data from phylogenetic trees • DAISIEprep</title>
+<title>Extracts Phylogenetic Island Community Data from Phylogenetic Trees • DAISIEprep</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -20,8 +20,8 @@
 <link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extracts phylogenetic island community data from phylogenetic trees">
-<meta property="og:description" content="DAISIEprep extract colonisation and branching times of island
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Extracts Phylogenetic Island Community Data from Phylogenetic Trees">
+<meta property="og:description" content="Extracts colonisation and branching times of island
     species to be used for analysis in the R package DAISIE. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.">
@@ -54,10 +54,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
     <a class="dropdown-item" href="articles/Performance.html">Performance</a>
     <a class="dropdown-item" href="articles/Sensitivity.html">Sensitivity</a>
     <a class="dropdown-item" href="articles/Tutorial.html">DAISIEprep Tutorial</a>
+    <a class="dropdown-item" href="articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
   </div>
 </li>
 <li class="nav-item">
@@ -94,7 +94,7 @@
 </h2>
 <p>DAISIEprep is an R package that enables the extraction and formatting of phylogenetic data on island species for the inference model <a href="https://github.com/rsetienne/DAISIE" class="external-link">DAISIE</a> (Dynamic Assembly of Island biota through Speciation, Immigration and Extinction). The central function, <code><a href="reference/extract_island_species.html">DAISIEprep::extract_island_species()</a></code>, uses data from phylogenetic trees and species island endemicity statuses (i.e. endemic to the island, non-endemic, or not present on the island). The phylogenetic and endemicity data are handled together using the <code>phylo4d</code> S4 class from the <a href="https://github.com/fmichonneau/phylobase" class="external-link"><code>phylobase</code></a> R package.</p>
 <p>DAISIEprep fills the niche of standardised, reproducible data processing for the suite of DAISIE inference models. Unlike other phylogenetic methods implemented in R, DAISIE has yet to have a defined methodological framework to extract and format data prior to analysis. While other phylogenetic models in R commonly use the <code>phylo</code> S3 data structure, defined by the R package <a href="https://github.com/emmanuelparadis/ape" class="external-link"><code>ape</code></a>, DAISIE has an idiosynchratic data structure that will be unfamiliar to new users. This package provides a set of tools for those users to facilitate the application of DAISIE’s models for research. The package also opens the possibility of extracting island data from ‘big data’ macrophylogenies (&gt;5,000 species) which would have impeded researchers who would have previously had to extract this data manually.</p>
-<p>There are two algorithms to extract the data the <code>min</code> algorithm or <code>asr</code> (ancestral state reconstruction) algorithm. The former is based on the rules/assumptions of the DAISIE inference model of colonisation of species from mainland source pool, speciation on the island through cladogenesis or anagenensis, and island extinction. Therefore, this algorithm assumes no back-colonisation from the island to the mainland or mainland evolutionary processes. If the data seems to conform to these assumptions (by visual inspection) then this is a good method to choose (<code>DAISIEprep::extract_island_species(..., extraction_method = “min”</code>). Alternatively, the data may violate these assumptions, by, for example having species within an island radiation migrate back to the mainland. In these, and other cases the <code>asr</code> algorithm provides a method to extract data based on the most probable reconstruction of the species ranges (i.e. island presence/absence) and then can extract clades that may have non-island species (<code>DAISIEprep::extract_island_species(..., extraction_method = “asr”</code>). The <code>asr</code> algorithm utilises ancestral state reconstruction methods from other packages (e.g. <a href="https://cran.r-project.org/web/packages/castor/index.html" class="external-link"><code>castor</code></a>), but the package is flexible to users extending this to incorporate other models which may better suit their data set.</p>
+<p>There are two algorithms to extract the data the <code>min</code> algorithm or <code>asr</code> (ancestral state reconstruction) algorithm. The former is based on the rules/assumptions of the DAISIE inference model of colonisation of species from mainland source pool, speciation on the island through cladogenesis or anagenensis, and island extinction. Therefore, this algorithm assumes no back-colonisation from the island to the mainland or mainland evolutionary processes. If the data seems to conform to these assumptions (by visual inspection) then this is a good method to choose (<code>DAISIEprep::extract_island_species(..., extraction_method = “min”</code>). Alternatively, the data may violate these assumptions, by, for example having species within an island radiation migrate back to the mainland. In these, and other cases the <code>asr</code> algorithm provides a method to extract data based on the most probable reconstruction of the species ranges (i.e. island presence/absence) and then can extract clades that may have non-island species (<code>DAISIEprep::extract_island_species(..., extraction_method = “asr”</code>). The <code>asr</code> algorithm utilises ancestral state reconstruction methods from other packages (e.g. <a href="https://cran.r-project.org/package=castor/index.html" class="external-link"><code>castor</code></a>), but the package is flexible to users extending this to incorporate other models which may better suit their data set.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -116,7 +116,7 @@
 <div class="section level2">
 <h2 id="contribute">Contribute<a class="anchor" aria-label="anchor" href="#contribute"></a>
 </h2>
-<p>The DAISIE team always welcomes contributions to any of its packages. If you would like to contribute to this package please follow the <a href="https://github.com/joshwlambert/DAISIEprep/tree/master/.github/CONTRIBUTING.md" class="external-link">contributing guidelines</a></p>
+<p>The DAISIE team always welcomes contributions to any of its packages. If you would like to contribute to this package please follow the <a href="https://github.com/joshwlambert/DAISIEprep/blob/master/.github/CONTRIBUTING.md" class="external-link">contributing guidelines</a></p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
@@ -160,9 +160,9 @@
 <ul class="list-unstyled">
 <li>Joshua W. Lambert <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5218-3046" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Luis Valente <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-4247-8785" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Pedro Santos Neves <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-2561-4677" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Lizzie Roeble <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-3664-4222" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Theo Pannetier <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8424-3573" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
@@ -183,7 +183,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Joshua W. Lambert, Luis Valente, Lizzie Roeble, Theo Pannetier.</p>
+<p>Developed by Joshua W. Lambert, Luis Valente, Pedro Santos Neves, Lizzie Roeble, Theo Pannetier.</p>
 </div>
 
 <div class="pkgdown-footer-right">
