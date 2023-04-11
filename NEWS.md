@@ -1,5 +1,20 @@
 # News
 
+# DAISIEprep 0.3.2
+
+### NEW FEATURES 
+* None
+
+### MINOR IMPROVEMENTS
+* Converted Extending_asr vignette to article
+* Removed remote dependencies due to CRAN rules
+
+### BUG FIXES
+* None
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.3.1
 
 ### NEW FEATURES 
