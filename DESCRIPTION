@@ -58,14 +58,12 @@ Suggests:
     rmarkdown,
     covr,
     diversitree,
-    BioGeoBEARS,
     corHMM,
     tidyr,
     dplyr,
     ggimage
 Remotes:
-    YuLab-SMU/ggtree,
-    nmatzke/BioGeoBEARS
+    YuLab-SMU/ggtree
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
