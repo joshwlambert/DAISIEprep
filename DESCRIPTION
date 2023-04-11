@@ -41,6 +41,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Depends: R (>= 4.0)
+biocViews:
 Imports:
     methods,
     ape,
