@@ -6,6 +6,9 @@
 \usage{
 multi_island_tbl()
 }
+\value{
+A Multi_island_tbl object.
+}
 \description{
 Constructor function for `Multi_island_tbl` class
 }

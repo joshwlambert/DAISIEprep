@@ -6,6 +6,9 @@
 \usage{
 all_endemicity_status()
 }
+\value{
+A vector of character strings with all the endemicity status options
+}
 \description{
 All possible endemicity statuses
 }

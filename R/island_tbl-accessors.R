@@ -7,6 +7,8 @@ NULL
 #' @inheritParams default_params_doc
 #' @author Joshua W. Lambert
 #' @rdname Island_tbl-accessors
+#' @return Getter function (get_*) returns a data frame, the setter function
+#' (set_*) returns the modified Island_tbl class.
 #' @export
 #' @examples
 #' island_tbl <- island_tbl()

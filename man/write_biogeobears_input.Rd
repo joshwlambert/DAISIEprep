@@ -14,6 +14,9 @@ phylogenetic and endemicity data for each species.}
 
 \item{path_to_biogeo}{string specifying the path and name to write the biogeography file to.}
 }
+\value{
+Nothing, called for side-effects
+}
 \description{
 Write input files for a BioGeoBEARS analysis, i.e. a phlyogenetic tree in
 Newick format and occurrence data in PHYLIP format.

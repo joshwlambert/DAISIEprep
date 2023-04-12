@@ -7,6 +7,9 @@ NULL
 #' @inheritParams default_params_doc
 #' @author Joshua W. Lambert
 #' @rdname Island_colonist-accessors
+#' @return Getter functions (get_*) return a variable from the Island_colonist
+#' class, the setter functions (set_*) return the modified Island_colonist
+#' class.
 #' @export
 #' @examples
 #'   colonist <- island_colonist()

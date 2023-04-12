@@ -1,5 +1,7 @@
 #' All possible endemicity statuses
 #'
+#' @return A vector of character strings with all the endemicity status options
+#'
 #' @export
 all_endemicity_status <- function() {
   return(c("not_present", "endemic", "nonendemic"))
