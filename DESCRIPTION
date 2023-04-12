@@ -31,7 +31,7 @@ Authors@R: c(
            )
 Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl> 
 Description: Extracts colonisation and branching times of island
-    species to be used for analysis in the R package DAISIE. It uses
+    species to be used for analysis in the R package 'DAISIE'. It uses
     phylogenetic and endemicity data to extract the separate island colonists
     and store them.
 URL: https://github.com/joshwlambert/DAISIEprep, https://joshwlambert.github.io/DAISIEprep/
