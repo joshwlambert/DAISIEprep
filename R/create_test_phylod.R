@@ -1,11 +1,15 @@
-#' Creates phylod objects to be used in tests
+#' Creates phylod objects.
+#'
+#' @description A helper function that is useful in tests and examples to
+#' easily create `phylod` objects (i.e. phylogenetic trees with data).
 #'
 #' @inheritParams default_params_doc
 #'
 #' @return A `phylo4d` object
+#' @export
 #'
 #' @examples
-#' DAISIEprep:::create_test_phylod(test_scenario = 1)
+#' create_test_phylod(test_scenario = 1)
 create_test_phylod <- function(test_scenario) {
   set.seed(
     1,

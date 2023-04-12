@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 1)
+#' phylod <- create_test_phylod(test_scenario = 1)
 #' island_tbl <- extract_island_species(
 #'   phylod = phylod,
 #'   extraction_method = "min"

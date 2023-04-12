@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' phylod <- DAISIEprep:::create_test_phylod(test_scenario = 1)
+#' phylod <- create_test_phylod(test_scenario = 1)
 #' any_polyphyly(phylod)
 any_polyphyly <- function(phylod) {
 
