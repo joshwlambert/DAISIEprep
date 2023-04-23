@@ -8,17 +8,6 @@
 #' @return ggplot2 object
 #' @importFrom rlang :=
 #' @export
-#'
-#' @examples
-#' performance_data <- DAISIEprep:::read_performance()
-#' plot_performance(
-#'   performance_data = performance_data$performance_data_asr,
-#'   group_by = prob_on_island
-#' )
-#' plot_performance(
-#'   performance_data = performance_data$performance_data_min,
-#'   group_by = prob_endemic
-#' )
 plot_performance <- function(performance_data,
                              group_by) {
 
