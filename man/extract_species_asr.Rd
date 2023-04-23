@@ -62,7 +62,7 @@ phylod <- add_asr_node_states(
 island_tbl <- island_tbl()
 extract_species_asr(
   phylod = phylod,
-  species_label = "bird_g",
+  species_label = "bird_i",
   species_endemicity = "endemic",
   island_tbl = island_tbl,
   include_not_present = FALSE
