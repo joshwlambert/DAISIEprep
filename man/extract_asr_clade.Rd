@@ -29,8 +29,3 @@ Extracts an island clade based on the ancestral state reconstruction of the
 species presence on the island, therefore this clade can contain
 non-endemic species as well as endemic species.
 }
-\examples{
-\dontrun{
-extract_asr_clade()
-}
-}

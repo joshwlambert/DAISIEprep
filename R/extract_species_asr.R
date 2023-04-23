@@ -9,7 +9,6 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' set.seed(
 #'   1,
 #'   kind = "Mersenne-Twister",
@@ -19,34 +18,23 @@
 #' phylo <- ape::rcoal(10)
 #' phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e",
 #'                      "bird_f", "bird_g", "bird_h", "bird_i", "bird_j")
-#' phylo <- methods::as(phylo, "phylo4")
+#' phylo <- phylobase::phylo4(phylo)
 #' endemicity_status <- sample(c("not_present", "endemic", "nonendemic"),
-#'                               size = length(phylobase::tipLabels(phylo)),
-#'                               replace = TRUE)
-#' tip_states <- as.numeric(grepl(pattern = "endemic", x = endemicity_status)) + 1
-#' phylo <- as(phylo, "phylo")
-#' asr <- castor::asr_max_parsimony(phylo, tip_states)
-#' colnames(asr$ancestral_likelihoods) <- c("not_present", "island")
-#' node_states <- max.col(asr$ancestral_likelihoods, ties.method = "last")
-#' node_states <- gsub(pattern = "2", replacement = "island", x = node_states)
-#' node_states <- gsub(pattern = "1", replacement = "not_present", x = node_states)
-#' node_data <- data.frame(
-#'   island_status = node_states,
-#'   row.names = phylobase::nodeId(phylod, "internal")
-#' )
-#' phylod <- phylo4d(
-#'   phylo,
-#'   tip.data = as.data.frame(endemicity_status),
-#'   node.data = node_data
+#'                             size = length(phylobase::tipLabels(phylo)),
+#'                             replace = TRUE, prob = c(0.8, 0.1, 0.1))
+#' phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+#' phylod <- add_asr_node_states(
+#'   phylod = phylod,
+#'   asr_method = "parsimony"
 #' )
 #' island_tbl <- island_tbl()
 #' extract_species_asr(
 #'   phylod = phylod,
 #'   species_label = "bird_g",
 #'   species_endemicity = "endemic",
-#'   island_tbl = island_tbl
+#'   island_tbl = island_tbl,
+#'   include_not_present = FALSE
 #' )
-#' }
 extract_species_asr <- function(phylod,
                                 species_label,
                                 species_endemicity,

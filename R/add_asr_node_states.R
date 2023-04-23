@@ -4,11 +4,6 @@
 #'
 #' @return An object of `phylo4d` class with tip and node data
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' #WIP
-#' }
 add_asr_node_states <- function(phylod,
                                 asr_method,
                                 tie_preference = "island",
