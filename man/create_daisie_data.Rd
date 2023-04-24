@@ -71,12 +71,15 @@ detailed documentation see the help documentation in the DAISIE package
 (?DAISIE::DAISIE_dataprep).
 }
 \examples{
-\dontrun{
-island_tbl <- extract_island_specie()
-daisie_datatable <- as_daisie_datatable(island_tbl)
+phylod <- create_test_phylod(3)
+island_tbl <- extract_island_species(
+  phylod = phylod,
+  extraction_method = "min"
+)
+daisie_datatable <- as_daisie_datatable(island_tbl, island_age = 10)
 daisie_data_list <- create_daisie_data(
-  daisie_datatable = daisie_datatable,
-  island_age = 1,
+  data = daisie_datatable,
+  island_age = 10,
   num_mainland_species = 1000,
   num_clade_types = 1,
   list_type2_clades = NA,
@@ -84,5 +87,4 @@ daisie_data_list <- create_daisie_data(
   epss = 1e-5,
   verbose = FALSE
 )
-}
 }

@@ -40,8 +40,3 @@ An object of `phylo4d` class with tip and node data
 \description{
 Fits a model of ancestral state reconstruction of island presence
 }
-\examples{
-\dontrun{
-#WIP
-}
-}

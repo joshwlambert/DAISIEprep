@@ -7,6 +7,7 @@
 #' @param path_to_biogeo string specifying the path and name to write the file
 #' to.
 #'
+#' @return Nothing, called for side-effects.
 #' @export
 #'
 write_phylip_biogeo_file <- function(phylod, path_to_biogeo) {
@@ -32,6 +33,7 @@ write_phylip_biogeo_file <- function(phylod, path_to_biogeo) {
 #' @inheritParams default_params_doc
 #' @param path_to_phylo string specifying the path and name to write the file to.
 #'
+#' @return Nothing, called for side-effects.
 #' @export
 #'
 write_newick_file <- function(phylod, path_to_phylo) {
@@ -48,6 +50,7 @@ write_newick_file <- function(phylod, path_to_phylo) {
 #' @param path_to_phylo string specifying the path and name to write the phylogeny file to.
 #' @param path_to_biogeo string specifying the path and name to write the biogeography file to.
 #' @param path_to_biogeo string specifying the path and name to write the biogeography file to.
+#' @return Nothing, called for side-effects
 #' @export
 #'
 write_biogeobears_input <- function(phylod, path_to_phylo, path_to_biogeo) {

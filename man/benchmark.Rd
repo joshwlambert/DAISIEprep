@@ -77,8 +77,3 @@ Performance analysis of the extract_island_species() function
 Uses system.time() for timing for reasons explained here:
 https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/ # nolint
 }
-\examples{
-\dontrun{
-#WIP
-}
-}

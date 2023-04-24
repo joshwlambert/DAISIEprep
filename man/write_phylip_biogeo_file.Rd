@@ -13,6 +13,9 @@ phylogenetic and endemicity data for each species.}
 \item{path_to_biogeo}{string specifying the path and name to write the file
 to.}
 }
+\value{
+Nothing, called for side-effects.
+}
 \description{
 Write a text file containing occurrence data for all tips in the PHYLIP
 format expected by BioGeoBEARS

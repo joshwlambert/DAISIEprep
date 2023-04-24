@@ -24,8 +24,8 @@ different.
 \examples{
 multi_island_tbl <- multi_extract_island_species(
   multi_phylod = list(
-    DAISIEprep:::create_test_phylod(test_scenario = 1),
-    DAISIEprep:::create_test_phylod(test_scenario = 1)),
+    create_test_phylod(test_scenario = 1),
+    create_test_phylod(test_scenario = 1)),
  extraction_method = "min")
 is_identical_island_tbl(multi_island_tbl[[1]], multi_island_tbl[[2]])
 }

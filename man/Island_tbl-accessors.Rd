@@ -46,6 +46,10 @@ set_num_phylo_used(x) <- value
 \item{value}{A value which can take several forms to be assigned to an object
 of a class.}
 }
+\value{
+Getter function (get_*) returns a data frame, the setter function
+(set_*) returns the modified Island_tbl class.
+}
 \description{
 Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_tbl}} class

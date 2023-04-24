@@ -59,8 +59,3 @@ when inferring them
 Runs a sensitivity analysis to test the influences of changing the data
 on the parameter estimates for the DAISIE maximum likelihood inference model
 }
-\examples{
-\dontrun{
-#WIP
-}
-}

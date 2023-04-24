@@ -6,11 +6,6 @@
 #'
 #' @return Data frame
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' #WIP
-#' }
 benchmark <- function(phylod,
                       tree_size_range,
                       num_points,

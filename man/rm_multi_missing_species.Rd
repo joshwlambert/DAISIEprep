@@ -28,12 +28,12 @@ useful when wanting to know which missing species have not been assigned to
 the island_tbl using `add_multi_missing_species()`.
 }
 \examples{
-phylod <- DAISIEprep:::create_test_phylod(test_scenario = 6)
+phylod <- create_test_phylod(test_scenario = 6)
 island_tbl <- suppressWarnings(extract_island_species(
  phylod = phylod,
  extraction_method = "asr",
 ))
-phylod <- DAISIEprep:::create_test_phylod(test_scenario = 7)
+phylod <- create_test_phylod(test_scenario = 7)
 island_tbl <- suppressWarnings(extract_island_species(
  phylod = phylod,
  extraction_method = "asr",

@@ -6,11 +6,6 @@
 #'
 #' @return An object of `Island_colonist` class
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' extract_asr_clade()
-#' }
 extract_asr_clade <- function(phylod,
                               species_label,
                               clade,

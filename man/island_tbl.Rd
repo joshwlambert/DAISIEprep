@@ -6,6 +6,9 @@
 \usage{
 island_tbl()
 }
+\value{
+An Island_tbl object.
+}
 \description{
 Constructor function for `Island_tbl` class
 }

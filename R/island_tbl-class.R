@@ -98,6 +98,8 @@ setClass(
 
 #' Constructor function for `Island_tbl` class
 #'
+#' @return An Island_tbl object.
+#'
 #' @export
 island_tbl <- function() {
   methods::new("Island_tbl")

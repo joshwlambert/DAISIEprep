@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_test_phylod.R
 \name{create_test_phylod}
 \alias{create_test_phylod}
-\title{Creates phylod objects to be used in tests}
+\title{Creates phylod objects.}
 \usage{
 create_test_phylod(test_scenario)
 }
@@ -13,8 +13,9 @@ create_test_phylod(test_scenario)
 A `phylo4d` object
 }
 \description{
-Creates phylod objects to be used in tests
+A helper function that is useful in tests and examples to
+easily create `phylod` objects (i.e. phylogenetic trees with data).
 }
 \examples{
-DAISIEprep:::create_test_phylod(test_scenario = 1)
+create_test_phylod(test_scenario = 1)
 }

@@ -6,11 +6,6 @@
 #' @return Data frame of parameter estimates and the parameter setting used
 #' when inferring them
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' #WIP
-#' }
 sensitivity <- function(phylo,
                         island_species,
                         extraction_method,

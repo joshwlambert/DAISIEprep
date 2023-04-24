@@ -118,6 +118,11 @@ set_clade_type(x) <- value
 \item{value}{A value which can take several forms to be assigned to an object
 of a class.}
 }
+\value{
+Getter functions (get_*) return a variable from the Island_colonist
+class, the setter functions (set_*) return the modified Island_colonist
+class.
+}
 \description{
 Accessor functions for the data (slots) in objects of the
 \code{\linkS4class{Island_colonist}} class

@@ -10,7 +10,7 @@
 #' @author Joshua W. Lambert, Pedro Neves
 #'
 #' @examples
-#' phylod <- DAISIEprep:::create_test_phylod(10)
+#' phylod <- create_test_phylod(10)
 #' island_tbl <- extract_island_species(
 #'   phylod = phylod,
 #'   extraction_method = "asr"

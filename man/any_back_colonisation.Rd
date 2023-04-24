@@ -36,7 +36,7 @@ into multiple colonists because of back-colonisation.
 }
 \examples{
 # Example with no back colonisation
-phylod <- DAISIEprep:::create_test_phylod(test_scenario = 15)
+phylod <- create_test_phylod(test_scenario = 15)
 any_back_colonisation(phylod)
 
 # Example with back colonisation

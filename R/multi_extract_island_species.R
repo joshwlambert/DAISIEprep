@@ -10,8 +10,8 @@
 #'
 #' @examples
 #' multi_phylod <- list()
-#' multi_phylod[[1]] <- DAISIEprep:::create_test_phylod(test_scenario = 1)
-#' multi_phylod[[2]] <- DAISIEprep:::create_test_phylod(test_scenario = 2)
+#' multi_phylod[[1]] <- create_test_phylod(test_scenario = 1)
+#' multi_phylod[[2]] <- create_test_phylod(test_scenario = 2)
 #' multi_island_tbl <- multi_extract_island_species(
 #'   multi_phylod = multi_phylod,
 #'   extraction_method = "min",

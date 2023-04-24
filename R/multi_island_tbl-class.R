@@ -44,6 +44,8 @@ setClass(
 
 #' Constructor function for `Multi_island_tbl` class
 #'
+#' @return A Multi_island_tbl object.
+#'
 #' @export
 multi_island_tbl <- function() {
   multi_island_tbl <- methods::new("Multi_island_tbl")
