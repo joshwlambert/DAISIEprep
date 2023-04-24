@@ -114,6 +114,8 @@ settings is tidied into a tibble containing the data we need for both the DNA
 and complete phylogeny. 
 
 ```{r}
+# Internal function - Not to be called for regular 'DAISIEprep' operation,
+# but merely to load in data
 performance_data <- DAISIEprep:::read_performance()
 ```
 
@@ -125,7 +127,7 @@ names as variables (as opposed to strings) and uses tidy evaluation to group by
 the variable given, either `prob_on_island` or `prob_endemic`. First for the `min` algorithm:
 
 ```{r plot-min-prob-on-island}
-DAISIEprep::plot_performance(
+plot_performance(
   performance_data = performance_data$performance_data_min,
   group_by = prob_on_island
 )
@@ -134,7 +136,7 @@ DAISIEprep::plot_performance(
 And secondly for the `asr` algorithm:
 
 ```{r plot-asr-prob-on-island}
-DAISIEprep::plot_performance(
+plot_performance(
   performance_data = performance_data$performance_data_asr,
   group_by = prob_on_island
 )
