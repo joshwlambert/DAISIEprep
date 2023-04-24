@@ -184,7 +184,9 @@ complete phylogeny. The raw data of parameter estimates for the
 different parameter settings is tidied into a tibble containing the data
 we need for both the DNA and complete phylogeny.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">performance_data</span> <span class="op">&lt;-</span> <span class="fu">DAISIEprep</span><span class="fu">:::</span><span class="fu"><a href="../reference/read_performance.html">read_performance</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Internal function - Not to be called for regular 'DAISIEprep' operation,</span></span>
+<span><span class="co"># but merely to load in data</span></span>
+<span><span class="va">performance_data</span> <span class="op">&lt;-</span> <span class="fu">DAISIEprep</span><span class="fu">:::</span><span class="fu"><a href="../reference/read_performance.html">read_performance</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>We can plot the time consumption of each simulated and empirical
 (DNA-only and complete phylogeny) data set and group the results by the
 probability of species being on the island
@@ -195,7 +197,7 @@ as variables (as opposed to strings) and uses tidy evaluation to group
 by the variable given, either <code>prob_on_island</code> or
 <code>prob_endemic</code>. First for the <code>min</code> algorithm:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DAISIEprep</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_performance.html">plot_performance</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_performance.html">plot_performance</a></span><span class="op">(</span></span>
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_min</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_on_island</span></span>
 <span><span class="op">)</span></span>
@@ -204,7 +206,7 @@ by the variable given, either <code>prob_on_island</code> or
 <p><img src="Performance_files/figure-html/plot-min-prob-on-island-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>And secondly for the <code>asr</code> algorithm:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DAISIEprep</span><span class="fu">::</span><span class="fu"><a href="../reference/plot_performance.html">plot_performance</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_performance.html">plot_performance</a></span><span class="op">(</span></span>
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_asr</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_on_island</span></span>
 <span><span class="op">)</span></span>
