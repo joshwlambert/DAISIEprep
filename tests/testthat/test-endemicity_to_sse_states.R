@@ -102,11 +102,10 @@ test_that("sse_states_to_endemicity works as expected", {
     sse_states_to_endemicity(states = 2, sse_model = "geosse"),
     "endemic"
   )
-  # TODO: check if this issue is fixed
-  # expect_identical(
-  #  sse_states_to_endemicity(states = 0, sse_model = "geosse"),
-  #  "nonendemic"
-  # )
+  expect_identical(
+    sse_states_to_endemicity(states = 0, sse_model = "geosse"),
+    "nonendemic"
+  )
   expect_identical(
     sse_states_to_endemicity(states = 1, sse_model = "geosse"),
     "not_present"

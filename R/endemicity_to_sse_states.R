@@ -58,15 +58,20 @@ endemicity_to_sse_states <- function(endemicity_status, sse_model = "musse") {
 #'
 #' @export
 sse_states_to_endemicity <- function(states, sse_model = "musse") {
-  if (any(!as.numeric(states) %in% 1:3)) {
-    stop("states should only be 1, 2, or 3")
-  }
-  if (!sse_model %in% c("musse", "geosse")) {
+
+  if (sse_model == "musse") {
+    if (any(!as.numeric(states) %in% 1:3)) {
+      stop("musse states should only be 1, 2, or 3.")
+    }
+  } else if (sse_model == "geosse") {
+    if (any(!as.numeric(states) %in% 0:2)) {
+      stop("geosse states should only be 0, 1, or 2.")
+    }
+    states[states == 0] <- 3 # match nonendemic
+  } else {
     stop("sse_model should be either \"musse\" or \"geosse\".")
   }
-  if (sse_model == "geosse") {
-    states[states == 3] <- 0
-  }
+
   for (i in 1:3) {
     states <- gsub(
       pattern = as.character(i),
