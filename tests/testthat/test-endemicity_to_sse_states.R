@@ -110,4 +110,16 @@ test_that("sse_states_to_endemicity works as expected", {
     sse_states_to_endemicity(states = 1, sse_model = "geosse"),
     "not_present"
   )
+  expect_error(
+    sse_states_to_endemicity(states = 1, sse_model = "illegal"),
+    "sse_model should be either \"musse\" or \"geosse\"."
+  )
+  expect_error(
+    sse_states_to_endemicity(states = 0, sse_model = "musse"),
+    "musse states should only be 1, 2, or 3."
+  )
+  expect_error(
+    sse_states_to_endemicity(states = 3, sse_model = "geosse"),
+    "geosse states should only be 0, 1, or 2."
+  )
 })
