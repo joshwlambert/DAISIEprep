@@ -25,10 +25,10 @@ library(DAISIEprep)
 
 ## Introduction
 
-In this tutorial we demonstrate how users can perform ancestral 
-state reconstruction using the functions implemented in `DAISIEprep`, 
-or, alternatively, by importing ancestral range 
-reconstructions obtained using methods from other packages.
+In this tutorial we demonstrate how users can perform ancestral state
+reconstruction using the functions implemented in `DAISIEprep`, or,
+alternatively, by importing ancestral range reconstructions obtained
+using methods from other packages.
 
 ## Using `DAISIEprep`'s `min` and `asr` algorithms
 
@@ -36,18 +36,15 @@ The core feature of `DAISIEprep` is the function
 `extract_island_species()`, which allows one to extract the island data
 expected as input by `DAISIE`'s functions from a phylogeny with data
 regarding presence / absence of each present-day species from the
-island. The function automatically delineates
-and extracts clades formed by island species within
-a complete mainland + island phylogeny, and attempt to estimate the
-age of colonisation for each of these clades. 
+island. The function automatically delineates and extracts clades formed
+by island species within a complete mainland + island phylogeny, and
+attempt to estimate the age of colonisation for each of these clades.
 
-
-The default option of the function is the `min` algorithm, 
-which performs the data extraction in  a manner consistent
-with DAISIE's assumptions. However, there may be cases where
-it is not desirable to use this
-algorithm, particularly if some of DAISIE's assumptions are at odds with
-the clade at hand. For example, consider the following tree:
+The default option of the function is the `min` algorithm, which
+performs the data extraction in a manner consistent with DAISIE's
+assumptions. However, there may be cases where it is not desirable to
+use this algorithm, particularly if some of DAISIE's assumptions are at
+odds with the clade at hand. For example, consider the following tree:
 
 ```{r, example_tree_not_daisie, include=FALSE}
 set.seed(
@@ -78,13 +75,13 @@ extract_island_species(phylod, extraction_method = "min")
 ```
 
 The algorithm estimates four independent colonisation events. This is
-because the `min` algorithm assumes no back-colonisation (from island to mainland),
-such that the presence of mainland-only species e inside the island-only
-clade can only be accommodated by the lineage staying on the mainland
-until the present, with at least three colonisation events leading to
-species a-d. DAISIE would also not consider a colonisation time before
-the (a-e)-f split, as any cladogenetic event taking place on the island
-is assumed to lead to strictly endemic lineages
+because the `min` algorithm assumes no back-colonisation (from island to
+mainland), such that the presence of mainland-only species e inside the
+island-only clade can only be accommodated by the lineage staying on the
+mainland until the present, with at least three colonisation events
+leading to species a-d. DAISIE would also not consider a colonisation
+time before the (a-e)-f split, as any cladogenetic event taking place on
+the island is assumed to lead to strictly endemic lineages
 [@valente_equilibrium_2015], while lineage f maintains a population on
 the mainland.
 
@@ -142,7 +139,7 @@ phylod_parsimony <- add_asr_node_states(
 # reconstruction using Mk model
 phylod_parsimony <- add_asr_node_states(
   phylod = phylod, 
-  asr_method = "Mk"
+  asr_method = "mk"
 )
 ```
 
@@ -151,14 +148,12 @@ function see appendix at the bottom of this article.
 
 ## Using ancestral state reconstruction methods from other packages
 
-The `min` and `asr` algorithms are implemented in `DAISIEprep`. However, 
-there are 
-many models developed for the reconstruction of
-states (traits) on a phylogenetic tree available in other R packages, 
-and it may be more
-appropriate to use a different type of model for the empirical group
-being studied. Just as R is developed to allow for packages to [extend
-the
+The `min` and `asr` algorithms are implemented in `DAISIEprep`. However,
+there are many models developed for the reconstruction of states
+(traits) on a phylogenetic tree available in other R packages, and it
+may be more appropriate to use a different type of model for the
+empirical group being studied. Just as R is developed to allow for
+packages to [extend the
 language](https://cran.r-project.org/doc/manuals/r-release/R-exts.html),
 `DAISIEprep` is designed to allow each extension of ASR methods for
 incorporation with key functions (e.g. `extract_island_species()`).
@@ -173,9 +168,9 @@ speciation, extinction and transition between states all influence the
 reconstruction. These models prevent the bias of having many species in
 a state because of high speciation but a model, such as the Mk model,
 assumes it is due to high transition rates into that state (see
-@maddison_inferring_2006). The example we give uses the MuSSE model
-with a three states (island endemic, island non-endemic and not present
-on the island), and the GeoSSE model that considers presence or absence
+@maddison_inferring_2006). The example we give uses the MuSSE model with
+a three states (island endemic, island non-endemic and not present on
+the island), and the GeoSSE model that considers presence or absence
 from two geographic areas (island and mainland). Other SSE models in
 `diversitree` can be applied in the same manner.
 
@@ -191,7 +186,6 @@ states into the model. Each model can be argued for or against; with the
 choice influenced by the taxonomic group being studied.
 
 ## DEC+J
-
 
 We consider the following randomly generated phylogeny and tip data:
 
@@ -226,7 +220,8 @@ plot_phylod(phylod)
 As a first example, we consider the popular DEC
 (Dispersal-Extinction-Cladogenesis) model [@ree_maximum_2008] with
 founder-event speciation (DEC+J, @matzke_probabilistic_2013),
-implemented in R in the **biogeobears** package [@matzke_probabilistic_2013].
+implemented in R in the **biogeobears** package
+[@matzke_probabilistic_2013].
 
 ```{r, load_biogeobears}
 require(BioGeoBEARS)
@@ -641,13 +636,13 @@ GeoSSE.
 
 GeoSSE [@goldberg_phylogenetic_2011] is a special case of SSE models
 dedicated to the case where traits correspond to presence or absence
-from two geographic areas, which is the case for our
-mainland/island clade. Its most important feature is that instead of
-considering the widespread state (mainland + island, that is nonendemic)
-as a third separate category from the two single-area states (as in the
-MuSSE example above), GeoSSE explicitly models it as corresponding to
-presence in both areas, just as in BioGeoBEARS. Accordingly, dispersal
-is unidirectional, from a single area towards the widespread state.
+from two geographic areas, which is the case for our mainland/island
+clade. Its most important feature is that instead of considering the
+widespread state (mainland + island, that is nonendemic) as a third
+separate category from the two single-area states (as in the MuSSE
+example above), GeoSSE explicitly models it as corresponding to presence
+in both areas, just as in BioGeoBEARS. Accordingly, dispersal is
+unidirectional, from a single area towards the widespread state.
 Extinction from an area the widespread state returns the species to the
 remaining single area, while the same extinction while already in a
 single area results in the true extinction of the species.
@@ -722,7 +717,7 @@ phylod <- phylobase::addData(
 plot_phylod(phylod)
 ```
 
-We are now ready to extract the island clade. 
+We are now ready to extract the island clade.
 
 ```{r, extract_species_geosse}
 island_clades <- DAISIEprep::extract_island_species(
@@ -732,25 +727,42 @@ island_clades <- DAISIEprep::extract_island_species(
 island_clades@island_tbl$species
 island_clades@island_tbl$branching_times
 ```
-In the case of this example, the crown node is inferred as present on the island (nonendemic), such that the time of the initial colonisation event cannot be estimated from the tree. Branching times are collected, but when passing this data to DAISIE, colonisation time will by default be set to `-Inf`, that is the age of the island.
+
+In the case of this example, the crown node is inferred as present on
+the island (nonendemic), such that the time of the initial colonisation
+event cannot be estimated from the tree. Branching times are collected,
+but when passing this data to DAISIE, colonisation time will by default
+be set to `-Inf`, that is the age of the island.
 
 ## corHMM
 
-This example is currently a work-in-progress, and will added to the vignette soon.
+This example is currently a work-in-progress, and will added to the
+vignette soon.
 
 ## Concluding remarks
 
-Extracting an island dataset from a larger phylogeny may in case require estimation of the history of colonisation of the island within the internal nodes of the phylogeny. 
-We have shown how to do so above using examples from three R packages commonly used for ancestral state reconstruction. 
-The choice of the most appropriate model to use for ancestral state reconstruction is a difficult question, and an integral part of the scientific exercise. 
-This is likely to depend entirely on both the taxa and island system at hand, and thus we believe the user is best placed to make an informed decision. 
-It is entirely possible to use multiple models to assess the sensibility of island data extraction to some processes, for example the possibility of jump dispersal (DEC+J) or feedbacks between speciation and island status (GeoSSE). 
-Similarly, one may find the `method = "random"` option of `select_endemicity_status()` of use to study the uncertainty of reconstructions within the output of a single model.
-Through these examples, we hope to have introduced an accessible framework, that can be modified with ease to fit the specific needs of the analysis at hand.
+Extracting an island dataset from a larger phylogeny may in case require
+estimation of the history of colonisation of the island within the
+internal nodes of the phylogeny. We have shown how to do so above using
+examples from three R packages commonly used for ancestral state
+reconstruction. The choice of the most appropriate model to use for
+ancestral state reconstruction is a difficult question, and an integral
+part of the scientific exercise. This is likely to depend entirely on
+both the taxa and island system at hand, and thus we believe the user is
+best placed to make an informed decision. It is entirely possible to use
+multiple models to assess the sensibility of island data extraction to
+some processes, for example the possibility of jump dispersal (DEC+J) or
+feedbacks between speciation and island status (GeoSSE). Similarly, one
+may find the `method = "random"` option of `select_endemicity_status()`
+of use to study the uncertainty of reconstructions within the output of
+a single model. Through these examples, we hope to have introduced an
+accessible framework, that can be modified with ease to fit the specific
+needs of the analysis at hand.
 
 ## Appendix
 
-Below, we show the data manipulation underlying ASR with maximum parsimony, as done inside `add_asr_node_states()`.
+Below, we show the data manipulation underlying ASR with maximum
+parsimony, as done inside `add_asr_node_states()`.
 
 ```{r, create island presence tip states, eval=FALSE}
 tip_states <- c()

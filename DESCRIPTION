@@ -59,6 +59,7 @@ Suggests:
     rmarkdown,
     covr,
     diversitree,
+    BioGeoBEARS,
     corHMM,
     tidyr,
     dplyr,
