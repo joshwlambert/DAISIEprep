@@ -225,6 +225,7 @@ implemented in R in the **biogeobears** package
 
 ```{r, load_biogeobears}
 require(BioGeoBEARS)
+require(ape) # BioGeoBEARS does not load ape::has.singles() which it calls
 ```
 
 BioGeoBEARS revolves around an object, `BioGeoBEARS_run`, which stores
