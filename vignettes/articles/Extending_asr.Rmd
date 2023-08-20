@@ -46,7 +46,7 @@ assumptions. However, there may be cases where it is not desirable to
 use this algorithm, particularly if some of DAISIE's assumptions are at
 odds with the clade at hand. For example, consider the following tree:
 
-```{r, example_tree_not_daisie, include=FALSE}
+```{r, example_tree_not_daisie, echo=FALSE}
 set.seed(
   1,
   kind = "Mersenne-Twister",
@@ -737,25 +737,25 @@ be set to `-Inf`, that is the age of the island.
 
 ## corHMM
 
-Just as `diversitree`, `corHMM` allows modelling and fitting SSE-class birth-death processes. 
-Its specificity lies in the possibility to consider shifts between multiple, non-measurable regimes of evolution ("hidden" traits) controlling how the measured traits change and at what frequency.
-This is particularly relevant for large or old clades, or any clade where it appears reasonable that not all parts of the tree have evolved under a unique process.
+Just as `diversitree`, `corHMM` [@beaulieu_identifying_2013] allows modelling and fitting SSE-class birth-death processes. 
+In addition to standard SSE models, `corHMM` can also consider the overarching evolutionary processes that control changes in the observed traits, but that are themselves captured in the date – the so-called "hidden traits" [@beaulieu_identifying_2013].
+This is particularly relevant for large and/or old clades, or whenever it appears reasonable that not all parts of the tree have evolved under similar conditions.
 
-Let us consider the following example with our hypothetical bird clade, in the context island biogeography.
+To consider an example in the context of island biogeography, let us imagine a plausible evolutionary scenario for our bird clade.
 For most of the clade, the emergence of endemic species following colonisation of the island takes time, requiring either the extinction of the mainland population or the differentiation of the island population and build-up of a reproductive barrier. Naturally, the island population may also go extinct, such that transitions between the different endemicity states follow this configuration:
 
-not present (NP) <> nonendemic (NE) <> endemic (E) (Regime 1)
+  Not present (NP) <-> Nonendemic (NE) <-> Endemic (E) (Regime 1)
 
 However, one sub-clade (let's say the one that comprises bird_m - bird_p) has a reduced dispersal ability, perhaps as the result of dietary, metabolic or physiological constraints. 
-This difference is subtle and does not appear in the phylogenetic data.
-Because of this, the rare long-distance migrants that reach the island are instantaneously isolated from the mainland population and rapidly form endemic species. 
+This difference is subtle and not captured in the data.
+Because of this, the rare long-distance migrants that reach the island are instantaneously isolated from the mainland population, and rapidly form endemic species. 
 This sub-clade is never found in a nonendemic state, and instead species transit directly from not present to endemic, while back-colonisation is impossible:
 
-not present (NP) > endemic (E) (Regime 2)
+  Not present (NP) -> Endemic (E) (Regime 2)
 
 We get the following trait distribution:
 
-```{r, sample_tree_corhmm, include=FALSE}
+```{r, sample_tree_corhmm, echo=FALSE}
 set.seed(
   2,
   kind = "Mersenne-Twister",
@@ -804,7 +804,7 @@ Calling the output `corHMM` prints a summary of the solution, including the esti
 ```{r, corhmm_sol}
 fit_corhmm
 ```
-*Do mind the legend*: the numbering of trait states made by `corHMM` follows the order of first occurrence of each state in the data, and may differ from what you have used previously.
+*Do mind* the `Legend` element: `corHMM` auto-numbers trait states by order of first occurrence in the data. This may (and in the present case, does) differ from the numbering used in the original data. Below, we ensure that the traits map correctly with `DAISIEprep`'s endemicity statuses.
 
 Note how transitions between endemic and not present are estimated to never happen, suggesting that bird_m and bird_o have either first been nonendemic and subject to dramatically fast extinction of their mainland population, or result from miraculous colonization events.
 
@@ -827,30 +827,30 @@ phylod <- phylobase::addData(
 plot_phylod(phylod)
 ```
 
-The tree suggests three miraculous not-present to endemic transitions!
+The tree suggests that most colonizaton events are recent (which is credible) and three miraculous not-present to endemic transitions!
 
 Let us try again, this time constraining the model to consider the two speciation regimes described earlier, including possible transitions between them.
 
 First, we need to specify the mapping of transitions between the three states for each regime as 3-by-3 matrices.
 
 ```{r, corhmm_states_mat}
-# R1, E <> NE <> NP
+# Regime 1, E <-> NE <-> NP
 rate_mat_r1 <- matrix(
   data = c(
     0, 1, 0,
     1, 0, 2,
     0, 2, 0),
-  # Two rates, E <> NE and NE <> NP
+  # Two rates, E <-> NE and NE <-> NP
   nrow = 3, ncol = 3
 )
 
-# R2, NP > E
+# Regime 2, NP -> E
 rate_mat_r2 <- matrix(
   data = c(
     0, 0, 0,
     0, 0, 0,
     1, 0, 0),
-  # One rate: N > P
+  # One rate: NP -> E
   nrow = 3, ncol = 3
 )
 ```
@@ -892,33 +892,36 @@ However, we first need to merge the probabilities of each state across the two r
 ```{r, extract_asr_corhmm_dual}
 
 # Extract posterior probabilities of each state for each node
-asr_corhmm <- as.data.frame(fit_corhmm_hidden$states)
-head(asr_corhmm) # 6 columns
+asr_corhmm_hidden <- as.data.frame(fit_corhmm_hidden$states)
+head(asr_corhmm_hidden) # 6 columns
 
 # Merge (sum) probabilities for both regimes
-for (i in 1:3) asr_corhmm[i] <- asr_corhmm[i] + asr_corhmm[i + 3]
-asr_corhmm[4:6] <- NULL
+for (i in 1:3) asr_corhmm_hidden[i] <- asr_corhmm_hidden[i] + asr_corhmm_hidden[i + 3]
+asr_corhmm_hidden[4:6] <- NULL
 
-head(asr_corhmm)
+head(asr_corhmm_hidden)
 ```
 
 We can then add the ASR to the phylogeny:
 
 ```{r, plot_phylo_corhmm_dual}
 # Convert posterior data to DAISIE format
-colnames(asr_corhmm) <- paste0(unique(status_df$endemicity_status), "_prob")
-island_status <- select_endemicity_status(asr_corhmm, method = "max")
-asr_corhmm$island_status <- island_status
-rownames(asr_corhmm) <- phylobase::nodeId(phylod, "internal")
+colnames(asr_corhmm_hidden) <- paste0(unique(status_df$endemicity_status), "_prob")
+island_status <- select_endemicity_status(asr_corhmm_hidden, method = "max")
+asr_corhmm_hidden$island_status <- island_status
+rownames(asr_corhmm_hidden) <- phylobase::nodeId(phylod, "internal")
+head(asr_corhmm_hidden)
 
 # Add ASR to phylo
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 phylod <- phylobase::addData(
   phylod,
-  node.data = asr_corhmm
+  node.data = asr_corhmm_hidden
 )
 plot_phylod(phylod)
 ```
+
+Admittedly (and embarassingly), posterior probabilities did not change much with the more complex and realistic model - too bad!
 
 ## Concluding remarks
 
