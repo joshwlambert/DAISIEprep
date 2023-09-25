@@ -118,6 +118,7 @@ assumptions. However, there may be cases where it is not desirable to
 use this algorithm, particularly if some of DAISIE’s assumptions are at
 odds with the clade at hand. For example, consider the following
 tree:</p>
+<p><img src="Extending_asr_files/figure-html/example_tree_not_daisie-1.png" width="700"></p>
 <p>We have an island clade, comprising species a-f, except for species e
 which is absent from the island. A parsimonious explanation for this
 distribution would be a unique colonisation event before the split
@@ -201,7 +202,7 @@ both methods are implemented:</p>
 <span><span class="co"># reconstruction using Mk model</span></span>
 <span><span class="va">phylod_parsimony</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
-<span>  asr_method <span class="op">=</span> <span class="st">"Mk"</span></span>
+<span>  asr_method <span class="op">=</span> <span class="st">"mk"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>For details on the internal workings of the
 <code><a href="../reference/add_asr_node_states.html">add_asr_node_states()</a></code> function see appendix at the bottom
@@ -260,7 +261,9 @@ and Smith 2008)</span> with founder-event speciation (DEC+J, <span class="citati
 2013)</span>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://phylo.wikidot.com/biogeobears" class="external-link">BioGeoBEARS</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: BioGeoBEARS</span></span></code></pre></div>
+<span><span class="co">#&gt; Loading required package: BioGeoBEARS</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span> <span class="co"># BioGeoBEARS does not load ape::has.singles() which it calls</span></span>
+<span><span class="co">#&gt; Loading required package: ape</span></span></code></pre></div>
 <p>BioGeoBEARS revolves around an object, <code>BioGeoBEARS_run</code>,
 which stores input data, the structure of the model to optimise, and
 control parameters for optimisation.</p>
@@ -652,7 +655,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.767</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 0.919</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in
@@ -1062,8 +1065,235 @@ be set to <code>-Inf</code>, that is the age of the island.</p>
 <div class="section level2">
 <h2 id="corhmm">corHMM<a class="anchor" aria-label="anchor" href="#corhmm"></a>
 </h2>
-<p>This example is currently a work-in-progress, and will added to the
-vignette soon.</p>
+<p>Just as <code>diversitree</code>, <code>corHMM</code> <span class="citation">(Beaulieu et al. 2013)</span> allows modelling and
+fitting SSE-class birth-death processes. In addition to standard SSE
+models, <code>corHMM</code> can also consider the overarching
+evolutionary processes that control changes in the observed traits, but
+that are themselves captured in the date – the so-called “hidden traits”
+<span class="citation">(Beaulieu et al. 2013)</span>. This is
+particularly relevant for large and/or old clades, or whenever it
+appears reasonable that not all parts of the tree have evolved under
+similar conditions.</p>
+<p>To consider an example in the context of island biogeography, let us
+imagine a plausible evolutionary scenario for our bird clade. For most
+of the clade, the emergence of endemic species following colonisation of
+the island takes time, requiring either the extinction of the mainland
+population or the differentiation of the island population and build-up
+of a reproductive barrier. Naturally, the island population may also go
+extinct, such that transitions between the different endemicity states
+follow this configuration:</p>
+<p>Not present (NP) &lt;-&gt; Nonendemic (NE) &lt;-&gt; Endemic (E)
+(Regime 1)</p>
+<p>However, one sub-clade (let’s say the one that comprises bird_m -
+bird_p) has a reduced dispersal ability, perhaps as the result of
+dietary, metabolic or physiological constraints. This difference is
+subtle and not captured in the data. Because of this, the rare
+long-distance migrants that reach the island are instantaneously
+isolated from the mainland population, and rapidly form endemic species.
+This sub-clade is never found in a nonendemic state, and instead species
+transit directly from not present to endemic, while back-colonisation is
+impossible:</p>
+<p>Not present (NP) -&gt; Endemic (E) (Regime 2)</p>
+<p>We get the following trait distribution:</p>
+<p><img src="Extending_asr_files/figure-html/sample_tree_corhmm-1.png" width="700"></p>
+<p>Let’s first fit a naive, single-regime SSE model, where all possible
+transitions between the three states are permitted:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># extract data from phylo</span></span>
+<span><span class="va">status_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"species"</span> <span class="op">=</span> <span class="va">phylod</span><span class="op">@</span><span class="va">label</span>, <span class="va">phylod</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit corHMM model to tree</span></span>
+<span><span class="va">fit_corhmm</span> <span class="op">&lt;-</span> <span class="fu">corHMM</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corHMM/man/corHMM.html" class="external-link">corHMM</a></span><span class="op">(</span></span>
+<span>  phy <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">status_df</span>,</span>
+<span>  model <span class="op">=</span> <span class="st">"ARD"</span>, <span class="co"># all transitions independent, default</span></span>
+<span>  rate.cat <span class="op">=</span> <span class="fl">1</span> <span class="co"># only one regime</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; State distribution in data:</span></span>
+<span><span class="co">#&gt; States:  1   2   3   </span></span>
+<span><span class="co">#&gt; Counts:  5   7   8   </span></span>
+<span><span class="co">#&gt; Beginning thorough optimization search -- performing 0 random restarts </span></span>
+<span><span class="co">#&gt; Finished. Inferring ancestral states using marginal reconstruction.</span></span></code></pre></div>
+<p>Calling the output <code>corHMM</code> prints a summary of the
+solution, including the estimated transition rates.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit_corhmm</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fit</span></span>
+<span><span class="co">#&gt;       -lnL      AIC     AICc Rate.cat ntax</span></span>
+<span><span class="co">#&gt;  -20.50321 53.00643 59.46797        1   20</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Legend</span></span>
+<span><span class="co">#&gt;             1             2             3 </span></span>
+<span><span class="co">#&gt;     "endemic"  "nonendemic" "not_present" </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Rates</span></span>
+<span><span class="co">#&gt;              (1,R1)   (2,R1)       (3,R1)</span></span>
+<span><span class="co">#&gt; (1,R1)           NA 22.69499 1.003930e-09</span></span>
+<span><span class="co">#&gt; (2,R1) 1.739441e+01       NA 2.203242e+01</span></span>
+<span><span class="co">#&gt; (3,R1) 1.000149e-09 18.10133           NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Arrived at a reliable solution</span></span></code></pre></div>
+<p><em>Do mind</em> the <code>Legend</code> element: <code>corHMM</code>
+auto-numbers trait states by order of first occurrence in the data. This
+may (and in the present case, does) differ from the numbering used in
+the original data. Below, we ensure that the traits map correctly with
+<code>DAISIEprep</code>’s endemicity statuses.</p>
+<p>Note how transitions between endemic and not present are estimated to
+never happen, suggesting that bird_m and bird_o have either first been
+nonendemic and subject to dramatically fast extinction of their mainland
+population, or result from miraculous colonization events.</p>
+<p>The posterior probabilities for the ancestral states are contained in
+the <code>states</code> element of the output object.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract posterior probabilities of each state for each node</span></span>
+<span><span class="va">asr_corhmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">fit_corhmm</span><span class="op">$</span><span class="va">states</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert posterior data to DAISIE format</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr_corhmm</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">status_df</span><span class="op">$</span><span class="va">endemicity_status</span><span class="op">)</span>, <span class="st">"_prob"</span><span class="op">)</span></span>
+<span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_endemicity_status.html">select_endemicity_status</a></span><span class="op">(</span><span class="va">asr_corhmm</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
+<span><span class="va">asr_corhmm</span><span class="op">$</span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="va">island_status</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">asr_corhmm</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/nodeId-methods.html" class="external-link">nodeId</a></span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"internal"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/addData-methods.html" class="external-link">addData</a></span><span class="op">(</span></span>
+<span>  <span class="va">phylod</span>,</span>
+<span>  node.data <span class="op">=</span> <span class="va">asr_corhmm</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Extending_asr_files/figure-html/extract_asr_corhmm_ard-1.png" width="700"></p>
+<p>The tree suggests that most colonizaton events are recent (which is
+credible) and three miraculous not-present to endemic transitions!</p>
+<p>Let us try again, this time constraining the model to consider the
+two speciation regimes described earlier, including possible transitions
+between them.</p>
+<p>First, we need to specify the mapping of transitions between the
+three states for each regime as 3-by-3 matrices.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Regime 1, E &lt;-&gt; NE &lt;-&gt; NP</span></span>
+<span><span class="va">rate_mat_r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span>,</span>
+<span>    <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span>,</span>
+<span>    <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="co"># Two rates, E &lt;-&gt; NE and NE &lt;-&gt; NP</span></span>
+<span>  nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Regime 2, NP -&gt; E</span></span>
+<span><span class="va">rate_mat_r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>    <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>,</span>
+<span>    <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="co"># One rate: NP -&gt; E</span></span>
+<span>  nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The numbers are indices indicating equal rates of transitions (i.e.,
+number of parameters), not values! Zero forbids a transition. We also
+need to specify possible transitions between the two regimes in a 2-by-2
+matrix.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">regime_shift_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>,</span>
+<span>           <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The matrices can then be collated into viable <code>corHMM</code>
+input via <code>getFullMat()</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Assemble input matrix</span></span>
+<span><span class="va">param_mat</span> <span class="op">&lt;-</span> <span class="fu">corHMM</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corHMM/man/getFullMat.html" class="external-link">getFullMat</a></span><span class="op">(</span></span>
+<span>  StateMats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">rate_mat_r1</span>, <span class="va">rate_mat_r2</span><span class="op">)</span>,</span>
+<span>  RateClassMat <span class="op">=</span> <span class="va">regime_shift_mat</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Fit the model</span></span>
+<span><span class="va">fit_corhmm_hidden</span> <span class="op">&lt;-</span> <span class="fu">corHMM</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corHMM/man/corHMM.html" class="external-link">corHMM</a></span><span class="op">(</span></span>
+<span>  phy <span class="op">=</span> <span class="va">phylo</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">status_df</span>,</span>
+<span>  rate.cat <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  rate.mat <span class="op">=</span> <span class="va">param_mat</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; State distribution in data:</span></span>
+<span><span class="co">#&gt; States:  1   2   3   </span></span>
+<span><span class="co">#&gt; Counts:  5   7   8   </span></span>
+<span><span class="co">#&gt; Beginning thorough optimization search -- performing 0 random restarts </span></span>
+<span><span class="co">#&gt; Finished. Inferring ancestral states using marginal reconstruction.</span></span>
+<span><span class="co"># Output</span></span>
+<span><span class="va">fit_corhmm_hidden</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fit</span></span>
+<span><span class="co">#&gt;       -lnL      AIC     AICc Rate.cat ntax</span></span>
+<span><span class="co">#&gt;  -20.67452 49.34904 52.01571        2   20</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Legend</span></span>
+<span><span class="co">#&gt;             1             2             3 </span></span>
+<span><span class="co">#&gt;     "endemic"  "nonendemic" "not_present" </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Rates</span></span>
+<span><span class="co">#&gt;           (1,R1)    (2,R1)    (3,R1) (1,R2) (2,R2)    (3,R2)</span></span>
+<span><span class="co">#&gt; (1,R1)        NA  53.84588        NA    100     NA        NA</span></span>
+<span><span class="co">#&gt; (2,R1)  53.84588        NA  38.87903     NA    100        NA</span></span>
+<span><span class="co">#&gt; (3,R1)        NA  38.87903        NA     NA     NA 100.00000</span></span>
+<span><span class="co">#&gt; (1,R2) 100.00000        NA        NA     NA     NA  10.12079</span></span>
+<span><span class="co">#&gt; (2,R2)        NA 100.00000        NA     NA     NA        NA</span></span>
+<span><span class="co">#&gt; (3,R2)        NA        NA 100.00000     NA     NA        NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Arrived at a reliable solution</span></span></code></pre></div>
+<p>As usual, we proceed to extract the posterior probabilities for the
+ancestral states. However, we first need to merge the probabilities of
+each state across the two regimes.</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Extract posterior probabilities of each state for each node</span></span>
+<span><span class="va">asr_corhmm_hidden</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">fit_corhmm_hidden</span><span class="op">$</span><span class="va">states</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span> <span class="co"># 6 columns</span></span>
+<span><span class="co">#&gt;      (1,R1)    (2,R1)    (3,R1)    (1,R2)    (2,R2)    (3,R2)</span></span>
+<span><span class="co">#&gt; 1 0.1397523 0.1636058 0.1966419 0.1269082 0.1636058 0.2094860</span></span>
+<span><span class="co">#&gt; 2 0.1397523 0.1636058 0.1966419 0.1269082 0.1636058 0.2094860</span></span>
+<span><span class="co">#&gt; 3 0.1397523 0.1636058 0.1966420 0.1269082 0.1636058 0.2094861</span></span>
+<span><span class="co">#&gt; 4 0.1397633 0.1636121 0.1966271 0.1269184 0.1636142 0.2094649</span></span>
+<span><span class="co">#&gt; 5 0.1398113 0.1636394 0.1965624 0.1269632 0.1636506 0.2093730</span></span>
+<span><span class="co">#&gt; 6 0.1398908 0.1636890 0.1964514 0.1270358 0.1637188 0.2092142</span></span>
+<span></span>
+<span><span class="co"># Merge (sum) probabilities for both regimes</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">3</span><span class="op">]</span></span>
+<span><span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      (1,R1)    (2,R1)    (3,R1)</span></span>
+<span><span class="co">#&gt; 1 0.2666605 0.3272116 0.4061279</span></span>
+<span><span class="co">#&gt; 2 0.2666605 0.3272116 0.4061279</span></span>
+<span><span class="co">#&gt; 3 0.2666604 0.3272115 0.4061280</span></span>
+<span><span class="co">#&gt; 4 0.2666817 0.3272263 0.4060920</span></span>
+<span><span class="co">#&gt; 5 0.2667746 0.3272900 0.4059354</span></span>
+<span><span class="co">#&gt; 6 0.2669266 0.3274077 0.4056656</span></span></code></pre></div>
+<p>We can then add the ASR to the phylogeny:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert posterior data to DAISIE format</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">status_df</span><span class="op">$</span><span class="va">endemicity_status</span><span class="op">)</span>, <span class="st">"_prob"</span><span class="op">)</span></span>
+<span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_endemicity_status.html">select_endemicity_status</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
+<span><span class="va">asr_corhmm_hidden</span><span class="op">$</span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="va">island_status</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/nodeId-methods.html" class="external-link">nodeId</a></span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"internal"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    endemic_prob nonendemic_prob not_present_prob island_status</span></span>
+<span><span class="co">#&gt; 21    0.2666605       0.3272116        0.4061279   not_present</span></span>
+<span><span class="co">#&gt; 22    0.2666605       0.3272116        0.4061279   not_present</span></span>
+<span><span class="co">#&gt; 23    0.2666604       0.3272115        0.4061280   not_present</span></span>
+<span><span class="co">#&gt; 24    0.2666817       0.3272263        0.4060920   not_present</span></span>
+<span><span class="co">#&gt; 25    0.2667746       0.3272900        0.4059354   not_present</span></span>
+<span><span class="co">#&gt; 26    0.2669266       0.3274077        0.4056656   not_present</span></span>
+<span></span>
+<span><span class="co"># Add ASR to phylo</span></span>
+<span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/addData-methods.html" class="external-link">addData</a></span><span class="op">(</span></span>
+<span>  <span class="va">phylod</span>,</span>
+<span>  node.data <span class="op">=</span> <span class="va">asr_corhmm_hidden</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Extending_asr_files/figure-html/plot_phylo_corhmm_dual-1.png" width="700"></p>
+<p>Admittedly (and embarassingly), posterior probabilities did not
+change much with the more complex and realistic model - too bad!</p>
 </div>
 <div class="section level2">
 <h2 id="concluding-remarks">Concluding remarks<a class="anchor" aria-label="anchor" href="#concluding-remarks"></a>
@@ -1092,7 +1322,7 @@ hand.</p>
 </h2>
 <p>Below, we show the data manipulation underlying ASR with maximum
 parsimony, as done inside <code><a href="../reference/add_asr_node_states.html">add_asr_node_states()</a></code>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tip_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/tdata-methods.html" class="external-link">tipData</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span><span class="op">$</span><span class="va">endemicity_status</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1108,7 +1338,7 @@ parsimony, as done inside <code><a href="../reference/add_asr_node_states.html">
 package <code>castor</code>. The <code>castor</code> package only works
 with S3 <code>phylo</code> objects, so we need to convert the phylogeny
 back to this type and then run the analysis.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylo</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
 <span><span class="va">asr</span> <span class="op">&lt;-</span> <span class="fu">castor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/castor/man/asr_max_parsimony.html" class="external-link">asr_max_parsimony</a></span><span class="op">(</span></span>
 <span>  tree <span class="op">=</span> <span class="va">phylo</span>,</span>
@@ -1119,7 +1349,7 @@ back to this type and then run the analysis.</p>
 (island presence/absence) at each node in the phylogeny. The first
 column of the matrix is not present on the island and the second column
 of the matrix is present on the island.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"not_present"</span>, <span class="st">"nonendemic"</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1140,11 +1370,11 @@ function, if you consider it not on the island use
 species are on the island, but for completeness it may be worth running
 both and then seeing if there are significant downstream
 consequences.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span>, ties.method <span class="op">=</span> <span class="st">"last"</span><span class="op">)</span></span></code></pre></div>
 <p>These values can now be converted back to string to make them more
 readable.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span></span>
 <span>  pattern <span class="op">=</span> <span class="st">"1"</span>, replacement <span class="op">=</span> <span class="st">"not_present"</span>, x <span class="op">=</span> <span class="va">node_states</span></span>
 <span><span class="op">)</span></span>
@@ -1156,7 +1386,7 @@ readable.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now the ancestral states at the nodes is available we can combine it
 into our <code>phylod</code> object.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  island_status <span class="op">=</span> <span class="va">node_states</span>,</span>
 <span>  endemic_prob <span class="op">=</span> <span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">[</span>, <span class="st">"endemic"</span><span class="op">]</span>,</span>
