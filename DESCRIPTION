@@ -63,8 +63,6 @@ Suggests:
     tidyr,
     dplyr,
     ggimage
-Remotes:
-    nmatzke/BioGeoBEARS
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
