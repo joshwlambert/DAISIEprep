@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="DAISIEprep Tutorial">
 <meta property="og:description" content="DAISIEprep">
@@ -123,37 +123,7 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;     edges</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/" class="external-link">ggtree</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Registered S3 methods overwritten by 'treeio':</span></span>
-<span><span class="co">#&gt;   method              from    </span></span>
-<span><span class="co">#&gt;   MRCA.phylo          tidytree</span></span>
-<span><span class="co">#&gt;   MRCA.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   Nnode.treedata      tidytree</span></span>
-<span><span class="co">#&gt;   Ntip.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   ancestor.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   ancestor.treedata   tidytree</span></span>
-<span><span class="co">#&gt;   child.phylo         tidytree</span></span>
-<span><span class="co">#&gt;   child.treedata      tidytree</span></span>
-<span><span class="co">#&gt;   full_join.phylo     tidytree</span></span>
-<span><span class="co">#&gt;   full_join.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   groupClade.phylo    tidytree</span></span>
-<span><span class="co">#&gt;   groupClade.treedata tidytree</span></span>
-<span><span class="co">#&gt;   groupOTU.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   groupOTU.treedata   tidytree</span></span>
-<span><span class="co">#&gt;   inner_join.phylo    tidytree</span></span>
-<span><span class="co">#&gt;   inner_join.treedata tidytree</span></span>
-<span><span class="co">#&gt;   is.rooted.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   nodeid.phylo        tidytree</span></span>
-<span><span class="co">#&gt;   nodeid.treedata     tidytree</span></span>
-<span><span class="co">#&gt;   nodelab.phylo       tidytree</span></span>
-<span><span class="co">#&gt;   nodelab.treedata    tidytree</span></span>
-<span><span class="co">#&gt;   offspring.phylo     tidytree</span></span>
-<span><span class="co">#&gt;   offspring.treedata  tidytree</span></span>
-<span><span class="co">#&gt;   parent.phylo        tidytree</span></span>
-<span><span class="co">#&gt;   parent.treedata     tidytree</span></span>
-<span><span class="co">#&gt;   root.treedata       tidytree</span></span>
-<span><span class="co">#&gt;   rootnode.phylo      tidytree</span></span>
-<span><span class="co">#&gt;   sibling.phylo       tidytree</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">ggtree v3.8.2 For help: https://yulab-smu.top/treedata-book/</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">ggtree v3.10.0 For help: https://yulab-smu.top/treedata-book/</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; If you use the ggtree package suite in published research, please cite</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; the appropriate paper(s):</span></span></span>
@@ -163,10 +133,11 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co"><span style="color: #949494;">#&gt; trees with their covariates and other associated data. Methods in</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu. ggtreeExtra: Compact</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; visualization of richly annotated phylogenetic data. Molecular Biology</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; and Evolution. 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; for phylogenetic tree input and output with richly annotated and</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.</span></span></span>
+<span><span class="co"><span style="color: #949494;">#&gt; doi: 10.1093/molbev/msz240</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu.  Data Integration, Manipulation and Visualization of</span></span></span>
 <span><span class="co"><span style="color: #949494;">#&gt; Phylogenetic Trees (1st edition). Chapman and Hall/CRC. 2022,</span></span></span>

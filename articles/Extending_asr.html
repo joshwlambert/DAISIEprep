@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Extending DAISIEprep ASR models">
 <meta property="og:description" content="DAISIEprep">
@@ -610,7 +610,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">bears_optim_run</span><span class="op">(</span><span class="va">bgb_run</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Note: tipranges_to_tip_condlikes_of_data_on_each_state() is converting a states_list with (0-based) numbers to the equivalent areanames"</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Your computer has 2 cores.</span></span>
+<span><span class="co">#&gt; Your computer has 4 cores.</span></span>
 <span><span class="co">#&gt; [1] "parscale:"</span></span>
 <span><span class="co">#&gt; [1] 1 1</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -655,7 +655,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.916</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 0.965</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in
@@ -856,21 +856,21 @@ resulting maximum-likelihood model.</p>
 <span><span class="va">asr_musse</span> <span class="op">&lt;-</span> <span class="fu">diversitree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/diversitree/man/asr.html" class="external-link">asr.marginal</a></span><span class="op">(</span>lik <span class="op">=</span> <span class="va">lik_musse</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">fit_musse</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">asr_musse</span></span>
 <span><span class="co">#&gt;              [,1]         [,2]         [,3]         [,4]         [,5]</span></span>
-<span><span class="co">#&gt; [1,] 5.297008e-07 2.358182e-12 1.040125e-08 1.180891e-12 8.128492e-09</span></span>
-<span><span class="co">#&gt; [2,] 9.999995e-01 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00</span></span>
-<span><span class="co">#&gt; [3,] 2.338548e-15 1.922647e-22 1.182962e-15 1.395899e-21 7.176299e-16</span></span>
+<span><span class="co">#&gt; [1,] 5.932021e-07 2.957938e-12 1.165003e-08 1.481783e-12 9.104286e-09</span></span>
+<span><span class="co">#&gt; [2,] 9.999994e-01 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00</span></span>
+<span><span class="co">#&gt; [3,] 1.353886e-12 2.064840e-19 3.309455e-13 1.196563e-18 3.387157e-13</span></span>
 <span><span class="co">#&gt;              [,6]         [,7]         [,8]         [,9]        [,10]</span></span>
-<span><span class="co">#&gt; [1,] 2.449543e-13 5.181369e-14 9.975378e-01 9.999999e-01 1.339102e-13</span></span>
-<span><span class="co">#&gt; [2,] 1.000000e+00 1.000000e+00 2.462179e-03 1.228694e-07 1.000000e+00</span></span>
-<span><span class="co">#&gt; [3,] 3.144040e-15 3.691200e-15 1.784536e-09 7.700293e-13 1.101658e-21</span></span>
+<span><span class="co">#&gt; [1,] 6.385956e-14 3.264622e-15 9.975371e-01 9.999999e-01 1.680040e-13</span></span>
+<span><span class="co">#&gt; [2,] 1.000000e+00 1.000000e+00 2.462789e-03 1.229092e-07 1.000000e+00</span></span>
+<span><span class="co">#&gt; [3,] 1.233413e-12 2.464181e-12 1.389318e-07 5.994989e-11 2.837966e-18</span></span>
 <span><span class="co">#&gt;             [,11]        [,12]        [,13]        [,14]        [,15]</span></span>
-<span><span class="co">#&gt; [1,] 3.509243e-12 1.676497e-06 3.367431e-13 1.372973e-15 9.038228e-01</span></span>
-<span><span class="co">#&gt; [2,] 1.000000e+00 9.999983e-01 1.000000e+00 1.000000e+00 9.617721e-02</span></span>
-<span><span class="co">#&gt; [3,] 5.456285e-20 7.119444e-09 1.057905e-21 1.523247e-23 1.956740e-09</span></span>
+<span><span class="co">#&gt; [1,] 1.528827e-12 5.497805e-07 4.225137e-13 1.722711e-15 9.037885e-01</span></span>
+<span><span class="co">#&gt; [2,] 1.000000e+00 9.999989e-01 1.000000e+00 1.000000e+00 9.621135e-02</span></span>
+<span><span class="co">#&gt; [3,] 9.585585e-18 5.542938e-07 3.118874e-18 8.713015e-20 1.523346e-07</span></span>
 <span><span class="co">#&gt;             [,16]        [,17]        [,18]        [,19]</span></span>
-<span><span class="co">#&gt; [1,] 9.146031e-01 9.999140e-01 9.992933e-01 9.999998e-01</span></span>
-<span><span class="co">#&gt; [2,] 8.539693e-02 8.604932e-05 7.067024e-04 2.129264e-07</span></span>
-<span><span class="co">#&gt; [3,] 7.706430e-10 9.517947e-11 2.601569e-10 5.050529e-12</span></span></code></pre></div>
+<span><span class="co">#&gt; [1,] 9.145696e-01 9.999139e-01 9.992928e-01 9.999998e-01</span></span>
+<span><span class="co">#&gt; [2,] 8.543035e-02 8.610419e-05 7.071914e-04 2.130365e-07</span></span>
+<span><span class="co">#&gt; [3,] 6.000565e-08 7.413017e-09 2.026303e-08 3.933283e-10</span></span></code></pre></div>
 <p>We obtain a (pivoted) table of probabilites linked to each state,
 from which we can select states as for the BioGeoBEARS example:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -1121,7 +1121,7 @@ solution, including the estimated transition rates.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Fit</span></span>
 <span><span class="co">#&gt;       -lnL      AIC     AICc Rate.cat ntax</span></span>
-<span><span class="co">#&gt;  -20.50321 53.00643 59.46797        1   20</span></span>
+<span><span class="co">#&gt;  -20.50328 53.00655 59.46809        1   20</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Legend</span></span>
 <span><span class="co">#&gt;             1             2             3 </span></span>
@@ -1129,9 +1129,9 @@ solution, including the estimated transition rates.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Rates</span></span>
 <span><span class="co">#&gt;              (1,R1)   (2,R1)       (3,R1)</span></span>
-<span><span class="co">#&gt; (1,R1)           NA 22.69499 1.003930e-09</span></span>
-<span><span class="co">#&gt; (2,R1) 1.739441e+01       NA 2.203242e+01</span></span>
-<span><span class="co">#&gt; (3,R1) 1.000149e-09 18.10133           NA</span></span>
+<span><span class="co">#&gt; (1,R1)           NA 22.85126  0.000000001</span></span>
+<span><span class="co">#&gt; (2,R1) 1.739119e+01       NA 22.034092974</span></span>
+<span><span class="co">#&gt; (3,R1) 1.000154e-09 18.11829           NA</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Arrived at a reliable solution</span></span></code></pre></div>
 <p><em>Do mind</em> the <code>Legend</code> element: <code>corHMM</code>
