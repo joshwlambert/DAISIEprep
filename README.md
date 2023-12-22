@@ -18,8 +18,16 @@ There are two algorithms to extract the data the `min` algorithm or `asr` (ances
 
 ## Installation
 
+Install DAISIEprep from CRAN:
+
 ``` r
-remotes::install.packages("remotes")
+install.packages("DAISIEprep")
+```
+
+The development version of DAISIEprep can be installed from GitHub:
+
+``` r
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
 remotes::install_github("joshwlambert/DAISIEprep")
 ```
 

@@ -66,6 +66,7 @@ Suggests:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Collate: 
+    'DAISIEprep-package.R'
     'add_asr_node_states.R'
     'add_island_colonist.R'
     'add_missing_species.R'
