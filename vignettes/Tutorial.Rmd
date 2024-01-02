@@ -44,7 +44,7 @@ library(castor)
 
 ## 1. Single Phylogeny Example
 
-#### In this section we demonstrate a simple example of extracting and formatting data from a single phylogeny. We use a simulated phylogeny, which faciliates explaining how the data is structured. 
+#### In this section we demonstrate a simple example of extracting and formatting data from a single phylogeny. We use a simulated phylogeny, which facilitates explaining how the data is structured. 
 
 First we simulate a phylogeny using the package `ape`.
 
