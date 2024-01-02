@@ -153,8 +153,7 @@ this we can fit one of many ancestral state reconstruction methods. Here we use
 maximum parsimony as it is a simple method that should prove reliable for 
 reconstructing the ancestral species areas (i.e. on the island or not on the
 island) for most cases. First, we translate our extant species endemicity status 
-to a numeric representation of whether that species is on the island. We add one,
-as the ancestral state reconstruction method cannot handle zero as a state. 
+to a numeric representation of whether that species is on the island. 
 
 ```{r}
 phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
@@ -200,7 +199,7 @@ as can be seen by the fact that the `island_tbl` only has one row.
 Now that we have the `island_tbl` we can convert this to the DAISIE data list to be used by the DAISIE inference
 model. 
 
-To convert to the DAISIE data list ( i.e. the input data of the DAISIE inference 
+To convert to the DAISIE data list (i.e. the input data of the DAISIE inference 
 model) we use `create_daisie_data()`, providing the `island_tbl` as input. We also need to specify:
 
 
