@@ -570,7 +570,7 @@ island_tbl <- add_missing_species(
 )
 ```
 
-The argument `species_name` uses a representative sampled species from that island clade
+The argument `species_to_add_to` uses a representative sampled species from that island clade
 to work out which colonist in the `island_tbl` to assign the specified number
 of missing species (`num_missing_species`) to. In this case we used the species
 in the clade name, however, this could also have been any sampled species from the 
