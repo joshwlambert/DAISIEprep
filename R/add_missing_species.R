@@ -41,11 +41,19 @@ add_missing_species <- function(island_tbl,
   # find the specified species in the island tbl and locate index of colonist
   find_species <- lapply(
     island_tbl@island_tbl$species,
-    function(x) {
-      which_colonist <- grepl(pattern = species_to_add_to, x = x)
-    }
+    grepl,
+    pattern = species_to_add_to
   )
   colonist_index <- which(unlist(lapply(find_species, any)))
+
+  # error if species_to_add_to is not in the island_tbl
+  if (length(colonist_index) == 0) {
+    stop(
+      "You are adding species to a clade that is already sampled in the data.\n",
+      "However, in species_to_add_to you are giving the name of a species \n",
+      "that does not occur in the data, so the clade cannot be located."
+    )
+  }
 
   if (length(colonist_index) > 1) {
     warning("Number of missing species being assigned to two island colonists")
