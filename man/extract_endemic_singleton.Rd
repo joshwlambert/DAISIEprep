@@ -3,24 +3,24 @@
 \name{extract_endemic_singleton}
 \alias{extract_endemic_singleton}
 \title{Extracts the information for an endemic species from a phylogeny
-(specifically `phylo4d`  object from `phylobase` package) and stores it in
-in an `Island_colonist` class}
+(specifically \code{phylo4d}  object from \code{phylobase} package) and stores it in
+in an \code{Island_colonist} class}
 \usage{
 extract_endemic_singleton(phylod, species_label)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
 }
 \value{
-An object of `Island_colonist` class
+An object of \code{Island_colonist} class
 }
 \description{
 Extracts the information for an endemic species from a phylogeny
-(specifically `phylo4d`  object from `phylobase` package) and stores it in
-in an `Island_colonist` class
+(specifically \code{phylo4d}  object from \code{phylobase} package) and stores it in
+in an \code{Island_colonist} class
 }
 \examples{
 set.seed(

@@ -7,13 +7,13 @@ island has likely been on the island given its ancestral state reconstruction
 indicating ancestral presence on the island and so is likely a back
 colonisation from the island to the mainland (or potentially different
 island). This function is useful if using extraction_method = "min" in
-`DAISIEprep::extract_island_species()` as it may brake up a single colonist
+\code{DAISIEprep::extract_island_species()} as it may brake up a single colonist
 into multiple colonists because of back-colonisation.}
 \usage{
 any_back_colonisation(phylod, only_tips = FALSE)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{only_tips}{A boolean determing whether only the tips (i.e. terminal
@@ -31,7 +31,7 @@ island has likely been on the island given its ancestral state reconstruction
 indicating ancestral presence on the island and so is likely a back
 colonisation from the island to the mainland (or potentially different
 island). This function is useful if using extraction_method = "min" in
-`DAISIEprep::extract_island_species()` as it may brake up a single colonist
+\code{DAISIEprep::extract_island_species()} as it may brake up a single colonist
 into multiple colonists because of back-colonisation.
 }
 \examples{

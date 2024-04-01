@@ -4,13 +4,13 @@
 \alias{extract_endemic_clade}
 \title{Extracts the information for an endemic clade (i.e. more than one species on
 the island more closely related to each other than other mainland species)
-from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `Island_colonist` class}
+from a phylogeny (specifically \code{phylo4d}  object from \code{phylobase} package)
+and stores it in an \code{Island_colonist} class}
 \usage{
 extract_endemic_clade(phylod, species_label, unique_clade_name)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
@@ -21,13 +21,13 @@ name which may not be unique if that genus has several independent island
 colonisations}
 }
 \value{
-An object of `Island_colonist` class
+An object of \code{Island_colonist} class
 }
 \description{
 Extracts the information for an endemic clade (i.e. more than one species on
 the island more closely related to each other than other mainland species)
-from a phylogeny (specifically `phylo4d`  object from `phylobase` package)
-and stores it in an `Island_colonist` class
+from a phylogeny (specifically \code{phylo4d}  object from \code{phylobase} package)
+and stores it in an \code{Island_colonist} class
 }
 \examples{
 set.seed(

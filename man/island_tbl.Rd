@@ -2,7 +2,7 @@
 % Please edit documentation in R/island_tbl-class.R
 \name{island_tbl}
 \alias{island_tbl}
-\title{Constructor function for `Island_tbl` class}
+\title{Constructor function for \code{Island_tbl} class}
 \usage{
 island_tbl()
 }
@@ -10,5 +10,5 @@ island_tbl()
 An Island_tbl object.
 }
 \description{
-Constructor function for `Island_tbl` class
+Constructor function for \code{Island_tbl} class
 }

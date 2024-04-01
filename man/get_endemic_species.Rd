@@ -10,7 +10,7 @@ in an endemic clade.}
 get_endemic_species(phylod, species_label)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}

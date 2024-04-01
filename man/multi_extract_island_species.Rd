@@ -3,9 +3,9 @@
 \name{multi_extract_island_species}
 \alias{multi_extract_island_species}
 \title{Extracts the colonisation, diversification, and endemicty data from multiple
-`phylod` (`phylo4d` class from `phylobase`) objects (composed of phylogenetic
-and endemicity data) and stores each in an `Island_tbl` object which are
-stored in a `Multi_island_tbl` object.}
+\code{phylod} (\code{phylo4d} class from \code{phylobase}) objects (composed of phylogenetic
+and endemicity data) and stores each in an \code{Island_tbl} object which are
+stored in a \code{Multi_island_tbl} object.}
 \usage{
 multi_extract_island_species(
   multi_phylod,
@@ -20,10 +20,10 @@ multi_extract_island_species(
 \item{multi_phylod}{A list of phylod objects.}
 
 \item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
+colonisation time extracted is the minimum time (\code{min}) (before the present),
+or the most probable time under ancestral state reconstruction (\code{asr}).}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
@@ -38,13 +38,13 @@ name which may not be unique if that genus has several independent island
 colonisations}
 }
 \value{
-An object of `Multi_island_tbl` class
+An object of \code{Multi_island_tbl} class
 }
 \description{
 Extracts the colonisation, diversification, and endemicty data from multiple
-`phylod` (`phylo4d` class from `phylobase`) objects (composed of phylogenetic
-and endemicity data) and stores each in an `Island_tbl` object which are
-stored in a `Multi_island_tbl` object.
+\code{phylod} (\code{phylo4d} class from \code{phylobase}) objects (composed of phylogenetic
+and endemicity data) and stores each in an \code{Island_tbl} object which are
+stored in a \code{Multi_island_tbl} object.
 }
 \examples{
 multi_phylod <- list()

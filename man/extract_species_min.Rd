@@ -3,7 +3,7 @@
 \name{extract_species_min}
 \alias{extract_species_min}
 \title{Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `Island_tbl` object
+phylogenetic and endemicity data and stores it in an \code{Island_tbl} object
 using the "min" algorithm that extract island species as the shortest time
 to the present.}
 \usage{
@@ -16,7 +16,7 @@ extract_species_min(
 )
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
@@ -25,7 +25,7 @@ phylogenetic and endemicity data for each species.}
 "endemic" or "nonendemic" of an island species, or "not_present" if not on
 the island.}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{unique_clade_name}{Boolean determining whether a unique species
 identifier is used as the clade name in the Island_tbl object or a genus
@@ -33,11 +33,11 @@ name which may not be unique if that genus has several independent island
 colonisations}
 }
 \value{
-An object of `island_tbl` class
+An object of \code{island_tbl} class
 }
 \description{
 Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `Island_tbl` object
+phylogenetic and endemicity data and stores it in an \code{Island_tbl} object
 using the "min" algorithm that extract island species as the shortest time
 to the present.
 }

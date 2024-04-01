@@ -3,7 +3,7 @@
 \name{extract_species_asr}
 \alias{extract_species_asr}
 \title{Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `Island_tbl` object
+phylogenetic and endemicity data and stores it in an \code{Island_tbl} object
 using the "asr" algorithm that extract island species given their ancestral
 states of either island presence or absence.}
 \usage{
@@ -16,7 +16,7 @@ extract_species_asr(
 )
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
@@ -25,18 +25,18 @@ phylogenetic and endemicity data for each species.}
 "endemic" or "nonendemic" of an island species, or "not_present" if not on
 the island.}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
 }
 \value{
-An object of `island_tbl` class
+An object of \code{island_tbl} class
 }
 \description{
 Extracts the colonisation, diversification, and endemicty data from
-phylogenetic and endemicity data and stores it in an `Island_tbl` object
+phylogenetic and endemicity data and stores it in an \code{Island_tbl} object
 using the "asr" algorithm that extract island species given their ancestral
 states of either island presence or absence.
 }

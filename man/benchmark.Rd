@@ -22,7 +22,7 @@ benchmark(
 )
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{tree_size_range}{Numeric vector of two elements, the first is the
@@ -42,21 +42,21 @@ account for the stochasticity in sampling the species on the island and
 endemic species}
 
 \item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
+colonisation time extracted is the minimum time (\code{min}) (before the present),
+or the most probable time under ancestral state reconstruction (\code{asr}).}
 
 \item{asr_method}{A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.}
+\code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}} or \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}} in \code{castor} R
+package for details on the methods used.}
 
 \item{tie_preference}{Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the \code{max.col()} function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use \code{ties.method = "last"} in the \code{max.col()} function, if
+you consider it not on the island use \code{ties.method = "first"}. Default is
 "island".}
 
 \item{log_scale}{A boolean determining whether the sequence of tree sizes

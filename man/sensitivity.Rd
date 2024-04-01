@@ -17,8 +17,8 @@ sensitivity(
 )
 }
 \arguments{
-\item{phylo}{A phylogeny either as a `phylo` (from the `ape` package) or
-`phylo4` (from the `phylobase` package) object.}
+\item{phylo}{A phylogeny either as a \code{phylo} (from the \code{ape} package) or
+\code{phylo4} (from the \code{phylobase} package) object.}
 
 \item{island_species}{Data frame with two columns. The first is a character
 string of the tip_labels with the tip names of the species on the island.
@@ -26,21 +26,21 @@ The second column a character string of the endemicity status of the species,
 either endemic or nonendemic.}
 
 \item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
+colonisation time extracted is the minimum time (\code{min}) (before the present),
+or the most probable time under ancestral state reconstruction (\code{asr}).}
 
 \item{asr_method}{A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.}
+\code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}} or \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}} in \code{castor} R
+package for details on the methods used.}
 
 \item{tie_preference}{Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the \code{max.col()} function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use \code{ties.method = "last"} in the \code{max.col()} function, if
+you consider it not on the island use \code{ties.method = "first"}. Default is
 "island".}
 
 \item{island_age}{Age of the island in appropriate units.}

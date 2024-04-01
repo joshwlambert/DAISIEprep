@@ -3,24 +3,24 @@
 \name{extract_nonendemic}
 \alias{extract_nonendemic}
 \title{Extracts the information for a non-endemic species from a phylogeny
-(specifically `phylo4d`  object from `phylobase` package) and stores it in
-in an `island_colonist` class}
+(specifically \code{phylo4d}  object from \code{phylobase} package) and stores it in
+in an \code{island_colonist} class}
 \usage{
 extract_nonendemic(phylod, species_label)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
 }
 \value{
-An object of `island_colonist` class
+An object of \code{island_colonist} class
 }
 \description{
 Extracts the information for a non-endemic species from a phylogeny
-(specifically `phylo4d`  object from `phylobase` package) and stores it in
-in an `island_colonist` class
+(specifically \code{phylo4d}  object from \code{phylobase} package) and stores it in
+in an \code{island_colonist} class
 }
 \examples{
 set.seed(

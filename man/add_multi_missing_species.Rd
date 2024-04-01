@@ -18,7 +18,7 @@ that belong to the colonising clade.}
 \item{missing_genus}{A list of character vectors containing the genera in
 each island clade}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 }
 \value{
 Object of Island_tbl class

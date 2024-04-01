@@ -12,7 +12,7 @@ extract_stem_age_asr(genus_in_tree, phylod)
 \item{genus_in_tree}{A numeric vector that indicates which species in the
 genus are in the tree}
 
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 }
 \value{

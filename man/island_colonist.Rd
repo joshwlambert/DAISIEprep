@@ -44,7 +44,7 @@ is, this determines which macroevolutionary regime (parameter set) the island
 colonist is in.}
 }
 \value{
-Object of `Island_colonist` class.
+Object of \code{Island_colonist} class.
 }
 \description{
 Constructor for Island_colonist

@@ -10,7 +10,7 @@ than to other subspecies or species).}
 any_polyphyly(phylod)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 }
 \value{

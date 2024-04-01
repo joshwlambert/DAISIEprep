@@ -7,7 +7,7 @@
 write_biogeobears_input(phylod, path_to_phylo, path_to_biogeo)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{path_to_phylo}{string specifying the path and name to write the phylogeny file to.}

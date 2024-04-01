@@ -2,22 +2,22 @@
 % Please edit documentation in R/bind_colonist_to_tbl.R
 \name{bind_colonist_to_tbl}
 \alias{bind_colonist_to_tbl}
-\title{Takes an existing instance of an `Island_tbl` class and bind the information
-from the instance of an `Island_colonist` class to it}
+\title{Takes an existing instance of an \code{Island_tbl} class and bind the information
+from the instance of an \code{Island_colonist} class to it}
 \usage{
 bind_colonist_to_tbl(island_colonist, island_tbl)
 }
 \arguments{
-\item{island_colonist}{An instance of the `Island_colonist` class.}
+\item{island_colonist}{An instance of the \code{Island_colonist} class.}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 }
 \value{
-An object of `Island_tbl` class
+An object of \code{Island_tbl} class
 }
 \description{
-Takes an existing instance of an `Island_tbl` class and bind the information
-from the instance of an `Island_colonist` class to it
+Takes an existing instance of an \code{Island_tbl} class and bind the information
+from the instance of an \code{Island_colonist} class to it
 }
 \examples{
 island_colonist <- DAISIEprep::island_colonist(

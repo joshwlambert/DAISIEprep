@@ -74,16 +74,16 @@ default_params_doc(
 )
 }
 \arguments{
-\item{island_colonist}{An instance of the `Island_colonist` class.}
+\item{island_colonist}{An instance of the \code{Island_colonist} class.}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
+colonisation time extracted is the minimum time (\code{min}) (before the present),
+or the most probable time under ancestral state reconstruction (\code{asr}).}
 
 \item{species_label}{The tip label of the species of interest.}
 
@@ -124,8 +124,8 @@ colonist is in.}
 
 \item{endemic_clade}{Named vector with all the species from a clade.}
 
-\item{phylo}{A phylogeny either as a `phylo` (from the `ape` package) or
-`phylo4` (from the `phylobase` package) object.}
+\item{phylo}{A phylogeny either as a \code{phylo} (from the \code{ape} package) or
+\code{phylo4} (from the \code{phylobase} package) object.}
 
 \item{island_species}{Data frame with two columns. The first is a character
 string of the tip_labels with the tip names of the species on the island.
@@ -141,15 +141,15 @@ in the island clade.}
 \item{asr_method}{A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.}
+\code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}} or \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}} in \code{castor} R
+package for details on the methods used.}
 
 \item{tie_preference}{Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the \code{max.col()} function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use \code{ties.method = "last"} in the \code{max.col()} function, if
+you consider it not on the island use \code{ties.method = "first"}. Default is
 "island".}
 
 \item{earliest_col}{A boolean to determine whether to take the colonisation
@@ -173,8 +173,8 @@ in the phylod object.}
 
 \item{test_scenario}{Integer specifying which test phylod object to create.}
 
-\item{data}{Either an object of class `Island_tbl` or a DAISIE data table
-object (output from `as_daisie_datatable()`).}
+\item{data}{Either an object of class \code{Island_tbl} or a DAISIE data table
+object (output from \code{as_daisie_datatable()}).}
 
 \item{island_age}{Age of the island in appropriate units.}
 
@@ -228,9 +228,9 @@ branches) are searched for back colonisation events.}
 
 \item{multi_phylod}{A list of phylod objects.}
 
-\item{island_tbl_1}{An object of `Island_tbl` class to be comparedl}
+\item{island_tbl_1}{An object of \code{Island_tbl} class to be comparedl}
 
-\item{island_tbl_2}{An object of `Island_tbl` class to be compared}
+\item{island_tbl_2}{An object of \code{Island_tbl} class to be compared}
 
 \item{unique_clade_name}{Boolean determining whether a unique species
 identifier is used as the clade name in the Island_tbl object or a genus

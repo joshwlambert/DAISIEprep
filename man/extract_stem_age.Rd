@@ -5,10 +5,10 @@
 \title{Extracts the stem age from the phylogeny when the a species is known to
 belong to a genus but is not itself in the phylogeny and there are members
 of the same genus are in the phylogeny. The stem age can either be for the
-genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
+genus (or several genera) in the tree (\code{stem = "genus"}) or use an extraction
 algorithm to find the stem of when the species colonised the island
-(`stem = "island_presence`), either 'min' or 'asr' as in
-extract_island_species(). When `stem = "island_presence"`
+(\verb{stem = "island_presence}), either 'min' or 'asr' as in
+extract_island_species(). When \code{stem = "island_presence"}
 the reconstructed node states are used
 to determine the stem age.}
 \usage{
@@ -18,7 +18,7 @@ extract_stem_age(genus_name, phylod, stem, extraction_method = NULL)
 \item{genus_name}{Character string of genus name to be matched with a genus
 name from the tip labels in the phylogeny}
 
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{stem}{Character string, either "genus" or "island_presence". The former
@@ -27,8 +27,8 @@ latter will extract the stem age based on the ancestral presence on the
 island either based on the "min" or "asr" extraction algorithms.}
 
 \item{extraction_method}{A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).}
+colonisation time extracted is the minimum time (\code{min}) (before the present),
+or the most probable time under ancestral state reconstruction (\code{asr}).}
 }
 \value{
 Numeric
@@ -37,10 +37,10 @@ Numeric
 Extracts the stem age from the phylogeny when the a species is known to
 belong to a genus but is not itself in the phylogeny and there are members
 of the same genus are in the phylogeny. The stem age can either be for the
-genus (or several genera) in the tree (`stem = "genus"`) or use an extraction
+genus (or several genera) in the tree (\code{stem = "genus"}) or use an extraction
 algorithm to find the stem of when the species colonised the island
-(`stem = "island_presence`), either 'min' or 'asr' as in
-extract_island_species(). When `stem = "island_presence"`
+(\verb{stem = "island_presence}), either 'min' or 'asr' as in
+extract_island_species(). When \code{stem = "island_presence"}
 the reconstructed node states are used
 to determine the stem age.
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_phylo_data.R
 \name{check_phylo_data}
 \alias{check_phylo_data}
-\title{Checks whether `\linkS4class{phylo4d}` object conforms
+\title{Checks whether \verb{\linkS4class{phylo4d}} object conforms
 to the requirements of the DAISIEprep package. If the function does not
 return anything the data is ready to be used, if an error is returned the
 data requires some pre-processing before DAISIEprep can be used}
@@ -10,14 +10,14 @@ data requires some pre-processing before DAISIEprep can be used}
 check_phylo_data(phylod)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 }
 \value{
 Nothing or error message
 }
 \description{
-Checks whether `\linkS4class{phylo4d}` object conforms
+Checks whether \verb{\linkS4class{phylo4d}} object conforms
 to the requirements of the DAISIEprep package. If the function does not
 return anything the data is ready to be used, if an error is returned the
 data requires some pre-processing before DAISIEprep can be used

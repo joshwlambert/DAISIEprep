@@ -19,7 +19,7 @@ add_island_colonist(
 )
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{clade_name}{Character name of the colonising clade.}
 
@@ -48,7 +48,7 @@ is, this determines which macroevolutionary regime (parameter set) the island
 colonist is in.}
 }
 \value{
-An object of `Island_tbl` class
+An object of \code{Island_tbl} class
 }
 \description{
 Adds an island colonists (can be either a singleton lineage or an island

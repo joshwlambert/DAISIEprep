@@ -2,23 +2,23 @@
 % Please edit documentation in R/is_identical_island_tbl.R
 \name{is_identical_island_tbl}
 \alias{is_identical_island_tbl}
-\title{Checks whether two `Island_tbl` objects are identical. If they are different
-comparisons are made to report which components of the `Island_tbls` are
+\title{Checks whether two \code{Island_tbl} objects are identical. If they are different
+comparisons are made to report which components of the \code{Island_tbls} are
 different.}
 \usage{
 is_identical_island_tbl(island_tbl_1, island_tbl_2)
 }
 \arguments{
-\item{island_tbl_1}{An object of `Island_tbl` class to be comparedl}
+\item{island_tbl_1}{An object of \code{Island_tbl} class to be comparedl}
 
-\item{island_tbl_2}{An object of `Island_tbl` class to be compared}
+\item{island_tbl_2}{An object of \code{Island_tbl} class to be compared}
 }
 \value{
 Either TRUE or a character string with the differences
 }
 \description{
-Checks whether two `Island_tbl` objects are identical. If they are different
-comparisons are made to report which components of the `Island_tbls` are
+Checks whether two \code{Island_tbl} objects are identical. If they are different
+comparisons are made to report which components of the \code{Island_tbls} are
 different.
 }
 \examples{

@@ -47,8 +47,8 @@ set_num_phylo_used(x) <- value
 of a class.}
 }
 \value{
-Getter function (get_*) returns a data frame, the setter function
-(set_*) returns the modified Island_tbl class.
+Getter function (get_\emph{) returns a data frame, the setter function
+(set_}) returns the modified Island_tbl class.
 }
 \description{
 Accessor functions for the data (slots) in objects of the

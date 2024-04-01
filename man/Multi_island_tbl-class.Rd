@@ -3,13 +3,13 @@
 \docType{class}
 \name{Multi_island_tbl-class}
 \alias{Multi_island_tbl-class}
-\title{Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.}
+\title{Defines the \code{Multi_island_tbl} class which is multiple \code{Island_tbl}s.}
 \description{
-Defines the `Multi_island_tbl` class which is multiple `Island_tbl`s.
+Defines the \code{Multi_island_tbl} class which is multiple \code{Island_tbl}s.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{.Data}}{a list of `Island_tbl`.}
+\item{\code{.Data}}{a list of \code{Island_tbl}.}
 }}
 

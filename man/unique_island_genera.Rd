@@ -9,7 +9,7 @@ genus only occuring once in the first island clade it appears in}
 unique_island_genera(island_tbl)
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 }
 \value{
 list of character vectors

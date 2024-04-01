@@ -3,7 +3,7 @@
 \name{round_up}
 \alias{round_up}
 \title{Rounds numbers using the round up method, rather than the round to the
-nearest even number method used by the base function `round`.}
+nearest even number method used by the base function \code{round}.}
 \usage{
 round_up(n, digits = 0)
 }
@@ -17,5 +17,5 @@ Numeric
 }
 \description{
 Rounds numbers using the round up method, rather than the round to the
-nearest even number method used by the base function `round`.
+nearest even number method used by the base function \code{round}.
 }

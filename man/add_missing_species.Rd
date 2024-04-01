@@ -5,13 +5,13 @@
 \title{Adds a specified number of missing species to an existing island_tbl at the
 colonist specified by the species_to_add_to argument given. The species
 given is located within the island_tbl data and missing species are
-assigned. This is to be used after `extract_island_species()` to input
+assigned. This is to be used after \code{extract_island_species()} to input
 missing species.}
 \usage{
 add_missing_species(island_tbl, num_missing_species, species_to_add_to)
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{num_missing_species}{Numeric for the number of missing species in the
 clade.}
@@ -26,7 +26,7 @@ Object of Island_tbl class
 Adds a specified number of missing species to an existing island_tbl at the
 colonist specified by the species_to_add_to argument given. The species
 given is located within the island_tbl data and missing species are
-assigned. This is to be used after `extract_island_species()` to input
+assigned. This is to be used after \code{extract_island_species()} to input
 missing species.
 }
 \examples{

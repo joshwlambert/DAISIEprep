@@ -7,7 +7,7 @@
 is_back_colonisation(phylod, node_label)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{node_label}{A numeric label for a node within a phylogeny.}

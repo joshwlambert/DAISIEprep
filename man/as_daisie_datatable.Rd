@@ -2,15 +2,15 @@
 % Please edit documentation in R/as_daisie_datatable.R
 \name{as_daisie_datatable}
 \alias{as_daisie_datatable}
-\title{Converts the `Island_tbl` class to a data frame in the format of a DAISIE
+\title{Converts the \code{Island_tbl} class to a data frame in the format of a DAISIE
 data table (see DAISIE R package for details). This can then be input into
-`DAISIEprep::create_daisie_data()` function which creates the list input into
+\code{DAISIEprep::create_daisie_data()} function which creates the list input into
 the DAISIE ML models.}
 \usage{
 as_daisie_datatable(island_tbl, island_age, precise_col_time = TRUE)
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{island_age}{Age of the island in appropriate units.}
 
@@ -22,9 +22,9 @@ colonisation if available.}
 A data frame in the format of a DAISIE data table
 }
 \description{
-Converts the `Island_tbl` class to a data frame in the format of a DAISIE
+Converts the \code{Island_tbl} class to a data frame in the format of a DAISIE
 data table (see DAISIE R package for details). This can then be input into
-`DAISIEprep::create_daisie_data()` function which creates the list input into
+\code{DAISIEprep::create_daisie_data()} function which creates the list input into
 the DAISIE ML models.
 }
 \examples{

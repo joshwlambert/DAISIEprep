@@ -2,7 +2,7 @@
 % Please edit documentation in R/multi_island_tbl-class.R
 \name{multi_island_tbl}
 \alias{multi_island_tbl}
-\title{Constructor function for `Multi_island_tbl` class}
+\title{Constructor function for \code{Multi_island_tbl} class}
 \usage{
 multi_island_tbl()
 }
@@ -10,5 +10,5 @@ multi_island_tbl()
 A Multi_island_tbl object.
 }
 \description{
-Constructor function for `Multi_island_tbl` class
+Constructor function for \code{Multi_island_tbl} class
 }

@@ -3,13 +3,13 @@
 \docType{class}
 \name{Island_colonist-class}
 \alias{Island_colonist-class}
-\title{Defines the `island_tbl` class which is used when extracting information
+\title{Defines the \code{island_tbl} class which is used when extracting information
 from the phylogenetic and island data to be used for constructing a
-`daisie_data_tbl`}
+\code{daisie_data_tbl}}
 \description{
-Defines the `island_tbl` class which is used when extracting information
+Defines the \code{island_tbl} class which is used when extracting information
 from the phylogenetic and island data to be used for constructing a
-`daisie_data_tbl`
+\code{daisie_data_tbl}
 }
 \section{Slots}{
 

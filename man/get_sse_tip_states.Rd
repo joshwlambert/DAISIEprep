@@ -7,7 +7,7 @@
 get_sse_tip_states(phylod, sse_model = "musse")
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{sse_model}{either "musse" (default) or "geosse". MuSSE expects state

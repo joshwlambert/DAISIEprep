@@ -9,7 +9,7 @@ non-endemic species as well as endemic species.}
 extract_asr_clade(phylod, species_label, clade, include_not_present)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}
@@ -22,7 +22,7 @@ on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
 }
 \value{
-An object of `Island_colonist` class
+An object of \code{Island_colonist} class
 }
 \description{
 Extracts an island clade based on the ancestral state reconstruction of the

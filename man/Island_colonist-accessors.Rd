@@ -119,8 +119,8 @@ set_clade_type(x) <- value
 of a class.}
 }
 \value{
-Getter functions (get_*) return a variable from the Island_colonist
-class, the setter functions (set_*) return the modified Island_colonist
+Getter functions (get_\emph{) return a variable from the Island_colonist
+class, the setter functions (set_}) return the modified Island_colonist
 class.
 }
 \description{

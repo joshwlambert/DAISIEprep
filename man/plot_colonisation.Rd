@@ -8,7 +8,7 @@ stem and potentially crown ages of a community of island colonists.}
 plot_colonisation(island_tbl, island_age, include_crown_age = TRUE)
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{island_age}{Age of the island in appropriate units.}
 
@@ -16,7 +16,7 @@ plot_colonisation(island_tbl, island_age, include_crown_age = TRUE)
 plotted with the stem age.}
 }
 \value{
-`ggplot` object
+\code{ggplot} object
 }
 \description{
 Plots a dot plot (cleveland dot plot when include_crown_age = TRUE) of the

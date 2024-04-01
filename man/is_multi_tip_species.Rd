@@ -8,7 +8,7 @@ tips form a monophyletic group (i.e. one species with multiple samples)}
 is_multi_tip_species(phylod, species_label)
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{species_label}{The tip label of the species of interest.}

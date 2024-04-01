@@ -7,11 +7,11 @@
 add_outgroup(phylo)
 }
 \arguments{
-\item{phylo}{A phylogeny either as a `phylo` (from the `ape` package) or
-`phylo4` (from the `phylobase` package) object.}
+\item{phylo}{A phylogeny either as a \code{phylo} (from the \code{ape} package) or
+\code{phylo4} (from the \code{phylobase} package) object.}
 }
 \value{
-A `phylo` object
+A \code{phylo} object
 }
 \description{
 Add an outgroup species to a given phylogeny.

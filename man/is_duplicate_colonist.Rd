@@ -2,22 +2,22 @@
 % Please edit documentation in R/is_duplicate_colonist.R
 \name{is_duplicate_colonist}
 \alias{is_duplicate_colonist}
-\title{Determines if colonist has already been stored in `Island_tbl` class. This is
+\title{Determines if colonist has already been stored in \code{Island_tbl} class. This is
 used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.}
 \usage{
 is_duplicate_colonist(island_colonist, island_tbl)
 }
 \arguments{
-\item{island_colonist}{An instance of the `Island_colonist` class.}
+\item{island_colonist}{An instance of the \code{Island_colonist} class.}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 }
 \value{
 Boolean
 }
 \description{
-Determines if colonist has already been stored in `Island_tbl` class. This is
+Determines if colonist has already been stored in \code{Island_tbl} class. This is
 used to stop endemic clades from being stored multiple times in the island
 table by checking if the endemicity status and branching times are identical.
 }

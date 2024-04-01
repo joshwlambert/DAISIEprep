@@ -2,20 +2,20 @@
 % Please edit documentation in R/rm_island_colonist.R
 \name{rm_island_colonist}
 \alias{rm_island_colonist}
-\title{Removes an island colonist from an `Island_tbl` object}
+\title{Removes an island colonist from an \code{Island_tbl} object}
 \usage{
 rm_island_colonist(island_tbl, clade_name)
 }
 \arguments{
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 
 \item{clade_name}{Character name of the colonising clade.}
 }
 \value{
-Object of `Island_tbl` class
+Object of \code{Island_tbl} class
 }
 \description{
-Removes an island colonist from an `Island_tbl` object
+Removes an island colonist from an \code{Island_tbl} object
 }
 \examples{
 phylod <- create_test_phylod(test_scenario = 1)

@@ -10,11 +10,11 @@ create_test_phylod(test_scenario)
 \item{test_scenario}{Integer specifying which test phylod object to create.}
 }
 \value{
-A `phylo4d` object
+A \code{phylo4d} object
 }
 \description{
 A helper function that is useful in tests and examples to
-easily create `phylod` objects (i.e. phylogenetic trees with data).
+easily create \code{phylod} objects (i.e. phylogenetic trees with data).
 }
 \examples{
 create_test_phylod(test_scenario = 1)
