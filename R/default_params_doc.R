@@ -45,8 +45,8 @@
 #' @param asr_method A character string, either "parsimony" or "mk" determines
 #' whether a maximum parsimony or continuous-time markov model reconstructs the
 #' ancestral states at each node. See documentation in
-#' `castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-#' for details on the methods used.
+#' [castor::asr_max_parsimony()] or [castor::asr_mk_model()] in `castor` R
+#' package for details on the methods used.
 #' @param tie_preference Character string, either "island" or "mainland" to
 #' choose the most probable state at each node using the `max.col()` function.
 #' When a node has island presence and absence equally probable we need to
