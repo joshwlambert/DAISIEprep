@@ -21,7 +21,7 @@ test_that("add_missing_species works for species on island", {
   expect_equal(island_tbl@island_tbl$missing_species, 1)
 })
 
-test_that("add_missing_species works for species not on island", {
+test_that("add_missing_species errors for species not on island", {
   set.seed(
     1,
     kind = "Mersenne-Twister",
@@ -36,12 +36,14 @@ test_that("add_missing_species works for species not on island", {
   )
   phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
   island_tbl <- extract_island_species(phylod, extraction_method = "min")
-  island_tbl <- add_missing_species(
-    island_tbl = island_tbl,
-    num_missing_species = 1,
-    species_to_add_to = "bird_a"
+  expect_error(
+    add_missing_species(
+      island_tbl = island_tbl,
+      num_missing_species = 1,
+      species_to_add_to = "bird_a"
+    ),
+    regexp = "(You are adding species)*(However, in species_to_add_to)"
   )
-  expect_equal(island_tbl@island_tbl$missing_species, 0)
 })
 
 test_that("add_missing_species works when only genus name is given", {
