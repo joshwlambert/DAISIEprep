@@ -64,14 +64,15 @@
 <span>  <span class="va">phylod</span>,</span>
 <span>  <span class="va">asr_method</span>,</span>
 <span>  tie_preference <span class="op">=</span> <span class="st">"island"</span>,</span>
-<span>  earliest_col <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  earliest_col <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  rate_model <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>phylod</dt>
-<dd><p>A `phylo4d` object from the package `phylobase` containing
+<dd><p>A <code>phylo4d</code> object from the package <code>phylobase</code> containing
 phylogenetic and endemicity data for each species.</p></dd>
 
 
@@ -79,17 +80,17 @@ phylogenetic and endemicity data for each species.</p></dd>
 <dd><p>A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.</p></dd>
+<code><a href="https://rdrr.io/pkg/castor/man/asr_max_parsimony.html" class="external-link">castor::asr_max_parsimony()</a></code> or <code><a href="https://rdrr.io/pkg/castor/man/asr_mk_model.html" class="external-link">castor::asr_mk_model()</a></code> in <code>castor</code> R
+package for details on the methods used.</p></dd>
 
 
 <dt>tie_preference</dt>
 <dd><p>Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the <code><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col()</a></code> function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use <code>ties.method = "last"</code> in the <code><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col()</a></code> function, if
+you consider it not on the island use <code>ties.method = "first"</code>. Default is
 "island".</p></dd>
 
 
@@ -99,12 +100,16 @@ time as the most probable time (FALSE) or the earliest possible colonisation
 time (TRUE), where the probability of a species being on the island is
 non-zero. Default is FALSE.</p></dd>
 
+
+<dt>rate_model</dt>
+<dd><p>Rate model to be used for fitting the transition rate matrix. Can be "ER" (all rates equal), "SYM" (transition rate i--&gt;j is equal to transition rate j--&gt;i), "ARD" (all rates can be different), "SUEDE" (only stepwise transitions i--&gt;i+1 and i--&gt;i-1 allowed, all 'up' transitions are equal, all 'down' transitions are equal) or "SRD" (only stepwise transitions i--&gt;i+1 and i--&gt;i-1 allowed, and each rate can be different). Can also be an index matrix that maps entries of the transition matrix to the corresponding independent rate parameter to be fitted. Diagonal entries should map to 0, since diagonal entries are not treated as independent rate parameters but are calculated from the remaining entries in the transition matrix. All other entries that map to 0 represent a transition rate of zero. The format of this index matrix is similar to the format used by the <code>ace</code> function in the <code>ape</code> package. <code>rate_model</code> is only relevant if <code>transition_matrix==NULL</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of `phylo4d` class with tip and node data</p>
+<p>An object of <code>phylo4d</code> class with tip and node data</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

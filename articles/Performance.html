@@ -201,8 +201,8 @@ by the variable given, either <code>prob_on_island</code> or
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_min</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_on_island</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span>
-<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span>
+<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span></code></pre></div>
 <p><img src="Performance_files/figure-html/plot-min-prob-on-island-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>And secondly for the <code>asr</code> algorithm:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -210,8 +210,8 @@ by the variable given, either <code>prob_on_island</code> or
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_asr</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_on_island</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span>
-<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span>
+<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span></code></pre></div>
 <p><img src="Performance_files/figure-html/plot-asr-prob-on-island-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Alternatively, the data can be grouped by the probability that
 species on the island are endemic (<code>prob_endemic</code>) for the
@@ -221,16 +221,16 @@ species on the island are endemic (<code>prob_endemic</code>) for the
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_min</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_endemic</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span>
-<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span>
+<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span></code></pre></div>
 <p><img src="Performance_files/figure-html/plot-min-prob-endemic-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_performance.html">plot_performance</a></span><span class="op">(</span></span>
 <span>  performance_data <span class="op">=</span> <span class="va">performance_data</span><span class="op">$</span><span class="va">performance_data_min</span>,</span>
 <span>  group_by <span class="op">=</span> <span class="va">prob_endemic</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span>
-<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span>
+<span><span class="co">#&gt; `position_dodge()` requires non-overlapping <span style="color: #00BB00;">x</span> intervals.</span></span></code></pre></div>
 <p><img src="Performance_files/figure-html/plot-asr-prob-endemic-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We find that even for large trees (10,000 tips) the scale of
 extraction less than seconds, whereas running the DAISIE inference model
@@ -293,7 +293,7 @@ applicable.</p>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-michielsen_macroevolutionary_2023" class="csl-entry">
 Michielsen, N. M., S. M. Goodman, V. Soarimalala, A. A. E. van der Geer,
 L. M. Dávalos, G. I. Saville, N. Upham, and L. Valente. 2023. <a href="https://doi.org/10.1038/s41467-022-35215-3" class="external-link">The macroevolutionary

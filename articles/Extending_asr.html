@@ -203,7 +203,9 @@ both methods are implemented:</p>
 <span><span class="va">phylod_parsimony</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>, </span>
 <span>  asr_method <span class="op">=</span> <span class="st">"mk"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in add_asr_node_states(phylod = phylod, asr_method = "mk"): Mk asr</span></span>
+<span><span class="co">#&gt; method selected but rate model not supplied assuming equal-rates (ER)</span></span></code></pre></div>
 <p>For details on the internal workings of the
 <code><a href="../reference/add_asr_node_states.html">add_asr_node_states()</a></code> function see appendix at the bottom
 of this article.</p>
@@ -655,7 +657,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.965</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 0.827</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in
@@ -1403,7 +1405,7 @@ into our <code>phylod</code> object.</p>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-beaulieu_identifying_2013" class="csl-entry">
 Beaulieu, J. M., B. C. O’Meara, and M. J. Donoghue. 2013. <a href="https://doi.org/10.1093/sysbio/syt034" class="external-link">Identifying <span>Hidden
 Rate Changes</span> in the <span>Evolution</span> of a <span>Binary

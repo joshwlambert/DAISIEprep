@@ -91,7 +91,7 @@ https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchm
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>phylod</dt>
-<dd><p>A `phylo4d` object from the package `phylobase` containing
+<dd><p>A <code>phylo4d</code> object from the package <code>phylobase</code> containing
 phylogenetic and endemicity data for each species.</p></dd>
 
 
@@ -123,25 +123,25 @@ endemic species</p></dd>
 
 <dt>extraction_method</dt>
 <dd><p>A character string specifying whether the
-colonisation time extracted is the minimum time (`min`) (before the present),
-or the most probable time under ancestral state reconstruction (`asr`).</p></dd>
+colonisation time extracted is the minimum time (<code>min</code>) (before the present),
+or the most probable time under ancestral state reconstruction (<code>asr</code>).</p></dd>
 
 
 <dt>asr_method</dt>
 <dd><p>A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.</p></dd>
+<code><a href="https://rdrr.io/pkg/castor/man/asr_max_parsimony.html" class="external-link">castor::asr_max_parsimony()</a></code> or <code><a href="https://rdrr.io/pkg/castor/man/asr_mk_model.html" class="external-link">castor::asr_mk_model()</a></code> in <code>castor</code> R
+package for details on the methods used.</p></dd>
 
 
 <dt>tie_preference</dt>
 <dd><p>Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the <code><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col()</a></code> function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use <code>ties.method = "last"</code> in the <code><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col()</a></code> function, if
+you consider it not on the island use <code>ties.method = "first"</code>. Default is
 "island".</p></dd>
 
 
