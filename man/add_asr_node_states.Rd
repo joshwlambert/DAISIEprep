@@ -8,7 +8,8 @@ add_asr_node_states(
   phylod,
   asr_method,
   tie_preference = "island",
-  earliest_col = FALSE
+  earliest_col = FALSE,
+  rate_model = NULL
 )
 }
 \arguments{
@@ -33,6 +34,10 @@ you consider it not on the island use \code{ties.method = "first"}. Default is
 time as the most probable time (FALSE) or the earliest possible colonisation
 time (TRUE), where the probability of a species being on the island is
 non-zero. Default is FALSE.}
+
+\item{rate_model}{
+Rate model to be used for fitting the transition rate matrix. Can be "ER" (all rates equal), "SYM" (transition rate i-->j is equal to transition rate j-->i), "ARD" (all rates can be different), "SUEDE" (only stepwise transitions i-->i+1 and i-->i-1 allowed, all 'up' transitions are equal, all 'down' transitions are equal) or "SRD" (only stepwise transitions i-->i+1 and i-->i-1 allowed, and each rate can be different). Can also be an index matrix that maps entries of the transition matrix to the corresponding independent rate parameter to be fitted. Diagonal entries should map to 0, since diagonal entries are not treated as independent rate parameters but are calculated from the remaining entries in the transition matrix. All other entries that map to 0 represent a transition rate of zero. The format of this index matrix is similar to the format used by the \code{ace} function in the \code{ape} package. \code{rate_model} is only relevant if \code{transition_matrix==NULL}.
+}
 }
 \value{
 An object of \code{phylo4d} class with tip and node data

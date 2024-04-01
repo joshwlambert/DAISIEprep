@@ -1,16 +1,31 @@
 #' Fits a model of ancestral state reconstruction of island presence
 #'
 #' @inheritParams default_params_doc
+#' @inheritParams castor::asr_mk_model
 #'
 #' @return An object of `phylo4d` class with tip and node data
 #' @export
 add_asr_node_states <- function(phylod,
                                 asr_method,
                                 tie_preference = "island",
-                                earliest_col = FALSE) {
+                                earliest_col = FALSE,
+                                rate_model = NULL) {
 
   # check the phylod input
   phylod <- check_phylo_data(phylod)
+
+  # check rate model is correctly defined if asr_method is Mk
+  if (grepl("mk", asr_method, ignore.case = TRUE)) {
+    if (is.null(rate_model)) {
+      warning(
+        "Mk asr method selected but rate model not supplied assuming ",
+        "equal-rates (ER)"
+      )
+      rate_model <- "ER"
+    }
+  } else if (!is.null(rate_model)) {
+    stop("rate_method specified by asr_method is not Mk")
+  }
 
   # encode tip states as numerics, the asr method cannot handle zero as a state
   tip_states <- c()
@@ -36,7 +51,11 @@ add_asr_node_states <- function(phylod,
       transition_costs = "sequential"
     )
   } else if (grepl("mk", asr_method, ignore.case = TRUE)) {
-    asr <- castor::asr_mk_model(tree = phylo, tip_states = tip_states)
+    asr <- castor::asr_mk_model(
+      tree = phylo,
+      tip_states = tip_states,
+      rate_model = rate_model
+    )
   }
 
   if (ncol(asr$ancestral_likelihoods) == 2) {
