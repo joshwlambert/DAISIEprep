@@ -7,7 +7,7 @@
 extract_biogeobears_ancestral_states_probs(biogeobears_res)
 }
 \arguments{
-\item{biogeobears_res}{a list, the output of \code{\link[BioGeoBEARS:bears_optim_run]{BioGeoBEARS::bears_optim_run()}}}
+\item{biogeobears_res}{a list, the output of \code{BioGeoBEARS::bears_optim_run()}}
 }
 \value{
 a data.frame with one row per node (tips and internals) and four

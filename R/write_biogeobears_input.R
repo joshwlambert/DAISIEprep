@@ -63,7 +63,7 @@ write_biogeobears_input <- function(phylod, path_to_phylo, path_to_biogeo) {
 #' Extract the probabilities of each endemicity status for tip and internal node
 #' states from the output of an optimisation performed with BioGeoBEARS
 #'
-#' @param biogeobears_res a list, the output of [BioGeoBEARS::bears_optim_run()]
+#' @param biogeobears_res a list, the output of `BioGeoBEARS::bears_optim_run()`
 #' @return a data.frame with one row per node (tips and internals) and four
 #' columns: label | not_present | endemic | nonendemic, the last three columns
 #' containing the probability of each endemicity status (and summing to 1).
