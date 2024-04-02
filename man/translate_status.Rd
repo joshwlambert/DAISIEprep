@@ -9,7 +9,8 @@ statuses easier in other function}
 translate_status(status)
 }
 \arguments{
-\item{status}{Character endemicity status of the colonising clade.}
+\item{status}{Character endemicity status of the colonising clade. Either
+\code{"endemic"} or \code{"nonendemic"}.}
 }
 \value{
 Character string

@@ -98,10 +98,16 @@ of a class.}
 
 \item{clade_name}{Character name of the colonising clade.}
 
-\item{status}{Character endemicity status of the colonising clade.}
+\item{status}{Character endemicity status of the colonising clade. Either
+\code{"endemic"} or \code{"nonendemic"}.}
 
 \item{missing_species}{Numeric number of missing species from the phylogeny
-that belong to the colonising clade.}
+that belong to the colonising clade. For a clade with missing species this
+is \eqn{n - 1}, where \eqn{n} is the number of missing species in the clade.
+If the clade is an island singleton, the number of missing species is \code{0}
+because by adding the colonist it already counts as one automatically. If
+the clade has more than one species, the \code{missing_species} is \eqn{n - 1}
+because adding the lineage already counts as one.}
 
 \item{col_time}{Numeric with the colonisation time of the island colonist}
 
@@ -120,7 +126,10 @@ of the species included in the colonising clade.}
 
 \item{clade_type}{Numeric determining which type of clade the island colonist
 is, this determines which macroevolutionary regime (parameter set) the island
-colonist is in.}
+colonist is in. After formatting the \code{island_tbl} to a DAISIE data list, the
+clade type can be used to conduct a 2-type analysis (see
+\url{https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html}
+for more information)}
 
 \item{endemic_clade}{Named vector with all the species from a clade.}
 

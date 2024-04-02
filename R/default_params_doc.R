@@ -15,9 +15,15 @@
 #' @param value A value which can take several forms to be assigned to an object
 #' of a class.
 #' @param clade_name Character name of the colonising clade.
-#' @param status Character endemicity status of the colonising clade.
+#' @param status Character endemicity status of the colonising clade. Either
+#' `"endemic"` or `"nonendemic"`.
 #' @param missing_species Numeric number of missing species from the phylogeny
-#' that belong to the colonising clade.
+#' that belong to the colonising clade. For a clade with missing species this
+#' is \eqn{n - 1}, where \eqn{n} is the number of missing species in the clade.
+#' If the clade is an island singleton, the number of missing species is `0`
+#' because by adding the colonist it already counts as one automatically. If
+#' the clade has more than one species, the `missing_species` is \eqn{n - 1}
+#' because adding the lineage already counts as one.
 #' @param col_time Numeric with the colonisation time of the island colonist
 #' @param col_max_age Boolean determining whether colonisation time should be
 #' considered a precise time of colonisation or a maximum time of colonisation
@@ -30,7 +36,10 @@
 #' of the species included in the colonising clade.
 #' @param clade_type Numeric determining which type of clade the island colonist
 #' is, this determines which macroevolutionary regime (parameter set) the island
-#' colonist is in.
+#' colonist is in. After formatting the `island_tbl` to a DAISIE data list, the
+#' clade type can be used to conduct a 2-type analysis (see
+#' \url{https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html}
+#' for more information)
 #' @param endemic_clade Named vector with all the species from a clade.
 #' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or
 #' `phylo4` (from the `phylobase` package) object.

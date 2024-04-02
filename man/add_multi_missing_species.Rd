@@ -13,7 +13,12 @@ add_multi_missing_species(missing_species, missing_genus, island_tbl)
 }
 \arguments{
 \item{missing_species}{Numeric number of missing species from the phylogeny
-that belong to the colonising clade.}
+that belong to the colonising clade. For a clade with missing species this
+is \eqn{n - 1}, where \eqn{n} is the number of missing species in the clade.
+If the clade is an island singleton, the number of missing species is \code{0}
+because by adding the colonist it already counts as one automatically. If
+the clade has more than one species, the \code{missing_species} is \eqn{n - 1}
+because adding the lineage already counts as one.}
 
 \item{missing_genus}{A list of character vectors containing the genera in
 each island clade}
