@@ -11,3 +11,4 @@
 ^\.zenodo\.json$
 ^cran-comments\.md$
 ^vignettes/articles$
+^revdep$
