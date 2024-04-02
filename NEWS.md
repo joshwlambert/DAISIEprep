@@ -1,5 +1,19 @@
 # News
 
+# DAISIEprep 0.3.3
+
+### NEW FEATURES
+* None
+
+### MINOR IMPROVEMENTS
+* Addition of _corHMM_ section to Extending ASR article, contributed by @TheoPannetier.
+
+### BUG FIXES
+* Bug fix in `sse_states_to_endemicity()` (#17).
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.3.2
 
 ### NEW FEATURES 
