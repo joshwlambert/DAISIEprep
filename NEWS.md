@@ -1,5 +1,26 @@
 # News
 
+# DAISIEprep 0.4.0
+
+### NEW FEATURES
+* The rate model (`rate_model`) can now be selected in `add_asr_node_states()` 
+and passed to `castor::asr_mk_model()`. Feature suggested by @rsetienne.
+
+### MINOR IMPROVEMENTS
+* `add_missing_species()` now errors when the species name supplied to
+`species_to_add_to` is not found in the `island_tbl`. Suggested by @luislvalente.
+* Function documentation for `add_island_colonist()` arguments has been improved.
+Suggested by @rsetienne.
+* Unit tests have been added for `add_asr_node_states()`.
+* Unit test for `add_missing_species()` has been updated.
+* Markdown formatting has been enabled for Roxygen documentation.
+
+### BUG FIXES
+* None
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.3.3
 
 ### NEW FEATURES
