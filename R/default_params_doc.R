@@ -38,7 +38,7 @@
 #' is, this determines which macroevolutionary regime (parameter set) the island
 #' colonist is in. After formatting the `island_tbl` to a DAISIE data list, the
 #' clade type can be used to conduct a 2-type analysis (see
-#' \url{https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html}
+#' \url{https://CRAN.R-project.org/package=DAISIE/vignettes/demo_optimize.html}
 #' for more information)
 #' @param endemic_clade Named vector with all the species from a clade.
 #' @param phylo A phylogeny either as a `phylo` (from the `ape` package) or

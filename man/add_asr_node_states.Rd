@@ -45,3 +45,8 @@ An object of \code{phylo4d} class with tip and node data
 \description{
 Fits a model of ancestral state reconstruction of island presence
 }
+\details{
+The \code{rate_model} argument documentation is inherited from
+\code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}, therefore, the last sentence about the
+\code{transition_matrix} argument does not apply to \code{add_asr_node_states()}.
+}
