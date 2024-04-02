@@ -1,5 +1,11 @@
 #' Fits a model of ancestral state reconstruction of island presence
 #'
+#' @details
+#' The `rate_model` argument documentation is inherited from
+#' [castor::asr_mk_model()], therefore, the last sentence about the
+#' `transition_matrix` argument does not apply to `add_asr_node_states()`.
+#'
+#'
 #' @inheritParams default_params_doc
 #' @inheritParams castor::asr_mk_model
 #'
