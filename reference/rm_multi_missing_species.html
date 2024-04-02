@@ -85,7 +85,12 @@ the island_tbl using <code><a href="add_multi_missing_species.html">add_multi_mi
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>missing_species</dt>
 <dd><p>Numeric number of missing species from the phylogeny
-that belong to the colonising clade.</p></dd>
+that belong to the colonising clade. For a clade with missing species this
+is \(n - 1\), where \(n\) is the number of missing species in the clade.
+If the clade is an island singleton, the number of missing species is <code>0</code>
+because by adding the colonist it already counts as one automatically. If
+the clade has more than one species, the <code>missing_species</code> is \(n - 1\)
+because adding the lineage already counts as one.</p></dd>
 
 
 <dt>missing_genus</dt>

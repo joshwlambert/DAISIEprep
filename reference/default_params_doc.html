@@ -175,12 +175,18 @@ of a class.</p></dd>
 
 
 <dt>status</dt>
-<dd><p>Character endemicity status of the colonising clade.</p></dd>
+<dd><p>Character endemicity status of the colonising clade. Either
+<code>"endemic"</code> or <code>"nonendemic"</code>.</p></dd>
 
 
 <dt>missing_species</dt>
 <dd><p>Numeric number of missing species from the phylogeny
-that belong to the colonising clade.</p></dd>
+that belong to the colonising clade. For a clade with missing species this
+is \(n - 1\), where \(n\) is the number of missing species in the clade.
+If the clade is an island singleton, the number of missing species is <code>0</code>
+because by adding the colonist it already counts as one automatically. If
+the clade has more than one species, the <code>missing_species</code> is \(n - 1\)
+because adding the lineage already counts as one.</p></dd>
 
 
 <dt>col_time</dt>
@@ -211,7 +217,10 @@ of the species included in the colonising clade.</p></dd>
 <dt>clade_type</dt>
 <dd><p>Numeric determining which type of clade the island colonist
 is, this determines which macroevolutionary regime (parameter set) the island
-colonist is in.</p></dd>
+colonist is in. After formatting the <code>island_tbl</code> to a DAISIE data list, the
+clade type can be used to conduct a 2-type analysis (see
+<a href="https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html" class="external-link">https://cran.r-project.org/web/packages/DAISIE/vignettes/demo_optimize.html</a>
+for more information)</p></dd>
 
 
 <dt>endemic_clade</dt>
