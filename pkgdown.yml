@@ -1,12 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.0.8
 pkgdown_sha: ~
 articles:
+  Extending_asr: Extending_asr.html
   Performance: Performance.html
   Sensitivity: Sensitivity.html
   Tutorial: Tutorial.html
-  Extending_asr: Extending_asr.html
-last_built: 2024-04-02T14:42Z
+last_built: 2024-04-16T20:48Z
 urls:
   reference: https://joshwlambert.github.io/DAISIEprep/reference
   article: https://joshwlambert.github.io/DAISIEprep/articles

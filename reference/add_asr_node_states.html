@@ -6,7 +6,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">DAISIEprep</a>
 
@@ -24,10 +24,10 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
     <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
     <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
     <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
-    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
   </div>
 </li>
 <li class="nav-item">
@@ -65,7 +65,8 @@
 <span>  <span class="va">asr_method</span>,</span>
 <span>  tie_preference <span class="op">=</span> <span class="st">"island"</span>,</span>
 <span>  earliest_col <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  rate_model <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  rate_model <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -104,6 +105,13 @@ non-zero. Default is FALSE.</p></dd>
 <dt>rate_model</dt>
 <dd><p>Rate model to be used for fitting the transition rate matrix. Can be "ER" (all rates equal), "SYM" (transition rate i--&gt;j is equal to transition rate j--&gt;i), "ARD" (all rates can be different), "SUEDE" (only stepwise transitions i--&gt;i+1 and i--&gt;i-1 allowed, all 'up' transitions are equal, all 'down' transitions are equal) or "SRD" (only stepwise transitions i--&gt;i+1 and i--&gt;i-1 allowed, and each rate can be different). Can also be an index matrix that maps entries of the transition matrix to the corresponding independent rate parameter to be fitted. Diagonal entries should map to 0, since diagonal entries are not treated as independent rate parameters but are calculated from the remaining entries in the transition matrix. All other entries that map to 0 represent a transition rate of zero. The format of this index matrix is similar to the format used by the <code>ace</code> function in the <code>ape</code> package. <code>rate_model</code> is only relevant if <code>transition_matrix==NULL</code>.</p></dd>
 
+
+<dt>...</dt>
+<dd><p><a href="https://rdrr.io/r/base/dots.html" class="external-link">dots</a> Allows arguments to be passed to <code><a href="https://rdrr.io/pkg/castor/man/asr_mk_model.html" class="external-link">castor::asr_mk_model()</a></code>
+and <code><a href="https://rdrr.io/pkg/castor/man/asr_max_parsimony.html" class="external-link">castor::asr_max_parsimony()</a></code>. These arguments must match by name
+exactly, see <code>?castor::asr_mk_model()</code> and <code>?castor::asr_max_parsimony()</code>
+for information on arguments.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -127,7 +135,7 @@ non-zero. Default is FALSE.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.8.</p>
 </div>
 
     </footer></div>
