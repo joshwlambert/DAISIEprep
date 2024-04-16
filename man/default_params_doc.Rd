@@ -70,7 +70,8 @@ default_params_doc(
   replicates,
   log_scale,
   parameter_index,
-  sse_model
+  sse_model,
+  ...
 )
 }
 \arguments{
@@ -310,6 +311,11 @@ values 1, 2, 3, which here we encode as "not_present", "endemic",
 "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 "endemic", respectively.}
+
+\item{...}{\link{dots} Allows arguments to be passed to \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}
+and \code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}}. These arguments must match by name
+exactly, see \code{?castor::asr_mk_model()} and \code{?castor::asr_max_parsimony()}
+for information on arguments.}
 }
 \value{
 Nothing

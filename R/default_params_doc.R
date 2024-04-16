@@ -171,6 +171,10 @@
 #' "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 #' widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 #' "endemic", respectively.
+#' @param ... [dots] Allows arguments to be passed to [castor::asr_mk_model()]
+#' and [castor::asr_max_parsimony()]. These arguments must match by name
+#' exactly, see `?castor::asr_mk_model()` and `?castor::asr_max_parsimony()`
+#' for information on arguments.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -239,7 +243,8 @@ default_params_doc <- function(island_colonist,
                                replicates,
                                log_scale,
                                parameter_index,
-                               sse_model
-                               ) {
+                               sse_model,
+                               ...
+) {
   # nothing
 }

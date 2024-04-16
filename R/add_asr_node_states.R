@@ -15,7 +15,8 @@ add_asr_node_states <- function(phylod,
                                 asr_method,
                                 tie_preference = "island",
                                 earliest_col = FALSE,
-                                rate_model = NULL) {
+                                rate_model = NULL,
+                                ...) {
 
   # check the phylod input
   phylod <- check_phylo_data(phylod)
@@ -54,13 +55,15 @@ add_asr_node_states <- function(phylod,
     asr <- castor::asr_max_parsimony(
       tree = phylo,
       tip_states = tip_states,
-      transition_costs = "sequential"
+      transition_costs = "sequential",
+      ...
     )
   } else if (grepl("mk", asr_method, ignore.case = TRUE)) {
     asr <- castor::asr_mk_model(
       tree = phylo,
       tip_states = tip_states,
-      rate_model = rate_model
+      rate_model = rate_model,
+      ...
     )
   }
 
