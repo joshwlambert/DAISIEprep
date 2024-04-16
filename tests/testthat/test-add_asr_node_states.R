@@ -95,3 +95,14 @@ test_that("add_asr_node_states gives different node states for rate models", {
   phylod_srd <- add_asr_node_states(phylod = phylod, asr_method = "mk", rate_model = "SRD")
   expect_false(identical(phylod_er, phylod_srd))
 })
+
+test_that("add_asr_node_states errors with incorrect arg passed through dots", {
+  expect_error(
+    add_asr_node_states(
+      phylod = phylod,
+      asr_method = "mk",
+      rate_model = "ER",
+      arg = TRUE
+    )
+  )
+})
