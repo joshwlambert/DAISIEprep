@@ -1,5 +1,24 @@
 # News
 
+# DAISIEprep 0.4.1
+
+### NEW FEATURES
+* None
+
+### MINOR IMPROVEMENTS
+* `...` (`dots`) have been added as an argument to `add_asr_node_states()` in
+order to pass other arguments to the `castor` R package functions called for
+ancestral state reconstruction (`castor::ask_mk_model()` and 
+`castor::asr_max_parsimony()`).
+* Tests have been added to check arguments can be passed through `...` in 
+`add_asr_node_states()`.
+
+### BUG FIXES
+* None
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.4.0
 
 ### NEW FEATURES
