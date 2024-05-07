@@ -120,6 +120,7 @@ Collate:
     'print-methods.R'
     'read_performance.R'
     'read_sensitivity.R'
+    'rm_duplicate_island_species.R'
     'rm_island_colonist.R'
     'rm_multi_missing_species.R'
     'sensitivity.R'

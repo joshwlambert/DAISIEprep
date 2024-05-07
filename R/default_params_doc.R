@@ -70,6 +70,17 @@
 #' @param include_not_present A boolean determining whether species not present
 #' on the island should be included in island colonist when embedded within an
 #' island clade. Default is FALSE.
+#' @param nested_asr_species A `character` string which determines whether
+#' _nested species_ are split into separate colonists (`"split"`), or grouped
+#' into a single clade (`"group"`). Nested species are those whose tip state is
+#' on the island, and they have ancestral nodes on the island, but there are
+#' nodes in between these island state nodes that have the state `not_present`
+#' (i.e. not on the island). Therefore, the colonisation time can be extracted
+#' as the most recent node state on the island (this can be the branching time
+#' before the tip if the ancestor node of the tip is not on the island), or the
+#' older node state of the larger clade, for `"split"` or `"group"`
+#' respectively. **Note** This argument only applies when
+#' `extraction_method = "asr"`.
 #' @param num_missing_species Numeric for the number of missing species in the
 #' clade.
 #' @param species_to_add_to Character string with the name of the species to
