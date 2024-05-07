@@ -31,6 +31,7 @@ default_params_doc(
   tie_preference,
   earliest_col,
   include_not_present,
+  nested_asr_species,
   num_missing_species,
   species_to_add_to,
   node_pies,
@@ -170,6 +171,18 @@ non-zero. Default is FALSE.}
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
+
+\item{nested_asr_species}{A \code{character} string which determines whether
+\emph{nested island colonists} are split into separate colonists (\code{"split"}), or
+grouped into a single clade (\code{"group"}). Nested species are those whose tip
+state is on the island, and they have ancestral nodes on the island, but
+there are nodes in between these island state nodes that have the state
+\code{not_present} (i.e. not on the island). Therefore, the colonisation time
+can be extracted as the most recent node state on the island (this can be
+the branching time before the tip if the ancestor node of the tip is not
+on the island), or the older node state of the larger clade, for \code{"split"}
+or \code{"group"} respectively. \strong{Note} This argument only applies when
+\code{extraction_method = "asr"}.}
 
 \item{num_missing_species}{Numeric for the number of missing species in the
 clade.}
@@ -316,18 +329,6 @@ widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 and \code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}}. These arguments must match by name
 exactly, see \code{?castor::asr_mk_model()} and \code{?castor::asr_max_parsimony()}
 for information on arguments.}
-
-\item{nested_asr_species}{A \code{character} string which determines whether
-\emph{nested species} are split into separate colonists (\code{"split"}), or grouped
-into a single clade (\code{"group"}). Nested species are those whose tip state is
-on the island, and they have ancestral nodes on the island, but there are
-nodes in between these island state nodes that have the state \code{not_present}
-(i.e. not on the island). Therefore, the colonisation time can be extracted
-as the most recent node state on the island (this can be the branching time
-before the tip if the ancestor node of the tip is not on the island), or the
-older node state of the larger clade, for \code{"split"} or \code{"group"}
-respectively. \strong{Note} This argument only applies when
-\code{extraction_method = "asr"}.}
 }
 \value{
 Nothing
