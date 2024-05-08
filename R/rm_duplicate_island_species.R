@@ -57,13 +57,36 @@ rm_duplicate_island_species <- function(island_tbl,
       ))
       names(clade) <- clade_names
 
-      # re-extact clade without duplicated species
-      island_colonist <- extract_asr_clade(
-        phylod = phylod,
-        species_label = dup_island_tbl$clade_name[oldest_clade],
-        clade = clade,
-        include_not_present = include_not_present
-      )
+      if (length(clade) == 1) {
+        if (dup_island_tbl$status[oldest_clade] == "nonendemic") {
+          # extract singleton nonendemic
+          island_colonist <- extract_nonendemic(
+            phylod = phylod,
+            species_label = dup_island_tbl$clade_name[oldest_clade]
+          )
+        } else if (dup_island_tbl$status[oldest_clade] == "endemic") {
+          #extract singleton endemic
+          island_colonist <- extract_endemic_singleton(
+            phylod = phylod,
+            species_label = dup_island_tbl$clade_name[oldest_clade]
+          )
+        } else {
+          stop(
+            "Endemicity status not recognised when removing duplicate species."
+          )
+        }
+      } else if (length(clade) > 1) {
+        # re-extact clade without duplicated species
+        island_colonist <- extract_asr_clade(
+          phylod = phylod,
+          species_label = dup_island_tbl$clade_name[oldest_clade],
+          clade = clade,
+          include_not_present = include_not_present
+        )
+      } else {
+        stop("Size of island clade after removing duplicates is zero.")
+      }
+
       # remove previously extracted clade
       clade_row <- which(duplicate_species_clade)[oldest_clade]
       island_tbl@island_tbl <- island_tbl@island_tbl[-clade_row, ]
