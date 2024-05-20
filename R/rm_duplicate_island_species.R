@@ -21,6 +21,8 @@ rm_duplicate_island_species <- function(island_tbl,
     return(island_tbl)
   }
 
+  unique_island_species <- unique(unlist(island_tbl@island_tbl$species))
+
   while(anyDuplicated(unlist(island_tbl@island_tbl$species)) != 0L) {
 
     island_species <- island_tbl@island_tbl$species
@@ -38,10 +40,17 @@ rm_duplicate_island_species <- function(island_tbl,
 
     oldest_clade <- which.max(dup_island_tbl$col_time)
     largest_clade <- which.max(lengths(dup_island_tbl$species))
-    if (!identical(oldest_clade, largest_clade)) {
-      stop(
-        "When removing duplicate species from island_tbl the nested clade",
-        "is not the oldest or largest"
+    # oldest and largest clade index can differ if both clades have the same
+    # number of species, which.max() returns first match which may differ from
+    # oldest clade
+    num_unique_clade_size <- length(unique(lengths(dup_island_tbl$species)))
+    if (!identical(oldest_clade, largest_clade) && num_unique_clade_size > 1) {
+      warning(
+        "When removing duplicate species from nested clades in the island_tbl ",
+        "the oldest clade and largest clade do not match and the clades ",
+        "containing the duplicate species are different sizes. \n This is ",
+        "likely due to the oldest clade already having duplicate species ",
+        "removed."
       )
     }
 
@@ -103,6 +112,13 @@ rm_duplicate_island_species <- function(island_tbl,
       island_tbl@island_tbl <- island_tbl@island_tbl[-recent_col, ]
       row.names(island_tbl@island_tbl) <- NULL
     }
+  }
+
+  if (!all(unlist(island_tbl@island_tbl$species) %in% unique_island_species)) {
+    stop(
+      "When removing duplicate species from island_tbl the unique species ",
+      "list does not match the island_tbl species list"
+    )
   }
 
   return(island_tbl)
