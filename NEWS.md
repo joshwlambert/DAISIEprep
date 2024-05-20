@@ -1,5 +1,30 @@
 # News
 
+# DAISIEprep 0.4.2
+
+### NEW FEATURES
+* None
+
+### MINOR IMPROVEMENTS
+* None
+
+### BUG FIXES
+* Fix for a bug when the ancestral state reconstruction (see 
+`add_asr_node_states()`) produces _nested island colonists_ which was causing
+some island species to become duplicated in the `island_tbl` previous versions.
+The fix adds a new internal function to the package
+`rm_duplicate_island_species()` which is called in `extract_island_species()`
+when `extraction_method = asr`. This function uses the `nested_asr_species` 
+argument (added to `extract_island_species()`) to determine whether duplicated
+island species should be kept as smaller, more recent colonist and removed
+from the larger, older clade (`nested_asr_species = "split"`), or whether the
+smaller, more recent colonist should be removed and the larger, older clade
+should retain the species (`nested_asr_species = "group"`). Both choices result
+in duplicates being removed.
+
+### DEPRECATED AND DEFUNCT
+* None
+
 # DAISIEprep 0.4.1
 
 ### NEW FEATURES

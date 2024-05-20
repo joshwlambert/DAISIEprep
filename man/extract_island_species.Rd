@@ -10,6 +10,7 @@ extract_island_species(
   extraction_method,
   island_tbl = NULL,
   include_not_present = FALSE,
+  nested_asr_species = c("split", "group"),
   unique_clade_name = TRUE
 )
 }
@@ -26,6 +27,18 @@ or the most probable time under ancestral state reconstruction (\code{asr}).}
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
+
+\item{nested_asr_species}{A \code{character} string which determines whether
+\emph{nested island colonists} are split into separate colonists (\code{"split"}), or
+grouped into a single clade (\code{"group"}). Nested species are those whose tip
+state is on the island, and they have ancestral nodes on the island, but
+there are nodes in between these island state nodes that have the state
+\code{not_present} (i.e. not on the island). Therefore, the colonisation time
+can be extracted as the most recent node state on the island (this can be
+the branching time before the tip if the ancestor node of the tip is not
+on the island), or the older node state of the larger clade, for \code{"split"}
+or \code{"group"} respectively. \strong{Note} This argument only applies when
+\code{extraction_method = "asr"}.}
 
 \item{unique_clade_name}{Boolean determining whether a unique species
 identifier is used as the clade name in the Island_tbl object or a genus

@@ -29,10 +29,12 @@ extract_island_species <- function(phylod,
                                    extraction_method,
                                    island_tbl = NULL,
                                    include_not_present = FALSE,
+                                   nested_asr_species = c("split", "group"),
                                    unique_clade_name = TRUE) {
 
   # check the input data
   phylod <- check_phylo_data(phylod)
+  nested_asr_species <- match.arg(nested_asr_species)
 
   if (is.null(island_tbl)) {
     island_tbl <- island_tbl()
@@ -85,6 +87,15 @@ extract_island_species <- function(phylod,
 
     # clear the extracted species from the island_tbl for next iteration
     set_extracted_species(island_tbl) <- NA_integer_
+  }
+
+  if (extraction_method == "asr") {
+    island_tbl <- rm_duplicate_island_species(
+      island_tbl = island_tbl,
+      phylod = phylod,
+      nested_asr_species = nested_asr_species,
+      include_not_present = include_not_present
+    )
   }
 
   # return island_tbl class
