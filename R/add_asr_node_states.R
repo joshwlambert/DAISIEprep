@@ -66,6 +66,8 @@ add_asr_node_states <- function(phylod,
       ...
     )
   }
+  message("loglikelihood: ", asr$loglikelihood)
+  message("AIC: ", asr$AIC)
 
   if (ncol(asr$ancestral_likelihoods) == 2) {
     colnames(asr$ancestral_likelihoods) <- c("not_present", "nonendemic")
