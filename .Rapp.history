@@ -1,0 +1,4 @@
+load("/Users/luis/Desktop/GIT_R_CODE/DAISIEprep/Plant_example.Rdata")
+library(ape)
+plot(phylo)
+load("/Users/luis/Desktop/GIT_R_CODE/DAISIEprep/data-raw/Plant_example.Rdata")
