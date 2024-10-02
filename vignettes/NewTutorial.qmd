@@ -1,6 +1,5 @@
 ---
 title: "DAISIEprep" 
-author: Luis Valente, Joshua W. Lambert, Lizzie Roeble
 format: html
 editor: visual
 ---
@@ -12,7 +11,7 @@ In this tutorial, the main features of DAISIEprep are explained. DAISIEprep (Lam
 A typical DAISIEprep pipeline is as follows:
 
 1.  Load phylogenetic tree and island distribution data (endemic, non-endemic to the island) into R.
-2.  Assign an island endemicity status (endemic, non-endemic, not present) to each of the species
+2.  Assign an island endemicity status (endemic, non-endemic, not present) to each of the species on the tree
 3.  Automatically extract times of colonisation of the island and diversification within the island from the phylogenies
 4.  Add any missing species
 5.  Format data for DAISIE.
@@ -46,7 +45,7 @@ library(ggimage)
 library(castor)
 ```
 
-## 1. Single Phylogeny Example
+## 1. Single Phylogeny Example {#sec-single}
 
 #### In this section we demonstrate a simple example of extracting and formatting data from a single phylogeny. We use an example phylogeny of a clade of plant species, which includes 2 species occurring on an example focal island.
 
@@ -297,7 +296,7 @@ endemicity_status <- create_endemicity_status(
 )
 ```
 
-Now we have the endemicity status for all *Coccyzus* species in the phylogeny, we can combine our phylogenetic data and endemicity status data into a single data structure, the `phylo4d` class from the `phylobase` R package, in exactly the same way as in the [single phylogeny example](##%201.%20Single%20Phylogeny%20Example).
+Now we have the endemicity status for all *Coccyzus* species in the phylogeny, we can combine our phylogenetic data and endemicity status data into a single data structure, the `phylo4d` class from the `phylobase` R package, in exactly the same way as in the [single phylogeny example](#sec-single).
 
 ```{r}
 phylod <- phylobase::phylo4d(coccyzus_tree, endemicity_status)
