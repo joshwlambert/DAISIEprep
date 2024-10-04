@@ -85,6 +85,8 @@ extract_multi_tip_species <- function(phylod,
   # get only the stem age
   col_time <- col_times[stem]
 
+  print(species_label)
+
   # subset the multi-tip nonendemic species from the rest of the tree
   multi_tip_species_phylod <- phylobase::subset(
     x = phylod,
