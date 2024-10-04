@@ -77,7 +77,7 @@ plot(plant_phylo, underscore = T)
 
 So in the example above we have turned on the option `underscore = T` in the plotting function, so that you can see that there is an underscore between the words on the tip names. In this case, "Plant" can be viewed as the genus epithet in a binomial name, and the letters after the underscore as the species epithet (for instance "Genus_speciesA" or in this case "Plant_a").
 
-**Currently DAISIEprep does not deal well with island species that are not monophyletic, because it does not know how to make a decision on how many colonisation events to infer. This needs some expert input from the user (e.g. you may consider that some tips are incorrectly placed, or perhaps the species really is polyphyletic). So we recommend you make decisions for these cases before running the package.** \
+**Currently DAISIEprep does not deal well with island species that are not monophyletic, because it does not know how to make a decision on how many colonisation events to infer. This needs some expert input from the user (e.g. you may consider that some tips are incorrectly placed, or perhaps the species really is polyphyletic). So we recommend you make decisions for these cases before running the package.**\
 
 ### Convert the phylogeny to phylo4
 
@@ -125,7 +125,6 @@ We can now visualise our phylogeny with the island endemicity statuses plotted a
 ```{r plot phylogeny with tip data}
 plot_phylod(phylod = phylod)
 ```
-
 
 ### Create island_tbl object
 
@@ -232,7 +231,7 @@ This data list is now ready to be used in the DAISIE maximum likelihood inferenc
 
 In the previous example we used a single phylogeny and extracted the colonisation and branching events from it. However, it could be the case that island species have been sampled in different phylogenies (e.g. based on different markers, coming from different studies). Here we look at an example for the terrestrial birds of the Galápagos archipelago. There are 8 time-calibrated phylogenies to extract the colonisation and diversification date from.
 
-First, the phylogenies need to be loaded using the function `read.nexus()` from the R package `ape`. Here the data is stored in `extdata` so we use `system.file()` to find the file and read it into the environment. This code is functionally doing the same  as `data()` if the data were stored in the data/ folder, so if the code seems confusing just remember it is loading the phylogeny into memory for each group.
+First, the phylogenies need to be loaded using the function `read.nexus()` from the R package `ape`. Here the data is stored in `extdata` so we use `system.file()` to find the file and read it into the environment. This code is functionally doing the same as `data()` if the data were stored in the data/ folder, so if the code seems confusing just remember it is loading the phylogeny into memory for each group.
 
 ```{r}
 coccyzus_tree <- ape::read.nexus(
@@ -405,7 +404,7 @@ for (phylod in galapagos_phylod) {
 }
 ```
 
-This will return a warning message for the Darwin's finches as the root state of the finches phylogeny is inferred to be present on the island, as there is only a single mainland outgroup in the example phylogeny. This means that the colonisation time will be extracted in `asr` as infinite and then when the island_tbl is converted into a DAISIE data list this will become a colonist that could have colonised anywhere from the island origin to the present. For this example this colonisation time is not a problem, however, for empirical analyses it is recommended to have many more mainland outgroup species in the tree to ensure the ancestral state reconstructions can accurately detect the stem age of the island clade.
+The above example works, but it returns a warning message for the Darwin's finches (finches_phylod), because the root state of the finches' phylogeny is inferred to be present on the island, as there is only a single mainland outgroup in the example phylogeny. This means that the colonisation time will be extracted in `asr` as infinite, and then when the island_tbl is converted into a DAISIE data list this will become a colonist that could have colonised anywhere from the island origin to the present. For this example this colonisation time is not a problem, however, for empirical analyses it is recommended to have many more mainland outgroup species in the tree to ensure the ancestral state reconstructions can accurately detect the stem age of the island clade.
 
 ```{r plot Darwins finches}
 plot_phylod(finches_phylod)
@@ -415,7 +414,7 @@ plot_phylod(finches_phylod)
 island_tbl
 ```
 
-Now we have the `island_tbl` with all the data on the colonisation, branching times, and composition of each island colonist. We can convert it to a DAISIE data list to be applied to the DAISIE inference model. Here we use an island age of the Galápagos archipelago of four million years, and assume that all colonisation time extracted are precise. Whether they are in fact precise is not covered in this tutorial, and when using this pipeline to process different data it may be worth toggling the `precise_col_time` to `FALSE` to check whether assuming uncertainty in colonisation times influences conclusions.
+Now we have the `island_tbl` with all the data on the colonisation, branching times, and composition of each island colonist. We can convert it to a DAISIE data list to be applied to the DAISIE inference model. Here we use an island age of the Galápagos archipelago of 4 million years, and assume that all colonisation time extracted are precise. Whether they are in fact precise is not covered in this tutorial, and when using this pipeline to process different data it may be worth toggling the `precise_col_time` to `FALSE` to check whether assuming uncertainty in colonisation times influences conclusions.
 
 ```{r create Galapagos data list}
 data_list <- create_daisie_data(
@@ -430,13 +429,13 @@ The `data_list` produced above is now ready for your DAISIE analyses! [See vigne
 
 ## 3. Adding missing species
 
-It is often the case that phylogenetic data is not available for some island species or even entire lineages present in the island community. But we can still include these species in our DAISIE analyses. Furthermore, even in the cases where a dated phylogeny does exist, it may not be open-source and available to use for the extraction. In the latter cases, it may be possible to know the stem age or crown age if reported in the literature with the published phylogeny. This section is about the tools that `DAISIEprep` provides in order to handle missing data, and generally to handle species that are missing and need to be input into the data manually.
+It is often the case that phylogenetic data is not available for some island species or even entire lineages present in the island community. But we can still include these species in our DAISIE analyses. Furthermore, even in the cases where a dated phylogeny does exist, it may not be open-source and available to use for the extraction. In the latter cases, it may be possible to know the stem age or crown age if reported in the literature with the published phylogeny. This section explains how to use the tools that `DAISIEprep` provides in order to handle missing data, and generally to handle species that are missing and need to be input into the data manually.
 
-For this section, as with the previous section, the core data structure we are going to work with is the `island_tbl`. We will use the `island_tbl` for the Galápagos birds produced in the last section. I
+For this section, as with the previous section, the core data structure we are going to work with is the `island_tbl`. We will use the `island_tbl` for the Galápagos birds produced in the last section.
 
 ### 3.1 Adding missing species to an island clade that has been sampled in the phylogeny
 
-This option is for cases in which a clade has been sampled in the phylogeny, and at least 1 colonisation or 1 branching time is available, but 1 or more species were not sampled. For this example, we imagine that 2 species of Galápagos finch have not been sampled, and that we want to add them as missing species to the Galápagos finch clade that is sampled in the phylogeny. The finches have the clade name "C_fus" in the `island_tbl` (third row). To assign two missing species to this clade we use following code:
+This option is for cases in which a clade has been sampled in the phylogeny, and at least 1 colonisation or 1 branching time is available, but 1 or more species were not sampled. For this example, we imagine that 2 species of Galápagos finch have not been sampled, and that we want to add them as missing species to the Galápagos finch clade that is sampled in the phylogeny. The finches have the clade name "C_fus" in the `island_tbl` (third row). To assign 2 missing species to this clade we use following code:
 
 ```{r}
 island_tbl <- add_missing_species(
@@ -459,18 +458,18 @@ With the new missing species added to the `island_tbl` we can repeat the convers
 
 ### 3.2 Adding a lineage with just one species on the island (singleton) when a phylogeny is not available for the lineage, but a colonisation time estimate exists
 
-The next option for adding **a singleton lineage (just one species on the island)** when a phylogeny is not available to conduct the extraction using `extract_island_species()` but an estimate of the stem age of the island colonist is known from the literature. In this case, we need to input all the information on the lineage manually ourselves. For illustrative purposes we use an imaginary Galápagos bird lineage with 1 species, which is not in our data set, and fabricate the time of colonisation.
+This option is for adding **a singleton lineage (just one species on the island)** when a phylogeny is not available to conduct the extraction using `extract_island_species()`, but an estimate of the stem age of the island colonist is known from the literature. In this case, we need to input all the information on the lineage manually ourselves. For illustrative purposes, we use an imaginary Galápagos bird lineage with 1 species, which is not in our data set, and fabricate the time of colonisation.
 
 The input needed are:
 
 -   `island_tbl` to add to an existing `island_tbl`
 -   `clade_name` a name to represent the clade, can either be a specific species from the clade or a genus name, or another name that represent those species
 -   `status` either "endemic" or "nonendemic"
--   `missing_species` **In the case of a lineage with just 1 species (i.e. not an island radiation) the number of missing species is zero, as by adding the colonist it already counts as one automatically.**
+-   `missing_species` **In the case of a lineage with just 1 species (i.e. not an island radiation) the number of missing species to be specified here is zero, as by adding the colonist it already counts as one automatically.**
 -   `col_time` the time of colonisation in million years before the present
 -   `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is precise or should be considered a maximum upper bound on the time of colonisation with some uncertainty
--   `branching_times` the times an island clade has speciated *in situ* on the island. If an island clade has not speciated (i.e. is a singleton) this is NA.
--   `min_age` is the minimum lower bound time of colonisation, if to be used when the colonisation time is assumed to be an upper bound.
+-   `branching_times` the times an island clade has speciated *in situ* on the island. If an island clade has not speciated (i.e. is a singleton) this is NA. (In this it should be NA as the example is for singleton lineages).
+-   `min_age` is the minimum lower bound time of colonisation. This should be used when the colonisation time added is assumed to be an upper bound.
 -   `species` a vector of species names contained within colonist
 -   `clade_type` a number representing which set of rates the colonist is assumed to be under, default is 1, as number greater than one assume this clade is exceptionally different in its colonisation and diversification dynamics
 
@@ -495,7 +494,7 @@ With the new missing species added to the `island_tbl` we can repeat the convers
 
 ### 3.3 Adding a lineage with 2 or more species on the island when a phylogeny is not available for the lineage, but a colonisation time estimate exists
 
-Taking the example above in `3.2`, but when the **lineage has more 2 or more species**. In this case, we we use an imaginary Galápagos bird lineage with 3 species, which is not in our data set, and fabricate the time of colonisation.
+Taking the example above in `3.2`, but when the **lineage has 2 or more species**. In this case, we we use an imaginary Galápagos bird lineage with 3 species, which is not in our data set, and fabricate the time of colonisation.
 
 The input needed are:
 
@@ -506,7 +505,7 @@ The input needed are:
 -   `col_time` the time of colonisation in million years before the present
 -   `col_max_age` a boolean (TRUE/FALSE) on whether the colonisation time is precise or should be considered a maximum upper bound on the time of colonisation with some uncertainty
 -   `branching_times` the times an island clade has speciated *in situ* on the island. If an island clade has not speciated (i.e. is a singleton) this is NA.
--   `min_age` is the minimum lower bound time of colonisation, if to be used when the colonisation time is assumed to be an upper bound.
+-   `min_age` is the minimum lower bound time of colonisation. This should be used when an upper bound for colonisation time is known (e.g. based on crown age).
 -   `species` a vector of species names contained within colonist
 -   `clade_type` a number representing which set of rates the colonist is assumed to be under, default is 1, as number greater than one assume this clade is exceptionally different in its colonisation and diversification dynamics
 
@@ -580,7 +579,7 @@ With the new missing species added to the `island_tbl` we can repeat the convers
 
 ### 3.5 Adding a lineage when a phylogeny is not available for the entire island lineage, but a crown age or minimum colonisation time estimate exists
 
-Taking the example above in `3.2`, but assuming we did not have a colonisation time estimate, but we did have a crown age estimate or an estimate for the minimum (latest) time the island could have been colonised by the lineage. When this colonist later gets processed by the DAISIE inference model it will be assumed it colonised the island any time between the island's formation (in the case of the Galápagos four million years ago) and the crown or minimum age. In the example below we assume a crown age of 2 million years.
+Taking the example above in `3.2` but assuming we did not have a colonisation time estimate, but we did have a crown age estimate or an estimate for the minimum (latest) time the island could have been colonised by the lineage. When this colonist later gets processed by the DAISIE inference model it will be assumed it colonised the island any time between the island's formation (in the case of the Galápagos four million years ago) and the crown or minimum age. In the example below we assume a crown age of 2 million years.
 
 ```{r}
 island_tbl <- add_island_colonist(
