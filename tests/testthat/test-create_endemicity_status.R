@@ -41,6 +41,27 @@ test_that("create_endemicity_status runs correctly for finches", {
   expect_equal(rownames(endemicity_status), finches_tree$tip.label)
 })
 
+test_that("create_endemicity_status warns with species not in phylo", {
+  coccyzus_tree <- ape::read.nexus(
+    file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
+  )
+  island_species <- data.frame(
+    tip_labels = c("Coccyzus_melacoryphus_GALAPAGOS_L569A",
+                   "Coccyzus_melacoryphus_GALAPAGOS_L571A",
+                   "Galapagos_species"),
+    tip_endemicity_status = c("nonendemic", "nonendemic", "endemic")
+  )
+  expect_warning(
+    endemicity_status <- create_endemicity_status(
+      phylo = coccyzus_tree,
+      island_species = island_species
+    ),
+    regexp = "(Species)*(not in phylo)*(Galapagos_species)*(not be included)"
+  )
+
+  expect_false("Galapagos_species" %in% row.names(endemicity_status))
+})
+
 test_that("create_endemicity_status fails correctly with incorrect phylo", {
   finches_tree <- list()
   island_species <- data.frame(

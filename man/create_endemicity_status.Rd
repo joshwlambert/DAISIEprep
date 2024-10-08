@@ -27,6 +27,11 @@ Creates a data frame with the endemicity status (either 'endemic',
 phylogeny and a data frame of the island species and their endemicity (either
 'endemic' or 'nonendemic') provided.
 }
+\details{
+Species included in the \code{island_species} data frame but not included in the
+\code{phylo} will not be included in the output and warning will print all of the
+species that are in the \code{island_species} that are not found in the \code{phylo}.
+}
 \examples{
 set.seed(
   1,
