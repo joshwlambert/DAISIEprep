@@ -79,7 +79,7 @@ plot(plant_phylo, underscore = TRUE)
 
 So in the example above we have turned on the option `underscore = TRUE` in the plotting function, so that you can see that there is an underscore between the words on the tip names. In this case, "Plant" can be viewed as the genus epithet in a binomial name, and the letters after the underscore as the species epithet (for instance "Genus_speciesA" or in this case "Plant_a").
 
-**Currently DAISIEprep does not deal well with island species that are not monophyletic, because it does not know how to make a decision on how many colonisation events to infer. This needs some expert input from the user (e.g. you may consider that some tips are incorrectly placed, or perhaps the species really is polyphyletic). So we recommend you make decisions for these cases before running the package.**\
+**Currently DAISIEprep does not deal well with island species that are not monophyletic, because it does not know how to make a decision on how many colonisation events to infer. This needs some expert input from the user (e.g. you may consider that some tips are incorrectly placed, or perhaps the species really is polyphyletic). So we recommend you make decisions for these cases before running the package.**
 
 ### Convert the phylogeny to phylo4
 
