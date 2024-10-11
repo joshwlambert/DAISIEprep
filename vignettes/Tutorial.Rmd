@@ -100,8 +100,7 @@ In this example, only two plant species in the phylogeny occur on the island. On
 
 ```{r create island endemcity data}
 island_species <- data.frame(
-  tip_labels = c("Plant_i",
-                 "Plant_g"),
+  tip_labels = c("Plant_i", "Plant_g"),
   tip_endemicity_status = c("endemic", "nonendemic")
 )
 island_species
