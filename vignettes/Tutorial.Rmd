@@ -10,6 +10,8 @@ vignette: >
 
 In this tutorial, the main features of DAISIEprep are explained. DAISIEprep (Lambert et al.) is an R package that facilitates formatting of data for subsequent use in DAISIE.
 
+![](../man/figures/logo.png)
+
 A typical DAISIEprep pipeline is as follows:
 
 1.  Load phylogenetic tree and island distribution data (endemic, nonendemic to the island) into R.
