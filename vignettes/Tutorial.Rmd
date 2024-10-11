@@ -72,12 +72,12 @@ class(plant_phylo)
 Let's plot the phylogeny in order to visualise it. As you can see, it has different species of plants.
 
 ```{r plot phylo}
-plot(plant_phylo, underscore = T)
+plot(plant_phylo, underscore = TRUE)
 ```
 
 **Important: `DAISIEprep` requires the tip labels (taxon names) in the phylogeny to be formatted as genus name and species name separated by an underscore (e.g. "Canis_lupus" or "Plant_a").** They can also optionally have tags appended after the species name (separated by underscore, e.g. "Canis_lupus_123"; "Plant_a_123"; "Canis_lupus_familiaris_123"), which is common if there are multiple tips in the phylogeny for a single species, e.g. when multiple populations or multiple subspecies have been sampled. Samples with the same Genus_species name on the tip label will be considered to be of the **same species**, even if they have subsequent sampling or subspecies tags.
 
-So in the example above we have turned on the option `underscore = T` in the plotting function, so that you can see that there is an underscore between the words on the tip names. In this case, "Plant" can be viewed as the genus epithet in a binomial name, and the letters after the underscore as the species epithet (for instance "Genus_speciesA" or in this case "Plant_a").
+So in the example above we have turned on the option `underscore = TRUE` in the plotting function, so that you can see that there is an underscore between the words on the tip names. In this case, "Plant" can be viewed as the genus epithet in a binomial name, and the letters after the underscore as the species epithet (for instance "Genus_speciesA" or in this case "Plant_a").
 
 **Currently DAISIEprep does not deal well with island species that are not monophyletic, because it does not know how to make a decision on how many colonisation events to infer. This needs some expert input from the user (e.g. you may consider that some tips are incorrectly placed, or perhaps the species really is polyphyletic). So we recommend you make decisions for these cases before running the package.**\
 
