@@ -58,9 +58,7 @@ library(castor)
 First we load our example phylogeny (file included in the `DAISIEprep` R package, that is why we use this complicated code:
 
 ```{r load phylogeny}
-plant_phylo <- readRDS(
-  file = system.file("extdata", "plant_phylo.rds", package = "DAISIEprep")
-)
+data("plant_phylo")
 ```
 
 For your own trees you would normally use something like `read.tree(),` `read.nexus()`, `load()` specifying the path to your tree file or R phylo object).

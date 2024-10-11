@@ -85,6 +85,7 @@ Collate:
     'create_daisie_data.R'
     'create_endemicity_status.R'
     'create_test_phylod.R'
+    'data.R'
     'default_params_doc.R'
     'endemicity_to_sse_states.R'
     'extract_asr_clade.R'
