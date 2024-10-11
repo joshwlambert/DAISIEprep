@@ -118,7 +118,7 @@ endemicity_status <- create_endemicity_status(
 Next, we can add the endemicity data to our phylogenetic tree using features of `phylo4d` class, again from the `phylobase` package. This call is designed for phylogenetic and trait data to be stored together. The endemicity status needs to be in a data frame format in order for this to work correctly.
 
 ```{r convert to phylo4d}
-phylod <- phylobase::phylo4d(plant_phylo, as.data.frame(endemicity_status))
+phylod <- phylobase::phylo4d(plant_phylo, endemicity_status)
 ```
 
 We can now visualise our phylogeny with the island endemicity statuses plotted at the tips. This uses the `ggtree` and `ggplot2` packages.
