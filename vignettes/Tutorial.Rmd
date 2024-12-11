@@ -96,7 +96,9 @@ Now we have a phylogeny in the `phylo4` format to which we can easily append dat
 
 We now need to add to the phylogeny information about which species are present on the island and what their endemicity statuses are. Species that occur on the island can either be "endemic" (occur only on the island), or "nonendemic" (occur on the island but also on another landmass).
 
-In this example, only two plant species in the phylogeny occur on the island. One of them, "Plant_i", is endemic to the island. The other, "Plant_g", is a nonendemic species. Let's create a data frame linking each island species to their endemicity status. (**For your own data, you can create this table in a separate editor and then load it into R as a data.frame**).
+In the example plant phylogeny we are running here, only two plant species in the phylogeny occur on the island. One of them, "Plant_i", is endemic to the island. The other, "Plant_g", is a nonendemic species. Let's create a data frame linking each island species to their endemicity status. (**For your own data, you can create this table in a separate editor and then load it into R as a data.frame**).
+
+**We recommend using the true endemicity status ("endemic" or "nonendemic") for all cases. However, there is an exception: cases where one or more species from an endemic island radiation have colonised the mainland. These species are embedded in the island radiation, have evolved on the island, and later expanded their range to the mainland. Technically these species are nonendemic because they are found on both the island and mainland. However, from the perspective of the DAISIE model, we recommend scoring such species as endemic. This is because scoring them as nonendemic may lead to complex biogeographical reconstruction that may end up breaking up an endemic island radiation into multiple lineages; and also because this may lead to an underestimation of the speciation rates on the island. By classifying those species as endemic we can avoid these problems. **
 
 ```{r create island endemcity data}
 island_species <- data.frame(
@@ -181,6 +183,8 @@ island_tbl <- extract_island_species(
   extraction_method = "asr"
 )
 ```
+
+**If you are sure that all species you have scored as "nonendemic" are the result of separate colonisation events (e.g., when scoring the endemicity statuses you classified nonendemic species that are embedded in an island radiation as endemic), then we recommend setting `force_nonendemic_singleton = TRUE`. This will ensure that all non-endemic species are extracted as separate lineages (avoids groups of closely related non-endemic species being erroneously lumped into an island clade due to the reconstruction).**
 
 ```{r display asr island_tbl}
 island_tbl
