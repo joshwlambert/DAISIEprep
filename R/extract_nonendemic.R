@@ -49,3 +49,27 @@ extract_nonendemic <- function(phylod,
   #return instance of island_colonist class
   island_colonist
 }
+
+#' Extract non-endemic colonist that is forced to be a singleton by user
+#'
+#' @inheritParams default_params_doc
+#'
+#' @return An object of `phylo4d` class with tip and node data
+#' @keywords internal
+extract_nonendemic_forced <- function(phylod,
+                                      species_label,
+                                      island_tbl) {
+  island_colonist <- extract_nonendemic(
+    phylod = phylod,
+    species_label = species_label
+  )
+  # TODO: check if duplication checking is needed see extract_species_asr.R L133
+  # bind data from island_colonist class into island_tbl class
+  island_tbl <- bind_colonist_to_tbl(
+    island_colonist = island_colonist,
+    island_tbl = island_tbl
+  )
+  # append extracted species to vector
+  set_extracted_species(island_tbl) <- species_label
+  return(island_tbl)
+}

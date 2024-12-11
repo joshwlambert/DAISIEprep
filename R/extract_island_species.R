@@ -30,6 +30,7 @@ extract_island_species <- function(phylod,
                                    island_tbl = NULL,
                                    include_not_present = FALSE,
                                    nested_asr_species = c("split", "group"),
+                                   force_nonendemic_singleton = FALSE,
                                    unique_clade_name = TRUE) {
 
   # check the input data
@@ -48,6 +49,12 @@ extract_island_species <- function(phylod,
          data of the island presence at the nodes")
   }
 
+  if (extraction_method == "min" && force_nonendemic_singleton) {
+    warning("force_nonendemic_singleton is being ignored as ",
+            "extraction_method = 'min'.\n force_nonendemic_singleton is only ",
+            "valid when extraction_method = 'asr'")
+  }
+
   # create extracted_species vector
   extracted_species <- c()
 
@@ -64,14 +71,31 @@ extract_island_species <- function(phylod,
     }
 
     if (extraction_method == "asr") {
-      # extract species using the ancestral state reconstruction data
-      island_tbl <- extract_species_asr(
-        phylod = phylod,
-        species_label = as.character(phylod@label[i]),
-        species_endemicity = phylod@data$endemicity_status[i],
-        island_tbl = island_tbl,
-        include_not_present = include_not_present
-      )
+      # if tip is non-endemic and user forces to be singletons
+      if (force_nonendemic_singleton &&
+          phylod@data$endemicity_status[i] == "nonendemic") {
+        island_tbl <- extract_nonendemic_forced(
+          phylod = phylod,
+          species_label = as.character(phylod@label[i]),
+          island_tbl = island_tbl
+        )
+      } else {
+        # extract species using the ancestral state reconstruction data
+        island_tbl <- extract_species_asr(
+          phylod = phylod,
+          species_label = as.character(phylod@label[i]),
+          species_endemicity = phylod@data$endemicity_status[i],
+          island_tbl = island_tbl,
+          include_not_present = include_not_present
+        )
+        if (force_nonendemic_singleton) {
+          # TODO: remove any non-endemic species grouped with endemics
+          island_tbl <- rm_nonendemic_in_clade(
+            phylod = phylod,
+            island_tbl = island_tbl
+          )
+        }
+      }
     } else if (extraction_method == "min") {
       island_tbl <- extract_species_min(
         phylod = phylod,

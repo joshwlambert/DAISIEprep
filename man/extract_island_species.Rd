@@ -11,6 +11,7 @@ extract_island_species(
   island_tbl = NULL,
   include_not_present = FALSE,
   nested_asr_species = c("split", "group"),
+  force_nonendemic_singleton = FALSE,
   unique_clade_name = TRUE
 )
 }
@@ -39,6 +40,19 @@ the branching time before the tip if the ancestor node of the tip is not
 on the island), or the older node state of the larger clade, for \code{"split"}
 or \code{"group"} respectively. \strong{Note} This argument only applies when
 \code{extraction_method = "asr"}.}
+
+\item{force_nonendemic_singleton}{A boolean that determines whether all
+species that are classified as \code{"nonendemic"} are forced to be extracted as
+singletons (i.e single species lineages). By default it is \code{FALSE} so
+non-endemics can be extracted either as singletons or part of an endemic
+clade. When set to \code{TRUE} all non-endemic species in the tree will be
+single species colonists, with the colonisation time extracted as the stem
+age for the tip in the phylogeny. There are some exceptions to this, please
+see \code{vignette("Forcing", package = "DAISIEprep")} for more details.
+
+This argument is only active when \code{extraction_method = "asr"}, when
+\code{extraction_method = "min"} this argument will be ignored with a warning,
+as the \code{min} method always extracts non-endemic species as singletons.}
 
 \item{unique_clade_name}{Boolean determining whether a unique species
 identifier is used as the clade name in the Island_tbl object or a genus

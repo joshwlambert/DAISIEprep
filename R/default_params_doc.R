@@ -182,6 +182,18 @@
 #' "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 #' widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 #' "endemic", respectively.
+#' @param force_nonendemic_singleton A boolean that determines whether all
+#' species that are classified as `"nonendemic"` are forced to be extracted as
+#' singletons (i.e single species lineages). By default it is `FALSE` so
+#' non-endemics can be extracted either as singletons or part of an endemic
+#' clade. When set to `TRUE` all non-endemic species in the tree will be
+#' single species colonists, with the colonisation time extracted as the stem
+#' age for the tip in the phylogeny. There are some exceptions to this, please
+#' see `vignette("Forcing", package = "DAISIEprep")` for more details.
+#'
+#' This argument is only active when `extraction_method = "asr"`, when
+#' `extraction_method = "min"` this argument will be ignored with a warning,
+#' as the `min` method always extracts non-endemic species as singletons.
 #' @param ... [dots] Allows arguments to be passed to [castor::asr_mk_model()]
 #' and [castor::asr_max_parsimony()]. These arguments must match by name
 #' exactly, see `?castor::asr_mk_model()` and `?castor::asr_max_parsimony()`
@@ -256,6 +268,7 @@ default_params_doc <- function(island_colonist,
                                log_scale,
                                parameter_index,
                                sse_model,
+                               force_nonendemic_singleton,
                                ...
 ) {
   # nothing

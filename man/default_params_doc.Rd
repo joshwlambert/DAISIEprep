@@ -72,6 +72,7 @@ default_params_doc(
   log_scale,
   parameter_index,
   sse_model,
+  force_nonendemic_singleton,
   ...
 )
 }
@@ -324,6 +325,19 @@ values 1, 2, 3, which here we encode as "not_present", "endemic",
 "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 "endemic", respectively.}
+
+\item{force_nonendemic_singleton}{A boolean that determines whether all
+species that are classified as \code{"nonendemic"} are forced to be extracted as
+singletons (i.e single species lineages). By default it is \code{FALSE} so
+non-endemics can be extracted either as singletons or part of an endemic
+clade. When set to \code{TRUE} all non-endemic species in the tree will be
+single species colonists, with the colonisation time extracted as the stem
+age for the tip in the phylogeny. There are some exceptions to this, please
+see \code{vignette("Forcing", package = "DAISIEprep")} for more details.
+
+This argument is only active when \code{extraction_method = "asr"}, when
+\code{extraction_method = "min"} this argument will be ignored with a warning,
+as the \code{min} method always extracts non-endemic species as singletons.}
 
 \item{...}{\link{dots} Allows arguments to be passed to \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}
 and \code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}}. These arguments must match by name
