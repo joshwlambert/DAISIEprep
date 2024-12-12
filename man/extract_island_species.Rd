@@ -48,7 +48,7 @@ non-endemics can be extracted either as singletons or part of an endemic
 clade. When set to \code{TRUE} all non-endemic species in the tree will be
 single species colonists, with the colonisation time extracted as the stem
 age for the tip in the phylogeny. There are some exceptions to this, please
-see \code{vignette("Forcing", package = "DAISIEprep")} for more details.
+see \code{vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")} for more details.
 
 This argument is only active when \code{extraction_method = "asr"}, when
 \code{extraction_method = "min"} this argument will be ignored with a warning,

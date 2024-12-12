@@ -189,7 +189,7 @@
 #' clade. When set to `TRUE` all non-endemic species in the tree will be
 #' single species colonists, with the colonisation time extracted as the stem
 #' age for the tip in the phylogeny. There are some exceptions to this, please
-#' see `vignette("Forcing", package = "DAISIEprep")` for more details.
+#' see `vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")` for more details.
 #'
 #' This argument is only active when `extraction_method = "asr"`, when
 #' `extraction_method = "min"` this argument will be ignored with a warning,
