@@ -3,6 +3,11 @@
 #' phylogeny and a data frame of the island species and their endemicity (either
 #' 'endemic' or 'nonendemic') provided.
 #'
+#' @details
+#' Species included in the `island_species` data frame but not included in the
+#' `phylo` will not be included in the output and warning will print all of the
+#' species that are in the `island_species` that are not found in the `phylo`.
+#'
 #' @inheritParams default_params_doc
 #'
 #' @return Data frame with single column of character strings and row names
@@ -47,6 +52,18 @@ create_endemicity_status <- function(phylo,
   if (isFALSE(correct_colnames)) {
     stop("The column names of the island species data frame need to be
          'tip_labels' and 'tip_endemicity_status' respectively")
+  }
+
+  species_in_phylo <- island_species$tip_labels %in% phylobase::tipLabels(phylo)
+  if (any(!species_in_phylo)) {
+    species_not_in_phylo <- paste(
+      "- ", island_species$tip_labels[!species_in_phylo], "\n"
+    )
+    warning(
+      "Species included in island_species not in phylogeny: \n",
+      species_not_in_phylo,
+      "These will not be included in the endemicity status data frame output."
+    )
   }
 
   # create a data frame where all species are not present
