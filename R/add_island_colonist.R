@@ -34,6 +34,38 @@ add_island_colonist <- function(island_tbl,
                                 species,
                                 clade_type) {
 
+  status <- match.arg(status, choices = c("endemic", "nonendemic"))
+
+  if (status == "nonendemic" && missing_species > 0) {
+    warning("When adding a non-endemic lineage (status = 'nonendemic'), ",
+            "the number of missing species should be zero (this is already ",
+            "taken into account by adding the lineage)")
+  }
+  if (status == "nonendemic" && !anyNA(branching_times)) {
+    warning("When adding a non-endemic lineage (status = 'nonendemic'), ",
+            "there should be no branching times added (these are not ",
+            "considered in the DAISIE model for non-endemic species)\n.",
+            "If you would like to use a branching time as a minimum time ",
+            "of colonisation, please use the min_age argument instead.")
+  }
+
+  if (!anyNA(min_age) && isFALSE(col_max_age)) {
+    warning("Adding a min_age is inconsistent with setting colonisation ",
+            "time to be precise (col_max_age = FALSE). So in this case the ",
+            "min_age is ignored.")
+  }
+
+  if (min_age < max(branching_times)) {
+    warning("You have added a min_age that is younger than the oldest ",
+            "branching time.\n This min_age will be treated as a ",
+            "branching time and the oldest branching time will be treated ",
+            "as the minimum age of colonisation.")
+  }
+
+  if (min_age > col_time) {
+    stop("The min_age cannot be older than the col_time.")
+  }
+
   # group island_colonist data into data frame
   # I(list(c(...))) keeps vector together
   island_colonist_df <- data.frame(
