@@ -21,6 +21,7 @@ phylogenetic and endemicity data and stores it in an Island_tbl object"><meta pr
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a></li>
+    <li><a class="dropdown-item" href="../articles/Forcing_nonendemic_singleton.html">Forcing non-endemic singletons: solutions and limitations</a></li>
     <li><a class="dropdown-item" href="../articles/Performance.html">Performance</a></li>
     <li><a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a></li>
     <li><a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a></li>
@@ -54,6 +55,7 @@ phylogenetic and endemicity data and stores it in an <code>Island_tbl</code> obj
 <span>  island_tbl <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  include_not_present <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  nested_asr_species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"split"</span>, <span class="st">"group"</span><span class="op">)</span>,</span>
+<span>  force_nonendemic_singleton <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  unique_clade_name <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,6 +97,20 @@ the branching time before the tip if the ancestor node of the tip is not
 on the island), or the older node state of the larger clade, for <code>"split"</code>
 or <code>"group"</code> respectively. <strong>Note</strong> This argument only applies when
 <code>extraction_method = "asr"</code>.</p></dd>
+
+
+<dt id="arg-force-nonendemic-singleton">force_nonendemic_singleton<a class="anchor" aria-label="anchor" href="#arg-force-nonendemic-singleton"></a></dt>
+<dd><p>A boolean that determines whether all
+species that are classified as <code>"nonendemic"</code> are forced to be extracted as
+singletons (i.e single species lineages). By default it is <code>FALSE</code> so
+non-endemics can be extracted either as singletons or part of an endemic
+clade. When set to <code>TRUE</code> all non-endemic species in the tree will be
+single species colonists, with the colonisation time extracted as the stem
+age for the tip in the phylogeny. There are some exceptions to this, please
+see <code><a href="../articles/Forcing_nonendemic_singleton.html">vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")</a></code> for more details.</p>
+<p>This argument is only active when <code>extraction_method = "asr"</code>, when
+<code>extraction_method = "min"</code> this argument will be ignored with a warning,
+as the <code>min</code> method always extracts non-endemic species as singletons.</p></dd>
 
 
 <dt id="arg-unique-clade-name">unique_clade_name<a class="anchor" aria-label="anchor" href="#arg-unique-clade-name"></a></dt>

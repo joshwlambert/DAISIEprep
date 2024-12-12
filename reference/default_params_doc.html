@@ -19,6 +19,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a></li>
+    <li><a class="dropdown-item" href="../articles/Forcing_nonendemic_singleton.html">Forcing non-endemic singletons: solutions and limitations</a></li>
     <li><a class="dropdown-item" href="../articles/Performance.html">Performance</a></li>
     <li><a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a></li>
     <li><a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a></li>
@@ -113,6 +114,7 @@
 <span>  <span class="va">log_scale</span>,</span>
 <span>  <span class="va">parameter_index</span>,</span>
 <span>  <span class="va">sse_model</span>,</span>
+<span>  <span class="va">force_nonendemic_singleton</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -502,6 +504,20 @@ values 1, 2, 3, which here we encode as "not_present", "endemic",
 "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 "endemic", respectively.</p></dd>
+
+
+<dt id="arg-force-nonendemic-singleton">force_nonendemic_singleton<a class="anchor" aria-label="anchor" href="#arg-force-nonendemic-singleton"></a></dt>
+<dd><p>A boolean that determines whether all
+species that are classified as <code>"nonendemic"</code> are forced to be extracted as
+singletons (i.e single species lineages). By default it is <code>FALSE</code> so
+non-endemics can be extracted either as singletons or part of an endemic
+clade. When set to <code>TRUE</code> all non-endemic species in the tree will be
+single species colonists, with the colonisation time extracted as the stem
+age for the tip in the phylogeny. There are some exceptions to this, please
+see <code><a href="../articles/Forcing_nonendemic_singleton.html">vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")</a></code> for more details.</p>
+<p>This argument is only active when <code>extraction_method = "asr"</code>, when
+<code>extraction_method = "min"</code> this argument will be ignored with a warning,
+as the <code>min</code> method always extracts non-endemic species as singletons.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
