@@ -48,7 +48,7 @@ If you have _a priori_ knowledge that the non-endemic species should be separate
 
 ## First solution: forcing non-endemic island species to be singletons
 
-The `extract_island_species()` function has an argument `force_nonendemic_singletons`, which by default is `FALSE` which fully trusts the ancestral state reconstruction (see `add_asr_node_states()`) allowing non-endemics to be grouped into an endemic clade. **The `force_nonendemic_singletons` argument is only active when using the `extraction_method = "asr"`, if using `extraction_method = "min"` then `force_nonendemic_singletons` will be ignored.** For example:
+The `extract_island_species()` function has an argument `force_nonendemic_singleton`, which by default is `FALSE` which fully trusts the ancestral state reconstruction (see `add_asr_node_states()`) allowing non-endemics to be grouped into an endemic clade. **The `force_nonendemic_singleton` argument is only active when using the `extraction_method = "asr"`, if using `extraction_method = "min"` then `force_nonendemic_singleton` will be ignored.** For example:
 
 ```{r, extract-with-fns-false}
 island_tbl <- extract_island_species(
@@ -61,7 +61,7 @@ island_tbl
 
 As you can see the code above extracts only a single colonisation event resulting in an endemic clade.
 
-However, if `force_nonendemic_singletons` is set to `TRUE` then closely related non-endemic island species will be split into single-species island colonists (see Limitations section below for cases when this does not work). For example:
+However, if `force_nonendemic_singleton` is set to `TRUE` then closely related non-endemic island species will be split into single-species island colonists (see Limitations section below for cases when this does not work). For example:
 
 ```{r, extract-with-fns-true}
 island_tbl <- extract_island_species(
@@ -184,7 +184,7 @@ In the two cases shown above using the `asr` extraction would have resulted in t
 
 This approach is only valid if you know the island system well and are sure that the non-endemic species within an island radiation are most likely the result of island speciation. By augmenting the endemicity status of the island species in the way outlined above it introduce biological inaccuracies if not done with care. 
 
-In the case of the issue of having non-endemics that you believe to be _true non-endemmic island species_, and these are embedded within an island radiation of island endemic species, then this issue outlined at the start of this vignette remains and neither reclassifying nor using `force_nonendemic_singletons = TRUE` will resolve the issue.
+In the case of the issue of having non-endemics that you believe to be _true non-endemmic island species_, and these are embedded within an island radiation of island endemic species, then this issue outlined at the start of this vignette remains and neither reclassifying nor using `force_nonendemic_singleton = TRUE` will resolve the issue.
 
 ## Solution are not mutually exclusive
 
