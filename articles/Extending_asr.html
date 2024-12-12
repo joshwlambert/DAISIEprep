@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="DAISIEprep">
 <title>Extending DAISIEprep ASR models • DAISIEprep</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,64 +14,48 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Extending DAISIEprep ASR models">
-<meta property="og:description" content="DAISIEprep">
-<meta property="og:image" content="https://joshwlambert.github.io/DAISIEprep/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Extending DAISIEprep ASR models">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">DAISIEprep</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
-    <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
-    <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
-    <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a></li>
+    <li><a class="dropdown-item" href="../articles/Performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a></li>
+    <li><a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -84,7 +67,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Extending DAISIEprep ASR models</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/HEAD/vignettes/articles/Extending_asr.Rmd" class="external-link"><code>vignettes/articles/Extending_asr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/master/vignettes/articles/Extending_asr.Rmd" class="external-link"><code>vignettes/articles/Extending_asr.Rmd</code></a></small>
       <div class="d-none name"><code>Extending_asr.Rmd</code></div>
     </div>
 
@@ -263,14 +246,13 @@ and Smith 2008)</span> with founder-event speciation (DEC+J, <span class="citati
 2013)</span>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="http://phylo.wikidot.com/biogeobears" class="external-link">BioGeoBEARS</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: BioGeoBEARS</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/emmanuelparadis/ape" class="external-link">ape</a></span><span class="op">)</span> <span class="co"># BioGeoBEARS does not load ape::has.singles() which it calls</span></span>
+<span><span class="co">#&gt; Loading required package: BioGeoBEARS</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/emmanuelparadis/ape" class="external-link">ape</a></span><span class="op">)</span> <span class="co"># BioGeoBEARS does not load ape::has.singles() which it calls</span></span>
 <span><span class="co">#&gt; Loading required package: ape</span></span></code></pre></div>
 <p>BioGeoBEARS revolves around an object, <code>BioGeoBEARS_run</code>,
 which stores input data, the structure of the model to optimise, and
 control parameters for optimisation.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Default structure of the BioGeoBEARS object</span></span>
 <span><span class="va">bgb_run</span> <span class="op">&lt;-</span> <span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">define_BioGeoBEARS_run</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">bgb_run</span></span>
@@ -429,12 +411,11 @@ biogeographic data, a matrix of tip states. Both must be supplied as
 paths to files which will be read when the model is run.</p>
 <p>The tree can be supplied in Newick or Nexus format, as a text
 file.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path_to_phylo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extending_asr"</span>, <span class="st">"biogeobears_ex_phylo.txt"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/write.tree.html" class="external-link">write.tree</a></span><span class="op">(</span><span class="va">phylo</span>, file <span class="op">=</span> <span class="va">path_to_phylo</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span>
+<span><span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/write.tree.html" class="external-link">write.tree</a></span><span class="op">(</span><span class="va">phylo</span>, file <span class="op">=</span> <span class="va">path_to_phylo</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">trfn</span> <span class="op">&lt;-</span> <span class="va">path_to_phylo</span></span></code></pre></div>
 <p>Tip data must be supplied as a text file specifying presence/absence
@@ -486,7 +467,7 @@ tutorial</p>
 <p>For convenience, we have included a function that writes this file
 from a <code>phylod</code> object for the simple mainland-island
 case.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path_to_biogeo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extending_asr"</span>, <span class="st">"biogeobears_ex_phylo.txt"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/write_phylip_biogeo_file.html">write_phylip_biogeo_file</a></span><span class="op">(</span><span class="va">phylod</span>, <span class="va">path_to_biogeo</span><span class="op">)</span></span>
 <span><span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">getranges_from_LagrangePHYLIP</span><span class="op">(</span><span class="va">path_to_biogeo</span><span class="op">)</span></span>
@@ -513,19 +494,17 @@ case.</p>
 <span><span class="co">#&gt; bird_q 1 0</span></span>
 <span><span class="co">#&gt; bird_r 1 0</span></span>
 <span><span class="co">#&gt; bird_s 1 0</span></span>
-<span><span class="co">#&gt; bird_t 1 0</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bgb_run</span><span class="op">$</span><span class="va">geogfn</span> <span class="op">&lt;-</span> <span class="va">path_to_biogeo</span></span></code></pre></div>
+<span><span class="co">#&gt; bird_t 1 0</span></span>
+<span><span class="va">bgb_run</span><span class="op">$</span><span class="va">geogfn</span> <span class="op">&lt;-</span> <span class="va">path_to_biogeo</span></span></code></pre></div>
 <p>While we were at it, we have nested this function in
 <code><a href="../reference/write_biogeobears_input.html">write_biogeobears_input()</a></code>, to prepare both this file and
 the Newick file above in one command</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path_to_phylo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extending_asr"</span>, <span class="st">"biogeobears_ex_phylo.txt"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="va">path_to_biogeo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extending_asr"</span>, <span class="st">"biogeobears_ex_biogeo.txt"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/write_biogeobears_input.html">write_biogeobears_input</a></span><span class="op">(</span><span class="va">phylod</span>, <span class="va">path_to_phylo</span>, <span class="va">path_to_biogeo</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span>
+<span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">trfn</span> <span class="op">&lt;-</span> <span class="va">path_to_phylo</span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">geogfn</span> <span class="op">&lt;-</span> <span class="va">path_to_biogeo</span></span></code></pre></div>
 <p>The structure of the model is contained in
@@ -533,7 +512,7 @@ the Newick file above in one command</p>
 contains the status (fixed or free), values (initial, min/max boundaries
 and estimated value if free) and documentation of each parameter of the
 supermodel.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bgb_run</span><span class="op">$</span><span class="va">BioGeoBEARS_model_object</span></span>
 <span><span class="co">#&gt; An object of class "BioGeoBEARS_model"</span></span>
 <span><span class="co">#&gt; Slot "params_table":</span></span>
@@ -590,7 +569,7 @@ turned on or off to reproduce biogeographic models like DEC, DIVA,
 BayArea and/or expand them.</p>
 <p>See Fig. 1 in <span class="citation">Matzke (2013)</span> for an
 overview of the supermodel and parameters:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/include_graphics.html" class="external-link">include_graphics</a></span><span class="op">(</span><span class="st">"http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_supermodel.png"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_supermodel.png"><!-- --></p>
 <p>Note that by default, all parameters but <em>d</em> and <em>e</em>
@@ -599,22 +578,21 @@ effect). That is, by default, <code>BioGeoBEARS_model_object</code>
 specifies the DEC model.</p>
 <p>For this example, we simply modify the model to make <em>j</em> a
 free parameter, and thus turn the model into DEC+J.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># DEC -&gt; DEC+J</span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">BioGeoBEARS_model_object</span><span class="op">@</span><span class="va">params_table</span><span class="op">$</span><span class="va">desc</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"free"</span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">BioGeoBEARS_model_object</span><span class="op">@</span><span class="va">params_table</span><span class="op">$</span><span class="va">init</span><span class="op">[</span><span class="fl">9</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.01</span> <span class="co"># same value as d, e</span></span></code></pre></div>
 <p>Some further controls:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bgb_run</span><span class="op">$</span><span class="va">num_cores_to_use</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># no default value on this one</span></span>
 <span><span class="va">bgb_run</span><span class="op">$</span><span class="va">print_optim</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span> <span class="co"># for the sake of the vignette</span></span></code></pre></div>
 <p>Once everything is set up, it’s a good idea to check that the input
 complies to the format expected by BioGeoBEARS with the provided
 function. Then, we’re ready to run the optimisation:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">check_BioGeoBEARS_run</span><span class="op">(</span><span class="va">bgb_run</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">bears_optim_run</span><span class="op">(</span><span class="va">bgb_run</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">BioGeoBEARS</span><span class="fu">::</span><span class="fu">bears_optim_run</span><span class="op">(</span><span class="va">bgb_run</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Note: tipranges_to_tip_condlikes_of_data_on_each_state() is converting a states_list with (0-based) numbers to the equivalent areanames"</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Your computer has 4 cores.</span></span>
@@ -661,7 +639,7 @@ function. Then, we’re ready to run the optimisation:</p>
 <span><span class="co">#&gt;               p1           p2   value fevals gevals niter convcode  kkt1 kkt2</span></span>
 <span><span class="co">#&gt; bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE</span></span>
 <span><span class="co">#&gt;        xtime</span></span>
-<span><span class="co">#&gt; bobyqa 0.857</span></span></code></pre></div>
+<span><span class="co">#&gt; bobyqa 0.815</span></span></code></pre></div>
 <p>We do get a warning, but <a href="http://phylo.wikidot.com/biogeobears-warnings-to-ignore-mostly#unused_control_arguments" class="external-link">apparently</a>
 this can be ignored.</p>
 <p>Marginal probabilities for the ancestral states appear to be found in
@@ -675,7 +653,7 @@ areas (widespread state, nonendemic). Rows correspond to nodes
 <em>read from the input Newick file</em>, which may differ from the
 original tree. To identify the probability associated to each node we
 need to match the rows with the corresponding tip labels.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract probabilities</span></span>
 <span><span class="va">asr_likelihoods</span> <span class="op">&lt;-</span> <span class="va">res</span><span class="op">$</span><span class="va">ML_marginal_prob_each_state_at_branch_top_AT_node</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co"># Need to find which tip label matches each row</span></span>
@@ -696,9 +674,8 @@ need to match the rows with the corresponding tip labels.</p>
 <span><span class="co">#&gt; 3 bird_c                0            1                0</span></span>
 <span><span class="co">#&gt; 4 bird_a                0            1                0</span></span>
 <span><span class="co">#&gt; 5 bird_b                0            1                0</span></span>
-<span><span class="co">#&gt; 6 bird_f                0            1                0</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">asr_df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 6 bird_f                0            1                0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">asr_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    labels not_present_prob endemic_prob nondendemic_prob</span></span>
 <span><span class="co">#&gt; 34   &lt;NA&gt;     6.137318e-13 2.401258e-02     9.759874e-01</span></span>
 <span><span class="co">#&gt; 35   &lt;NA&gt;     9.474826e-11 1.180088e-10     1.000000e+00</span></span>
@@ -708,13 +685,13 @@ need to match the rows with the corresponding tip labels.</p>
 <span><span class="co">#&gt; 39   &lt;NA&gt;     1.000000e+00 1.529832e-25     9.339950e-11</span></span></code></pre></div>
 <p>The code above has been wrapped in a utility function,
 <code><a href="../reference/extract_biogeobears_ancestral_states_probs.html">extract_biogeobears_ancestral_states_probs()</a></code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">asr_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_biogeobears_ancestral_states_probs.html">extract_biogeobears_ancestral_states_probs</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></code></pre></div>
 <p>The last step before extracting the island community from the tree is
 to rule which state each node is in from the probabilities. We provide a
 convenient function to do this from the output of the previous
 function:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_endemicity_status.html">select_endemicity_status</a></span><span class="op">(</span><span class="va">asr_df</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span></code></pre></div>
 <p>By default, (<code>method = "max"</code>), we simply select the state
 with the highest probability (preferring the last in the event of a
@@ -727,7 +704,7 @@ to the ancestral state reconstruction.</p>
 <code>endemicity_status</code> for tips, one state column
 <code>island_status</code> for internal nodes) and add it back to the
 tree data with <code>phylobase</code>’s <code>phylo4d</code> class.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add endemicity data</span></span>
 <span><span class="va">nb_tips</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/summary.phylo.html" class="external-link">Ntip</a></span><span class="op">(</span><span class="va">tree</span><span class="op">)</span></span>
 <span><span class="va">asr_df</span><span class="op">$</span><span class="va">label</span> <span class="op">&lt;-</span> <span class="cn">NULL</span> <span class="co"># drop label</span></span>
@@ -741,7 +718,7 @@ tree data with <code>phylobase</code>’s <code>phylo4d</code> class.</p>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Extending_asr_files/figure-html/order_biogeobears_asr-1.png" width="700"></p>
 <p>Voilà!</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_clades</span> <span class="op">&lt;-</span> <span class="fu">DAISIEprep</span><span class="fu">::</span><span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
@@ -749,9 +726,8 @@ tree data with <code>phylobase</code>’s <code>phylo4d</code> class.</p>
 <span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">species</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt;  [1] "bird_d" "bird_e" "bird_c" "bird_a" "bird_b" "bird_f" "bird_i" "bird_g"</span></span>
-<span><span class="co">#&gt;  [9] "bird_o" "bird_m" "bird_n"</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
+<span><span class="co">#&gt;  [9] "bird_o" "bird_m" "bird_n"</span></span>
+<span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt;  [1] 2.12780098 0.38960848 0.30994875 0.16207082 0.13800731 0.10346994</span></span>
 <span><span class="co">#&gt;  [7] 0.08406573 0.04477260 0.02586891 0.01218459</span></span></code></pre></div>
@@ -772,7 +748,7 @@ implemented in package <code>diversitree</code>.</p>
 we use a tree simulated directly with MuSSE as an example, with three
 states (mainland/island/both, or not present/endemic/nonendemic) and
 arbitrary parameter values:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Simulate a tree under a MuSSE model,</span></span>
 <span><span class="co"># with arbitrary initial parameter values</span></span>
 <span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -803,7 +779,7 @@ arbitrary parameter values:</p>
 <span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.state</span><span class="op">[</span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.label</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">outgroup_clade</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="co"># not_present</span></span></code></pre></div>
 <p>The output phylogenetic trees come with simulated states attached at
 the tips:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.state</span></span>
 <span><span class="co">#&gt; bird_a bird_b bird_c bird_d bird_e bird_f bird_g bird_h bird_i bird_j bird_k </span></span>
 <span><span class="co">#&gt;      1      3      1      3      2      2      2      1      1      1      1 </span></span>
@@ -813,7 +789,7 @@ the tips:</p>
 single-digit states and the three endemicity status used by
 <code>DAISIEprep</code>, we have included functions to switch easily
 between the two:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sse_states_to_endemicity.html">sse_states_to_endemicity</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.state</span>, sse_model <span class="op">=</span> <span class="st">"musse"</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
@@ -823,18 +799,16 @@ structure is first specified to create a likelihood function; then
 parameters are optimised for this function; and finally the
 probabilities of states of the internal nodes are determined with the
 resulting maximum-likelihood model.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_sse_tip_states.html">get_sse_tip_states</a></span><span class="op">(</span><span class="va">phylod</span>, sse_model <span class="op">=</span> <span class="st">"musse"</span><span class="op">)</span></span>
 <span><span class="va">states</span> <span class="co"># note that states must be named after tips</span></span>
 <span><span class="co">#&gt; bird_a bird_b bird_c bird_d bird_e bird_f bird_g bird_h bird_i bird_j bird_k </span></span>
 <span><span class="co">#&gt;      1      3      1      3      2      2      2      1      1      1      1 </span></span>
 <span><span class="co">#&gt; bird_l bird_m bird_n bird_o bird_p bird_q bird_r bird_s bird_t </span></span>
-<span><span class="co">#&gt;      1      2      2      2      3      1      1      1      1</span></span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;      1      2      2      2      3      1      1      1      1</span></span>
+<span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in asMethod(object): losing data while coercing phylo4d to phylo</span></span>
+<span></span>
 <span><span class="co"># Create likelihood function</span></span>
 <span><span class="va">lik_musse</span> <span class="op">&lt;-</span> <span class="fu">diversitree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/diversitree/man/make.musse.html" class="external-link">make.musse</a></span><span class="op">(</span></span>
 <span>  tree <span class="op">=</span> <span class="va">tree</span>, </span>
@@ -859,7 +833,7 @@ resulting maximum-likelihood model.</p>
 <span><span class="co">#&gt; R definition:</span></span>
 <span><span class="co">#&gt; function (pars, condition.surv = TRUE, root = ROOT.OBS, root.p = NULL, </span></span>
 <span><span class="co">#&gt;     intermediates = FALSE)</span></span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit_musse</span> <span class="op">&lt;-</span> <span class="fu">diversitree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/diversitree/man/find.mle.html" class="external-link">find.mle</a></span><span class="op">(</span>func <span class="op">=</span> <span class="va">lik_musse</span>, x.init <span class="op">=</span> <span class="va">pars</span>, method <span class="op">=</span> <span class="st">"subplex"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># MuSSE ancestral state reconstructions under the ML model</span></span>
@@ -883,7 +857,7 @@ resulting maximum-likelihood model.</p>
 <span><span class="co">#&gt; [3,] 6.000565e-08 7.413017e-09 2.026303e-08 3.933283e-10</span></span></code></pre></div>
 <p>We obtain a (pivoted) table of probabilites linked to each state,
 from which we can select states as for the BioGeoBEARS example:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">asr_musse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">asr_musse</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr_musse</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="../reference/all_endemicity_status.html">all_endemicity_status</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"_prob"</span><span class="op">)</span></span>
 <span></span>
@@ -892,9 +866,8 @@ from which we can select states as for the BioGeoBEARS example:</p>
 <span><span class="co">#&gt;  [1] "endemic"     "endemic"     "endemic"     "endemic"     "endemic"    </span></span>
 <span><span class="co">#&gt;  [6] "endemic"     "endemic"     "not_present" "not_present" "endemic"    </span></span>
 <span><span class="co">#&gt; [11] "endemic"     "endemic"     "endemic"     "endemic"     "not_present"</span></span>
-<span><span class="co">#&gt; [16] "not_present" "not_present" "not_present" "not_present"</span></span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">asr_musse</span><span class="op">$</span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="va">island_status</span></span>
+<span><span class="co">#&gt; [16] "not_present" "not_present" "not_present" "not_present"</span></span>
+<span><span class="va">asr_musse</span><span class="op">$</span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="va">island_status</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">asr_musse</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/nodeId-methods.html" class="external-link">nodeId</a></span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"internal"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/addData-methods.html" class="external-link">addData</a></span><span class="op">(</span></span>
@@ -904,7 +877,7 @@ from which we can select states as for the BioGeoBEARS example:</p>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Extending_asr_files/figure-html/add_musse_asr_to_phylod-1.png" width="700"></p>
 <p>From this completed tree we can extract the island clade:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_clades</span> <span class="op">&lt;-</span> <span class="fu">DAISIEprep</span><span class="fu">::</span><span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
@@ -912,9 +885,8 @@ from which we can select states as for the BioGeoBEARS example:</p>
 <span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">species</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] "bird_d" "bird_o" "bird_p" "bird_e" "bird_f" "bird_b" "bird_g" "bird_m"</span></span>
-<span><span class="co">#&gt; [9] "bird_n"</span></span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
+<span><span class="co">#&gt; [9] "bird_n"</span></span>
+<span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 8.0047889 6.4518206 4.2518993 2.5503507 1.6635537 1.6299262 0.4224813</span></span>
 <span><span class="co">#&gt; [8] 0.4212151</span></span></code></pre></div>
@@ -926,7 +898,7 @@ simultaneously; so that direct transitions from state 1 to 2 and back
 should be forbidden. One could also assume mainland speciation to be
 unlikely, resulting in zero speciation on the mainland and the same
 speciation rate for endemic and nonendemic species:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lik_musse_c</span> <span class="op">&lt;-</span> <span class="fu">diversitree</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/diversitree/man/constrain.html" class="external-link">constrain</a></span><span class="op">(</span></span>
 <span>  <span class="va">lik_musse</span>, </span>
 <span>  <span class="va">q12</span> <span class="op">~</span> <span class="fl">0</span>, <span class="va">q21</span> <span class="op">~</span> <span class="fl">0</span>, <span class="co"># no island-mainland jumps</span></span>
@@ -975,7 +947,7 @@ the rates of speciation and extinction; and thus on the branching
 patterns observed in the tree [goldberg_phylogenetic_2011], while DEC
 only maps geography along the branches of the tree.</p>
 <p>We use the same tree as the previous example:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rm all data but tip states</span></span>
 <span><span class="va">phylod</span><span class="op">@</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">phylod</span><span class="op">@</span><span class="va">data</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
@@ -988,15 +960,14 @@ areas. Hereafter, we follow 1 = mainland/not_present and 2 =
 island/endemic.</p>
 <p>The syntax is otherwise the same as for MuSSE (and other SSE models
 implemented in <code>diversitree</code>).</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_sse_tip_states.html">get_sse_tip_states</a></span><span class="op">(</span><span class="va">phylod</span>, sse_model <span class="op">=</span> <span class="st">"geosse"</span><span class="op">)</span></span>
 <span><span class="va">states</span> <span class="co"># note the encoding differs from the MuSSE example</span></span>
 <span><span class="co">#&gt; bird_a bird_b bird_c bird_d bird_e bird_f bird_g bird_h bird_i bird_j bird_k </span></span>
 <span><span class="co">#&gt;      1      0      1      0      2      2      2      1      1      1      1 </span></span>
 <span><span class="co">#&gt; bird_l bird_m bird_n bird_o bird_p bird_q bird_r bird_s bird_t </span></span>
-<span><span class="co">#&gt;      1      2      2      2      0      1      1      1      1</span></span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt;      1      2      2      2      0      1      1      1      1</span></span>
+<span></span>
 <span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylod</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create likelihood function</span></span>
@@ -1021,7 +992,7 @@ implemented in <code>diversitree</code>).</p>
 <span><span class="co">#&gt; R definition:</span></span>
 <span><span class="co">#&gt; function (pars, condition.surv = TRUE, root = ROOT.OBS, root.p = NULL, </span></span>
 <span><span class="co">#&gt;     intermediates = FALSE)</span></span></code></pre></div>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial GeoSSE parameter values</span></span>
 <span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="co"># Speciation: sA sB sAB</span></span>
@@ -1053,21 +1024,19 @@ implemented in <code>diversitree</code>).</p>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Extending_asr_files/figure-html/fit_geosse_and_asr-1.png" width="700"></p>
 <p>We are now ready to extract the island clade.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_clades</span> <span class="op">&lt;-</span> <span class="fu">DAISIEprep</span><span class="fu">::</span><span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in extract_species_asr(phylod = phylod, species_label = as.character(phylod@label[i]), : Root of the phylogeny is on the island so the colonisation</span></span>
 <span><span class="co">#&gt;               time from the stem age cannot be collected, colonisation time</span></span>
-<span><span class="co">#&gt;               will be set to infinite.</span></span></code></pre></div>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">species</span></span>
+<span><span class="co">#&gt;               will be set to infinite.</span></span>
+<span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">species</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] "bird_d" "bird_o" "bird_p" "bird_e" "bird_f" "bird_b" "bird_g" "bird_m"</span></span>
-<span><span class="co">#&gt; [9] "bird_n"</span></span></code></pre></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
+<span><span class="co">#&gt; [9] "bird_n"</span></span>
+<span><span class="va">island_clades</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">branching_times</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 8.0047889 6.4518206 4.2518993 2.5503507 1.6635537 1.6299262 0.4224813</span></span>
 <span><span class="co">#&gt; [8] 0.4212151</span></span></code></pre></div>
@@ -1113,7 +1082,7 @@ impossible:</p>
 <p><img src="Extending_asr_files/figure-html/sample_tree_corhmm-1.png" width="700"></p>
 <p>Let’s first fit a naive, single-regime SSE model, where all possible
 transitions between the three states are permitted:</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract data from phylo</span></span>
 <span><span class="va">status_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"species"</span> <span class="op">=</span> <span class="va">phylod</span><span class="op">@</span><span class="va">label</span>, <span class="va">phylod</span><span class="op">@</span><span class="va">data</span><span class="op">)</span></span>
 <span></span>
@@ -1131,7 +1100,7 @@ transitions between the three states are permitted:</p>
 <span><span class="co">#&gt; Finished. Inferring ancestral states using marginal reconstruction.</span></span></code></pre></div>
 <p>Calling the output <code>corHMM</code> prints a summary of the
 solution, including the estimated transition rates.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fit_corhmm</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Fit</span></span>
@@ -1160,7 +1129,7 @@ nonendemic and subject to dramatically fast extinction of their mainland
 population, or result from miraculous colonization events.</p>
 <p>The posterior probabilities for the ancestral states are contained in
 the <code>states</code> element of the output object.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract posterior probabilities of each state for each node</span></span>
 <span><span class="va">asr_corhmm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">fit_corhmm</span><span class="op">$</span><span class="va">states</span><span class="op">)</span></span>
 <span></span>
@@ -1183,7 +1152,7 @@ two speciation regimes described earlier, including possible transitions
 between them.</p>
 <p>First, we need to specify the mapping of transitions between the
 three states for each regime as 3-by-3 matrices.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Regime 1, E &lt;-&gt; NE &lt;-&gt; NP</span></span>
 <span><span class="va">rate_mat_r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -1207,7 +1176,7 @@ three states for each regime as 3-by-3 matrices.</p>
 number of parameters), not values! Zero forbids a transition. We also
 need to specify possible transitions between the two regimes in a 2-by-2
 matrix.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">regime_shift_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>,</span>
 <span>           <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>,</span>
@@ -1215,7 +1184,7 @@ matrix.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The matrices can then be collated into viable <code>corHMM</code>
 input via <code>getFullMat()</code>:</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Assemble input matrix</span></span>
 <span><span class="va">param_mat</span> <span class="op">&lt;-</span> <span class="fu">corHMM</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corHMM/man/getFullMat.html" class="external-link">getFullMat</a></span><span class="op">(</span></span>
 <span>  StateMats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">rate_mat_r1</span>, <span class="va">rate_mat_r2</span><span class="op">)</span>,</span>
@@ -1233,9 +1202,8 @@ input via <code>getFullMat()</code>:</p>
 <span><span class="co">#&gt; States:  1   2   3   </span></span>
 <span><span class="co">#&gt; Counts:  5   7   8   </span></span>
 <span><span class="co">#&gt; Beginning thorough optimization search -- performing 0 random restarts </span></span>
-<span><span class="co">#&gt; Finished. Inferring ancestral states using marginal reconstruction.</span></span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Output</span></span>
+<span><span class="co">#&gt; Finished. Inferring ancestral states using marginal reconstruction.</span></span>
+<span><span class="co"># Output</span></span>
 <span><span class="va">fit_corhmm_hidden</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Fit</span></span>
@@ -1259,7 +1227,7 @@ input via <code>getFullMat()</code>:</p>
 <p>As usual, we proceed to extract the posterior probabilities for the
 ancestral states. However, we first need to merge the probabilities of
 each state across the two regimes.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Extract posterior probabilities of each state for each node</span></span>
 <span><span class="va">asr_corhmm_hidden</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">fit_corhmm_hidden</span><span class="op">$</span><span class="va">states</span><span class="op">)</span></span>
@@ -1270,9 +1238,8 @@ each state across the two regimes.</p>
 <span><span class="co">#&gt; 3 0.1397523 0.1636058 0.1966420 0.1269082 0.1636058 0.2094861</span></span>
 <span><span class="co">#&gt; 4 0.1397633 0.1636121 0.1966271 0.1269184 0.1636142 0.2094649</span></span>
 <span><span class="co">#&gt; 5 0.1398113 0.1636394 0.1965624 0.1269632 0.1636506 0.2093730</span></span>
-<span><span class="co">#&gt; 6 0.1398908 0.1636890 0.1964514 0.1270358 0.1637188 0.2092142</span></span></code></pre></div>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; 6 0.1398908 0.1636890 0.1964514 0.1270358 0.1637188 0.2092142</span></span>
+<span></span>
 <span><span class="co"># Merge (sum) probabilities for both regimes</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">+</span> <span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="va">i</span> <span class="op">+</span> <span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">asr_corhmm_hidden</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
@@ -1286,7 +1253,7 @@ each state across the two regimes.</p>
 <span><span class="co">#&gt; 5 0.2667746 0.3272900 0.4059354</span></span>
 <span><span class="co">#&gt; 6 0.2669266 0.3274077 0.4056656</span></span></code></pre></div>
 <p>We can then add the ASR to the phylogeny:</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert posterior data to DAISIE format</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">status_df</span><span class="op">$</span><span class="va">endemicity_status</span><span class="op">)</span>, <span class="st">"_prob"</span><span class="op">)</span></span>
 <span><span class="va">island_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/select_endemicity_status.html">select_endemicity_status</a></span><span class="op">(</span><span class="va">asr_corhmm_hidden</span>, method <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span></span>
@@ -1299,9 +1266,8 @@ each state across the two regimes.</p>
 <span><span class="co">#&gt; 23    0.2666604       0.3272115        0.4061280   not_present</span></span>
 <span><span class="co">#&gt; 24    0.2666817       0.3272263        0.4060920   not_present</span></span>
 <span><span class="co">#&gt; 25    0.2667746       0.3272900        0.4059354   not_present</span></span>
-<span><span class="co">#&gt; 26    0.2669266       0.3274077        0.4056656   not_present</span></span></code></pre></div>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
+<span><span class="co">#&gt; 26    0.2669266       0.3274077        0.4056656   not_present</span></span>
+<span></span>
 <span><span class="co"># Add ASR to phylo</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/addData-methods.html" class="external-link">addData</a></span><span class="op">(</span></span>
@@ -1340,7 +1306,7 @@ hand.</p>
 </h2>
 <p>Below, we show the data manipulation underlying ASR with maximum
 parsimony, as done inside <code><a href="../reference/add_asr_node_states.html">add_asr_node_states()</a></code>.</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tip_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/tdata-methods.html" class="external-link">tipData</a></span><span class="op">(</span><span class="va">phylod</span><span class="op">)</span><span class="op">$</span><span class="va">endemicity_status</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1356,7 +1322,7 @@ parsimony, as done inside <code><a href="../reference/add_asr_node_states.html">
 package <code>castor</code>. The <code>castor</code> package only works
 with S3 <code>phylo</code> objects, so we need to convert the phylogeny
 back to this type and then run the analysis.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">phylo</span>, <span class="st">"phylo"</span><span class="op">)</span></span>
 <span><span class="va">asr</span> <span class="op">&lt;-</span> <span class="fu">castor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/castor/man/asr_max_parsimony.html" class="external-link">asr_max_parsimony</a></span><span class="op">(</span></span>
 <span>  tree <span class="op">=</span> <span class="va">phylo</span>,</span>
@@ -1367,7 +1333,7 @@ back to this type and then run the analysis.</p>
 (island presence/absence) at each node in the phylogeny. The first
 column of the matrix is not present on the island and the second column
 of the matrix is present on the island.</p>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"not_present"</span>, <span class="st">"nonendemic"</span><span class="op">)</span></span>
 <span><span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">)</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
@@ -1388,11 +1354,11 @@ function, if you consider it not on the island use
 species are on the island, but for completeness it may be worth running
 both and then seeing if there are significant downstream
 consequences.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col</a></span><span class="op">(</span><span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span>, ties.method <span class="op">=</span> <span class="st">"last"</span><span class="op">)</span></span></code></pre></div>
 <p>These values can now be converted back to string to make them more
 readable.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span></span>
 <span>  pattern <span class="op">=</span> <span class="st">"1"</span>, replacement <span class="op">=</span> <span class="st">"not_present"</span>, x <span class="op">=</span> <span class="va">node_states</span></span>
 <span><span class="op">)</span></span>
@@ -1404,7 +1370,7 @@ readable.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Now the ancestral states at the nodes is available we can combine it
 into our <code>phylod</code> object.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">node_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  island_status <span class="op">=</span> <span class="va">node_states</span>,</span>
 <span>  endemic_prob <span class="op">=</span> <span class="va">asr</span><span class="op">$</span><span class="va">ancestral_likelihoods</span><span class="op">[</span>, <span class="st">"endemic"</span><span class="op">]</span>,</span>
@@ -1470,7 +1436,7 @@ islands</a>. Ecology Letters 18:844–852.
 </div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -1481,15 +1447,15 @@ islands</a>. Ecology Letters 18:844–852.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>

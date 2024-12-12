@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="DAISIEprep">
 <title>DAISIEprep Tutorial • DAISIEprep</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,64 +14,48 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="DAISIEprep Tutorial">
-<meta property="og:description" content="DAISIEprep">
-<meta property="og:image" content="https://joshwlambert.github.io/DAISIEprep/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="DAISIEprep Tutorial">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">DAISIEprep</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.2</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a>
-    <a class="dropdown-item" href="../articles/Performance.html">Performance</a>
-    <a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a>
-    <a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a></li>
+    <li><a class="dropdown-item" href="../articles/Performance.html">Performance</a></li>
+    <li><a class="dropdown-item" href="../articles/Sensitivity.html">Sensitivity</a></li>
+    <li><a class="dropdown-item" href="../articles/Tutorial.html">DAISIEprep Tutorial</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/joshwlambert/DAISIEprep/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -84,7 +67,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>DAISIEprep Tutorial</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/HEAD/vignettes/Tutorial.Rmd" class="external-link"><code>vignettes/Tutorial.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/joshwlambert/DAISIEprep/blob/master/vignettes/Tutorial.Rmd" class="external-link"><code>vignettes/Tutorial.Rmd</code></a></small>
       <div class="d-none name"><code>Tutorial.Rmd</code></div>
     </div>
 
@@ -121,29 +104,16 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co">#&gt; Attaching package: 'phylobase'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:ape':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     edges</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/" class="external-link">ggtree</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">ggtree v3.12.0 For help: https://yulab-smu.top/treedata-book/</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; If you use the ggtree package suite in published research, please cite</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; the appropriate paper(s):</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; ggtree: an R package for visualization and annotation of phylogenetic</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; trees with their covariates and other associated data. Methods in</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; LG Wang, TTY Lam, S Xu, Z Dai, L Zhou, T Feng, P Guo, CW Dunn, BR</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Jones, T Bradley, H Zhu, Y Guan, Y Jiang, G Yu. treeio: an R package</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; for phylogenetic tree input and output with richly annotated and</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; associated data. Molecular Biology and Evolution. 2020, 37(2):599-603.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; doi: 10.1093/molbev/msz240</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; </span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; for mapping and visualizing associated data on phylogeny using ggtree.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; Molecular Biology and Evolution. 2018, 35(12):3041-3043.</span></span></span>
-<span><span class="co"><span style="color: #949494;">#&gt; doi:10.1093/molbev/msy194 </span></span></span>
+<span><span class="co">#&gt;     edges</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.amazon.com/Integration-Manipulation-Visualization-Phylogenetic-Computational-ebook/dp/B0B5NLZR1Z/" class="external-link">ggtree</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ggtree v3.14.0 Learn more at https://yulab-smu.top/contribution-tree-data/</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Please cite:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam.</span></span>
+<span><span class="co">#&gt; ggtree: an R package for visualization and annotation of phylogenetic</span></span>
+<span><span class="co">#&gt; trees with their covariates and other associated data. Methods in</span></span>
+<span><span class="co">#&gt; Ecology and Evolution. 2017, 8(1):28-36. doi:10.1111/2041-210X.12628</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'ggtree'</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:phylobase':</span></span>
@@ -151,12 +121,10 @@ species, lineages, etc, to your DAISIE data list.</p></li>
 <span><span class="co">#&gt;     MRCA</span></span>
 <span><span class="co">#&gt; The following object is masked from 'package:ape':</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     rotate</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GuangchuangYu/ggimage" class="external-link">ggimage</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: ggplot2</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">castor</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     rotate</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GuangchuangYu/ggimage" class="external-link">ggimage</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">castor</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: Rcpp</span></span></code></pre></div>
 </div>
 </div>
@@ -169,7 +137,7 @@ formatting data from a single phylogeny. We use a simulated phylogeny,
 which faciliates explaining how the data is structured.<a class="anchor" aria-label="anchor" href="#in-this-section-we-demonstrate-a-simple-example-of-extracting-and-formatting-data-from-a-single-phylogeny--we-use-a-simulated-phylogeny-which-faciliates-explaining-how-the-data-is-structured-"></a>
 </h4>
 <p>First we simulate a phylogeny using the package <code>ape</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span></span>
 <span>  <span class="fl">1</span>,</span>
 <span>  kind <span class="op">=</span> <span class="st">"Mersenne-Twister"</span>,</span>
@@ -189,14 +157,14 @@ considered to be of the same species, even if they have subsequent
 sampling or subspecies tags.</p>
 <p>Here we add tip labels to the simulated phylogeny. In this case, all
 taxa sampled are different plant species from the same genus.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylo</span><span class="op">$</span><span class="va">tip.label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Plant_a"</span>, <span class="st">"Plant_b"</span>, <span class="st">"Plant_c"</span>, <span class="st">"Plant_d"</span>, <span class="st">"Plant_e"</span>,</span>
 <span>                     <span class="st">"Plant_f"</span>, <span class="st">"Plant_g"</span>, <span class="st">"Plant_h"</span>, <span class="st">"Plant_i"</span>, <span class="st">"Plant_j"</span><span class="op">)</span></span></code></pre></div>
 <p>Then we convert the phylogeny to a <code>phylo4</code> class defined
 in the package <code>phylobase</code>. This allows users to easily work
 with data for each tip in the phylogeny, for example whether they are
 endemic to the island or not.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylo</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4-methods.html" class="external-link">phylo4</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">)</span></span>
 <span><span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/convert%20phylo%20to%20phylo4-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -208,7 +176,7 @@ endemic to the island (<code>"endemic"</code>) or non-endemic to the
 island (<code>"nonendemic"</code>). (<strong>In a real example this
 should be based on the actual endemicity status of each
 species!</strong>).</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"not_present"</span>, <span class="st">"endemic"</span>, <span class="st">"nonendemic"</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/labels-methods.html" class="external-link">tipLabels</a></span><span class="op">(</span><span class="va">phylo</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -220,12 +188,12 @@ the <code>phylo4d</code> class, again from the <code>phylobase</code>
 package. This call is designed for phylogenetic and trait data to be
 stored together. The endemicity status needs to be converted into a data
 frame in order for the column to be labelled correctly.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We can now visualise our phylogeny with the island endemicity
 statuses plotted at the tips. This uses the <code>ggtree</code> and
 <code>ggplot2</code> packages.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/plot%20phylogeny%20with%20tip%20data-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Now that we can see the tips that are present on the island, we can
@@ -239,7 +207,7 @@ all of the island colonists’ information. This uses the
 This <code>island_tbl</code> object can then easily be converted to a
 DAISIE data list using the function <code>create_daisie_data</code>
 (more information on this below).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/island_tbl.html">island_tbl</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">island_tbl</span></span>
 <span><span class="co">#&gt; Class:  Island_tbl </span></span>
@@ -250,7 +218,7 @@ DAISIE data list using the function <code>create_daisie_data</code>
 <p>We can see that this is a object containing an empty data frame. In
 order to fill this data frame with information on the island
 colonisation and diversification events we can run:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"min"</span></span>
@@ -287,11 +255,11 @@ First, we translate our extant species endemicity status to a numeric
 representation of whether that species is on the island. We add one, as
 the ancestral state reconstruction method cannot handle zero as a
 state.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"parsimony"</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can plot the phylogeny, which this time includes the node
 labels for the presence/absence on the island in ancestral nodes.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/plot%20phylogeny%20with%20tip%20and%20node%20data-1.png" width="672" style="display: block; margin: auto;"></p>
 <p><br><br></p>
@@ -305,12 +273,12 @@ ancestral state reconstruction using
 <p>Now we can extract island colonisation and diversification times from
 the phylogeny using the reconstructed ancestral states of island
 presence/absence.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span></span>
 <span><span class="co">#&gt; Class:  Island_tbl </span></span>
 <span><span class="co">#&gt;   clade_name  status missing_species  col_time col_max_age branching_times</span></span>
@@ -353,7 +321,7 @@ being the source of species colonising Comoros). This information is
 used by the DAISIE model to calculate the colonisation rate of the
 island.</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  island_age <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -367,7 +335,7 @@ of species in the mainland pool that did not leave descendants on the
 island at the present day. This is important information for DAISIE
 inference, as it is possible some mainland species colonised the island
 but went extinct leaving no trace of their island presence.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $island_age</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -395,7 +363,7 @@ type 1. However, if there is <strong>a priori</strong> expectation that
 one clade significantly different from the rest, e.g. the Galápagos
 finches amongst the other terrestrial birds of the Galápagos archipelago
 this clade can be set to type 2.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt; $colonist_name</span></span>
 <span><span class="co">#&gt; [1] "Plant_g"</span></span>
@@ -441,7 +409,7 @@ environment. This code is functionally doing the same this as
 <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code> if the data were stored in the data/ folder, so if
 the code seems confusing just remember it is loading the phylogeny into
 memory for each group.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coccyzus_tree</span> <span class="op">&lt;-</span> <span class="fu">ape</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.nexus.html" class="external-link">read.nexus</a></span><span class="op">(</span></span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Coccyzus.tre"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -468,7 +436,7 @@ memory for each group.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Currently the phylogenies are loaded as S3 phylo objects, however, we
 want to convert them into S4 phylobase objects.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coccyzus_tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">coccyzus_tree</span>, <span class="st">"phylo4"</span><span class="op">)</span></span>
 <span><span class="va">columbiformes_tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">columbiformes_tree</span>, <span class="st">"phylo4"</span><span class="op">)</span></span>
 <span><span class="va">finches_tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">finches_tree</span>, <span class="st">"phylo4"</span><span class="op">)</span></span>
@@ -479,7 +447,7 @@ want to convert them into S4 phylobase objects.</p>
 <span><span class="va">setophaga_tree</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">setophaga_tree</span>, <span class="st">"phylo4"</span><span class="op">)</span></span></code></pre></div>
 <p>Now that all of the phylogenies are loaded we can inspect them. Let’s
 start with the phylogeny for the genus <em>Coccyzus</em>:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">coccyzus_tree</span>, cex <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can now create a table (data frame) of the <em>Coccyzus</em>
@@ -489,7 +457,7 @@ table can be imported from a .csv or spreadsheet if you prefer.</p>
 <code>phylobase::tiplabels(coccyzus_tree)</code>. <strong>Make sure the
 spelling matches exactly including any whitespace and underscores, and
 the case of the names.</strong></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  tip_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Coccyzus_melacoryphus_GALAPAGOS_L569A"</span>,</span>
 <span>                 <span class="st">"Coccyzus_melacoryphus_GALAPAGOS_L571A"</span><span class="op">)</span>,</span>
@@ -503,7 +471,7 @@ which specifies the island endemicity status of only the species that
 are found on the island, we can generate the rest of the endemicity
 statuses for those species that are in the phylogeny but are not present
 on the island using <code><a href="../reference/create_endemicity_status.html">create_endemicity_status()</a></code>.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">endemicity_status</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_endemicity_status.html">create_endemicity_status</a></span><span class="op">(</span></span>
 <span>  phylo <span class="op">=</span> <span class="va">coccyzus_tree</span>,</span>
 <span>  island_species <span class="op">=</span> <span class="va">island_species</span></span>
@@ -514,11 +482,11 @@ status data into a single data structure, the <code>phylo4d</code> class
 from the <code>phylobase</code> R package, in exactly the same way as in
 the <a href="#id_#%201.%20Single%20Phylogeny%20Example">single phylogeny
 example</a>.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">coccyzus_tree</span>, <span class="va">endemicity_status</span><span class="op">)</span></span></code></pre></div>
 <p>We can visualize the endemicity status of these species on the
 tree.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/plot%20coccyzus%20phylogeny%20with%20tip%20data-1.png" width="672" style="display: block; margin: auto;"></p>
 <p><br></p>
@@ -526,24 +494,24 @@ tree.</p>
 produce the <code>island_tbl</code> for the <em>Coccyzus</em> tree. For
 this step we use the “asr” method to extract the data which requires
 inferring the ancestral geography of each species.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  asr_method <span class="op">=</span> <span class="st">"parsimony"</span>,</span>
 <span>  tie_preference <span class="op">=</span> <span class="st">"mainland"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Plot the phylogeny with the node states:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/plot%20phylogeny%20with%20tip%20and%20node%20data%20Coccyzus-1.png" width="672" style="display: block; margin: auto;"></p>
 <p><br></p>
 <p>Extract the data from the phylogeny:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span></span>
 <span><span class="co">#&gt; Class:  Island_tbl </span></span>
 <span><span class="co">#&gt;              clade_name     status missing_species col_time col_max_age</span></span>
@@ -554,7 +522,7 @@ inferring the ancestral geography of each species.</p>
 phylogenies and converting them to <code>phylo4d</code> objects (as we
 did for <em>Coccyzus</em> above ), this has already been done and the
 data objects have been prepared in advance and are ready to be used.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coccyzus_phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span></span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"coccyzus_phylod.rds"</span>, package <span class="op">=</span> <span class="st">"DAISIEprep"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -589,14 +557,14 @@ that is: a dated phylogeny, with tips written in “Genus_species” or
 specified for all tips. We are now ready to extract the island data from
 these trees using <code><a href="../reference/extract_island_species.html">extract_island_species()</a></code>, using the “asr”
 algorithm.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">coccyzus_phylod</span>,</span>
 <span>  extraction_method <span class="op">=</span> <span class="st">"asr"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>We can now loop through the rest of the Galapagos phylogenies and add
 them to the island data.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">galapagos_phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="va">coccyzus_phylod</span>, <span class="va">columbiformes_phylod</span>, <span class="va">finches_phylod</span>, <span class="va">mimus_phylod</span>,</span>
 <span>  <span class="va">myiarchus_phylod</span>, <span class="va">progne_phylod</span>, <span class="va">pyrocephalus_phylod</span>, <span class="va">setophaga_phylod</span></span>
@@ -623,10 +591,10 @@ example this colonisation time is not a problem, however, for empirical
 analyses it is recommended to have many more mainland outgroup species
 in the tree to ensure the ancestral state reconstructions can accurately
 detect the stem age of the island clade.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span><span class="va">finches_phylod</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/plot%20Darwins%20finches-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span></span>
 <span><span class="co">#&gt; Class:  Island_tbl </span></span>
 <span><span class="co">#&gt;                                 clade_name     status missing_species  col_time</span></span>
@@ -657,7 +625,7 @@ tutorial, and when using this pipeline to process different data it may
 be worth toggling the <code>precise_col_time</code> to
 <code>FALSE</code> to check whether assuming uncertainty in colonisation
 times influences conclusions.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  island_age <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -698,7 +666,7 @@ want to add them as missing species to the Galápagos finch clade that is
 sampled in the phylogeny. The finches have the clade name “C_fus” in the
 <code>island_tbl</code> (third row). To assign two missing species to
 this clade we use following code:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_missing_species.html">add_missing_species</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  <span class="co"># num_missing_species equals total species missing</span></span>
@@ -713,7 +681,7 @@ species from that island clade to work out which colonist in the
 species (<code>num_missing_species</code>) to. In this case we used the
 species in the clade name, however, this could also have been any
 sampled species from the clade, which include:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span><span class="op">@</span><span class="va">island_tbl</span><span class="op">$</span><span class="va">species</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co">#&gt;  [1] "C_fus"  "C_oliv" "P_cras" "G_diff" "C_pau"  "C_par"  "C_psi"  "C_hel" </span></span>
 <span><span class="co">#&gt;  [9] "C_pal"  "G_sep"  "G_for"  "G_ful"  "G_con"  "G_mag"  "G_scan"</span></span></code></pre></div>
@@ -777,7 +745,7 @@ colonist is assumed to be under, default is 1, as number greater than
 one assume this clade is exceptionally different in its colonisation and
 diversification dynamics</li>
 </ul>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  clade_name <span class="op">=</span> <span class="st">"Bird_a"</span>,</span>
@@ -847,7 +815,7 @@ colonist is assumed to be under, default is 1, as number greater than
 one assume this clade is exceptionally different in its colonisation and
 diversification dynamics</li>
 </ul>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  clade_name <span class="op">=</span> <span class="st">"Bird_b"</span>,</span>
@@ -890,7 +858,7 @@ the number of missing species in this case should be
 </li>
 </ul>
 <p>Example for adding lineage with 1 species:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  clade_name <span class="op">=</span> <span class="st">"Bird_e"</span>,</span>
@@ -906,7 +874,7 @@ the number of missing species in this case should be
 <span>  species <span class="op">=</span> <span class="st">"Bird_e"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Example for adding lineage with 5 species:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  clade_name <span class="op">=</span> <span class="st">"Bird_f"</span>,</span>
@@ -941,7 +909,7 @@ DAISIE inference model it will be assumed it colonised the island any
 time between the island’s formation (in the case of the Galápagos four
 million years ago) and the crown or minimum age. In the example below we
 assume a crown age of 2 million years.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_island_colonist.html">add_island_colonist</a></span><span class="op">(</span></span>
 <span>  island_tbl <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  clade_name <span class="op">=</span> <span class="st">"Bird_k"</span>,</span>
@@ -958,7 +926,7 @@ assume a crown age of 2 million years.</p>
 can repeat the conversion steps above using
 <code><a href="../reference/create_daisie_data.html">create_daisie_data()</a></code> to produce data accepted by the DAISIE
 model.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">data_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_daisie_data.html">create_daisie_data</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">island_tbl</span>,</span>
 <span>  island_age <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -967,7 +935,7 @@ model.</p>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -978,15 +946,15 @@ model.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
