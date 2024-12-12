@@ -55,14 +55,14 @@ add_island_colonist <- function(island_tbl,
             "min_age is ignored.")
   }
 
-  if (min_age < max(branching_times)) {
+  if (!is.na(min_age) && min_age < max(branching_times)) {
     warning("You have added a min_age that is younger than the oldest ",
             "branching time.\n This min_age will be treated as a ",
             "branching time and the oldest branching time will be treated ",
             "as the minimum age of colonisation.")
   }
 
-  if (min_age > col_time) {
+  if (!is.na(min_age) && !is.na(col_time) && min_age > col_time) {
     stop("The min_age cannot be older than the col_time.")
   }
 
