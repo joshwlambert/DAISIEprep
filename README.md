@@ -33,7 +33,7 @@ remotes::install_github("joshwlambert/DAISIEprep")
 
 ## Tutorial
 
-See [tutorial](vignettes/Tutorial.Rmd).
+See [tutorial](https://joshwlambert.github.io/DAISIEprep/articles/Tutorial.html).
 
 ## Help
 
