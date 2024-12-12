@@ -2,3 +2,24 @@ url: https://joshwlambert.github.io/DAISIEprep
 template:
   bootstrap: 5
 
+articles:
+- title: Tutorial
+  navbar: Tutorial
+  contents:
+  - Tutorial
+
+- title: Forcing nonendemic singletons
+  navbar: Forcing nonendemic singletons
+  contents:
+  - Forcing_nonendemic_singleton
+
+- title: Extending ASR
+  navbar: Extending ASR
+  contents:
+  - articles/Extending_asr
+
+- title: Miscellaneous
+  navbar: Miscellaneous
+  contents:
+  - Sensitivity
+  - Performance
