@@ -236,33 +236,17 @@ This data list is now ready to be used in the DAISIE maximum likelihood inferenc
 
 In the previous example we used a single phylogeny and extracted the colonisation and branching events from it. However, it could be the case that island species have been sampled in different phylogenies (e.g. based on different markers, coming from different studies). Here we look at an example for the terrestrial birds of the Galápagos archipelago. There are 8 time-calibrated phylogenies to extract the colonisation and diversification date from.
 
-First, the phylogenies need to be loaded using the function `read.nexus()` from the R package `ape`. Here the data is stored in `extdata` so we use `system.file()` to find the file and read it into the environment. This code is functionally doing the same as `data()` if the data were stored in the data/ folder, so if the code seems confusing just remember it is loading the phylogeny into memory for each group.
+First, the phylogenies need to be loaded. The phylogenies are stored in the DAISIEprep package so we can use the `data()` function, the phylogenies could alternatively be loaded using `read.nexus()` from the R package `ape`.
 
 ```{r}
-coccyzus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
-)
-columbiformes_tree <- ape::read.nexus(
-  file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
-)
-finches_tree <- ape::read.nexus(
-  file = system.file("extdata", "Finches.tre", package = "DAISIEprep")
-)
-mimus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
-)
-myiarchus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
-)
-progne_tree <- ape::read.nexus(
-  file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
-)
-pyrocephalus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Pyrocephalus.tre", package = "DAISIEprep")
-)
-setophaga_tree <- ape::read.nexus(
-  file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
-)
+data(coccyzus_tree, package = "DAISIEprep")
+data(columbiformes_tree, package = "DAISIEprep")
+data(finches_tree, package = "DAISIEprep")
+data(mimus_tree, package = "DAISIEprep")
+data(myiarchus_tree, package = "DAISIEprep")
+data(progne_tree, package = "DAISIEprep")
+data(pyrocephalus_tree, package = "DAISIEprep")
+data(setophaga_tree, package = "DAISIEprep")
 ```
 
 Currently the phylogenies are loaded as S3 phylo objects, however, we want to convert them into S4 phylobase objects.
@@ -353,34 +337,14 @@ island_tbl
 Instead of assigning the endemicity to each of the Galapagos bird phylogenies and converting them to `phylo4d` objects (as we did for *Coccyzus* above ), this has already been done and the data objects have been prepared in advance and are ready to be used.
 
 ```{r load galapagos phylod data}
-coccyzus_phylod <- readRDS(
-  file = system.file("extdata", "coccyzus_phylod.rds", package = "DAISIEprep")
-)
-columbiformes_phylod <- readRDS(
-  file = system.file(
-    "extdata", "columbiformes_phylod.rds", package = "DAISIEprep"
-  )
-)
-finches_phylod <- readRDS(
-  file = system.file("extdata", "finches_phylod.rds", package = "DAISIEprep")
-)
-mimus_phylod <- readRDS(
-  file = system.file("extdata", "mimus_phylod.rds", package = "DAISIEprep")
-)
-myiarchus_phylod <- readRDS(
-  file = system.file("extdata", "myiarchus_phylod.rds", package = "DAISIEprep")
-)
-progne_phylod <- readRDS(
-  file = system.file("extdata", "progne_phylod.rds", package = "DAISIEprep")
-)
-pyrocephalus_phylod <- readRDS(
-  file = system.file(
-    "extdata", "pyrocephalus_phylod.rds", package = "DAISIEprep"
-  )
-)
-setophaga_phylod <- readRDS(
-  file = system.file("extdata", "setophaga_phylod.rds", package = "DAISIEprep")
-)
+data(coccyzus_phylod, package = "DAISIEprep")
+data(columbiformes_phylod, package = "DAISIEprep")
+data(finches_phylod, package = "DAISIEprep")
+data(mimus_phylod, package = "DAISIEprep")
+data(myiarchus_phylod, package = "DAISIEprep")
+data(progne_phylod, package = "DAISIEprep")
+data(pyrocephalus_phylod, package = "DAISIEprep")
+data(setophaga_phylod, package = "DAISIEprep")
 ```
 
 We now have the data for all 8 phylogenies in the correct format, that is: a dated phylogeny, with tips written in "Genus_species" or "Genus_species_TAG" format and with the island endemicity status specified for all tips. We are now ready to extract the island data from these trees using `extract_island_species()`, using the "asr" algorithm.
