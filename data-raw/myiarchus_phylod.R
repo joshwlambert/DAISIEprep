@@ -4,6 +4,8 @@ myiarchus_tree <- ape::read.nexus(
   file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(myiarchus_tree)
+
 myiarchus_tree <- phylobase::phylo4(myiarchus_tree)
 
 # the names do not conform to the format required as the molecular markers are

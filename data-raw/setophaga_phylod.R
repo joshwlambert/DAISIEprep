@@ -4,6 +4,8 @@ setophaga_tree <- ape::read.nexus(
   file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(setophaga_tree)
+
 setophaga_tree <- phylobase::phylo4(setophaga_tree)
 
 # the names do not conform to the format required as there are also a couple of

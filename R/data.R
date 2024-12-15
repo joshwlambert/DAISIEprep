@@ -8,6 +8,40 @@
 #' etc. used as species names.
 "plant_phylo"
 
+#' Phylogenetic trees of the Galapagos bird lineages and sister species on the
+#' mainland.
+#'
+#' Each dataset is a phylogenetic tree used to extract the Galapagos avifaunal
+#' lineages.
+#'
+#' @format A `phylo` object (from the \pkg{ape} package)
+#' @name GalapagosTrees
+#' @source Valente, L.M., A.B. Phillimore and R.S. Etienne (2015). Equilibrium
+#' and non-equilibrium dynamics simultaneously operate in the Galapagos
+#' islands. Ecology Letters 18: 844-852.
+"coccyzus_tree"
+
+#' @rdname GalapagosTrees
+"columbiformes_tree"
+
+#' @rdname GalapagosTrees
+"finches_tree"
+
+#' @rdname GalapagosTrees
+"mimus_tree"
+
+#' @rdname GalapagosTrees
+"myiarchus_tree"
+
+#' @rdname GalapagosTrees
+"progne_tree"
+
+#' @rdname GalapagosTrees
+"pyrocephalus_tree"
+
+#' @rdname GalapagosTrees
+"setophaga_tree"
+
 #' A phylogenetic tree of coccyzus species with endemicity status as tip states.
 #'
 #' @format ## `coccyzus_phylod`

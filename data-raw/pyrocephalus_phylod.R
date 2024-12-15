@@ -4,6 +4,8 @@ pyrocephalus_tree <- ape::read.nexus(
   file = system.file("extdata", "Pyrocephalus.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(pyrocephalus_tree)
+
 pyrocephalus_tree <- phylobase::phylo4(pyrocephalus_tree)
 
 pyrocephalus_island_species <- data.frame(

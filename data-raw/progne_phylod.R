@@ -4,6 +4,8 @@ progne_tree <- ape::read.nexus(
   file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(progne_tree)
+
 progne_tree <- phylobase::phylo4(progne_tree)
 
 progne_island_species <- data.frame(

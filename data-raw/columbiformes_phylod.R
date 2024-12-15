@@ -4,6 +4,8 @@ columbiformes_tree <- ape::read.nexus(
   file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(columbiformes_tree)
+
 columbiformes_tree <- phylobase::phylo4(columbiformes_tree)
 
 columbiformes_island_species <- data.frame(

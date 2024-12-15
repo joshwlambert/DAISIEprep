@@ -4,6 +4,8 @@ coccyzus_tree <- ape::read.nexus(
   file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(coccyzus_tree)
+
 coccyzus_tree <- phylobase::phylo4(coccyzus_tree)
 
 coccyzus_island_species <- data.frame(
