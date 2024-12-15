@@ -45,18 +45,15 @@ plot_phylod <- function(phylod,
     x = phylobase::tipLabels(phylod)
   )
 
-  # generate plot
+  p <- ggtree::ggtree(phylod) +
+    ggtree::theme_tree2()
+
   # suppress Scale for 'y' is already present.
-  p <- suppressMessages(ggtree::ggtree(phylod) +
-    ggtree::theme_tree2() +
-    ggtree::geom_tiplab(as_ylab = TRUE))
+  p <- suppressMessages(p + ggtree::geom_tiplab(as_ylab = TRUE))
 
-  # suppress Scale for 'x' is already present.
-  attr(p$data, "revts.done") <- FALSE # attribute required by ggtree::revts
-  p <- suppressMessages(ggtree::revts(treeview = p) +
+  p <- ggtree::revts(treeview = p) +
     ggplot2::scale_x_continuous(labels = abs) +
-    ggplot2::xlab("Time (Million years ago)"))
-
+    ggplot2::xlab("Time (Million years ago)")
 
   if (!is.null(phylobase::nodeData(phylod)$endemicity_status)) {
     p <- p +
