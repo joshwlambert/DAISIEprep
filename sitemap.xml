@@ -13,6 +13,7 @@
 <url><loc>https://joshwlambert.github.io/DAISIEprep/index.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/news/index.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/DAISIEprep-package.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/GalapagosTrees.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/Island_colonist-accessors.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/Island_colonist-class.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/Island_tbl-accessors.html</loc></url>
@@ -35,6 +36,8 @@
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/check_island_tbl.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/check_multi_island_tbl.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/check_phylo_data.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/coccyzus_phylod.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/columbiformes_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/count_missing_species.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/create_daisie_data.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/create_endemicity_status.html</loc></url>
@@ -56,6 +59,7 @@
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/extract_stem_age_asr.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/extract_stem_age_genus.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/extract_stem_age_min.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/finches_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/get_endemic_species.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/get_sse_tip_states.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/index.html</loc></url>
@@ -65,12 +69,17 @@
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/is_multi_tip_species.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/island_colonist.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/island_tbl.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/mimus_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/multi_extract_island_species.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/multi_island_tbl.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/myiarchus_phylod.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/plant_phylo.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/plot_colonisation.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/plot_performance.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/plot_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/plot_sensitivity.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/progne_phylod.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/pyrocephalus_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/read_performance.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/read_sensitivity.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/rm_duplicate_island_species.html</loc></url>
@@ -79,6 +88,7 @@
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/round_up.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/select_endemicity_status.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/sensitivity.html</loc></url>
+<url><loc>https://joshwlambert.github.io/DAISIEprep/reference/setophaga_phylod.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/sse_states_to_endemicity.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/translate_status.html</loc></url>
 <url><loc>https://joshwlambert.github.io/DAISIEprep/reference/unique_island_genera.html</loc></url>
