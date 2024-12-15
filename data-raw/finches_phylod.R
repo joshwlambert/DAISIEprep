@@ -35,4 +35,4 @@ finches_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(finches_phylod, file = "inst/extdata/finches_phylod.rds")
+usethis::use_data(finches_phylod)

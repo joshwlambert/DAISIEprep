@@ -54,4 +54,4 @@ pyrocephalus_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(pyrocephalus_phylod, file = "inst/extdata/pyrocephalus_phylod.rds")
+usethis::use_data(pyrocephalus_phylod)

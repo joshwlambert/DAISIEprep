@@ -35,4 +35,4 @@ columbiformes_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(columbiformes_phylod, file = "inst/extdata/columbiformes_phylod.rds")
+usethis::use_data(columbiformes_phylod)

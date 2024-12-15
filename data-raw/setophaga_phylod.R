@@ -39,4 +39,4 @@ setophaga_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(setophaga_phylod, file = "inst/extdata/setophaga_phylod.rds")
+usethis::use_data(setophaga_phylod)

@@ -25,4 +25,4 @@ progne_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(progne_phylod, file = "inst/extdata/progne_phylod.rds")
+usethis::use_data(progne_phylod)

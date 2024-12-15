@@ -25,4 +25,4 @@ coccyzus_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(coccyzus_phylod, file = "inst/extdata/coccyzus_phylod.rds")
+usethis::use_data(coccyzus_phylod)
