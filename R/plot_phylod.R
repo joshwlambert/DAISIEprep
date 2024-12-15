@@ -46,9 +46,10 @@ plot_phylod <- function(phylod,
   )
 
   p <- ggtree::ggtree(phylod) +
-    ggtree::theme_tree2() +
-    # suppress Scale for 'y' is already present.
-    suppressMessages(ggtree::geom_tiplab(as_ylab = TRUE))
+    ggtree::theme_tree2()
+
+  # suppress Scale for 'y' is already present.
+  p <- suppressMessages(p + ggtree::geom_tiplab(as_ylab = TRUE))
 
   p <- ggtree::revts(treeview = p) +
     ggplot2::scale_x_continuous(labels = abs) +
