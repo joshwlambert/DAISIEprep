@@ -4,6 +4,8 @@ progne_tree <- ape::read.nexus(
   file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(progne_tree)
+
 progne_tree <- phylobase::phylo4(progne_tree)
 
 progne_island_species <- data.frame(
@@ -25,4 +27,4 @@ progne_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(progne_phylod, file = "inst/extdata/progne_phylod.rds")
+usethis::use_data(progne_phylod)

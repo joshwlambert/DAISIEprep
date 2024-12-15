@@ -4,6 +4,8 @@ columbiformes_tree <- ape::read.nexus(
   file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(columbiformes_tree)
+
 columbiformes_tree <- phylobase::phylo4(columbiformes_tree)
 
 columbiformes_island_species <- data.frame(
@@ -35,4 +37,4 @@ columbiformes_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(columbiformes_phylod, file = "inst/extdata/columbiformes_phylod.rds")
+usethis::use_data(columbiformes_phylod)

@@ -4,6 +4,8 @@ myiarchus_tree <- ape::read.nexus(
   file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(myiarchus_tree)
+
 myiarchus_tree <- phylobase::phylo4(myiarchus_tree)
 
 # the names do not conform to the format required as the molecular markers are
@@ -43,4 +45,4 @@ myiarchus_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(myiarchus_phylod, file = "inst/extdata/myiarchus_phylod.rds")
+usethis::use_data(myiarchus_phylod)

@@ -4,6 +4,8 @@ mimus_tree <- ape::read.nexus(
   file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(mimus_tree)
+
 mimus_tree <- phylobase::phylo4(mimus_tree)
 
 mimus_island_species <- data.frame(
@@ -31,4 +33,4 @@ mimus_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(mimus_phylod, file = "inst/extdata/mimus_phylod.rds")
+usethis::use_data(mimus_phylod)

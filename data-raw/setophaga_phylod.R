@@ -4,6 +4,8 @@ setophaga_tree <- ape::read.nexus(
   file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
 )
 
+usethis::use_data(setophaga_tree)
+
 setophaga_tree <- phylobase::phylo4(setophaga_tree)
 
 # the names do not conform to the format required as there are also a couple of
@@ -39,4 +41,4 @@ setophaga_phylod <- add_asr_node_states(
   tie_preference = "mainland"
 )
 
-saveRDS(setophaga_phylod, file = "inst/extdata/setophaga_phylod.rds")
+usethis::use_data(setophaga_phylod)
