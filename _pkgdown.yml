@@ -13,6 +13,11 @@ articles:
   contents:
   - Forcing_nonendemic_singleton
 
+- title: Extracting multi-tip species
+  navbar: Extracting multi-tip species
+  contents:
+  - Multi_tip_extraction
+
 - title: Extending ASR
   navbar: Extending ASR
   contents:
