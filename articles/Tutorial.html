@@ -46,6 +46,9 @@
     <li><h6 class="dropdown-header" data-toc-skip>Forcing nonendemic singletons</h6></li>
     <li><a class="dropdown-item" href="../articles/Forcing_nonendemic_singleton.html">Forcing non-endemic singletons: solutions and limitations</a></li>
     <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Extracting multi-tip species</h6></li>
+    <li><a class="dropdown-item" href="../articles/Multi_tip_extraction.html">Extracting species with multiple tips in the phylogeny</a></li>
+    <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Extending ASR</h6></li>
     <li><a class="dropdown-item" href="../articles/Extending_asr.html">Extending DAISIEprep ASR models</a></li>
     <li><hr class="dropdown-divider"></li>
@@ -577,7 +580,7 @@ inferring the ancestral geography of each species.</p>
 <code class="sourceCode R"><span><span class="va">island_tbl</span></span>
 <span><span class="co">#&gt; Class:  Island_tbl </span></span>
 <span><span class="co">#&gt;              clade_name     status missing_species col_time col_max_age</span></span>
-<span><span class="co">#&gt; 1 Coccyzus_melacoryphus nonendemic               0 1.789425       FALSE</span></span>
+<span><span class="co">#&gt; 1 Coccyzus_melacoryphus nonendemic               0 1.789425        TRUE</span></span>
 <span><span class="co">#&gt;   branching_times   min_age      species clade_type</span></span>
 <span><span class="co">#&gt; 1              NA 0.5483906 Coccyzus....          1</span></span></code></pre></div>
 <p>Instead of assigning the endemicity to each of the Galapagos bird
@@ -650,7 +653,7 @@ the island clade.</p>
 <span><span class="co">#&gt; 7      Pyrocephalus_dubius_Galapagos_cas01    endemic               0 9.3661766</span></span>
 <span><span class="co">#&gt; 8             D_petechia_Galapagos_sancris    endemic               0 0.1400011</span></span>
 <span><span class="co">#&gt;   col_max_age branching_times   min_age      species clade_type</span></span>
-<span><span class="co">#&gt; 1       FALSE              NA 0.5483906 Coccyzus....          1</span></span>
+<span><span class="co">#&gt; 1        TRUE              NA 0.5483906 Coccyzus....          1</span></span>
 <span><span class="co">#&gt; 2       FALSE    0.050253....        NA Zenaida_....          1</span></span>
 <span><span class="co">#&gt; 3       FALSE    1.322705....        NA C_fus, C....          1</span></span>
 <span><span class="co">#&gt; 4       FALSE    3.680027....        NA Mimus_ma....          1</span></span>
