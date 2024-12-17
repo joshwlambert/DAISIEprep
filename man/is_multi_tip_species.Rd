@@ -2,8 +2,9 @@
 % Please edit documentation in R/is_multi_tip_species.R
 \name{is_multi_tip_species}
 \alias{is_multi_tip_species}
-\title{Checks if a species is represented in the tree as multiple tips and those
-tips form a monophyletic group (i.e. one species with multiple samples)}
+\title{Checks if a species is represented in the tree has multiple tips and those
+tips form a monophyletic group (i.e. one species with multiple samples) all
+labeled as with the same endemicity status}
 \usage{
 is_multi_tip_species(phylod, species_label)
 }
@@ -17,7 +18,17 @@ phylogenetic and endemicity data for each species.}
 Boolean
 }
 \description{
-Checks if a species is represented in the tree as multiple tips and those
-tips form a monophyletic group (i.e. one species with multiple samples)
+Checks if a species is represented in the tree has multiple tips and those
+tips form a monophyletic group (i.e. one species with multiple samples) all
+labeled as with the same endemicity status
+}
+\details{
+\code{\link[=is_multi_tip_species]{is_multi_tip_species()}} only returns \code{TRUE} if all tips for each sample
+of the species (i.e. conspecific tips) are labelled the same. It is
+possible that a phylogeny has multiple tips for the same species but only
+the island samples are labelled as \code{"endemic"} or \code{"nonendemic"} as the
+other tips are from samples from the mainland, and are labelled
+\code{"not_present"}, see
+\code{vignette("Multi_tip_extraction", package = "DAISIEprep")}.
 }
 \keyword{internal}
