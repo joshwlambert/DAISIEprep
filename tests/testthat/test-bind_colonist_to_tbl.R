@@ -126,7 +126,7 @@ test_that("2 tips nonendemic, empty tbl", {
   expect_equal(get_island_tbl(island_tbl)$status, "nonendemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
   expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
-  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_))
@@ -167,7 +167,7 @@ test_that("2 tips endemic, empty_tbl", {
   expect_equal(get_island_tbl(island_tbl)$status, "endemic")
   expect_equal(get_island_tbl(island_tbl)$missing_species, 0)
   expect_equal(get_island_tbl(island_tbl)$col_time, 1.43337005682)
-  expect_false(get_island_tbl(island_tbl)$col_max_age)
+  expect_true(get_island_tbl(island_tbl)$col_max_age)
   expect_equal(
     get_island_tbl(island_tbl)$branching_times,
     I(list(NA_real_))
