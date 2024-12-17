@@ -1,5 +1,15 @@
-#' Checks if a species is represented in the tree as multiple tips and those
-#' tips form a monophyletic group (i.e. one species with multiple samples)
+#' Checks if a species is represented in the tree has multiple tips and those
+#' tips form a monophyletic group (i.e. one species with multiple samples) all
+#' labeled as with the same endemicity status
+#'
+#' @details
+#' [is_multi_tip_species()] only returns `TRUE` if all tips for each sample
+#' of the species (i.e. conspecific tips) are labelled the same. It is
+#' possible that a phylogeny has multiple tips for the same species but only
+#' the island samples are labelled as `"endemic"` or `"nonendemic"` as the
+#' other tips are from samples from the mainland, and are labelled
+#' `"not_present"`, see
+#' `vignette("Multi_tip_extraction", package = "DAISIEprep")`.
 #'
 #' @inheritParams default_params_doc
 #'
@@ -28,6 +38,11 @@ is_multi_tip_species <- function(phylod, species_label) {
   genus_species_name <- paste(genus_name, species_name, sep = "_")
   all_siblings_conspecific <- length(unique(genus_species_name)) == 1
 
-  # return all_siblings_conspecific
-  all_siblings_conspecific
+  # do not treat conspecifics with different endemicity status as multi-tip
+  all_siblings_endemicity <- length(
+    unique(phylod[descendants]@data$endemicity_status)
+  ) == 1
+
+  # return whether multi-tip species
+  all_siblings_conspecific && all_siblings_endemicity
 }

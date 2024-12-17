@@ -723,11 +723,11 @@ test_that("2 tips nonendemic, precise col time after island age", {
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
   expect_equal(daisie_datatable$Clade_name, "bird_a")
-  expect_equal(daisie_datatable$Status, "nonendemic")
+  expect_equal(daisie_datatable$Status, "nonendemic_MaxAgeMinAge")
   expect_equal(daisie_datatable$Missing_species, 0)
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682))
+    list(c(1.43337005682, 0.251727277709448))
   )
 })
 

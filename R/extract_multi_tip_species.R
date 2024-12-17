@@ -112,7 +112,7 @@ extract_multi_tip_species <- function(phylod,
   set_status(island_colonist) <- species_endemicity
   set_missing_species(island_colonist) <- 0
   set_col_time(island_colonist) <- col_time
-  set_col_max_age(island_colonist) <- FALSE
+  set_col_max_age(island_colonist) <- TRUE
   set_branching_times(island_colonist) <- NA_real_
   set_min_age(island_colonist) <- min_age
   set_species(island_colonist) <- names(species_tips)
