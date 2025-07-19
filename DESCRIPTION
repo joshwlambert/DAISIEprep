@@ -1,7 +1,7 @@
 Package: DAISIEprep
 Type: Package
 Title: Extracts Phylogenetic Island Community Data from Phylogenetic Trees
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
