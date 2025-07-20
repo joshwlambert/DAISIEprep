@@ -1,31 +1,171 @@
 url: https://joshwlambert.github.io/DAISIEprep
+
+development:
+  mode: auto
+
 template:
   bootstrap: 5
+  bslib:
+    base_font: {google: "Outfit"}
+    code_font: {google: "Ubuntu Mono"}
+    font_scale: 1.2
+    fg: "#353E43" # gunmetal grey font colour
+    bg: "#f0feed" # pastel green backgroud colour
 
-articles:
-- title: Tutorial
-  navbar: Tutorial
-  contents:
-  - Tutorial
+navbar:
+  structure:
+    left:  [home, vignettes, functions, news, DAISIEuniverse]
+    right: [search, github, LearnDAISIEprep, DAISIE]
+  components:
+    home:
+      icon: fa-home
+      href: index.html
+      aria-label: home
+    vignettes:
+      text: "Vignettes"
+      href: articles/index.html
+      aria-label: vignettes
+      menu:
+      - text: Tutorial
+      - text: DAISIEprep tutorial
+        href: articles/Tutorial.html
+      - text: -------
+      - text: Forcing non-endemic singletons
+      - text: 'Forcing non-endemic singletons: solutions and limitations'
+        href: articles/forcing_nonendemic_singleton.html
+      - text: -------
+      - text: Extracting multi-tip species
+      - text: Extracting species with multiple tips in the phylogeny
+        href: articles/Multi_tip_extraction.html
+      - text: -------
+      - text: Extending ASR
+      - text: Extending DAISIEprep ASR models
+        href: articles/Extending_asr.html
+      - text: -------
+      - text: Miscellaneous
+      - text: Sensitivity
+        href: articles/Sensitivity.html
+      - text: Performance
+        href: articles/Performance.html
+      - text: DAISIE_FAQs
+        href: articles/DAISIE_FAQs.html
+    functions:
+      text: "Functions"
+      href: reference/index.html
+      aria-label: functions
+    news:
+      text: "News"
+      href: news/index.html
+      aria-label: news
+    DAISIEuniverse:
+      text: "DAISIE Universe"
+      menu:
+      - text: "DAISIE"
+        href: https://github.com/rsetienne/DAISIE
+      - text: "DAISIErobustness"
+        href: https://github.com/Neves-P/DAISIErobustness
+      - text: "DAISIEutils"
+        href: https://github.com/tece-lab/DAISIEutils
+      - text: "DAISIEmainland"
+        href: https://github.com/joshwlambert/DAISIEmainland
 
-- title: Forcing nonendemic singletons
-  navbar: Forcing nonendemic singletons
-  contents:
-  - Forcing_nonendemic_singleton
+    github:
+      icon: fa-github
+      href: https://github.com/joshwlambert/DAISIEprep
+      aria-label: GitHub
+    LearnDAISIEprep:
+      icon: fa-book-open
+      href: https://joshwlambert.github.io/LearnDAISIEprep/
+      aria-label: LearnDAISIEprep
+    DAISIE:
+      icon: fa-fan
+      href: https://CRAN.R-project.org/package=DAISIE
+      aria-label: DAISIE
 
-- title: Extracting multi-tip species
-  navbar: Extracting multi-tip species
-  contents:
-  - Multi_tip_extraction
+reference:
+  - title: Extract species
+    desc: Extract island species from phylogenetic data
+    contents:
+    - starts_with("extract")
 
-- title: Extending ASR
-  navbar: Extending ASR
-  contents:
-  - articles/Extending_asr
+  - title: Island biogeography data structures
+    desc: S4 classes for working with island biogeography data
+    contents:
+    - ends_with("-class")
+    - island_colonist
+    - island_tbl
 
-- title: Miscellaneous
-  navbar: Miscellaneous
-  contents:
-  - Sensitivity
-  - Performance
-  - DAISIE_FAQs
+  - title: Add `Island_colonist` class to `Island_tbl`
+    desc: Bind island colonist to island community
+    contents:
+    - bind_colonist_to_tbl
+
+  - title: Island data modifiers
+    desc: Add information to island data
+    contents:
+    - starts_with("add_")
+
+  - title: Checkers
+    desc: Check object has certain characteristic or class
+    contents:
+    - starts_with("is_")
+    - starts_with("all_")
+    - starts_with("any_")
+    - starts_with("check_")
+
+  - title: Plotting
+    desc: Plot island
+    contents:
+    - starts_with("plot_")
+
+  - title: Datasets
+    desc: Phylogenetic datasets for extracting island data
+    contents:
+    - ends_with("_tree")
+    - ends_with("_phylod")
+    - ends_with("_phylo")
+
+  - title: Coersion
+    desc: Convert between data structures
+    contents:
+    - starts_with("as_")
+
+  - title: Getters
+    desc: Get components of data structures
+    contents:
+    - starts_with("get_")
+
+  - title: Create objects
+    desc: Create island biogeography data structures and mock data
+    contents:
+    - starts_with("create_")
+
+  - title: Iterative functions for multiple datasets
+    desc: Iterate/map over multiple island datasets (e.g. posterior)
+    contents:
+    - starts_with("multi")
+
+  - title: Write to file
+    desc: Helper functions to creating files
+    contents:
+    - starts_with("write_")
+
+  - title: Remove components of data
+    desc: Helper functions to removes parts of data
+    contents:
+    - starts_with("rm_")
+
+  - title: Miscellaneous functions
+    desc: Various DAISIEprep functions
+    contents:
+    - count_missing_species
+    - select_endemicity_status
+    - benchmark
+    - sensitivity
+    - translate_status
+    - select_endemicity_status
+    - unique_island_genera
+    - sse_states_to_endemicity
+    - endemicity_to_sse_states
+    - round_up
+    - default_params_doc
