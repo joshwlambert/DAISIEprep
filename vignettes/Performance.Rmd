@@ -127,6 +127,15 @@ names as variables (as opposed to strings) and uses tidy evaluation to group by
 the variable given, either `prob_on_island` or `prob_endemic`. First for the `min` algorithm:
 
 ```{r plot-min-prob-on-island}
+#| fig.alt: >
+#|   A scatter plot with error bars around the points. The y-axis is Mean run
+#|   time (seconds) and the x-axis is Tree size (number of tips) on a log 
+#|   scale. There is a legend titled Probability on the island with values
+#|   0.2 (dark blue), 0.5 (gold), and DNA (pink) and complete (light blue).
+#|   The dark blue and gold points increase roughly linearly with tree size,
+#|   with gold points consistently slight greater than dark blue. The DNA and
+#|   complete values only have a single point, but are below the trend for 
+#|   dark blue and gold showing quicker run time for these datasets.
 plot_performance(
   performance_data = performance_data$performance_data_min,
   group_by = prob_on_island
@@ -136,6 +145,15 @@ plot_performance(
 And secondly for the `asr` algorithm:
 
 ```{r plot-asr-prob-on-island}
+#| fig.alt: >
+#|   A scatter plot with error bars around the points. The y-axis is Mean run
+#|   time (seconds) and the x-axis is Tree size (number of tips) on a log 
+#|   scale. There is a legend titled Probability on the island with values
+#|   0.2 (dark blue), 0.5 (gold), and DNA (pink) and complete (light blue).
+#|   The dark blue and gold points increase roughly exponentially with tree
+#|   size, with dark blue points consistently greater than gold. The DNA and
+#|   complete values only have a single point, but are below the trend for 
+#|   dark blue and gold showing quicker run time for these datasets.
 plot_performance(
   performance_data = performance_data$performance_data_asr,
   group_by = prob_on_island
@@ -146,6 +164,15 @@ Alternatively, the data can be grouped by the probability that species on the is
 are endemic (`prob_endemic`) for the `min` (first) and `asr` (second) algorithms:
 
 ```{r plot-min-prob-endemic}
+#| fig.alt: >
+#|   A scatter plot with error bars around the points. The y-axis is Mean run
+#|   time (seconds) and the x-axis is Tree size (number of tips) on a log 
+#|   scale. There is a legend titled Probability on the island with values
+#|   0.2 (dark blue), 0.5 (gold), and DNA (pink) and complete (light blue).
+#|   The dark blue and gold points increase roughly linearly with tree size,
+#|   with gold and dark blue points roughly equal. The DNA and complete values
+#|   only have a single point, but are below the trend for dark blue and gold
+#|   showing quicker run time for these datasets.
 plot_performance(
   performance_data = performance_data$performance_data_min,
   group_by = prob_endemic
@@ -153,6 +180,15 @@ plot_performance(
 ``` 
 
 ```{r plot-asr-prob-endemic}
+#| fig.alt: >
+#|   A scatter plot with error bars around the points. The y-axis is Mean run
+#|   time (seconds) and the x-axis is Tree size (number of tips) on a log 
+#|   scale. There is a legend titled Probability on the island with values
+#|   0.2 (dark blue), 0.5 (gold), and DNA (pink) and complete (light blue).
+#|   The dark blue and gold points increase roughly linearly with tree size,
+#|   with gold and dark blue points roughly equal. The DNA and complete values
+#|   only have a single point, but are below the trend for dark blue and gold
+#|   showing quicker run time for these datasets.
 plot_performance(
   performance_data = performance_data$performance_data_min,
   group_by = prob_endemic

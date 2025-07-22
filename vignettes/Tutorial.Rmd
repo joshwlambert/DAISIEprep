@@ -10,7 +10,7 @@ vignette: >
 
 In this tutorial, the main features of DAISIEprep are explained. DAISIEprep (Lambert et al.) is an R package that facilitates formatting of data for subsequent use in DAISIE.
 
-![](../man/figures/logo.png)
+![DAISIEprep package hex logo](../man/figures/logo.png)
 
 A typical DAISIEprep pipeline is as follows:
 
@@ -72,6 +72,8 @@ class(plant_phylo)
 Let's plot the phylogeny in order to visualise it. As you can see, it has different species of plants.
 
 ```{r plot phylo}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
 plot(plant_phylo, underscore = TRUE)
 ```
 
@@ -86,6 +88,8 @@ So in the example above we have turned on the option `underscore = TRUE` in the 
 The next step is to convert the phylogeny into a `phylo4` class, defined in the package `phylobase`. This allows users to easily work with data for each tip in the phylogeny, for example whether they are endemic to the island or not.
 
 ```{r convert phylo to phylo4}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
 plant_phylo <- phylobase::phylo4(plant_phylo)
 phylobase::plot(plant_phylo)
 ```
@@ -126,6 +130,13 @@ phylod <- phylobase::phylo4d(plant_phylo, endemicity_status)
 We can now visualise our phylogeny with the island endemicity statuses plotted at the tips. This uses the `ggtree` and `ggplot2` packages.
 
 ```{r plot phylogeny with tip data}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points, and
+#|   there is a legend titled Endemicity status with a red point for endemic,
+#|   green for nonendemic and blue for not_present. Plant i is endemic, Plant g
+#|   is nonendemic, all other species are not present on the island.
 plot_phylod(phylod = phylod)
 ```
 
@@ -165,6 +176,15 @@ phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
 Now we can plot the phylogeny, which this time includes the node labels for the presence/absence on the island in ancestral nodes.
 
 ```{r plot phylogeny with tip and node data}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. Plant i is
+#|   endemic, Plant g is nonendemic, all other species are not present on the
+#|   island. All nodes are not present except the two nodes ancestral to 
+#|   Plant i, h and g which are nonendemic. 
 plot_phylod(phylod = phylod)
 ```
 
@@ -265,6 +285,10 @@ setophaga_tree <- as(setophaga_tree, "phylo4")
 Now that all of the phylogenies are loaded we can inspect them. Let's start with the phylogeny for the genus *Coccyzus*:
 
 ```{r}
+#| fig.alt: >
+#|   A phylogenetic tree for the genus Coccyzus with 20 species, with tip
+#|   labels with the genus and species name, and a location and marker suffix,
+#|   e.g. Coccyzus_melacoryphus_GALAPAGOS_L571A.
 phylobase::plot(coccyzus_tree, cex = 0.1)
 ```
 
@@ -292,6 +316,15 @@ endemicity_status <- create_endemicity_status(
 Now we have the endemicity status for all *Coccyzus* species in the phylogeny, we can combine our phylogenetic data and endemicity status data into a single data structure, the `phylo4d` class from the `phylobase` R package, in exactly the same way as in the [single phylogeny example](#sec-single).
 
 ```{r}
+#| fig.alt: >
+#|   A phylogenetic tree for the genus Coccyzus with 20 species, with tip
+#|   labels with the genus and species name, and a location and marker suffix,
+#|   e.g. Coccyzus_melacoryphus_GALAPAGOS_L571A. There is a x-axis labelled
+#|   Time (Millon years ago) starting at just over 7.5 and going to 0. 
+#|   Phylogeny tips are labelled with coloured points, and there is a legend
+#|   titled Endemicity status with a red point for nonendemic and blue for 
+#|   not_present. Coccyzus melacoryphus Galapagos tips are nonendemic, all other
+#|   species are not_present.
 phylod <- phylobase::phylo4d(coccyzus_tree, endemicity_status)
 ```
 
@@ -316,6 +349,16 @@ phylod <- add_asr_node_states(
 Plot the phylogeny with the node states:
 
 ```{r plot phylogeny with tip and node data Coccyzus}
+#| fig.alt: >
+#|   A phylogenetic tree for the genus Coccyzus with 20 species, with tip
+#|   labels with the genus and species name, and a location and marker suffix,
+#|   e.g. Coccyzus_melacoryphus_GALAPAGOS_L571A. There is a x-axis labelled
+#|   Time (Millon years ago) starting at just over 7.5 and going to 0. 
+#|   Phylogeny tips and nodes are labelled with coloured points, and there
+#|   is a legend titled Endemicity status with a red point for nonendemic and
+#|   blue for not_present. Coccyzus melacoryphus Galapagos tips are nonendemic,
+#|   and the ancestral node to these two species is nonendemic, all other tips
+#|   and nodes are not_present.
 plot_phylod(phylod = phylod)
 ```
 
@@ -376,6 +419,16 @@ for (phylod in galapagos_phylod) {
 The above example works, but it returns a warning message for the Darwin's finches (finches_phylod), because the root state of the finches' phylogeny is inferred to be present on the island, as there is only a single mainland outgroup in the example phylogeny. This means that the colonisation time will be extracted in `asr` as infinite, and then when the island_tbl is converted into a DAISIE data list this will become a colonist that could have colonised anywhere from the island origin to the present. For this example this colonisation time is not a problem, however, for empirical analyses it is recommended to have many more mainland outgroup species in the tree to ensure the ancestral state reconstructions can accurately detect the stem age of the island clade.
 
 ```{r plot Darwins finches}
+#| fig.alt: >
+#|   A phylogenetic tree for the Darwin's finches with 16 species, with tip
+#|   labels with the genus abbreviated to a single letter and species name 
+#|   abbreviated, e.g. C par. There is a x-axis labelled Time (Millon years 
+#|   ago) starting at around 3 and going to 0. Phylogeny tips and nodes are
+#|   labelled with coloured points, and there is a legend titled Endemicity
+#|   status with a red point for endemic, green for nonendemic, and blue for
+#|   not_present. All species are endemic at the tips and nodes, except T bi
+#|   (an outgroup), which is not_present, and the root node which is 
+#|   nonendemic.
 plot_phylod(finches_phylod)
 ```
 

@@ -159,12 +159,30 @@ We can plot the distribution of parameter estimates for the DNA and complete
 data sets.
 
 ```{r}
+#| fig.alt: >
+#|   A 2x2 grid of density plots. Each plot has three densities. The y-axis
+#|   for all plots is density, the x-axis for the plots starting top right and 
+#|   moving clockwise is anagenesis, cladogenesis, colonisation and extinction.
+#|   There is a legend titled: Extraction Method, with red for ASR (Mk), teal
+#|   for ASR (parsimony) and yellow for min. The three densities for
+#|   cladogenesis, extinction and anagenesis are largely overlapping, whereas
+#|   for colonisation the densities are non-overlapping, with min having the
+#|   largest values.
 DAISIEprep:::plot_sensitivity(
   sensitivity_data = sensitivity_data$sensitivity_dna
 )
 ``` 
 
 ```{r}
+#| fig.alt: >
+#|   A 2x2 grid of density plots. Each plot has three densities. The y-axis
+#|   for all plots is density, the x-axis for the plots starting top right and 
+#|   moving clockwise is anagenesis, cladogenesis, colonisation and extinction.
+#|   There is a legend titled: Extraction Method, with red for ASR (Mk), teal
+#|   for ASR (parsimony) and yellow for min. The three densities for
+#|   cladogenesis, extinction and anagenesis are largely overlapping, whereas
+#|   for colonisation the densities are non-overlapping, with min having the
+#|   largest values.
 DAISIEprep:::plot_sensitivity(
   sensitivity_data = sensitivity_data$sensitivity_complete
 )
@@ -186,6 +204,15 @@ An alternative plot is to look at the pairwise comparisons of each estimated rat
 from the DAISIE inference model across each posterior phylogeny. 
 
 ```{r}
+#| fig.alt: >
+#|   A 2x2 grid of scatter plots. Each plot has point colours. The y-axis
+#|   for all plots is rates, the x-axis for the plots starting top right and 
+#|   moving clockwise is anagenesis, cladogenesis, colonisation and extinction.
+#|   There is a legend titled: Extraction Method, with red for ASR (Mk), teal
+#|   for ASR (parsimony) and yellow for min. The points for cladogenesis,
+#|   extinction and anagenesis are largely overlapping, whereas for
+#|   colonisation the points form more distinct layers, with min having the
+#|   largest values.
 DAISIEprep:::plot_sensitivity(
   sensitivity_data = sensitivity_data$sensitivity_dna,
   pairwise_diffs = TRUE
@@ -193,6 +220,15 @@ DAISIEprep:::plot_sensitivity(
 ``` 
 
 ```{r}
+#| fig.alt: >
+#|   A 2x2 grid of scatter plots. Each plot has point colours. The y-axis
+#|   for all plots is rates, the x-axis for the plots starting top right and 
+#|   moving clockwise is anagenesis, cladogenesis, colonisation and extinction.
+#|   There is a legend titled: Extraction Method, with red for ASR (Mk), teal
+#|   for ASR (parsimony) and yellow for min. The points for cladogenesis,
+#|   extinction and anagenesis are largely overlapping, whereas for
+#|   colonisation the points form more distinct layers, with min having the
+#|   largest values.
 DAISIEprep:::plot_sensitivity(
   sensitivity_data = sensitivity_data$sensitivity_complete,
   pairwise_diffs = TRUE

@@ -47,6 +47,13 @@ use this algorithm, particularly if some of DAISIE's assumptions are at
 odds with the clade at hand. For example, consider the following tree:
 
 ```{r, example_tree_not_daisie, echo=FALSE}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of bird_a to bird_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points, and
+#|   there is a legend titled Endemicity status with a red point for endemic,
+#|   green for nonendemic and blue for not_present. bird a, b, c and d are
+#|   endemic, bird f is nonendemic, all other species are not present.
 set.seed(
   1,
   kind = "Mersenne-Twister",
@@ -350,6 +357,14 @@ See Fig. 1 in @matzke_probabilistic_2013 for an overview of the
 supermodel and parameters:
 
 ```{r}
+#| fig.alt: >
+#|   A schematic of biogeographic ancestral state reconstruction models:
+#|   character mapping, DIVA, DEC (GeoSSE, Lagrange), BayArea, BioGeoBEARS, 
+#|   with checkboxes for which processes are included in each model, processes
+#|   are: dispersal, extinction, range-switching, sympatry (narrow), sympatry
+#|   (widespread), sympatry (subset), vicariance (narrow),
+#|   vicariance (widespread), founder. Each model contains a subset of these
+#|   processes except BioGeoBEARS which has a parameter for each process.
 knitr::include_graphics("http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_supermodel.png")
 ```
 
@@ -445,6 +460,14 @@ tips, one state column `island_status` for internal nodes) and add it
 back to the tree data with `phylobase`'s `phylo4d` class.
 
 ```{r, order_biogeobears_asr}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting at around
+#|   4 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. There is a mix
+#|   of endemic, nonendemic and not_present tips and nodes, the root node is 
+#|   not_present.
 # Add endemicity data
 nb_tips <- ape::Ntip(tree)
 asr_df$label <- NULL # drop label
@@ -530,6 +553,13 @@ states and the three endemicity status used by `DAISIEprep`, we have
 included functions to switch easily between the two:
 
 ```{r, musse_states_to_endemic}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting just over
+#|   7.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point for
+#|   endemic, green for nonendemic and blue for not_present. There is a mix
+#|   of endemic, nonendemic and not_present tips.
 endemicity_status <- sse_states_to_endemicity(phylo$tip.state, sse_model = "musse")
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
 plot_phylod(phylod)
@@ -567,6 +597,14 @@ We obtain a (pivoted) table of probabilites linked to each state, from
 which we can select states as for the BioGeoBEARS example:
 
 ```{r, add_musse_asr_to_phylod}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting just over
+#|   7.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. There is a mix
+#|   of endemic, nonendemic and not_present tips, nodes are a mix of endemic
+#|   and not_present, the root node is endemic.
 asr_musse <- as.data.frame(t(asr_musse))
 colnames(asr_musse) <- paste0(all_endemicity_status(), "_prob")
 
@@ -657,6 +695,13 @@ only maps geography along the branches of the tree.
 We use the same tree as the previous example:
 
 ```{r, make_geosse_tree}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting just over
+#|   7.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point for
+#|   endemic, green for nonendemic and blue for not_present. There is a mix
+#|   of endemic, nonendemic and not_present tips.
 # Rm all data but tip states
 phylod@data <- phylod@data[1]
 plot_phylod(phylod)
@@ -687,6 +732,14 @@ lik_geosse
 ```
 
 ```{r, fit_geosse_and_asr}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting just over
+#|   7.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. There is a mix
+#|   of endemic, nonendemic and not_present tips and nodes, the root node is 
+#|   nonendemic.
 # Initial GeoSSE parameter values
 pars <- c(
   # Speciation: sA sB sAB
@@ -756,6 +809,13 @@ This sub-clade is never found in a nonendemic state, and instead species transit
 We get the following trait distribution:
 
 ```{r, sample_tree_corhmm, echo=FALSE}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting around 4 and
+#|   going to 0. Phylogeny tips are labelled with coloured points, and there
+#|   is a legend titled Endemicity status with a red point for endemic, green
+#|   for nonendemic and blue for not_present. There is a mix of endemic,
+#|   nonendemic and not_present tips.
 set.seed(
   2,
   kind = "Mersenne-Twister",
@@ -811,6 +871,14 @@ Note how transitions between endemic and not present are estimated to never happ
 The posterior probabilities for the ancestral states are contained in the `states` element of the output object.
 
 ```{r, extract_asr_corhmm_ard}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting around 4 and
+#|   going to 0. Phylogeny tips and nodes are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point for
+#|   endemic, green for nonendemic and blue for not_present. There is a mix of
+#|   endemic, nonendemic and not_present tips, almost all nodes are not_present,
+#|   including the root node.
 # Extract posterior probabilities of each state for each node
 asr_corhmm <- as.data.frame(fit_corhmm$states)
 
@@ -905,6 +973,14 @@ head(asr_corhmm_hidden)
 We can then add the ASR to the phylogeny:
 
 ```{r, plot_phylo_corhmm_dual}
+#| fig.alt: >
+#|   A phylogenetic tree with 20 species, with tip labels of bird_a to bird_t.
+#|   There is a x-axis labelled Time (Millon years ago) starting around 4 and
+#|   going to 0. Phylogeny tips and nodes are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point for
+#|   endemic, green for nonendemic and blue for not_present. There is a mix of
+#|   endemic, nonendemic and not_present tips, almost all nodes are not_present,
+#|   including the root node.
 # Convert posterior data to DAISIE format
 colnames(asr_corhmm_hidden) <- paste0(unique(status_df$endemicity_status), "_prob")
 island_status <- select_endemicity_status(asr_corhmm_hidden, method = "max")
