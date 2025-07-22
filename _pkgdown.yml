@@ -124,6 +124,7 @@ reference:
     - ends_with("_tree")
     - ends_with("_phylod")
     - ends_with("_phylo")
+    - -plot_phylod
 
   - title: Coersion
     desc: Convert between data structures
