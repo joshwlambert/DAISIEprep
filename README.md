@@ -1,9 +1,11 @@
 # DAISIEprep <img src="man/figures/logo.png" align="right" height="200"/>
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml) [![Codecov test coverage](https://codecov.io/gh/joshwlambert/DAISIEprep/branch/master/graph/badge.svg)](https://app.codecov.io/gh/joshwlambert/DAISIEprep?branch=master) [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7540314.svg)](https://doi.org/10.5281/zenodo.7540314)
-
+[![R-CMD-check](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/joshwlambert/DAISIEprep/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/joshwlambert/DAISIEprep/graph/badge.svg)](https://app.codecov.io/gh/joshwlambert/DAISIEprep)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7540314.svg)](https://doi.org/10.5281/zenodo.7540314)
 <!-- badges: end -->
 
 ## Package description
