@@ -27,6 +27,15 @@ This vignette outlines at a high-level the different types of phylogenetic infor
 ## Scenario: species-dependent endemicity encoding
 
 ```{r, sim-data, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j,
+#|   except Plant_e. There are 2 Plant_d species Plant_d_a and Plant_d_b.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. Plant i is
+#|   endemic, Plant d_a and d_b are nonendemic, all other species are 
+#|   not present.
 set.seed(1)
 tree <- ape::rcoal(10)
 tree$tip.label <- paste("Plant", letters[1:10], sep = "_")
@@ -60,6 +69,14 @@ The "Plant_d" species has been correctly extracted as a single non-endemic speci
 ## Scenario: geography-dependent endemicity encoding
 
 ```{r, sample-label, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j,
+#|   except Plant_e. There are 2 Plant_d species Plant_d_a and Plant_d_b.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. Plant i is
+#|   endemic, Plant d_a is nonendemic, all other species are not present.
 endemicity_status <- c("not_present", "not_present", "not_present", 
                        "nonendemic", "not_present", "not_present",
                        "not_present", "not_present", "endemic", "not_present")
@@ -83,6 +100,14 @@ We extract the island community data and see that again 2 colonisations are infe
 Revisiting the first scenario where we had multiple tips in the phylogeny from the same species, all labelled as non-endemic, independent of where the species sample came from, but this time the species is endemic to the island rather than non-endemic.
 
 ```{r, species-encode-endemic, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j,
+#|   except Plant_e. There are 2 Plant_d species Plant_d_a and Plant_d_b.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point
+#|   for endemic and blue for not_present. Plant d_a, d_b and i are endemic,
+#|   all other species are not present.
 endemicity_status <- c("not_present", "not_present", "not_present", "endemic", 
                        "endemic", "not_present", "not_present", 
                        "not_present", "endemic", "not_present")
@@ -97,6 +122,14 @@ The same extraction procedure, using the `"min"` algorithm, produces two endemic
 The extraction also works if you have more samples/tips per species. Here we increase the number of tips in the "Plant_d" species to 4.
 
 ```{r, species-encode-endemic-3, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_g.
+#|   There are 4 Plant_d species Plant_d_a Plant_d_b, Plant_d_c and Plant_d_d.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips are labelled with coloured points,
+#|   and there is a legend titled Endemicity status with a red point
+#|   for endemic and blue for not_present. All Plant d tips and Plant f are
+#|   endemic, all other species are not present.
 phylobase::tipLabels(phylo) <- c("Plant_a", "Plant_d_a", "Plant_d_b",
                                  "Plant_d_c", "Plant_d_d", "Plant_b", "Plant_c",
                                  "Plant_e", "Plant_f", "Plant_g")
@@ -118,6 +151,14 @@ Lastly, we look once again at the endemicity encoding where island samples are l
 In this scenario we look at a simple case of a single island species ("Plant_g") in the tree, with 3 samples, 2 on the island ("Plant_g_island_a" and "Plant_g_island_b") and 1 on the mainland ("Plant_g_mainland").
 
 ```{r, geo-encode-2-island, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_h.
+#|   There are 3 Plant_g species Plant_g_island_a, Plant_g_island_b and 
+#|   Plant_g_mainland. There is a x-axis labelled Time (Millon years ago)
+#|   starting at just over 1.5 and going to 0. Phylogeny tips are labelled
+#|   with coloured points, and there is a legend titled Endemicity status with
+#|   a red point for endemic and blue for not_present. All Plant_g_island tips
+#|   are endemic, all other tips are not present.
 phylobase::tipLabels(phylo) <- c("Plant_a", "Plant_b", "Plant_c", "Plant_d",
                                  "Plant_e", "Plant_f", "Plant_g_mainland",
                                  "Plant_g_island_b", "Plant_g_island_a", 

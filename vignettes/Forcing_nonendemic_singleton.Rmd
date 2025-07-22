@@ -25,6 +25,14 @@ library(phylobase)
 When using the "asr" extraction method, non-endemic species that are closely phylogenetically related can be potentially erroneously lumped into a single clade. This clade is labelled endemic as the DAISIE model cannot handle non-endemic clades. For example, see the plot below which shows 3 plant species that are grouped into a single clade even though they are non-endemic island species.
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, and blue for not_present. Plant i, h and g and the two
+#|   ancestral nodes leading to them are nonendemic, all other tips and nodes
+#|   are not present on the island.
 set.seed(
   1,
   kind = "Mersenne-Twister",
@@ -79,6 +87,15 @@ In this case, the `force_nonendemic_singleton = TRUE` now allows non-endemics to
 The first limitation of the approach of setting `force_nonendemic_singleton` to `TRUE` is it does not work when the non-endemic island species are reconstructed to be embedded within an endemic clade. For example, take a look at the tree below and see how the ancestral state reconstruction has a node on the island that is the ancestor of both the endemic and non-endemic species:
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic, and blue for not_present. Plant a, b,
+#|   c, d, and e are endemic, Plant i, h and j are nonendemic and Plant f and j
+#|   are not present on the island. Ancestral nodes are a mix of endemic and 
+#|   nonendemic and the root node is not present.
 endemicity_status <- c("endemic", "endemic", "endemic", 
                        "endemic", "endemic", "not_present",
                        "nonendemic", "nonendemic", "nonendemic",
@@ -104,6 +121,14 @@ As shown above a **warning** is printed to make you aware that this issue is kno
 A second limitation of forcing the non-endemic island species to be separate colonisation events, and in effect overwriting the ancestral state reconstruction, is that the order of the extraction matters. In other words, the order in which `extract_island_species()` goes through the phylogeny extracting the species will influence the extracted island community data. Below we show two examples on the same tree where the order of the endemic and non-endemic species is reversed and how this affects the extraction, the extraction starts from the species labelled "Plant_a". 
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 5 species, with tip labels of Plant_a to Plant_e.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   0.75 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic, and blue for not_present. Plant a and b
+#|   are endemic, Plant c and d are nonendemic, and Plant e is not present. The
+#|   node ancestral to Plant c and d is nonendemic, all other nodes are endemic.
 newick <- "(Plant_e:0.9,((Plant_a:0.3,Plant_b:0.3):0.3,(Plant_c:0.3,Plant_d:0.3):0.3):0.3);"
 phylo <- ape::read.tree(text = newick)
 phylo <- phylobase::phylo4(phylo)
@@ -123,6 +148,14 @@ island_tbl
 When we reverse the order of the endemic and non-endemic clades within the tree, the extraction changes when `force_nonendemic_singleton = TRUE`, even though the ancestral state reconstruction is exactly the same.
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 5 species, with tip labels of Plant_a to Plant_e.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   0.75 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic, and blue for not_present. Plant a and b
+#|   are endemic, Plant c and d are nonendemic, and Plant e is not present. The
+#|   node ancestral to Plant c and d is nonendemic, all other nodes are endemic.
 endemicity_status <- c("not_present", "nonendemic", "nonendemic", "endemic", 
                        "endemic")
 phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
@@ -145,6 +178,15 @@ This second issue of extraction order is only applicable when `extraction_method
 In some cases where one or more species from an endemic island radiation have colonised the mainland you may want to reclassify the non-endemic island species (i.e. on the island and the mainland) as an island **endemic**. We term these "DAISIE endemics" as they are not true island endemics, but from the perspective of the DAISIE framework they are the result of speciation on the island and later expanded their range to the mainland. If scoring these non-endemic species as non-endemic it can lead to complex biogeographical reconstructions that may end up breaking up an endemic island radiation into multiple lineages (i.e. multiple island colonisations); and also because this may lead to an underestimation of the speciation rates on the island if the DAISIE model is fitted to the data. By classifying those species as "DAISIE endemics" we can avoid these problems.
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic, and blue for not_present. Plant a, b,
+#|   c, d, and f are endemic, Plant e is nonendemic, and others are not present.
+#|   All ancestral nodes are endemic, except the root and nodes ancestral to 
+#|   Plant g, h, i.
 set.seed(
   1,
   kind = "Mersenne-Twister",
@@ -169,6 +211,14 @@ By assinging species that were likely endemic before recolonising the mainland o
 The example below is the same phylogeny but the "Plant_e" species is now reclassified as endemic ("DAISIE endemic") for the purposes of reconstruction and extraction as it is judged by the empiricist to be the result of speciation on the island, and thus from the perspective of evolutionary processes on the island it is endemic. 
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic and blue for not_present. Plant a, b, c, d, e and f are
+#|   endemic and have endemic ancestral nodes, Plant h, i, j, and k are not
+#|   present, and all other nodes are not_present.
 endemicity_status <- c("endemic", "endemic", "endemic", 
                        "endemic", "endemic", "endemic",
                        "not_present", "not_present", "not_present",
@@ -191,6 +241,15 @@ In the case of the issue of having non-endemics that you believe to be _true non
 The two solutions covered in this article can be used jointly. For example if you have an endemic radiation with a single non-endemic and a group of closely related non-endemic species in a different part of the phylogeny then the endemicity status can be updated and `force_nonendemic_singleton = TRUE` when calling `extract_island_species()`. For example: 
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. Plant b, c, d
+#|   and e are endemic, Plant b, i and h are nonendemic, and Plant a, f, g and j
+#|   are not_present. Nodes are a mix of endemic, nonendemic and not_present,
+#|   the root node is not_present.
 set.seed(
   1,
   kind = "Mersenne-Twister",
@@ -220,6 +279,15 @@ In this example the island community data extracted is two endemic clades (by de
 If we set the non-endemic species in the island radiation to _endemic_ using the "DAISIE endemic" reasoning stated above, and by manually setting `force_nonendemic_singleton = TRUE` we can acheive, for particular scenarios, be better extraction.
 
 ```{r, fig.height=5, fig.width=8}
+#| fig.alt: >
+#|   A phylogenetic tree with 10 species, with tip labels of Plant_a to Plant_j.
+#|   There is a x-axis labelled Time (Millon years ago) starting at just over
+#|   1.5 and going to 0. Phylogeny tips and nodes are labelled with coloured
+#|   points, and there is a legend titled Endemicity status with a red point
+#|   for endemic, green for nonendemic and blue for not_present. Plant b, c, d
+#|   and e are endemic, Plant i and h are nonendemic, and Plant a, f, g and j
+#|   are not_present. Nodes are a mix of endemic, nonendemic and not_present,
+#|   the root node is not_present.
 endemicity_status <- c("not_present", "endemic", "endemic", 
                        "endemic", "endemic", "not_present",
                        "not_present", "nonendemic", "nonendemic",
