@@ -8,7 +8,7 @@ This release also updates the package maintainer email.
 
 ### NEW FEATURES
 
-* None
+* New DAISIE FAQ vignette (@Neves-P & @luislvalente, #55 & #56).
 
 ### MINOR IMPROVEMENTS
 
