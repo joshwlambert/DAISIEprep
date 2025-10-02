@@ -20,7 +20,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Joshua W. Lambert \email{j.w.l.lambert@rug.nl} (\href{https://orcid.org/0000-0001-5218-3046}{ORCID})
+\strong{Maintainer}: Joshua W. Lambert \email{joshua.lambert@lshtm.ac.uk} (\href{https://orcid.org/0000-0001-5218-3046}{ORCID})
 
 Authors:
 \itemize{
