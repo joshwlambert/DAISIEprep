@@ -5,7 +5,7 @@ Version: 1.0.0.9000
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
-           email = "j.w.l.lambert@rug.nl",
+           email = "joshua.lambert@lshtm.ac.uk",
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5218-3046")),
     person(given = "Luis",
