@@ -1,6 +1,26 @@
-# DAISIEprep (development version)
-
 # News
+
+# DAISIEprep 1.0.1
+
+A patch release to resolve testing errors occurring since [{ggplot2} v4.0.0 was released](https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/). 
+
+This release also updates the package maintainer email.
+
+### NEW FEATURES
+
+* None
+
+### MINOR IMPROVEMENTS
+
+* None
+
+### BUG FIXES
+
+* None
+
+### DEPRECATED AND DEFUNCT
+
+* None
 
 # DAISIEprep 1.0.0
 
