@@ -1,21 +1,45 @@
 test_that("plot_phylod runs silent without error", {
   phylod <- create_test_phylod(test_scenario = 1)
-  expect_silent(plot_phylod(phylod = phylod, node_pies = FALSE))
+  # warning due to ggtree since ggplot2 v4.0.0 see
+  # https://github.com/YuLab-SMU/ggtree/issues/656
+  suppressWarnings(expect_warning(
+    tree <- plot_phylod(phylod = phylod, node_pies = FALSE),
+    regexp = "Arguments in `...` must be used.",
+  ))
+  expect_s3_class(tree, class = "ggtree")
 })
 
 test_that("plot_phylod runs silent without error", {
   phylod <- create_test_phylod(test_scenario = 2)
-  expect_silent(plot_phylod(phylod = phylod, node_pies = FALSE))
+  # warning due to ggtree since ggplot2 v4.0.0 see
+  # https://github.com/YuLab-SMU/ggtree/issues/656
+  suppressWarnings(expect_warning(
+    tree <- plot_phylod(phylod = phylod, node_pies = FALSE),
+    regexp = "Arguments in `...` must be used.",
+  ))
+  expect_s3_class(tree, class = "ggtree")
 })
 
 test_that("plot_phylod runs silent without error", {
   phylod <- create_test_phylod(test_scenario = 1)
-  expect_silent(plot_phylod(phylod = phylod, node_pies = TRUE))
+  # warning due to ggtree since ggplot2 v4.0.0 see
+  # https://github.com/YuLab-SMU/ggtree/issues/656
+  suppressWarnings(expect_warning(
+    tree <- plot_phylod(phylod = phylod, node_pies = TRUE),
+    regexp = "Arguments in `...` must be used.",
+  ))
+  expect_s3_class(tree, class = "ggtree")
 })
 
 test_that("plot_phylod runs silent without error", {
   phylod <- create_test_phylod(test_scenario = 2)
-  expect_silent(plot_phylod(phylod = phylod, node_pies = TRUE))
+  # warning due to ggtree since ggplot2 v4.0.0 see
+  # https://github.com/YuLab-SMU/ggtree/issues/656
+  suppressWarnings(expect_warning(
+    tree <- plot_phylod(phylod = phylod, node_pies = TRUE),
+    regexp = "Arguments in `...` must be used.",
+  ))
+  expect_s3_class(tree, class = "ggtree")
 })
 
 test_that("plot_phylod fails correctly without node data", {
