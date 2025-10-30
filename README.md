@@ -37,7 +37,7 @@ See [frequently asked questions (FAQs) about DAISIE](https://joshwlambert.github
 
 ## Help
 
-To report a bug please open an [issue](https://github.com/joshwlambert/DAISIEprep/issues/new) or email at [j.w.l.lambert\@rug.nl](mailto:j.w.l.lambert@rug.nl){.email}.
+To report a bug please open an [issue](https://github.com/joshwlambert/DAISIEprep/issues/new) or email at [joshua.lambert\@lshtm.ac.uk](mailto:joshua.lambert@lshtm.ac.uk).
 
 ## Contribute
 
