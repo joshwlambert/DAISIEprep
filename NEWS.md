@@ -2,7 +2,10 @@
 
 # DAISIEprep 1.0.1
 
-A patch release to resolve testing errors occurring since [{ggplot2} v4.0.0 was released](https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/). 
+A patch release to due to testing errors occurring since [{ggplot2} v4.0.0 was released](https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/). Tests using
+`plot_phylod()` which depends on {ggtree} and thus {ggplot2} are temporarily
+skipped due to errors on R devel to prevent the package becoming archived,
+and will be fixed shortly in another patch release.
 
 This release also updates the package maintainer email.
 
