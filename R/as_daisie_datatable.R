@@ -111,15 +111,15 @@ as_daisie_datatable <- function(island_tbl,
           clade_name <- daisie_datatable[i, "Clade_name"]
 
           # recursively split clade until branching times are after island age
-          while (brts[1] >= island_age) {
+          while (event_times[2] >= island_age) {
 
             # extract island colonist information
             daisie_datatable[i, "Clade_name"] <- paste(
               clade_name, split_clade, sep = "_"
             )
             split_clade <- split_clade + 1
-            daisie_datatable[i, "Branching_times"] <- event_times[1]
-            event_times <- event_times[-1]
+            daisie_datatable[i, "Branching_times"][[1]] <- list(event_times[2])
+            event_times <- event_times[-2]
             if (length(event_times) > 0) {
               # split singletons do not get assigned any missing species
               daisie_datatable[i, "Missing_species"] <- 0
@@ -151,6 +151,12 @@ as_daisie_datatable <- function(island_tbl,
             daisie_datatable[i, "Missing_species"] <-
               island_tbl[1, "missing_species"]
             daisie_datatable[i, "Status"] <- island_tbl[1, "status"]
+            if (max(daisie_datatable[i, "Branching_times"][[1]]) >= island_age) {
+              # assign MaxAge status
+              daisie_datatable[i, "Status"] <- paste0(
+                daisie_datatable[i, "Status"], "_MaxAge"
+              )
+            }
           }
         }
       }
