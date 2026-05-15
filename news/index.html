@@ -53,6 +53,10 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="daisieprep-development-version">DAISIEprep (development version)<a class="anchor" aria-label="anchor" href="#daisieprep-development-version"></a></h2>
+<div class="section level4">
+<h4 id="bug-fixes-development-version">BUG FIXES<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h4>
+<ul><li>Fix for a bug in <code><a href="../reference/as_daisie_datatable.html">as_daisie_datatable()</a></code> when one or more branching times of an island colonist are older than the island age. The clade is now split so that each branching time older than the island age becomes its own <code>_MaxAge</code> singleton row, while the colonisation time and any in-island branching times remain together as the main <code>_MaxAge</code> clade row. Previously the splitting loop could fail to terminate correctly or error with <code>missing value where TRUE/FALSE needed</code> when all branching times exceeded the island age (<a href="https://github.com/joshwlambert/DAISIEprep/issues/60" class="external-link">#60</a>).</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="daisieprep-101">DAISIEprep 1.0.1<a class="anchor" aria-label="anchor" href="#daisieprep-101"></a></h2><p class="text-muted">CRAN release: 2025-10-30</p>

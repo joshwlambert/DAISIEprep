@@ -2,6 +2,20 @@
 
 ## DAISIEprep (development version)
 
+#### BUG FIXES
+
+- Fix for a bug in
+  [`as_daisie_datatable()`](https://joshwlambert.github.io/DAISIEprep/reference/as_daisie_datatable.md)
+  when one or more branching times of an island colonist are older than
+  the island age. The clade is now split so that each branching time
+  older than the island age becomes its own `_MaxAge` singleton row,
+  while the colonisation time and any in-island branching times remain
+  together as the main `_MaxAge` clade row. Previously the splitting
+  loop could fail to terminate correctly or error with
+  `missing value where TRUE/FALSE needed` when all branching times
+  exceeded the island age
+  ([\#60](https://github.com/joshwlambert/DAISIEprep/issues/60)).
+
 ## DAISIEprep 1.0.1
 
 CRAN release: 2025-10-30

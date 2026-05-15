@@ -93,6 +93,29 @@ colonisation if available.</p></dd>
     <p>A data frame in the format of a DAISIE data table</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>When the colonisation time of an island colonist is older than <code>island_age</code>
+(either because <code>col_max_age = TRUE</code> in the <code>island_tbl</code>, because
+<code>precise_col_time = FALSE</code>, or because the extracted colonisation time itself
+exceeds <code>island_age</code>), the colonist's status is appended with <code>_MaxAge</code>. This
+tells the downstream <code><a href="create_daisie_data.html">create_daisie_data()</a></code> step to treat the colonisation
+time as an upper bound and integrate over possible colonisation times between
+the island age and the present.</p>
+<p>If the island colonist additionally contains one or more in-island branching
+times that are also older than <code>island_age</code>, those branching events cannot
+represent on-island cladogenesis (the island did not yet exist). In that
+case the clade is <em>split</em>:</p><ul><li><p>each branching time older than <code>island_age</code> is written as its own
+<code>_MaxAge</code> singleton row, with the clade name suffixed <code>_1</code>, <code>_2</code>, ...; and</p></li>
+<li><p>the colonisation time together with any remaining (valid, in-island)
+branching times stays as the main <code>_MaxAge</code> row under the original clade
+name.</p></li>
+</ul><p>If all branching times exceed <code>island_age</code>, the main row contains only the
+colonisation time. The numeric values written to <code>Branching_times</code> are not
+clamped to <code>island_age</code> at this stage; clamping (to <code>island_age - epss</code>)
+happens in <code><a href="create_daisie_data.html">create_daisie_data()</a></code>, which treats the <code>_MaxAge</code> flag as an
+instruction to integrate up to the island age.</p>
+    </div>
+    <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Joshua W. Lambert, Pedro Neves</p>
     </div>
