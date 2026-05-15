@@ -73,6 +73,7 @@ default_params_doc(
   parameter_index,
   sse_model,
   force_nonendemic_singleton,
+  min_off_island_nodes,
   ...
 )
 }
@@ -338,6 +339,23 @@ see \code{vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")} for 
 This argument is only active when \code{extraction_method = "asr"}, when
 \code{extraction_method = "min"} this argument will be ignored with a warning,
 as the \code{min} method always extracts non-endemic species as singletons.}
+
+\item{min_off_island_nodes}{Positive numeric (or \code{Inf}, the default).
+Threshold for splitting a re-colonisation of the island off as its own
+island colonist. When the ancestral state reconstruction labels an
+ancestor-to-descendant path within an island clade with this many or more
+consecutive \code{not_present} (off-island) internal nodes between two
+on-island portions of the same lineage, the descendant on-island sub-clade
+is extracted as a separate \code{Island_colonist}. The default \code{Inf} reproduces
+the current behaviour: no splits are ever introduced and back-to-island
+re-colonisations are extracted as part of the original island colonist.
+
+This argument is only active when \code{extraction_method = "asr"}. When
+\code{extraction_method = "min"} it is ignored with a warning. It is also
+subject to the limitation that only paths whose intervening internal nodes
+are themselves labelled \code{not_present} by the ancestral state reconstruction
+can be split; when ASR keeps the spine continuously on-island, no off-island
+internal nodes exist along the path and the threshold cannot trigger.}
 
 \item{...}{\link{dots} Allows arguments to be passed to \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}
 and \code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}}. These arguments must match by name

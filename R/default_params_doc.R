@@ -194,6 +194,22 @@
 #' This argument is only active when `extraction_method = "asr"`, when
 #' `extraction_method = "min"` this argument will be ignored with a warning,
 #' as the `min` method always extracts non-endemic species as singletons.
+#' @param min_off_island_nodes Positive numeric (or `Inf`, the default).
+#' Threshold for splitting a re-colonisation of the island off as its own
+#' island colonist. When the ancestral state reconstruction labels an
+#' ancestor-to-descendant path within an island clade with this many or more
+#' consecutive `not_present` (off-island) internal nodes between two
+#' on-island portions of the same lineage, the descendant on-island sub-clade
+#' is extracted as a separate `Island_colonist`. The default `Inf` reproduces
+#' the current behaviour: no splits are ever introduced and back-to-island
+#' re-colonisations are extracted as part of the original island colonist.
+#'
+#' This argument is only active when `extraction_method = "asr"`. When
+#' `extraction_method = "min"` it is ignored with a warning. It is also
+#' subject to the limitation that only paths whose intervening internal nodes
+#' are themselves labelled `not_present` by the ancestral state reconstruction
+#' can be split; when ASR keeps the spine continuously on-island, no off-island
+#' internal nodes exist along the path and the threshold cannot trigger.
 #' @param ... [dots] Allows arguments to be passed to [castor::asr_mk_model()]
 #' and [castor::asr_max_parsimony()]. These arguments must match by name
 #' exactly, see `?castor::asr_mk_model()` and `?castor::asr_max_parsimony()`
@@ -269,6 +285,7 @@ default_params_doc <- function(island_colonist,
                                parameter_index,
                                sse_model,
                                force_nonendemic_singleton,
+                               min_off_island_nodes,
                                ...
 ) {
   # nothing
