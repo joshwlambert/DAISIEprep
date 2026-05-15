@@ -3,6 +3,32 @@
 #' `DAISIEprep::create_daisie_data()` function which creates the list input into
 #' the DAISIE ML models.
 #'
+#' @details
+#' When the colonisation time of an island colonist is older than `island_age`
+#' (either because `col_max_age = TRUE` in the `island_tbl`, because
+#' `precise_col_time = FALSE`, or because the extracted colonisation time itself
+#' exceeds `island_age`), the colonist's status is appended with `_MaxAge`. This
+#' tells the downstream `create_daisie_data()` step to treat the colonisation
+#' time as an upper bound and integrate over possible colonisation times between
+#' the island age and the present.
+#'
+#' If the island colonist additionally contains one or more in-island branching
+#' times that are also older than `island_age`, those branching events cannot
+#' represent on-island cladogenesis (the island did not yet exist). In that
+#' case the clade is _split_:
+#'
+#' * each branching time older than `island_age` is written as its own
+#'   `_MaxAge` singleton row, with the clade name suffixed `_1`, `_2`, ...; and
+#' * the colonisation time together with any remaining (valid, in-island)
+#'   branching times stays as the main `_MaxAge` row under the original clade
+#'   name.
+#'
+#' If all branching times exceed `island_age`, the main row contains only the
+#' colonisation time. The numeric values written to `Branching_times` are not
+#' clamped to `island_age` at this stage; clamping (to `island_age - epss`)
+#' happens in `create_daisie_data()`, which treats the `_MaxAge` flag as an
+#' instruction to integrate up to the island age.
+#'
 #' @inheritParams default_params_doc
 #'
 #' @return A data frame in the format of a DAISIE data table
@@ -111,7 +137,7 @@ as_daisie_datatable <- function(island_tbl,
           clade_name <- daisie_datatable[i, "Clade_name"]
 
           # recursively split clade until branching times are after island age
-          while (event_times[2] >= island_age) {
+          while (length(event_times) >= 2 && event_times[2] >= island_age) {
 
             # extract island colonist information
             daisie_datatable[i, "Clade_name"] <- paste(
