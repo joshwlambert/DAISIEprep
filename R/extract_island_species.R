@@ -31,7 +31,8 @@ extract_island_species <- function(phylod,
                                    include_not_present = FALSE,
                                    nested_asr_species = c("split", "group"),
                                    force_nonendemic_singleton = FALSE,
-                                   unique_clade_name = TRUE) {
+                                   unique_clade_name = TRUE,
+                                   min_off_island_nodes = Inf) {
 
   # check the input data
   phylod <- check_phylo_data(phylod)
@@ -52,6 +53,12 @@ extract_island_species <- function(phylod,
   if (extraction_method == "min" && force_nonendemic_singleton) {
     warning("force_nonendemic_singleton is being ignored as ",
             "extraction_method = 'min'.\n force_nonendemic_singleton is only ",
+            "valid when extraction_method = 'asr'")
+  }
+
+  if (extraction_method == "min" && is.finite(min_off_island_nodes)) {
+    warning("min_off_island_nodes is being ignored as ",
+            "extraction_method = 'min'.\n min_off_island_nodes is only ",
             "valid when extraction_method = 'asr'")
   }
 
@@ -86,7 +93,8 @@ extract_island_species <- function(phylod,
           species_label = as.character(phylod@label[i]),
           species_endemicity = phylod@data$endemicity_status[i],
           island_tbl = island_tbl,
-          include_not_present = include_not_present
+          include_not_present = include_not_present,
+          min_off_island_nodes = min_off_island_nodes
         )
         if (force_nonendemic_singleton) {
           # TODO: remove any non-endemic species grouped with endemics

@@ -12,7 +12,8 @@ extract_island_species(
   include_not_present = FALSE,
   nested_asr_species = c("split", "group"),
   force_nonendemic_singleton = FALSE,
-  unique_clade_name = TRUE
+  unique_clade_name = TRUE,
+  min_off_island_nodes = Inf
 )
 }
 \arguments{
@@ -58,6 +59,23 @@ as the \code{min} method always extracts non-endemic species as singletons.}
 identifier is used as the clade name in the Island_tbl object or a genus
 name which may not be unique if that genus has several independent island
 colonisations}
+
+\item{min_off_island_nodes}{Positive numeric (or \code{Inf}, the default).
+Threshold for splitting a re-colonisation of the island off as its own
+island colonist. When the ancestral state reconstruction labels an
+ancestor-to-descendant path within an island clade with this many or more
+consecutive \code{not_present} (off-island) internal nodes between two
+on-island portions of the same lineage, the descendant on-island sub-clade
+is extracted as a separate \code{Island_colonist}. The default \code{Inf} reproduces
+the current behaviour: no splits are ever introduced and back-to-island
+re-colonisations are extracted as part of the original island colonist.
+
+This argument is only active when \code{extraction_method = "asr"}. When
+\code{extraction_method = "min"} it is ignored with a warning. It is also
+subject to the limitation that only paths whose intervening internal nodes
+are themselves labelled \code{not_present} by the ancestral state reconstruction
+can be split; when ASR keeps the spine continuously on-island, no off-island
+internal nodes exist along the path and the threshold cannot trigger.}
 }
 \value{
 An object of \code{Island_tbl} class
