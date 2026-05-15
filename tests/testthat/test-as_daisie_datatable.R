@@ -639,12 +639,12 @@ test_that("2 endemics, precise col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
   expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.251727277709))
+    list(c(0.251727277709), c(1.43337005682))
   )
 })
 
@@ -665,12 +665,12 @@ test_that("2 endemics, max col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
   expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.251727277709))
+    list(c(0.251727277709), c(1.43337005682))
   )
 })
 
@@ -691,12 +691,12 @@ test_that("2 endemics, min col time and brts before island age", {
     colnames(daisie_datatable),
     c("Clade_name", "Status", "Missing_species", "Branching_times")
   )
-  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a_2"))
+  expect_equal(daisie_datatable$Clade_name, c("bird_a_1", "bird_a"))
   expect_equal(daisie_datatable$Status, c("endemic_MaxAge", "endemic_MaxAge"))
   expect_equal(daisie_datatable$Missing_species, c(0, 0))
   expect_equal(
     daisie_datatable$Branching_times,
-    list(c(1.43337005682), c(0.251727277709))
+    list(c(0.251727277709), c(1.43337005682))
   )
 })
 
@@ -988,5 +988,42 @@ test_that("1 endemic, col_max_age before island age", {
   expect_equal(
     daisie_datatable$Branching_times,
     list(c(0.755181833128))
+  )
+})
+
+test_that("issue #60: branching times older than island age split correctly", {
+  island_tbl <- island_tbl()
+  island_tbl <- add_island_colonist(
+    island_tbl = island_tbl,
+    clade_name = "Clade_a",
+    status = "endemic",
+    missing_species = 0,
+    col_time = 60,
+    col_max_age = TRUE,
+    branching_times = c(55, 52, 45, 10, 5),
+    min_age = NA_real_,
+    species = "Clade_a",
+    clade_type = 1
+  )
+
+  daisie_datatable <- as_daisie_datatable(
+    island_tbl = island_tbl,
+    island_age = 50
+  )
+
+  expect_true(is.data.frame(daisie_datatable))
+  expect_equal(
+    colnames(daisie_datatable),
+    c("Clade_name", "Status", "Missing_species", "Branching_times")
+  )
+  expect_equal(
+    daisie_datatable$Clade_name,
+    c("Clade_a_1", "Clade_a_2", "Clade_a")
+  )
+  expect_equal(daisie_datatable$Status, rep("endemic_MaxAge", 3))
+  expect_equal(daisie_datatable$Missing_species, c(0, 0, 0))
+  expect_equal(
+    daisie_datatable$Branching_times,
+    list(55, 52, c(60, 45, 10, 5))
   )
 })

@@ -27,6 +27,33 @@ data table (see DAISIE R package for details). This can then be input into
 \code{DAISIEprep::create_daisie_data()} function which creates the list input into
 the DAISIE ML models.
 }
+\details{
+When the colonisation time of an island colonist is older than \code{island_age}
+(either because \code{col_max_age = TRUE} in the \code{island_tbl}, because
+\code{precise_col_time = FALSE}, or because the extracted colonisation time itself
+exceeds \code{island_age}), the colonist's status is appended with \verb{_MaxAge}. This
+tells the downstream \code{create_daisie_data()} step to treat the colonisation
+time as an upper bound and integrate over possible colonisation times between
+the island age and the present.
+
+If the island colonist additionally contains one or more in-island branching
+times that are also older than \code{island_age}, those branching events cannot
+represent on-island cladogenesis (the island did not yet exist). In that
+case the clade is \emph{split}:
+\itemize{
+\item each branching time older than \code{island_age} is written as its own
+\verb{_MaxAge} singleton row, with the clade name suffixed \verb{_1}, \verb{_2}, ...; and
+\item the colonisation time together with any remaining (valid, in-island)
+branching times stays as the main \verb{_MaxAge} row under the original clade
+name.
+}
+
+If all branching times exceed \code{island_age}, the main row contains only the
+colonisation time. The numeric values written to \code{Branching_times} are not
+clamped to \code{island_age} at this stage; clamping (to \code{island_age - epss})
+happens in \code{create_daisie_data()}, which treats the \verb{_MaxAge} flag as an
+instruction to integrate up to the island age.
+}
 \examples{
 phylod <- create_test_phylod(10)
 island_tbl <- extract_island_species(
