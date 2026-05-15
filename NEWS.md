@@ -1,5 +1,10 @@
 # DAISIEprep (development version)
 
+### MINOR IMPROVEMENTS
+
+* Added Dependabot configuration to bundle monthly updates of GitHub Actions workflow versions into a single PR.
+* Bumped GitHub Actions to their latest versions (`actions/checkout@v6`, `codecov/codecov-action@v6`, `actions/upload-artifact@v7`, `JamesIves/github-pages-deploy-action@v4.8.0`).
+
 # News
 
 # DAISIEprep 1.0.1
