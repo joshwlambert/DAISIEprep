@@ -1,5 +1,9 @@
 # DAISIEprep (development version)
 
+### NEW FEATURES
+
+* A new `min_off_island_nodes` argument has been added to `extract_island_species()`. When the ancestral state reconstruction places at least `min_off_island_nodes` consecutive `not_present` (off-island) internal nodes between two on-island portions of the same lineage, the descendant on-island sub-clade is extracted as a separate `Island_colonist`. This allows back-and-forth recolonisations to be treated as independent island colonisation events rather than lumped into the original. The default `Inf` preserves the previous behaviour. Only active when `extraction_method = "asr"` (#63).
+
 ### BUG FIXES
 
 * Fix for a bug in `as_daisie_datatable()` when one or more branching times of an island colonist are older than the island age. The clade is now split so that each branching time older than the island age becomes its own `_MaxAge` singleton row, while the colonisation time and any in-island branching times remain together as the main `_MaxAge` clade row. Previously the splitting loop could fail to terminate correctly or error with `missing value where TRUE/FALSE needed` when all branching times exceeded the island age (#60).
