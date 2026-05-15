@@ -619,7 +619,7 @@ res <- BioGeoBEARS::bears_optim_run(bgb_run)
 #>               p1           p2   value fevals gevals niter convcode  kkt1 kkt2
 #> bobyqa 0.3984246 1.106577e-08 -19.384     65     NA    NA        0 FALSE TRUE
 #>        xtime
-#> bobyqa 0.424
+#> bobyqa 0.369
 ```
 
 We do get a warning, but

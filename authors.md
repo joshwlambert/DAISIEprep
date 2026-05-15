@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/joshwlambert/DAISIEprep/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/joshwlambert/DAISIEprep/blob/v1.0.1/DESCRIPTION)
 
 Lambert J, Valente L, Santos Neves P, Roeble L, Pannetier T (2026).
 *DAISIEprep: Extracts Phylogenetic Island Community Data from
