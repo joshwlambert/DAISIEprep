@@ -1,11 +1,11 @@
 Package: DAISIEprep
 Type: Package
 Title: Extracts Phylogenetic Island Community Data from Phylogenetic Trees
-Version: 1.0.0.9000
+Version: 1.0.1
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
-           email = "j.w.l.lambert@rug.nl",
+           email = "joshua.lambert@lshtm.ac.uk",
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5218-3046")),
     person(given = "Luis",
@@ -29,7 +29,6 @@ Authors@R: c(
            role = c("aut"),
            comment = c(ORCID = "0000-0002-8424-3573"))
            )
-Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl> 
 Description: Extracts colonisation and branching times of island
     species to be used for analysis in the R package 'DAISIE'. It uses
     phylogenetic and endemicity data to extract the separate island colonists
@@ -40,7 +39,7 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Depends: R (>= 4.0)
 biocViews:
 Imports:

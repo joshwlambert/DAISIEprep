@@ -1,6 +1,29 @@
-# DAISIEprep (development version)
-
 # News
+
+# DAISIEprep 1.0.1
+
+A patch release to due to testing errors occurring since [{ggplot2} v4.0.0 was released](https://tidyverse.org/blog/2025/09/ggplot2-4-0-0/). Tests using
+`plot_phylod()` which depends on {ggtree} and thus {ggplot2} are temporarily
+skipped due to errors on R devel to prevent the package becoming archived,
+and will be fixed shortly in another patch release.
+
+This release also updates the package maintainer email.
+
+### NEW FEATURES
+
+* New DAISIE FAQ vignette (@Neves-P & @luislvalente, #55 & #56).
+
+### MINOR IMPROVEMENTS
+
+* Updated `test-coverage.yaml` GitHub actions workflow.
+
+### BUG FIXES
+
+* None
+
+### DEPRECATED AND DEFUNCT
+
+* None
 
 # DAISIEprep 1.0.0
 
