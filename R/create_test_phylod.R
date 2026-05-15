@@ -195,6 +195,42 @@ create_test_phylod <- function(test_scenario) {
     phylod <- add_asr_node_states(phylod = phylod, asr_method = "parsimony")
   }
 
+  if (test_scenario == 17) {
+    # Back-and-forth scenario: an original on-island colonisation (bird_a)
+    # whose sister clade contains a back-colonisation to the mainland
+    # (bird_b, bird_c, bird_d) and a subsequent re-colonisation of the
+    # island (bird_e, bird_f). The internal node `island_status` values are
+    # set manually so the spine path from N1 to N5 traverses exactly three
+    # `not_present` internal nodes, providing a deterministic input for the
+    # `min_off_island_nodes` argument of `extract_island_species()`.
+    phylo <- ape::read.tree(text = paste0(
+      "(bird_g:5,(bird_a:4,(bird_b:3.5,(bird_c:3,(bird_d:2.5,",
+      "(bird_e:2,bird_f:2):0.5):0.5):0.5):0.5):1);"
+    ))
+    phylo <- phylobase::phylo4(phylo)
+    tip_data <- data.frame(
+      endemicity_status = c(
+        "not_present", "endemic", "not_present", "not_present",
+        "not_present", "endemic", "endemic"
+      ),
+      row.names = phylobase::nodeId(phylo, "tip")
+    )
+    # Internal node IDs (with 7 tips): 8 = root, 9 = N1 (original island
+    # ancestor), 10 = N2, 11 = N3, 12 = N4, 13 = N5 (re-colonisation MRCA).
+    node_data <- data.frame(
+      island_status = c(
+        "not_present", "endemic", "not_present", "not_present",
+        "not_present", "endemic"
+      ),
+      row.names = phylobase::nodeId(phylo, "internal")
+    )
+    phylod <- phylobase::phylo4d(
+      phylo,
+      tip.data = tip_data,
+      node.data = node_data
+    )
+  }
+
   # return phylod
   phylod
 }
