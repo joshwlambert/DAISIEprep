@@ -1,0 +1,57 @@
+# Adds a specified number of missing species to an existing island_tbl at the colonist specified by the species_to_add_to argument given. The species given is located within the island_tbl data and missing species are assigned. This is to be used after `extract_island_species()` to input missing species.
+
+Adds a specified number of missing species to an existing island_tbl at
+the colonist specified by the species_to_add_to argument given. The
+species given is located within the island_tbl data and missing species
+are assigned. This is to be used after
+[`extract_island_species()`](https://joshwlambert.github.io/DAISIEprep/reference/extract_island_species.md)
+to input missing species.
+
+## Usage
+
+``` r
+add_missing_species(island_tbl, num_missing_species, species_to_add_to)
+```
+
+## Arguments
+
+- island_tbl:
+
+  An instance of the `Island_tbl` class.
+
+- num_missing_species:
+
+  Numeric for the number of missing species in the clade.
+
+- species_to_add_to:
+
+  Character string with the name of the species to identify which clade
+  to assign missing species to.
+
+## Value
+
+Object of Island_tbl class
+
+## Examples
+
+``` r
+set.seed(
+  1,
+  kind = "Mersenne-Twister",
+  normal.kind = "Inversion",
+  sample.kind = "Rejection"
+)
+phylo <- ape::rcoal(5)
+phylo$tip.label <- c("bird_a", "bird_b", "bird_c", "bird_d", "bird_e")
+phylo <- phylobase::phylo4(phylo)
+endemicity_status <- c(
+  "not_present", "not_present", "endemic", "not_present", "not_present"
+)
+phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+island_tbl <- extract_island_species(phylod, extraction_method = "min")
+island_tbl <- add_missing_species(
+  island_tbl = island_tbl,
+  num_missing_species = 1,
+  species_to_add_to = "bird_c"
+)
+```

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">DAISIEprep</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,8 +55,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -67,439 +66,512 @@
 
         </dt>
         <dd>Phylogenetic trees of the Galapagos bird lineages and sister species on the mainland.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="Island_colonist-accessors.html">get_clade_name()</a></code> <code><a href="Island_colonist-accessors.html">`set_clade_name&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_status()</a></code> <code><a href="Island_colonist-accessors.html">`set_status&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_missing_species()</a></code> <code><a href="Island_colonist-accessors.html">`set_missing_species&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_col_time()</a></code> <code><a href="Island_colonist-accessors.html">`set_col_time&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_col_max_age()</a></code> <code><a href="Island_colonist-accessors.html">`set_col_max_age&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_branching_times()</a></code> <code><a href="Island_colonist-accessors.html">`set_branching_times&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_min_age()</a></code> <code><a href="Island_colonist-accessors.html">`set_min_age&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_species()</a></code> <code><a href="Island_colonist-accessors.html">`set_species&lt;-`()</a></code> <code><a href="Island_colonist-accessors.html">get_clade_type()</a></code> <code><a href="Island_colonist-accessors.html">`set_clade_type&lt;-`()</a></code>
 
         </dt>
         <dd>Accessor functions for the data (slots) in objects of the <code>Island_colonist</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="Island_colonist-class.html">Island_colonist-class</a></code>
 
         </dt>
         <dd>Defines the <code>island_tbl</code> class which is used when extracting information from the phylogenetic and island data to be used for constructing a <code>daisie_data_tbl</code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="Island_tbl-accessors.html">get_island_tbl()</a></code> <code><a href="Island_tbl-accessors.html">`set_island_tbl&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_extracted_species()</a></code> <code><a href="Island_tbl-accessors.html">`set_extracted_species&lt;-`()</a></code> <code><a href="Island_tbl-accessors.html">get_num_phylo_used()</a></code> <code><a href="Island_tbl-accessors.html">`set_num_phylo_used&lt;-`()</a></code>
 
         </dt>
         <dd>Accessor functions for the data (slots) in objects of the <code>Island_tbl</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="Island_tbl-class.html">Island_tbl-class</a></code>
 
         </dt>
         <dd>Defines the <code>island_tbl</code> class which is used when extracting information from the phylogenetic and island data to be used for constructing a <code>daisie_data_tbl</code></dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="Multi_island_tbl-class.html">Multi_island_tbl-class</a></code>
 
         </dt>
         <dd>Defines the <code>Multi_island_tbl</code> class which is multiple <code>Island_tbl</code>s.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="add_asr_node_states.html">add_asr_node_states()</a></code>
 
         </dt>
         <dd>Fits a model of ancestral state reconstruction of island presence</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="add_island_colonist.html">add_island_colonist()</a></code>
 
         </dt>
         <dd>Adds an island colonists (can be either a singleton lineage or an island clade) to the island community (island_tbl).</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="add_missing_species.html">add_missing_species()</a></code>
 
         </dt>
         <dd>Adds a specified number of missing species to an existing island_tbl at the colonist specified by the species_to_add_to argument given. The species given is located within the island_tbl data and missing species are assigned. This is to be used after <code><a href="../reference/extract_island_species.html">extract_island_species()</a></code> to input missing species.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="add_multi_missing_species.html">add_multi_missing_species()</a></code>
 
         </dt>
         <dd>Calculates the number of missing species to be assigned to each island clade in the island_tbl object and assigns the missing species to them. In the case that multiple genera are in an island clade and each have missing species the number of missing species is summed. Currently the missing species are assigned to the genus that first matches with the missing species table, however a more biologically or stochastic assignment is in development.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="add_outgroup.html">add_outgroup()</a></code>
 
         </dt>
         <dd>Add an outgroup species to a given phylogeny.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="all_descendants_conspecific.html">all_descendants_conspecific()</a></code>
 
         </dt>
         <dd>Checks whether all species given in the descendants vector are the same species.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="all_endemicity_status.html">all_endemicity_status()</a></code>
 
         </dt>
         <dd>All possible endemicity statuses</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="any_back_colonisation.html">any_back_colonisation()</a></code>
 
         </dt>
         <dd>Detects any cases where a non-endemic species or species not present on the island has likely been on the island given its ancestral state reconstruction indicating ancestral presence on the island and so is likely a back colonisation from the island to the mainland (or potentially different island). This function is useful if using extraction_method = "min" in <code><a href="../reference/extract_island_species.html">DAISIEprep::extract_island_species()</a></code> as it may brake up a single colonist into multiple colonists because of back-colonisation.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="any_outgroup.html">any_outgroup()</a></code>
 
         </dt>
         <dd>Checks whether the phylogeny has an outgroup that is not present on the island. This is critical when extracting data from the phylogeny so the stem age (colonisation time) is correct.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="any_polyphyly.html">any_polyphyly()</a></code>
 
         </dt>
         <dd>Checks whether there are any species in the phylogeny that have multiple tips (i.e. multiple subspecies per species) and whether any of those tips are paraphyletic (i.e. are their subspecies more distantly related to each other than to other subspecies or species).</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="as_daisie_datatable.html">as_daisie_datatable()</a></code>
 
         </dt>
         <dd>Converts the <code>Island_tbl</code> class to a data frame in the format of a DAISIE data table (see DAISIE R package for details). This can then be input into <code><a href="../reference/create_daisie_data.html">DAISIEprep::create_daisie_data()</a></code> function which creates the list input into the DAISIE ML models.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="benchmark.html">benchmark()</a></code>
 
         </dt>
         <dd>Performance analysis of the extract_island_species() function Uses system.time() for timing for reasons explained here: https://radfordneal.wordpress.com/2014/02/02/inaccurate-results-from-microbenchmark/ # nolint</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="bind_colonist_to_tbl.html">bind_colonist_to_tbl()</a></code>
 
         </dt>
         <dd>Takes an existing instance of an <code>Island_tbl</code> class and bind the information from the instance of an <code>Island_colonist</code> class to it</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="check_island_colonist.html">check_island_colonist()</a></code>
 
         </dt>
         <dd>Checks the validity of the Island_colonist class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="check_island_tbl.html">check_island_tbl()</a></code>
 
         </dt>
         <dd>Checks the validity of the Island_tbl class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="check_multi_island_tbl.html">check_multi_island_tbl()</a></code>
 
         </dt>
         <dd>Checks the validity of the Multi_island_tbl class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="check_phylo_data.html">check_phylo_data()</a></code>
 
         </dt>
         <dd>Checks whether <code>\linkS4class{phylo4d}</code> object conforms to the requirements of the DAISIEprep package. If the function does not return anything the data is ready to be used, if an error is returned the data requires some pre-processing before DAISIEprep can be used</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="coccyzus_phylod.html">coccyzus_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of coccyzus species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="columbiformes_phylod.html">columbiformes_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of columbiformes species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="count_missing_species.html">count_missing_species()</a></code>
 
         </dt>
         <dd>Reads in the checklist of all species on an island, including those that are not in the phylogeny (represented by NA) and counts the number of species missing from the phylogeny each genus</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="create_daisie_data.html">create_daisie_data()</a></code>
 
         </dt>
         <dd>This is a wrapper function for DAISIE::DAISIE_dataprep(). It allows the final DAISIE data structure to be produced from within DAISIEprep. For detailed documentation see the help documentation in the DAISIE package (?DAISIE::DAISIE_dataprep).</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="create_endemicity_status.html">create_endemicity_status()</a></code>
 
         </dt>
         <dd>Creates a data frame with the endemicity status (either 'endemic', 'nonendemic', 'not_present') of every species in the phylogeny using a phylogeny and a data frame of the island species and their endemicity (either 'endemic' or 'nonendemic') provided.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="create_test_phylod.html">create_test_phylod()</a></code>
 
         </dt>
         <dd>Creates phylod objects.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="default_params_doc.html">default_params_doc()</a></code>
 
         </dt>
         <dd>Documentation for function in the DAISIEprep package</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="endemicity_to_sse_states.html">endemicity_to_sse_states()</a></code>
 
         </dt>
         <dd>Convert endemicity to SSE states</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_asr_clade.html">extract_asr_clade()</a></code>
 
         </dt>
         <dd>Extracts an island clade based on the ancestral state reconstruction of the species presence on the island, therefore this clade can contain non-endemic species as well as endemic species.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_biogeobears_ancestral_states_probs.html">extract_biogeobears_ancestral_states_probs()</a></code>
 
         </dt>
         <dd>Extract ancestral state probabilities from BioGeoBEARS output</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_clade_name.html">extract_clade_name()</a></code>
 
         </dt>
         <dd>Creates a name for a clade depending on whether all the species of the clade have the same genus name or whether the clade is composed of multiple genera, in which case it will create a unique clade name by concatinating the genus names</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_endemic_clade.html">extract_endemic_clade()</a></code>
 
         </dt>
         <dd>Extracts the information for an endemic clade (i.e. more than one species on the island more closely related to each other than other mainland species) from a phylogeny (specifically <code>phylo4d</code> object from <code>phylobase</code> package) and stores it in an <code>Island_colonist</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_endemic_singleton.html">extract_endemic_singleton()</a></code>
 
         </dt>
         <dd>Extracts the information for an endemic species from a phylogeny (specifically <code>phylo4d</code> object from <code>phylobase</code> package) and stores it in in an <code>Island_colonist</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_island_species.html">extract_island_species()</a></code>
 
         </dt>
         <dd>Extracts the colonisation, diversification, and endemicty data from phylogenetic and endemicity data and stores it in an <code>Island_tbl</code> object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_multi_tip_species.html">extract_multi_tip_species()</a></code>
 
         </dt>
         <dd>Extracts the information for a species (endemic or non-endemic) which has multiple tips in the phylogeny (i.e. more than one sample per species) from a phylogeny (specifically <code>phylo4d</code> object from <code>phylobase</code> package) and stores it in an <code>Island_colonist</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_nonendemic.html">extract_nonendemic()</a></code>
 
         </dt>
         <dd>Extracts the information for a non-endemic species from a phylogeny (specifically <code>phylo4d</code> object from <code>phylobase</code> package) and stores it in in an <code>island_colonist</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_species_asr.html">extract_species_asr()</a></code>
 
         </dt>
         <dd>Extracts the colonisation, diversification, and endemicty data from phylogenetic and endemicity data and stores it in an <code>Island_tbl</code> object using the "asr" algorithm that extract island species given their ancestral states of either island presence or absence.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_species_min.html">extract_species_min()</a></code>
 
         </dt>
         <dd>Extracts the colonisation, diversification, and endemicty data from phylogenetic and endemicity data and stores it in an <code>Island_tbl</code> object using the "min" algorithm that extract island species as the shortest time to the present.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_stem_age.html">extract_stem_age()</a></code>
 
         </dt>
         <dd>Extracts the stem age from the phylogeny when the a species is known to belong to a genus but is not itself in the phylogeny and there are members of the same genus are in the phylogeny. The stem age can either be for the genus (or several genera) in the tree (<code>stem = "genus"</code>) or use an extraction algorithm to find the stem of when the species colonised the island (<code>stem = "island_presence</code>), either 'min' or 'asr' as in extract_island_species(). When <code>stem = "island_presence"</code> the reconstructed node states are used to determine the stem age.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_stem_age_asr.html">extract_stem_age_asr()</a></code>
 
         </dt>
         <dd>Extracts the stem age from the phylogeny when the a species is known to belong to a genus but is not itself in the phylogeny and there are members of the same genus are in the phylogeny using the 'asr' extraction method</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_stem_age_genus.html">extract_stem_age_genus()</a></code>
 
         </dt>
         <dd>Extracts the stem age from the phylogeny when the a species is known to belong to a genus but is not itself in the phylogeny and there are members of the same genus are in the phylogeny</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="extract_stem_age_min.html">extract_stem_age_min()</a></code>
 
         </dt>
         <dd>Extracts the stem age from the phylogeny when the a species is known to belong to a genus but is not itself in the phylogeny and there are members of the same genus are in the phylogeny using the 'min' extraction method</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="finches_phylod.html">finches_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of finches species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="get_sse_tip_states.html">get_sse_tip_states()</a></code>
 
         </dt>
         <dd>Extract tip states from a phylod object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is_back_colonisation.html">is_back_colonisation()</a></code>
 
         </dt>
         <dd>Checks whether species has undergone back-colonisation from</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is_duplicate_colonist.html">is_duplicate_colonist()</a></code>
 
         </dt>
         <dd>Determines if colonist has already been stored in <code>Island_tbl</code> class. This is used to stop endemic clades from being stored multiple times in the island table by checking if the endemicity status and branching times are identical.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="is_identical_island_tbl.html">is_identical_island_tbl()</a></code>
 
         </dt>
         <dd>Checks whether two <code>Island_tbl</code> objects are identical. If they are different comparisons are made to report which components of the <code>Island_tbls</code> are different.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="island_colonist.html">island_colonist()</a></code>
 
         </dt>
         <dd>Constructor for Island_colonist</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="island_tbl.html">island_tbl()</a></code>
 
         </dt>
         <dd>Constructor function for <code>Island_tbl</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="mimus_phylod.html">mimus_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of mimus species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="multi_extract_island_species.html">multi_extract_island_species()</a></code>
 
         </dt>
         <dd>Extracts the colonisation, diversification, and endemicty data from multiple <code>phylod</code> (<code>phylo4d</code> class from <code>phylobase</code>) objects (composed of phylogenetic and endemicity data) and stores each in an <code>Island_tbl</code> object which are stored in a <code>Multi_island_tbl</code> object.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="multi_island_tbl.html">multi_island_tbl()</a></code>
 
         </dt>
         <dd>Constructor function for <code>Multi_island_tbl</code> class</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="myiarchus_phylod.html">myiarchus_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of myiarchus species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plant_phylo.html">plant_phylo</a></code>
 
         </dt>
         <dd>A phylogenetic tree of plant species.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot_colonisation.html">plot_colonisation()</a></code>
 
         </dt>
         <dd>Plots a dot plot (cleveland dot plot when include_crown_age = TRUE) of the stem and potentially crown ages of a community of island colonists.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot_performance.html">plot_performance()</a></code>
 
         </dt>
         <dd>Plots performance results for a grouping variable (prob_on_island or prob_endemic).</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot_phylod.html">plot_phylod()</a></code>
 
         </dt>
         <dd>Plots the phylogenetic tree and its associated tip and/or node data</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="progne_phylod.html">progne_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of progne species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="pyrocephalus_phylod.html">pyrocephalus_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of pyrocephalus species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rm_island_colonist.html">rm_island_colonist()</a></code>
 
         </dt>
         <dd>Removes an island colonist from an <code>Island_tbl</code> object</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="rm_multi_missing_species.html">rm_multi_missing_species()</a></code>
 
         </dt>
         <dd>Loops through the genera that have missing species and removes the ones that are found in the missing genus list which have phylogenetic data. This is useful when wanting to know which missing species have not been assigned to the island_tbl using <code><a href="../reference/add_multi_missing_species.html">add_multi_missing_species()</a></code>.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="round_up.html">round_up()</a></code>
 
         </dt>
         <dd>Rounds numbers using the round up method, rather than the round to the nearest even number method used by the base function <code>round</code>.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="select_endemicity_status.html">select_endemicity_status()</a></code>
 
         </dt>
         <dd>Select endemicity status from ancestral states probabilities</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sensitivity.html">sensitivity()</a></code>
 
         </dt>
         <dd>Runs a sensitivity analysis to test the influences of changing the data on the parameter estimates for the DAISIE maximum likelihood inference model</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="setophaga_phylod.html">setophaga_phylod</a></code>
 
         </dt>
         <dd>A phylogenetic tree of setophaga species with endemicity status as tip states.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sse_states_to_endemicity.html">sse_states_to_endemicity()</a></code>
 
         </dt>
         <dd>Convert SSE states back to endemicity status</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="translate_status.html">translate_status()</a></code>
 
         </dt>
         <dd>Takes a string of the various ways the island species status can be and returns a uniform all lower-case string of the same status to make handling statuses easier in other function</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="unique_island_genera.html">unique_island_genera()</a></code>
 
         </dt>
         <dd>Determines the unique endemic genera that are included in the island clades contained within the island_tbl object and stores them as a list with each genus only occuring once in the first island clade it appears in</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_biogeobears_input.html">write_biogeobears_input()</a></code>
 
         </dt>
         <dd>Write input files for BioGeoBEARS</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_newick_file.html">write_newick_file()</a></code>
 
         </dt>
         <dd>Write tree input file for BioGeoBEARS</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write_phylip_biogeo_file.html">write_phylip_biogeo_file()</a></code>
 
@@ -514,7 +586,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

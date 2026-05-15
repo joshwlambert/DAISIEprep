@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">DAISIEprep</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,7 @@ they are non-endemic island species.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="768"></p>
 <p>If you have <em>a priori</em> knowledge that the non-endemic species
 should be separate colonisations then this can be taken into account
 when extracting the phylogenetic island community data using
@@ -198,7 +198,7 @@ species:</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="768"></p>
 <p>In this case even when setting
 <code>force_nonendemic_singleton = TRUE</code> the clade is still
 extracted as a single endemic clade.</p>
@@ -238,7 +238,7 @@ species labelled “Plant_a”.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="768"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
@@ -266,7 +266,7 @@ ancestral state reconstruction is exactly the same.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="768"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
@@ -336,7 +336,7 @@ those species as “DAISIE endemics” we can avoid these problems.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="768"></p>
 <p>By assinging species that were likely endemic before recolonising the
 mainland or expanding their range to another region as <em>endemic</em>
 it resolves issues of incorrectly breaking apart island radiations when
@@ -358,7 +358,7 @@ evolutionary processes on the island it is endemic.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="768"></p>
 <p>In the two cases shown above using the <code>asr</code> extraction
 would have resulted in the same island community data, but when using
 larger, more complex phylogenetic and biogeographic data (e.g. birds of
@@ -407,7 +407,7 @@ phylogeny then the endemicity status can be updated and
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="768"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
@@ -436,7 +436,7 @@ can acheive, for particular scenarios, be better extraction.</p>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu">phylobase</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/phylobase/man/phylo4d-methods.html" class="external-link">phylo4d</a></span><span class="op">(</span><span class="va">phylo</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">endemicity_status</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">phylod</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_asr_node_states.html">add_asr_node_states</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span>, asr_method <span class="op">=</span> <span class="st">"mk"</span>, rate_model <span class="op">=</span> <span class="st">"ER"</span>, tie_preference <span class="op">=</span> <span class="st">"mainland"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/plot_phylod.html">plot_phylod</a></span><span class="op">(</span>phylod <span class="op">=</span> <span class="va">phylod</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
+<p><img src="Forcing_nonendemic_singleton_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="768"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">island_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract_island_species.html">extract_island_species</a></span><span class="op">(</span></span>
 <span>  phylod <span class="op">=</span> <span class="va">phylod</span>,</span>
@@ -475,7 +475,7 @@ released in case improvements become available.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

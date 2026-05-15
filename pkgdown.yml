@@ -1,5 +1,5 @@
-pandoc: 3.1.11
-pkgdown: 2.1.3
+pandoc: 3.8.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   DAISIE_FAQs: DAISIE_FAQs.html
@@ -9,7 +9,7 @@ articles:
   Performance: Performance.html
   Sensitivity: Sensitivity.html
   Tutorial: Tutorial.html
-last_built: 2025-07-19T19:53Z
+last_built: 2026-05-15T09:03Z
 urls:
   reference: https://joshwlambert.github.io/DAISIEprep/reference
   article: https://joshwlambert.github.io/DAISIEprep/articles
