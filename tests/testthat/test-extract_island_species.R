@@ -912,3 +912,79 @@ test_that("2 endemics, 4 species tree, asr, non-sisters, include_not_present", {
   )
   expect_equal(get_island_tbl(island_tbl)$clade_type, 1)
 })
+
+test_that("issue #63: min_off_island_nodes = Inf (default) is backwards compatible", {
+  phylod <- create_test_phylod(test_scenario = 17)
+  island_tbl <- extract_island_species(
+    phylod = phylod,
+    extraction_method = "asr"
+  )
+  tbl <- get_island_tbl(island_tbl)
+  expect_equal(nrow(tbl), 1)
+  expect_equal(tbl$clade_name, "bird_a")
+  expect_equal(tbl$status, "endemic")
+  expect_equal(tbl$col_time, 5)
+  expect_equal(tbl$branching_times, I(list(c(4, 2))))
+  expect_equal(tbl$species, I(list(c("bird_a", "bird_e", "bird_f"))))
+})
+
+test_that("issue #63: min_off_island_nodes above threshold leaves output unchanged", {
+  phylod <- create_test_phylod(test_scenario = 17)
+  island_tbl <- extract_island_species(
+    phylod = phylod,
+    extraction_method = "asr",
+    min_off_island_nodes = 5
+  )
+  tbl <- get_island_tbl(island_tbl)
+  expect_equal(nrow(tbl), 1)
+  expect_equal(tbl$clade_name, "bird_a")
+  expect_equal(tbl$col_time, 5)
+  expect_equal(tbl$branching_times, I(list(c(4, 2))))
+  expect_equal(tbl$species, I(list(c("bird_a", "bird_e", "bird_f"))))
+})
+
+test_that("issue #63: min_off_island_nodes = 3 splits re-colonisation off", {
+  phylod <- create_test_phylod(test_scenario = 17)
+  island_tbl <- extract_island_species(
+    phylod = phylod,
+    extraction_method = "asr",
+    min_off_island_nodes = 3
+  )
+  tbl <- get_island_tbl(island_tbl)
+  expect_equal(nrow(tbl), 2)
+  expect_equal(tbl$clade_name, c("bird_a", "bird_e"))
+  expect_equal(tbl$status, c("endemic", "endemic"))
+  expect_equal(tbl$col_time, c(4, 2.5))
+  expect_equal(tbl$branching_times, I(list(NA_real_, 2)))
+  expect_equal(tbl$species, I(list("bird_a", c("bird_e", "bird_f"))))
+})
+
+test_that("issue #63: min_off_island_nodes = 1 splits at the first off-island node", {
+  phylod <- create_test_phylod(test_scenario = 17)
+  island_tbl <- extract_island_species(
+    phylod = phylod,
+    extraction_method = "asr",
+    min_off_island_nodes = 1
+  )
+  tbl <- get_island_tbl(island_tbl)
+  expect_equal(nrow(tbl), 2)
+  expect_equal(tbl$clade_name, c("bird_a", "bird_e"))
+  expect_equal(tbl$col_time, c(4, 2.5))
+  expect_equal(tbl$branching_times, I(list(NA_real_, 2)))
+  expect_equal(tbl$species, I(list("bird_a", c("bird_e", "bird_f"))))
+})
+
+test_that("issue #63: min_off_island_nodes is ignored with a warning under min", {
+  phylod <- create_test_phylod(test_scenario = 17)
+  expect_warning(
+    island_tbl <- extract_island_species(
+      phylod = phylod,
+      extraction_method = "min",
+      min_off_island_nodes = 3
+    ),
+    regexp = "min_off_island_nodes is being ignored"
+  )
+  # Result should match the same call without the argument.
+  ref <- extract_island_species(phylod = phylod, extraction_method = "min")
+  expect_true(is_identical_island_tbl(island_tbl, ref))
+})
