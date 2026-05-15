@@ -39,7 +39,8 @@ extract_species_asr <- function(phylod,
                                 species_label,
                                 species_endemicity,
                                 island_tbl,
-                                include_not_present) {
+                                include_not_present,
+                                min_off_island_nodes = Inf) {
 
   # check input data
   phylod <- check_phylo_data(phylod)
@@ -71,6 +72,35 @@ extract_species_asr <- function(phylod,
       break
     }
     island_ancestor <- ancestor_island_status %in% c("endemic", "nonendemic")
+  }
+
+  # If `min_off_island_nodes` is set, scan the candidate clade for re-colonisations
+  # separated from the previous on-island ancestor by a long enough off-island
+  # detour. Each such sub-clade is split out as its own Island_colonist.
+  split_nodes <- integer(0)
+  if (is.finite(min_off_island_nodes)) {
+    candidate_root <- ancestor
+    for (child in phylobase::children(phylod, candidate_root)) {
+      split_nodes <- c(split_nodes, find_off_island_split_nodes(
+        phylod = phylod,
+        node = child,
+        off_count = 0L,
+        min_off_island_nodes = min_off_island_nodes
+      ))
+    }
+  }
+
+  if (length(split_nodes) > 0) {
+    return(
+      extract_split_colonists(
+        phylod = phylod,
+        species_label = species_label,
+        clade = clade,
+        split_nodes = split_nodes,
+        island_tbl = island_tbl,
+        include_not_present = include_not_present
+      )
+    )
   }
 
   # count number of island species in the clade
@@ -147,5 +177,142 @@ extract_species_asr <- function(phylod,
   set_extracted_species(island_tbl) <- names(clade)
 
   #return instance of island_tbl class
+  island_tbl
+}
+
+#' Recursively scan downward from `node` to find island sub-clades that sit
+#' below a stretch of at least `min_off_island_nodes` consecutive `not_present`
+#' internal nodes. Such sub-clades should be split out as separate island
+#' colonists.
+#'
+#' @inheritParams default_params_doc
+#' @param node Integer node id to start the recursive scan from.
+#' @param off_count Integer count of consecutive `not_present` internal node
+#' ancestors traversed so far on the path from the last on-island node.
+#'
+#' @return Integer vector of node ids to split off as their own colonists.
+#' @keywords internal
+find_off_island_split_nodes <- function(phylod,
+                                        node,
+                                        off_count,
+                                        min_off_island_nodes) {
+
+  node_type <- unname(phylobase::nodeType(phylod)[node])
+  is_tip <- node_type == "tip"
+
+  if (is_tip) {
+    state <- phylobase::tdata(phylod)[node, "endemicity_status"]
+  } else {
+    state <- phylobase::tdata(phylod)[node, "island_status"]
+  }
+  is_island <- state %in% c("endemic", "nonendemic")
+
+  results <- integer(0)
+
+  if (is_island) {
+    if (off_count >= min_off_island_nodes) {
+      results <- c(results, as.integer(node))
+    }
+    if (!is_tip) {
+      for (child in phylobase::children(phylod, node)) {
+        results <- c(results, find_off_island_split_nodes(
+          phylod = phylod,
+          node = child,
+          off_count = 0L,
+          min_off_island_nodes = min_off_island_nodes
+        ))
+      }
+    }
+  } else if (!is_tip) {
+    new_count <- off_count + 1L
+    for (child in phylobase::children(phylod, node)) {
+      results <- c(results, find_off_island_split_nodes(
+        phylod = phylod,
+        node = child,
+        off_count = new_count,
+        min_off_island_nodes = min_off_island_nodes
+      ))
+    }
+  }
+
+  results
+}
+
+#' Given a candidate clade and a set of `split_nodes` identified by
+#' `find_off_island_split_nodes()`, build an `Island_colonist` for each split
+#' sub-clade and one for the outer remainder, append them all to `island_tbl`,
+#' and mark every tip in the candidate clade as extracted.
+#'
+#' @inheritParams default_params_doc
+#' @param split_nodes Integer vector of node ids returned by
+#' `find_off_island_split_nodes()`.
+#'
+#' @return An object of `Island_tbl` class.
+#' @keywords internal
+extract_split_colonists <- function(phylod,
+                                    species_label,
+                                    clade,
+                                    split_nodes,
+                                    island_tbl,
+                                    include_not_present) {
+
+  inner_tip_sets <- lapply(split_nodes, function(n) {
+    desc <- phylobase::descendants(phy = phylod, node = n)
+    names(desc)
+  })
+  all_inner_tips <- unique(unlist(inner_tip_sets))
+  outer_tips <- setdiff(names(clade), all_inner_tips)
+
+  endemicity <- phylobase::tipData(phylod)$endemicity_status
+  names(endemicity) <- phylobase::tipLabels(phylod)
+
+  build_subclade_colonist <- function(tip_names, sub_species_label) {
+    sub_clade <- clade[names(clade) %in% tip_names]
+    island_tips <- tip_names[endemicity[tip_names] %in%
+                               c("endemic", "nonendemic")]
+    if (length(island_tips) == 0) {
+      return(NULL)
+    }
+    if (is.null(sub_species_label)) {
+      sub_species_label <- island_tips[1]
+    }
+    sub_endemicity <- endemicity[sub_species_label]
+    if (length(island_tips) == 1) {
+      if (sub_endemicity == "nonendemic") {
+        extract_nonendemic(phylod = phylod, species_label = sub_species_label)
+      } else {
+        extract_endemic_singleton(
+          phylod = phylod,
+          species_label = sub_species_label
+        )
+      }
+    } else {
+      extract_asr_clade(
+        phylod = phylod,
+        species_label = sub_species_label,
+        clade = sub_clade,
+        include_not_present = include_not_present
+      )
+    }
+  }
+
+  # Outer colonist (keeps the original species_label if that tip is still in
+  # the outer remainder; otherwise the first island tip in the outer is used).
+  outer_label <- if (species_label %in% outer_tips) species_label else NULL
+  outer_colonist <- build_subclade_colonist(outer_tips, outer_label)
+  if (!is.null(outer_colonist) &&
+      !is_duplicate_colonist(outer_colonist, island_tbl)) {
+    island_tbl <- bind_colonist_to_tbl(outer_colonist, island_tbl)
+  }
+
+  for (tip_set in inner_tip_sets) {
+    inner_colonist <- build_subclade_colonist(tip_set, NULL)
+    if (!is.null(inner_colonist) &&
+        !is_duplicate_colonist(inner_colonist, island_tbl)) {
+      island_tbl <- bind_colonist_to_tbl(inner_colonist, island_tbl)
+    }
+  }
+
+  set_extracted_species(island_tbl) <- names(clade)
   island_tbl
 }
